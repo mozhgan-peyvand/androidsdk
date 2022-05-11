@@ -1,0 +1,35 @@
+<resources>
+
+    <!-- START BindingAdapter-->
+    <string name="param_rials">%s ریال</string>
+    <string name="label_location_tell_static_replace">%s-</string>
+
+    <!-- END BindingAdapter-->
+
+    <!-- START ExceptionHelper-->
+    <string name="msg_server_error">خطا در عملیات مورد نظر، لطفا بعد از بررسی اطلاعات ورودی دوباره تلاش نمایید.</string>
+    <string name="msg_server_error_not_thing">ارتباط با سرور برقرار نمی‌باشد. در صورت استفاده از هر گونه فیلتر شکن آن را غیر فعال نمایید.</string>
+    <string name="msg_general_error">خطا در عملیات مورد نظر، لطفا بعد از بررسی اطلاعات ورودی دوباره تلاش نمایید.</string>
+    <string name="msg_connection_error">به اینترنت متصل شوید!</string>
+    <!-- END ExceptionHelper-->
+
+    <!-- START BaseFragment-->
+    <string name="msg_general_error_title">خطا!</string>
+
+    <!-- END BaseFragment-->
+
+    <string name="label_confirm">تایید</string>
+    <string name="label_cancel">لغو</string>
+    <string name="label_waiting_dialog">لطفا شکیبا باشید …</string>
+    <string name="label_warning_title_dialog">هشدار</string>
+    <string name="label_no">خیر</string>
+    <string name="label_yes">بله</string>
+    <string name="label_confirmation_dialog">تایید</string>
+    <string name="btn_logout">خروج</string>
+    <string name="btn_retry">تلاش مجدد</string>
+    <string name="msg_connection_error_description">برای ادامه کار با نرم افزار می‌بایست به اینترنت متصل شوید.</string>
+
+
+</resources>
+
+

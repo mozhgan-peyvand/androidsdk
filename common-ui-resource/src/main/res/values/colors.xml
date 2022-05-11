@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="commonResourceColorPrimary">@color/commonResourceColorBlue</color>
+    <color name="commonResourceColorPrimaryVariant">@color/commonResourceColorBlueDarker</color>
+    <color name="commonResourceColorPrimaryDark">@color/commonResourceColorBlueDarker2</color>
+    <color name="commonResourceColorOnPrimary">@color/commonResourceColorWhite</color>
+    <color name="commonResourceColorBackground">@color/commonResourceColorWhite</color>
+    <color name="commonResourceColorSurface">@color/commonResourceColorWhite</color>
+    <color name="commonResourceColorDialogBackground">@color/commonResourceColorWhite</color>
+    <color name="commonResourceColorError">@color/commonResourceColorRed</color>
+    <color name="commonResourceColorSuccess">@color/commonResourceColorGreen</color>
+    <color name="commonResourceColorErrorBackground">@color/commonResourceColorRedLight</color>
+    <color name="commonResourceColorSuccessBackground">@color/commonResourceColorGreenLight</color>
+    <color name="commonResourceColorTextPrimary">@color/commonResourceColorGrayDarker</color>
+    <color name="commonResourceColorTextSecondary">@color/commonResourceColorGray</color>
+    <color name="commonResourceColorTextHighlight">@color/commonResourceColorPrimaryDark</color>
+    <color name="commonResourceColorHighlightBackground">@color/commonResourceColorBlueLight</color>
+    <color name="commonResourceColorControlNormal">@color/commonResourceColorTextSecondary</color>
+    <color name="commonResourceColorControlActivated">@color/commonResourceColorPrimaryVariant
+    </color>
+    <color name="commonResourceColorControlHighlight">@color/commonResourceColorPrimary</color>
+    <color name="commonResourceColorDivider">@color/commonResourceColorGreyLighter</color>
+    <color name="commonResourceColorStatusBar">@color/commonResourceColorWhite</color>
+    <color name="commonResourceColorAccent">@color/commonResourceColorCyan</color>
+
+
+    <color name="commonResourceColorBlue">#1dc9e9</color>
+    <color name="commonResourceColorBlueDarker">#00a8c8</color>
+    <color name="commonResourceColorBlueDarker2">#0499b6</color>
+    <color name="commonResourceColorWhite">#FFFFFF</color>
+    <color name="commonResourceColorRedLight">#ffeceb</color>
+    <color name="commonResourceColorRed">#ff4440</color>
+    <color name="commonResourceColorGreen">#15d984</color>
+    <color name="commonResourceColorGreenLight">#e7fdf3</color>
+    <color name="commonResourceColorBlueLight">#e9fcff</color>
+    <color name="commonResourceColorGray">#9292af</color>
+    <color name="commonResourceColorGrayDarker">#454553</color>
+    <color name="commonResourceColorGreyLighter">#f4f8fa</color>
+    <color name="commonResourceColorCyan">#00C8B5</color>
+
+
+    <color name="commonResourceColorTransparent">#00000000</color>
+
+    <color name="colorShadowToolbar">#29000000</color>
+    <color name="colorWhiteShadow">#00454553</color>
+    <color name="colorGrayShadow">#cc454553</color>
+    <color name="colorGrayLightShadow">#F3F5F5F5</color>
+
+</resources>

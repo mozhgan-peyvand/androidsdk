@@ -1,0 +1,60 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="29.037dp"
+    android:height="32dp"
+    android:viewportWidth="29.037"
+    android:viewportHeight="32">
+    <path
+        android:fillColor="@color/commonResourceColorBackground"
+        android:pathData="M5.611,13.167a11.713,11.957 0,1 0,23.426 0a11.713,11.957 0,1 0,-23.426 0z" />
+    <path
+        android:fillColor="@color/commonResourceColorPrimaryVariant"
+        android:pathData="M23.225,5.684a0.541,0.541 0,0 1,-0.384 -0.159l-1.537,-1.534a0.542,0.542 0,0 1,0.767 -0.767l1.534,1.534a0.543,0.543 0,0 1,-0.384 0.926z" />
+    <path
+        android:fillColor="@color/commonResourceColorPrimaryVariant"
+        android:pathData="M21.691,5.684a0.543,0.543 0,0 1,-0.384 -0.926l1.534,-1.534a0.542,0.542 0,1 1,0.767 0.767l-1.533,1.529a0.54,0.54 0,0 1,-0.384 0.164z" />
+    <path
+        android:fillColor="@color/commonResourceColorPrimaryVariant"
+        android:pathData="M28.388,6.446m-0.516,0a0.516,0.516 0,1 1,1.032 0a0.516,0.516 0,1 1,-1.032 0" />
+    <path
+        android:fillColor="@color/commonResourceColorPrimaryVariant"
+        android:pathData="M26.841,0.516m-0.516,0a0.516,0.516 0,1 1,1.032 0a0.516,0.516 0,1 1,-1.032 0" />
+    <path
+        android:fillColor="@color/commonResourceColorBackground"
+        android:pathData="M11.39,16.813h4.218v-1.687h-5.062v1.687z" />
+    <path
+        android:fillColor="@color/commonResourceColorBackground"
+        android:pathData="M18.983,16.813h5.062v-1.687h-5.062z" />
+    <path
+        android:fillColor="@color/commonResourceColorBackground"
+        android:pathData="M14.764,26.515h-4.218v1.688h5.062v-1.688z" />
+    <path
+        android:fillColor="@color/commonResourceColorBackground"
+        android:pathData="M18.983,26.515v1.688h5.062v-1.688z" />
+    <path
+        android:fillColor="@color/commonResourceColorBackground"
+        android:pathData="M7.172,16.813v-1.687L2.105,15.126v1.687z" />
+    <path
+        android:fillColor="@color/commonResourceColorBackground"
+        android:pathData="M7.172,26.515L2.105,26.515v1.688h5.062z" />
+    <path
+        android:fillColor="@color/commonResourceColorBackground"
+        android:pathData="M0.422,29.89v1.688h25.311v-1.687z" />
+    <path
+        android:fillColor="@color/commonResourceColorBackground"
+        android:pathData="M15.609,28.203h-14.343v1.687h23.623v-1.687z" />
+    <path
+        android:fillColor="@color/commonResourceColorPrimary"
+        android:pathData="M11.39,16.813h3.375v9.7h-3.375z" />
+    <path
+        android:fillColor="@color/commonResourceColorBackground"
+        android:pathData="M13.077,6.267l-8.859,4.218h-3.8v4.64h25.311v-4.64h-3.8z" />
+    <path
+        android:fillColor="@color/commonResourceColorPrimary"
+        android:pathData="M19.827,16.813h3.375v9.7h-3.375z" />
+    <path
+        android:fillColor="@color/commonResourceColorPrimary"
+        android:pathData="M2.953,16.813h3.375v9.7h-3.375z" />
+    <path
+        android:fillColor="@color/commonResourceColorPrimaryDark"
+        android:pathData="M24.045,17.235a0.422,0.422 0,0 0,0.422 -0.422v-1.266h1.266a0.422,0.422 0,0 0,0.422 -0.422v-4.64a0.422,0.422 0,0 0,-0.422 -0.422h-3.7l-8.772,-4.176a0.423,0.423 0,0 0,-0.363 0l-8.772,4.176h-3.7a0.422,0.422 0,0 0,-0.422 0.422v4.64a0.422,0.422 0,0 0,0.422 0.422h1.266v1.266a0.422,0.422 0,0 0,0.422 0.422h0.422v8.859h-0.422a0.422,0.422 0,0 0,-0.422 0.422v1.266h-0.422a0.422,0.422 0,0 0,-0.422 0.422v1.266h-0.422a0.422,0.422 0,0 0,-0.422 0.422v1.688a0.422,0.422 0,0 0,0.422 0.422h25.311a0.422,0.422 0,0 0,0.422 -0.422v-1.687a0.422,0.422 0,0 0,-0.422 -0.422h-0.422v-1.268a0.422,0.422 0,0 0,-0.422 -0.422h-0.422v-1.266a0.422,0.422 0,0 0,-0.422 -0.422h-0.422v-8.859zM23.623,16.391h-4.218v-0.844h4.218zM18.983,26.091a0.422,0.422 0,0 0,-0.422 0.422v1.266h-2.531v-1.266a0.422,0.422 0,0 0,-0.422 -0.422h-0.422v-8.859h0.422a0.422,0.422 0,0 0,0.422 -0.422v-1.266h2.531v1.266a0.422,0.422 0,0 0,0.422 0.422h0.422v8.859zM10.968,27.778v-0.844h4.218v0.844zM7.593,27.778v-1.266a0.422,0.422 0,0 0,-0.422 -0.422h-0.422v-8.859h0.422a0.422,0.422 0,0 0,0.422 -0.422v-1.266h2.531v1.266a0.422,0.422 0,0 0,0.422 0.422h0.422v8.859h-0.422a0.422,0.422 0,0 0,-0.422 0.422v1.266zM3.375,17.232h2.531v8.859h-2.531zM15.187,15.544v0.844h-4.219v-0.844zM11.812,17.232h2.531v8.859h-2.531zM20.249,17.232h2.531v8.859h-2.532zM0.849,10.904h3.375a0.425,0.425 0,0 0,0.181 -0.042l8.677,-4.131 8.677,4.134a0.42,0.42 0,0 0,0.181 0.039h3.375v3.8h-24.471zM6.755,15.544v0.844h-4.218v-0.844zM2.537,26.934h4.218v0.844h-4.218zM25.311,31.153h-24.467v-0.844h24.467zM1.688,29.466v-0.844h22.78v0.844zM19.406,27.778v-0.844h4.218v0.844z" />
+</vector>

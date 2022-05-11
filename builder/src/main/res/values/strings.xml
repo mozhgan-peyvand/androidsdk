@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">appName</string>
+    <string name="home">صفحه خانه</string>
+    <string name="msg_dialog_try_again_message">خطا در عملیات دوباره تلاش نمایید.</string>
+
+
+</resources>
+
+

@@ -1,0 +1,230 @@
+<resources>
+
+    <!-- Base library theme -->
+    <style name="Theme.AraLib" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/commonResourceColorPrimary</item>
+        <item name="colorPrimaryDark">@color/commonResourceColorPrimaryDark</item>
+        <item name="colorPrimaryVariant">@color/commonResourceColorPrimaryVariant</item>
+
+
+        <item name="android:colorBackground">@color/commonResourceColorBackground</item>
+        <item name="colorSurface">@color/commonResourceColorSurface</item>
+        <item name="colorError">@color/commonResourceColorError</item>
+        <item name="colorControlActivated">@color/commonResourceColorControlActivated</item>
+        <item name="colorControlNormal">@color/commonResourceColorControlNormal</item>
+        <item name="colorControlHighlight">@color/commonResourceColorControlHighlight</item>
+
+        <item name="colorOnPrimary">@color/commonResourceColorOnPrimary</item>
+        <item name="android:textColorSecondary">@color/commonResourceColorTextSecondary</item>
+        <item name="android:textColorPrimary">@color/commonResourceColorTextPrimary</item>
+
+        <item name="textAppearanceHeadline6">@style/Headline6.Primary</item>
+        <item name="textAppearanceHeadline5">@style/Headline5.Primary</item>
+        <item name="textAppearanceSubtitle1">@style/Subtitle1.Primary</item>
+        <item name="textAppearanceSubtitle2">@style/Subtitle2.Primary</item>
+        <item name="textAppearanceBody1">@style/Body1.Primary</item>
+        <item name="textAppearanceBody2">@style/Body2.Primary</item>
+        <item name="textAppearanceCaption">@style/Caption.Primary</item>
+
+        <item name="materialButtonStyle">@style/Button</item>
+        <item name="android:windowBackground">@color/commonResourceColorBackground</item>
+    </style>
+    <style name="Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@drawable/common_resource_selector_widget_text</item>
+        <item name="backgroundTint">@drawable/common_resource_selector_button</item>
+        <item name="cornerRadius">@dimen/radius_normal</item>
+        <item name="android:height">@dimen/spacing_17x</item>
+    </style>
+
+    <style name="Button.Normal">
+        <item name="android:textSize">16sp</item>
+        <item name="android:height">@dimen/spacing_5x</item>
+
+    </style>
+    <style name="OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:textSize">25sp</item>
+        <item name="cornerRadius">@dimen/radius_normal</item>
+        <item name="android:height">@dimen/spacing_15x</item>
+    </style>
+
+    <style name="OutlinedButton.Primary">
+        <item name="android:textColor">@drawable/common_resource_selector_widget_text_blue</item>
+        <item name="strokeColor">@drawable/common_resource_selector_button</item>
+    </style>
+
+    <style name="OutlinedButton.Primary.Normal">
+        <item name="android:textSize">16sp</item>
+        <item name="android:height">@dimen/spacing_5x</item>
+    </style>
+
+    <style name="IconButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@drawable/common_resource_selector_widget_text_gray</item>
+        <item name="rippleColor">@color/commonResourceColorDivider</item>
+    </style>
+
+    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+        <item name="android:textColorHint">@color/commonResourceColorTextSecondary</item>
+        <item name="errorTextAppearance">@style/Subtitle2.Error</item>
+        <item name="colorControlNormal">@color/commonResourceColorControlNormal</item>
+    </style>
+
+
+    //custom style for textAppearance
+
+    <style name="Headline4">
+        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="Headline4.White">
+        <item name="android:textColor">@color/colorWhiteShadow</item>
+    </style>
+
+    <style name="Headline4.OnPrimary">
+        <item name="android:textColor">@color/commonResourceColorOnPrimary</item>
+    </style>
+
+    <style name="Headline5">
+        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:textSize">23sp</item>
+    </style>
+
+    <style name="Headline5.Primary">
+        <item name="android:textColor">@color/commonResourceColorTextPrimary</item>
+    </style>
+
+    <style name="Headline5.Highlight">
+        <item name="android:textColor">@color/commonResourceColorControlActivated</item>
+    </style>
+
+    <style name="Headline6">
+        <item name="android:fontFamily">@font/iran_yekan_regular</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Headline6.Primary">
+        <item name="android:textColor">@color/commonResourceColorTextPrimary</item>
+    </style>
+
+    <style name="Headline6.OnPrimary">
+        <item name="android:textColor">@color/commonResourceColorOnPrimary</item>
+    </style>
+
+    <style name="Headline6.Primary.Bold">
+        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+    </style>
+
+    <style name="Subtitle1">
+        <item name="android:fontFamily">@font/iran_yekan_regular</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="Subtitle1.Primary">
+        <item name="android:textColor">@color/commonResourceColorTextPrimary</item>
+    </style>
+
+    <style name="Subtitle1.Secondary">
+        <item name="android:textColor">@color/commonResourceColorTextSecondary</item>
+    </style>
+
+    <style name="Subtitle1.Highlight">
+        <item name="android:textColor">@color/commonResourceColorControlActivated</item>
+    </style>
+
+    <style name="Subtitle1.Primary.Bold">
+        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+    </style>
+
+    <style name="Subtitle2">
+        <item name="android:fontFamily">@font/iran_yekan_regular</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Subtitle2.Primary">
+        <item name="android:textColor">@color/commonResourceColorTextPrimary</item>
+    </style>
+
+    <style name="Subtitle2.Secondary">
+        <item name="android:textColor">@color/commonResourceColorTextSecondary</item>
+    </style>
+
+    <style name="Subtitle2.Primary.Bold">
+        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+    </style>
+
+    <style name="Subtitle2.Highlight">
+        <item name="android:textColor">@color/commonResourceColorControlActivated</item>
+    </style>
+
+    <style name="Subtitle2.Highlight.Bold">
+        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+    </style>
+
+    <style name="Subtitle2.Error">
+        <item name="android:textColor">@color/commonResourceColorError</item>
+    </style>
+
+    <style name="Caption">
+        <item name="android:fontFamily">@font/iran_yekan_regular</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Caption.Primary">
+        <item name="android:textColor">@color/commonResourceColorTextPrimary</item>
+    </style>
+
+    <style name="Caption.Primary.Bold">
+        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+    </style>
+
+    <style name="Caption.Secondary">
+        <item name="android:textColor">@color/commonResourceColorTextSecondary</item>
+    </style>
+
+    <style name="Body1">
+        <item name="android:fontFamily">@font/iran_yekan_regular</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="Body1.Primary">
+        <item name="android:textColor">@color/commonResourceColorTextPrimary</item>
+    </style>
+
+    <style name="Body2">
+        <item name="android:fontFamily">@font/iran_yekan_regular</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Body2.Primary">
+        <item name="android:textColor">@color/commonResourceColorTextPrimary</item>
+    </style>
+
+    <style name="Body2.Secondary">
+        <item name="android:textColor">@color/commonResourceColorTextSecondary</item>
+    </style>
+
+    <style name="Body2.Primary.Bold">
+        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+    </style>
+
+    <style name="Body2.Secondary.Bold">
+        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+    </style>
+
+    <style name="Body2.Highlight">
+        <item name="android:textColor">@color/commonResourceColorControlActivated</item>
+    </style>
+
+    <style name="Body2.Highlight.Bold">
+        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+    </style>
+
+    <style name="Body2.White">
+        <item name="android:textColor">@color/colorWhiteShadow</item>
+    </style>
+</resources>

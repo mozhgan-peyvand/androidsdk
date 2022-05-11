@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">آرا ProdTest</string>
+    <string name="file_provider_authority" translatable="false">ir.part.sdk.ara.prodtest.fileProvider</string>
+</resources>
