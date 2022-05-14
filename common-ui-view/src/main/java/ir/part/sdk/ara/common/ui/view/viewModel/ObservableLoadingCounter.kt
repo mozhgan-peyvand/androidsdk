@@ -34,38 +34,15 @@ fun <T> Flow<InvokeStatus<T>>.collectAndChangeLoadingAndMessageStatus(
     coroutineScope: CoroutineScope,
     counter: ObservableLoadingCounter,
     exceptionHelper: ExceptionHelper,
-    uiMessageManager: UiMessageManager? = null
-) = coroutineScope.launchWithErrorHandler(Dispatchers.IO) {
-    collect { status ->
-        when (status) {
-            is InvokeStarted -> counter.addLoader()
-            is InvokeSuccess -> counter.removeLoader()
-            is InvokeError -> {
-                counter.removeLoader()
-                changeLoadingAndMessageOnInvokeError(
-                    counter,
-                    exceptionHelper,
-                    uiMessageManager,
-                    status.exception
-                )
-            }
-        }
-    }
-}
-
-fun <T> Flow<InvokeStatus<T>>.collectAndChangeLoadingAndMessageStatus(
-    coroutineScope: CoroutineScope,
-    counter: ObservableLoadingCounter,
-    exceptionHelper: ExceptionHelper,
     uiMessageManager: UiMessageManager? = null,
-    returnData: (value: T) -> Unit
+    returnData: ((value: T) -> Unit)? = null
 ) = coroutineScope.launchWithErrorHandler(Dispatchers.IO) {
     collect { status ->
         when (status) {
             is InvokeStarted -> counter.addLoader()
             is InvokeSuccess<T> -> {
                 counter.removeLoader()
-                returnData.invoke(status.data)
+                returnData?.invoke(status.data)
             }
             is InvokeError -> {
                 counter.removeLoader()
