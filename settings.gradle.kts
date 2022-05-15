@@ -5,6 +5,7 @@ include(":data")
 include(":domain")
 include(":builder")
 include(":sample")
+include(":ui-document")
 
 pluginManagement {
     plugins {
