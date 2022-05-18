@@ -27,11 +27,11 @@ import ir.part.sdk.ara.base.di.MainScope
 import ir.part.sdk.ara.builder.R
 import ir.part.sdk.ara.builder.di.BuilderComponent
 import ir.part.sdk.ara.builder.di.BuilderModule
-import ir.part.sdk.ara.builder.ui.theme.AraTheme
 import ir.part.sdk.ara.builder.util.localizedContext
 import ir.part.sdk.ara.common.ui.view.dialog.getLoadingDialog
 import ir.part.sdk.ara.common.ui.view.dialog.getTryAgainDialog
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
+import ir.part.sdk.ara.common.ui.view.ui.theme.AraTheme
 import ir.part.sdk.ara.common.ui.view.viewModel.PublicState
 import ir.part.sdk.ara.domain.document.entities.PersonalDocuments
 import javax.inject.Inject

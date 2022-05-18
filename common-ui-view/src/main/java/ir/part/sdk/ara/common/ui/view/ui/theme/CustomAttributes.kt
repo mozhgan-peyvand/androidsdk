@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.builder.ui.theme
+package ir.part.sdk.ara.common.ui.view.ui.theme
 
 import androidx.compose.material.Colors
 
