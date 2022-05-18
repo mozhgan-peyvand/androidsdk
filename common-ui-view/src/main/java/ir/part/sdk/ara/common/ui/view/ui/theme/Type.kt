@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.builder.ui.theme
+package ir.part.sdk.ara.common.ui.view.ui.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Typography
@@ -8,7 +8,8 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import ir.part.sdk.ara.builder.R
+import ir.part.sdk.ara.common.ui.view.R
+
 
 val Typography = Typography(
     defaultFontFamily = FontFamily(
