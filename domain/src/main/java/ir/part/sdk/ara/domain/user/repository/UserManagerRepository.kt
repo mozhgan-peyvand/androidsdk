@@ -6,14 +6,14 @@ import ir.part.sdk.ara.domain.user.entities.*
 interface UserManagerRepository {
 
     suspend fun getLoginRemote(loginParam: LoginParam): InvokeStatus<Boolean>
-    suspend fun forgetPasswordRemote(forgetPasswordParam: ForgetPasswordParam): InvokeStatus<Unit>
-    suspend fun changePasswordRemote(changePasswordParam: ChangePasswordParam): InvokeStatus<Unit>
+    suspend fun forgetPasswordRemote(forgetPasswordParam: ForgetPasswordParam): InvokeStatus<Boolean>
+    suspend fun changePasswordRemote(changePasswordParam: ChangePasswordParam): InvokeStatus<Boolean>
     suspend fun forgetPasswordVerificationCodeRemote(
         nationalCode: String,
         verificationCode: String
-    ): InvokeStatus<Unit>
+    ): InvokeStatus<Boolean>
 
-    suspend fun registerUserRemote(registerParam: RegisterParam): InvokeStatus<Unit>
+    suspend fun registerUserRemote(registerParam: RegisterParam): InvokeStatus<Boolean>
     suspend fun getCaptchaRemote(): InvokeStatus<Captcha?>
     suspend fun getLogOut(): InvokeStatus<Boolean>
     suspend fun removeUser()

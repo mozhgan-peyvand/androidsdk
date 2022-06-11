@@ -11,5 +11,6 @@ enum class ComponentsKey {
     DATA_DASHBOARD,
     DATA_BARJAVAND,
     DATA_USER_MANAGER,
-    DATA_STATE
+    DATA_STATE,
+    UI_USER
 }

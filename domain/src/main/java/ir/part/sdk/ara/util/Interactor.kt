@@ -185,11 +185,10 @@ abstract class SubjectInteractor<P : Any, T> {
      */
     private var publicParam: PublicParam<P>? = null
     operator fun invoke(params: P) {
-        if (publicParam == null) {
-            publicParam = PublicParam(params)
-        }
+        publicParam = PublicParam(params)
+
         publicParam?.let {
-            paramState.tryEmit(it.copy(callCounter = it.callCounter++))
+            paramState.tryEmit(it)
         }
     }
 

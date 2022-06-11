@@ -4,8 +4,12 @@ import se.ansman.kotshi.JsonSerializable
 
 @JsonSerializable
 data class ChangePasswordParamModel(
-    val currentPassword: String,
-    val newPassword: String,
-    val renewPassword: String
+    var oldAuthenticateExtra: OldAuthenticateExtra,
+    val password: String,
+)
+
+@JsonSerializable
+data class OldAuthenticateExtra(
+var password : String
 )
 

@@ -6,7 +6,8 @@ plugins {
 dependencies {
     addDependency(
         listOf(
-            BuildModules.Libraries.BASE
+            BuildModules.Libraries.BASE,
+            BuildModules.Libraries.COMMON_UI_VIEW
         )
     )
 

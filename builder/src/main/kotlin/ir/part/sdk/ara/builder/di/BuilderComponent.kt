@@ -11,6 +11,7 @@ import ir.part.sdk.ara.data.userManager.di.DataUserManagerComponent
 import ir.part.sdk.ara.domain.document.di.DomainDocumentComponent
 import ir.part.sdk.ara.domain.tasks.di.DomainTaskComponent
 import ir.part.sdk.ara.domain.user.di.DomainUserManagerComponent
+import ir.part.sdk.ara.ui.user.di.UserComponent
 
 @MainScope
 @Component(
@@ -24,11 +25,9 @@ import ir.part.sdk.ara.domain.user.di.DomainUserManagerComponent
         DataStateComponent::class,
         DomainDocumentComponent::class,
         DomainTaskComponent::class,
+        UserComponent::class
 
     ],
-    modules = [
-        ViewModelModule::class
-    ]
 )
 interface BuilderComponent : BasicComponent {
 
@@ -43,7 +42,8 @@ interface BuilderComponent : BasicComponent {
             dataDashboardComponent: DataDashboardComponent,
             dataStateComponent: DataStateComponent,
             domainDocumentComponent: DomainDocumentComponent,
-            domainTaskComponent: DomainTaskComponent
+            domainTaskComponent: DomainTaskComponent,
+            userComponent: UserComponent
         ): BuilderComponent
     }
 
@@ -65,6 +65,7 @@ interface BuilderComponent : BasicComponent {
                     dataStateComponent = DataStateComponent.builder(componentProvider),
                     domainDocumentComponent = DomainDocumentComponent.builder(componentProvider),
                     domainTaskComponent = DomainTaskComponent.builder(componentProvider),
+                    userComponent = UserComponent.builder(componentProvider)
                 )
             )) as BuilderComponent
         }

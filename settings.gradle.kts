@@ -6,9 +6,11 @@ include(":domain")
 include(":builder")
 include(":sample")
 include(":ui-document")
+include(":ui-user")
 
 pluginManagement {
     plugins {
         id("org.jetbrains.kotlin.android") version ("1.5.21")
+        id("org.jetbrains.kotlin.jvm") version "1.5.30"
     }
 }

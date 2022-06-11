@@ -4,16 +4,15 @@ import se.ansman.kotshi.JsonSerializable
 
 @JsonSerializable
 data class RegisterParamModel(
-    val username: String,
+    val username: String? = null,
     val cellphoneNumbers: List<CellPhoneNumbers>,
     val email: String? = null,
-//    TODO: is captcha needed?
-//    val captcha: CaptchaModel
+    val captcha: CaptchaModel? = null
 )
 
 @JsonSerializable
 data class CellPhoneNumbers(
-    val value: String
+    val value: String? = null
 )
 
 @JsonSerializable

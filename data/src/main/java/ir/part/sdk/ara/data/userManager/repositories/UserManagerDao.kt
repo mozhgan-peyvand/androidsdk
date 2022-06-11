@@ -17,6 +17,7 @@ interface UserManagerDao {
     @Query("SELECT * FROM ${TN.UserEntity} LIMIT 1")
     fun loadUser(): UserManagerEntity?
 
+    @Transaction
     @Query("DELETE FROM ${TN.UserEntity}")
     suspend fun removeUsers(): Int
 }

@@ -17,7 +17,7 @@ import javax.inject.Inject
 class UserManagerRepositoryImp @Inject constructor(
     private val localDataSource: UserManagerLocalDataSource,
     private val remoteDataSource: UserManagerRemoteDataSource,
-    private val requestExecutor: RequestExecutor,
+    private val requestExecutor: RequestExecutor
 ) : UserManagerRepository {
 
     override suspend fun getCaptchaRemote(): InvokeStatus<Captcha?> =
@@ -53,49 +53,50 @@ class UserManagerRepositoryImp @Inject constructor(
 
         })
 
-    override suspend fun forgetPasswordRemote(forgetPasswordParam: ForgetPasswordParam): InvokeStatus<Unit> =
+    override suspend fun forgetPasswordRemote(forgetPasswordParam: ForgetPasswordParam): InvokeStatus<Boolean> =
         requestExecutor.execute(object :
-            InvokeStatus.ApiEventListener<Unit, Unit> {
+            InvokeStatus.ApiEventListener<Unit, Boolean> {
             override suspend fun onRequestCall(): InvokeStatus<Unit> =
                 remoteDataSource.forgetPassword(forgetPasswordParam.toForgetPasswordParamModel())
 
-            override fun onConvertResult(data: Unit): Unit = data
+            override fun onConvertResult(data: Unit): Boolean = true
         })
 
-    override suspend fun changePasswordRemote(changePasswordParam: ChangePasswordParam): InvokeStatus<Unit> =
+    override suspend fun changePasswordRemote(changePasswordParam: ChangePasswordParam): InvokeStatus<Boolean> =
         requestExecutor.execute(object :
-            InvokeStatus.ApiEventListener<Unit, Unit> {
+            InvokeStatus.ApiEventListener<Unit, Boolean> {
             override suspend fun onRequestCall(): InvokeStatus<Unit> {
                 return remoteDataSource.changePassword(changePasswordParam.toChangePasswordParamModel())
             }
-
-            override fun onConvertResult(data: Unit) = data
+            override fun onConvertResult(data: Unit) = true
         })
 
-    override suspend fun registerUserRemote(registerParam: RegisterParam): InvokeStatus<Unit> =
+    override suspend fun registerUserRemote(registerParam: RegisterParam): InvokeStatus<Boolean> =
         requestExecutor.execute(object :
-            InvokeStatus.ApiEventListener<RegisterResponseNetwork?, Unit> {
+            InvokeStatus.ApiEventListener<RegisterResponseNetwork?, Boolean> {
             override suspend fun onRequestCall(): InvokeStatus<RegisterResponseNetwork?> =
                 remoteDataSource.registerUser(registerParam.toRegisterParamModel())
                     .switchData { it?.item }
 
 
-            override fun onConvertResult(data: RegisterResponseNetwork?) = Unit
+            override fun onConvertResult(data: RegisterResponseNetwork?) = true
         })
 
 
     override suspend fun forgetPasswordVerificationCodeRemote(
         nationalCode: String,
         verificationCode: String
-    ): InvokeStatus<Unit> =
+    ): InvokeStatus<Boolean> =
         requestExecutor.execute(object :
-            InvokeStatus.ApiEventListener<Unit, Unit> {
+            InvokeStatus.ApiEventListener<Unit, Boolean> {
             override suspend fun onRequestCall(): InvokeStatus<Unit> =
                 remoteDataSource.forgetPasswordVerificationCode(
                     ForgetPasswordVerificationParamModel(nationalCode, verificationCode)
                 )
 
-            override fun onConvertResult(data: Unit) = Unit
+            override fun onConvertResult(data: Unit): Boolean {
+                return true
+            }
 
         })
 
