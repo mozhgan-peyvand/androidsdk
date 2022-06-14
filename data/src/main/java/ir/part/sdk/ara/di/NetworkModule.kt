@@ -48,7 +48,7 @@ class NetworkModule {
     @SK
     @Provides
     fun getSK(pref: SharedPreferences): String {
-        //TODO check it @HADI.GHORBANI
+        // TODO: fix cpp in domains and add main-lib
         val skc = "testPasstestPasstestPasstestPass"
         return AesEncryptor().encrypt(getNP(pref, skc), skc) ?: ""
     }
@@ -63,8 +63,9 @@ class NetworkModule {
     @DK
     @Provides
     fun getDK(pref: SharedPreferences): String {
-        val skc = "testtesttesttesttesttesttesttest"
-       return AesEncryptor().encrypt(getNP(pref, skc), skc) ?: ""
+        // TODO: fix cpp in domains and add main-lib
+        return "testtesttesttesttesttesttesttest"
+//       return AesEncryptor().encrypt(getNP(pref, skc), skc) ?: ""
     }
 
     @DataScope

@@ -92,7 +92,8 @@ class UserManagerRemoteDataSource @Inject constructor(
                 data = RegisterParamModel(
                     username = registerParamModel.username,
                     cellphoneNumbers = registerParamModel.cellphoneNumbers,
-                    email = registerParamModel.email
+                    email = registerParamModel.email,
+                    captcha = registerParamModel.captcha
                 )
 
             )

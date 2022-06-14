@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources >
+    <string name="label_national_code">"نام کاربری(کدملی)"</string>
+    <string name="label_email">"رایانامه(اختیاری)"</string>
+    <string name="label_phone">"شماره همراه"</string>
+    <string name="label_register">"ثبت نام"</string>
+    <string name="label_security_code">"کلمه ی امنیتی"</string>
+    <string name="label_password">"کلمه ی عبور"</string>
+    <string name="label_login">"ورود"</string>
+    <string name="label_forget_password">"کلمه عبور خود را فراموش کرده اید؟"</string>
+    <string name="label_send_code">"ارسال کد"</string>
+    <string name="label_activation_code">"کد فعال سازی"</string>
+    <string name="label_recover_code">"بازیابی کلمه عبور"</string>
+    <string name="msg_recover_code_description">"عضو محترم برای دریافت کلمه عبور جدید کد 8رقمی پیامک شده را وارد کنید"</string>
+    <string name="msg_enter_password"> "کلمه ی عبور را وارد کنید"</string>
+    <string name="label_new_password">"کلمه ی عبور جدید"</string>
+    <string name="label_re_new_password">"تکرار کلمه ی عبور جدید"</string>
+    <string name="label_change_password">"تغییر کلمه ی عبور"</string>
+    <string name="msg_resend_code">"ارسال مجدد کد فعالسازی"</string>
+
+</resources>

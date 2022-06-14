@@ -4,6 +4,7 @@ import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.domain.tasks.entities.TaskInfo
 import ir.part.sdk.ara.domain.tasks.repository.TaskRepository
+import ir.part.sdk.ara.util.ResultInteractor
 import ir.part.sdk.ara.util.SuspendingWorkInteractor
 import javax.inject.Inject
 
@@ -11,7 +12,7 @@ import javax.inject.Inject
 class GetTaskRemote @Inject constructor(
     private val repository: TaskRepository
 
-) : SuspendingWorkInteractor<Unit, List<TaskInfo>?>() {
+) : ResultInteractor<Unit, List<TaskInfo>?>() {
 
 //    private external fun detect()
 

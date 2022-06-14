@@ -42,7 +42,8 @@ dependencies {
             BuildModules.Libraries.DOMAIN,
             BuildModules.Libraries.DATA,
             BuildModules.Libraries.COMMON_UI_RESOURCE,
-            BuildModules.Libraries.COMMON_UI_VIEW
+            BuildModules.Libraries.COMMON_UI_VIEW,
+            BuildModules.Libraries.UI_USER
         )
     )
 

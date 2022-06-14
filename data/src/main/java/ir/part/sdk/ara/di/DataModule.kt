@@ -10,6 +10,7 @@ import dagger.Provides
 import ir.part.sdk.ara.base.di.DK
 import ir.part.sdk.ara.base.di.DataScope
 import ir.part.sdk.ara.db.AraDb
+import javax.inject.Singleton
 
 @Suppress("unused")
 @Module
@@ -20,6 +21,7 @@ class DataModule {
         context.applicationContext.getSharedPreferences("ara", Context.MODE_PRIVATE)
 
 
+    @DataScope
     @Provides
     fun provideDb(
         context: Context,

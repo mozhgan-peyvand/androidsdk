@@ -26,6 +26,8 @@ fun Project.addCompose() {
         add("debugImplementation", "androidx.compose.ui:ui-tooling:$composeVersion")
         add("implementation", "androidx.activity:activity-compose:1.3.1")
         add("implementation", "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
+        add("implementation","androidx.navigation:navigation-compose:2.5.0-beta01")
+
 
     }
 }

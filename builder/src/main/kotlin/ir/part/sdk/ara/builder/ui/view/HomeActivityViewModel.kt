@@ -6,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 import ir.part.sdk.ara.common.ui.view.ExceptionHelper
 import ir.part.sdk.ara.common.ui.view.api.UiMessageManager
 import ir.part.sdk.ara.common.ui.view.launchWithErrorHandler
-import ir.part.sdk.ara.common.ui.view.viewModel.ObservableLoadingCounter
-import ir.part.sdk.ara.common.ui.view.viewModel.PublicState
-import ir.part.sdk.ara.common.ui.view.viewModel.collectAndChangeLoadingAndMessageStatus
+import ir.part.sdk.ara.common.ui.view.api.ObservableLoadingCounter
+import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.api.collectAndChangeLoadingAndMessageStatus
 import ir.part.sdk.ara.domain.document.entities.DocumentRejectRequestByUserParam
 import ir.part.sdk.ara.domain.document.entities.PersonalDocuments
 import ir.part.sdk.ara.domain.document.entities.ReadMessage

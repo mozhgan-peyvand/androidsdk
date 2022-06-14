@@ -17,7 +17,6 @@ class UserManagerLocalDataSource @Inject constructor(
     private val dao: UserManagerDao,
     private val pref: SharedPreferences,
     private val dispatcherProvider: CoroutinesDispatcherProvider,
-    private val customInterceptor: CustomInterceptor,
     @SK val sk: String
 ) {
 
@@ -34,7 +33,10 @@ class UserManagerLocalDataSource @Inject constructor(
         try {
             araDb.withTransaction {
                 dao.removeUsers()
-                customInterceptor.setValues(userEntity.token, userEntity.nationalCode)
+                pref.edit().putString(
+                    "token",
+                    userEntity.token.let { AesEncryptor().encrypt(it, sk) }
+                ).apply()
                 pref.edit().putString(
                     "CurrentUserNationalCode",
                     AesEncryptor().encrypt(userEntity.nationalCode, sk)
@@ -61,7 +63,11 @@ class UserManagerLocalDataSource @Inject constructor(
             Exceptions.LocalDataSourceException(cause = e)
         } finally {
             if (removeResult != null && removeResult != 0) {
-                customInterceptor.setValues(null, null)
+                pref.edit().putString(
+                    "token",
+                    null
+                ).apply()
+
                 pref.edit().putString("CurrentUserNationalCode", null).apply()
                 result = true
             }
@@ -74,7 +80,6 @@ class UserManagerLocalDataSource @Inject constructor(
 
         if (nationalCode.isEmpty()) {
             dao.loadUser().let {
-                customInterceptor.setValues(it?.token, it?.cookie)
                 pref.edit().putString(
                     "CurrentUserNationalCode",
                     it?.let { AesEncryptor().encrypt(it.nationalCode, sk) } ?: it?.nationalCode
@@ -83,7 +88,10 @@ class UserManagerLocalDataSource @Inject constructor(
             }
         } else {
             dao.loadUser(nationalCode).let {
-                customInterceptor.setValues(it?.token, it?.cookie)
+                pref.edit().putString(
+                    "token",
+                    it?.token?.let { token -> AesEncryptor().encrypt(token, sk) }
+                ).apply()
                 pref.edit().putString(
                     "CurrentUserNationalCode",
                     it?.let { AesEncryptor().encrypt(it.nationalCode, sk) } ?: it?.nationalCode
