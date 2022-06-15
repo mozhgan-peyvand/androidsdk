@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.user.register
+package ir.part.sdk.ara.ui.user.screens.register
 
 import ir.part.sdk.ara.domain.user.entities.RegisterParam
 

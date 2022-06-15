@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.user.changePassword
+package ir.part.sdk.ara.ui.user.screens.changePassword
 
 import ir.part.sdk.ara.domain.user.entities.ChangePasswordParam
 

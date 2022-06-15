@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.user.register
+package ir.part.sdk.ara.ui.user.screens.register
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

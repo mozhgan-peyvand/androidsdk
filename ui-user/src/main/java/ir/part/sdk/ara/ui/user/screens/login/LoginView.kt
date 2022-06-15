@@ -1,7 +1,6 @@
-package ir.part.sdk.ara.ui.user.login
+package ir.part.sdk.ara.ui.user.screens.login
 
 import ir.part.sdk.ara.domain.user.entities.LoginParam
-import ir.part.sdk.ara.domain.user.interacors.GetNationalCode
 
 data class LoginView(
     var nationalCode: String,

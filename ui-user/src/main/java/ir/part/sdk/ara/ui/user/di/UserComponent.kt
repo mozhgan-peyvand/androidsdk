@@ -1,6 +1,6 @@
 package ir.part.sdk.ara.ui.user.di
 
-import ir.part.sdk.ara.ui.user.register.RegisterViewModel
+import ir.part.sdk.ara.ui.user.screens.register.RegisterViewModel
 import dagger.Component
 import ir.part.sdk.ara.base.di.*
 import ir.part.sdk.ara.data.dashboard.di.DataDashboardComponent
@@ -8,11 +8,11 @@ import ir.part.sdk.ara.data.state.di.DataStateComponent
 import ir.part.sdk.ara.data.userManager.di.DataUserManagerComponent
 import ir.part.sdk.ara.domain.tasks.di.DomainTaskComponent
 import ir.part.sdk.ara.domain.user.di.DomainUserManagerComponent
-import ir.part.sdk.ara.ui.user.captcha.CaptchaViewModel
-import ir.part.sdk.ara.ui.user.changePassword.ChangePasswordViewModel
-import ir.part.sdk.ara.ui.user.forgetPassword.ForgetPasswordViewModel
-import ir.part.sdk.ara.ui.user.forgetPasswordVerification.ForgetPasswordVerificationViewModel
-import ir.part.sdk.ara.ui.user.login.LoginViewModel
+import ir.part.sdk.ara.ui.user.screens.captcha.CaptchaViewModel
+import ir.part.sdk.ara.ui.user.screens.changePassword.ChangePasswordViewModel
+import ir.part.sdk.ara.ui.user.screens.forgetPassword.ForgetPasswordViewModel
+import ir.part.sdk.ara.ui.user.screens.forgetPasswordVerification.ForgetPasswordVerificationViewModel
+import ir.part.sdk.ara.ui.user.screens.login.LoginViewModel
 
 @FeatureScope
 @Component(

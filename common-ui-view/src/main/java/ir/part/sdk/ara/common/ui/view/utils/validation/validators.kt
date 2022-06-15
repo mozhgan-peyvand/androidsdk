@@ -2,7 +2,7 @@ package ir.part.sdk.ara.common.ui.view.utils.validation
 
 import android.content.Context
 import android.util.Patterns
-import ir.part.sdk.ara.base.R
+import ir.part.sdk.ara.common.ui.view.R
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 

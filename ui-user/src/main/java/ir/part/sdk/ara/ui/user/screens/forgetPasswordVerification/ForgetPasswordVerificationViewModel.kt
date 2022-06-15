@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.user.forgetPassword
+package ir.part.sdk.ara.ui.user.screens.forgetPasswordVerification
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -9,8 +9,7 @@ import ir.part.sdk.ara.common.ui.view.api.UiMessageManager
 import ir.part.sdk.ara.common.ui.view.api.ObservableLoadingCounter
 import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.api.collectAndChangeLoadingAndMessageStatus
-import ir.part.sdk.ara.domain.user.entities.ForgetPasswordParam
-import ir.part.sdk.ara.domain.user.interacors.GetForgetPasswordRemote
+import ir.part.sdk.ara.domain.user.interacors.GetForgetPasswordVerificationRemote
 import ir.part.sdk.ara.ui.user.util.validation.ValidationField
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -19,20 +18,22 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ForgetPasswordViewModel @Inject constructor(
-    var getForgetPasswordRemote: GetForgetPasswordRemote,
-    var exceptionHelper: ExceptionHelper
+class ForgetPasswordVerificationViewModel @Inject constructor(
+    var getForgetPasswordVerificationRemote: GetForgetPasswordVerificationRemote,
+    var exceptionHelper: ExceptionHelper,
 ) : ViewModel() {
-    var isRecoveredPassword = mutableStateOf(false)
-    var uiMessageManager = UiMessageManager()
+
+    var isSendCode = mutableStateOf(false)
     var loadingState = ObservableLoadingCounter()
+    var uiMessageManager = UiMessageManager()
     var loadingErrorState = mutableStateOf<PublicState?>(null)
 
     //errorField
-    var errorValueNationalCode = mutableStateOf(Pair(ValidationField.CAPTCHA, listOf<ValidationResult>()))
+    var errorValuePassword =
+        mutableStateOf(Pair(ValidationField.CAPTCHA, listOf<ValidationResult>()))
 
     //field
-    var nationalCode = mutableStateOf("")
+    var codeValue = mutableStateOf("")
 
     val loadingAndMessageState: StateFlow<PublicState> = combine(
         loadingState.observable,
@@ -42,6 +43,7 @@ class ForgetPasswordViewModel @Inject constructor(
             refreshing = refreshing,
             message = message
         )
+
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
@@ -49,15 +51,14 @@ class ForgetPasswordViewModel @Inject constructor(
     )
 
 
-    fun setRecoverPassword(nationalCode: String) {
+    fun sendCode(nationalCode: String, verificationCode: String) {
         viewModelScope.launch {
             if (loadingState.count.toInt() == 0) {
                 clearAllMessage()
-                getForgetPasswordRemote.invoke(
-                    GetForgetPasswordRemote.Param(
-                        ForgetPasswordParam(
-                            nationalCode
-                        )
+                getForgetPasswordVerificationRemote.invoke(
+                    GetForgetPasswordVerificationRemote.Param(
+                        nationalCode = nationalCode,
+                        verificationCode
                     )
                 ).collectAndChangeLoadingAndMessageStatus(
                     viewModelScope,
@@ -66,15 +67,15 @@ class ForgetPasswordViewModel @Inject constructor(
                     uiMessageManager
                 ) {
                     if (it) {
-                        isRecoveredPassword.value = true
+                        isSendCode.value = true
                     }
                 }
             }
         }
     }
 
-    fun setErrorNationalCode(errorList: Pair<ValidationField, List<ValidationResult>>) {
-        errorValueNationalCode.value = errorList
+    fun setErrorPassword(errorList: Pair<ValidationField, List<ValidationResult>>) {
+        errorValuePassword.value = errorList
     }
 
     private fun clearAllMessage() {
@@ -84,5 +85,4 @@ class ForgetPasswordViewModel @Inject constructor(
             }
         }
     }
-
 }

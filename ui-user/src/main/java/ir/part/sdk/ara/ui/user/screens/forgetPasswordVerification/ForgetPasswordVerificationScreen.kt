@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.user.forgetPasswordVerification
+package ir.part.sdk.ara.ui.user.screens.forgetPasswordVerification
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

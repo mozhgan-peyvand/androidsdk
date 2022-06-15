@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.user.login
+package ir.part.sdk.ara.ui.user.screens.login
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

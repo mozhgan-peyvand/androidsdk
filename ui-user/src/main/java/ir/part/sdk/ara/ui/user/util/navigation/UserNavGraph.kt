@@ -6,13 +6,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.navigation
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
-import ir.part.sdk.ara.ui.user.captcha.CaptchaViewModel
-import ir.part.sdk.ara.ui.user.changePassword.ChangePasswordScreen
+import ir.part.sdk.ara.ui.user.screens.captcha.CaptchaViewModel
+import ir.part.sdk.ara.ui.user.screens.changePassword.ChangePasswordScreen
 import ir.part.sdk.ara.ui.user.di.UserComponent
-import ir.part.sdk.ara.ui.user.forgetPassword.ForgetPasswordScreen
-import ir.part.sdk.ara.ui.user.forgetPasswordVerification.ForgetPasswordVerificationScreen
-import ir.part.sdk.ara.ui.user.login.LoginScreen
-import ir.part.sdk.ara.ui.user.register.RegisterScreen
+import ir.part.sdk.ara.ui.user.screens.forgetPassword.ForgetPasswordScreen
+import ir.part.sdk.ara.ui.user.screens.forgetPasswordVerification.ForgetPasswordVerificationScreen
+import ir.part.sdk.ara.ui.user.screens.login.LoginScreen
+import ir.part.sdk.ara.ui.user.screens.register.RegisterScreen
 
 fun NavGraphBuilder.addUserGraph(navController: NavHostController) {
     navigation(

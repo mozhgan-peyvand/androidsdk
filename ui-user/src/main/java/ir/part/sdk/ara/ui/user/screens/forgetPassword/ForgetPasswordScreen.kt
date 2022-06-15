@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.user.forgetPassword
+package ir.part.sdk.ara.ui.user.screens.forgetPassword
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -34,8 +34,8 @@ import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.ButtonBlue
 import ir.part.sdk.ara.common.ui.view.theme.ErrorText
 import ir.part.sdk.ara.common.ui.view.api.PublicState
-import ir.part.sdk.ara.ui.user.captcha.Captcha
-import ir.part.sdk.ara.ui.user.captcha.CaptchaViewModel
+import ir.part.sdk.ara.ui.user.screens.captcha.Captcha
+import ir.part.sdk.ara.ui.user.screens.captcha.CaptchaViewModel
 import ir.part.sdk.ara.ui.user.util.validation.ValidationField
 import ir.part.sdk.ara.ui.user.util.validation.validateWidget
 

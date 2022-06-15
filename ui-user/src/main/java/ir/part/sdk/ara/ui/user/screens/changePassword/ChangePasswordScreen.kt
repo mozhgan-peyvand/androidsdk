@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.user.changePassword
+package ir.part.sdk.ara.ui.user.screens.changePassword
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

@@ -29,6 +29,28 @@
     <string name="btn_retry">تلاش مجدد</string>
     <string name="msg_connection_error_description">برای ادامه کار با نرم افزار می‌بایست به اینترنت متصل شوید.</string>
 
+    <!--START Validation String-->
+    <string name="msg_invalid_mobile">تلفن نامعتبر است!</string>
+    <string name="msg_invalid_email">ایمیل نامعتبر است!</string>
+    <string name="msg_invalid_new_password_by_renew_password">مقدار وارد شده با کلمه عبور جدید یکسان نیست!</string>
+    <string name="msg_invalid_value">مقدار وارد شده نامعتبر میباشد.</string>
+    <string name="msg_invalid_persian_with_special_character">فقط حروف فارسی ،عدد و کاراکترهای ( -, (), /) مجاز است!</string>
+    <string name="msg_invalid_english_and_persian_with_special_character">فقط حروف فارسی ،عدد و کاراکترهای ( -, (), / , . , *) مجاز است!</string>
+    <string name="msg_invalid_not_persian">کلمه عبور باید ترکیبی از حروف و عدد انگلیسی و کاراکترهای خاص باشد</string>
+    <string name="msg_invalid_string_min_length">عبارت وارد شده کوتاه است.</string>
+    <string name="msg_empty_not_allow">این مورد نمی‌تواند خالی باشد!</string>
+    <string name="msg_invalid_inputs">ورودی‌ها نامعتبر است!</string>
+    <string name="msg_invalid_password_length">کلمه عبور نباید کمتر از 8 کاراکتر باشد.</string>
+    <string name="msg_invalid_national_code">کد ملی نامعتبر است!</string>
+    <string name="msg_different_password">رمز عبور جدید با رمز عبور فعلی باید متفاوت باشد</string>
+    <string name="msg_notMatchWithRegex">کلمه عبور باید ترکیبی از حروف و عدد و کاراکترهای خاص باشد</string>
+    <string name="msg_only_english_and_number_and_special_character">کلمه عبور باید ترکیبی از حروف و عدد انگلیسی و کاراکترهای خاص باشد</string>
+
+    <!--END Validation String-->
+    <string name="msg_invalid_mobil">شماره تلفن معتبر نیست</string>
+    <string name="msg_invalid_length_character_between_2_and_5">عدد باید در بازه ی %d تا %d کاراکتر باشد</string>
+    <string name="msg_invalid_length_text_between_2_and_5">حروف باید در بازه ی %d تا %d کاراکتر باشد</string>
+    <string name="msg_invalid_size_list">تعداد آیتم ها باید بین %d تا %d باشد</string>
 
 </resources>
 

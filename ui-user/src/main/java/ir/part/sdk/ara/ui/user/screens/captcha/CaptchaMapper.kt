@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.user.captcha
+package ir.part.sdk.ara.ui.user.screens.captcha
 
 import ir.part.sdk.ara.domain.user.entities.Captcha
 
