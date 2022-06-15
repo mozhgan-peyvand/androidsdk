@@ -43,25 +43,6 @@ fun NavHostController.safeNavigate(
     }
 }
 
-// TODO: need more Research
-fun safeNavigate(
-    navController: NavController,
-    deepLink: DeepLinkHelper,
-    popupId: Int = 0,
-    inclusive: Boolean = true
-) {
-    try {
-        if (popupId != 0) {
-            val navOption = NavOptions.Builder().setPopUpTo(popupId, inclusive).build()
-            navController.navigate(deepLink.uri, navOption)
-        } else {
-            navController.navigate(deepLink.uri)
-        }
-    } catch (e: Exception) {
-        Timber.tag("Navigate").d(e)
-    }
-}
-
 fun passArgument(router: String, args: List<Any>): String {
     return buildString {
         append(router)
