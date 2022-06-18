@@ -49,8 +49,9 @@ class CommonModulePlugin : Plugin<Project> {
                     consumerProguardFiles("proguard-rules.pro")
 
                 }
-                dataBinding.isEnabled = true
-                buildFeatures.viewBinding = true
+
+                composeOptions.kotlinCompilerExtensionVersion = "1.0.1"
+                buildFeatures.compose = true
 
 
                 flavorDimensions("mode")
@@ -120,18 +121,22 @@ class CommonModulePlugin : Plugin<Project> {
                 }
             }
         }
+
         // dependencies common to all projects
-        project.dependencies {
-            add("implementation", "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.0")
-            add("implementation", "androidx.core:core-ktx:1.7.0")
-            // dependency for timber
-            add("implementation", "com.jakewharton.timber:timber:4.7.1")
-            // testing dependencies
-            add("testImplementation", "junit:junit:4.+")
-            add("androidTestImplementation", "androidx.test.ext:junit:1.1.3")
-            add("androidTestImplementation", "androidx.test.espresso:espresso-core:3.4.0")
+        with(project) {
+            addCompose()
+            addTimber()
+            dependencies {
+                add("implementation", "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.0")
+                add("implementation", "androidx.core:core-ktx:1.7.0")
+                // testing dependencies
+                add("testImplementation", "junit:junit:4.+")
+                add("androidTestImplementation", "androidx.test.ext:junit:1.1.3")
+                add("androidTestImplementation", "androidx.test.espresso:espresso-core:3.4.0")
+            }
+
         }
-        project.addLottie()
+
 
         project.tasks.register("publishAAR")
         {
