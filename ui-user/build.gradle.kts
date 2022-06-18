@@ -3,14 +3,6 @@ plugins {
     id(BuildPlugins.KOTLIN_KAPT)
 }
 
-android{
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.1"
-    }
-    buildFeatures {
-        compose = true
-    }
-}
 dependencies {
     addDependency(
         listOf(
@@ -24,7 +16,6 @@ dependencies {
     addKotshi()
     addCoroutine()
     addDagger2()
-    addCompose()
     addArchitectureComponents()
     addAndroidMaterial()
     addNavigationComponent()

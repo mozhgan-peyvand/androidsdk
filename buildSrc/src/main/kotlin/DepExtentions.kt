@@ -3,12 +3,7 @@ import org.gradle.kotlin.dsl.add
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.provideDelegate
 
-fun Project.persianDate() {
-    dependencies {
-        add("implementation", "com.github.samanzamani.persiandate:PersianDate:0.7")
-        add("implementation", "com.github.aliab:Persian-Date-Picker-Dialog:1.4")
-    }
-}
+
 fun Project.addJsonLogic() {
     dependencies {
         add("implementation", "io.github.jamsesso:json-logic-java:1.0.7")
@@ -54,7 +49,6 @@ fun Project.addAndroidMaterial() {
 
 fun Project.addConstrainLayout() {
     dependencies {
-//        add("implementation", "androidx.constraintlayout:constraintlayout:2.0.2")
         add("implementation", "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02")
     }
 }
@@ -109,8 +103,6 @@ fun Project.addRecyclerView() {
 
 fun Project.addArchitectureComponents() {
     dependencies {
-
-//        add("implementation", "androidx.lifecycle:lifecycle-extensions:2.4.0")
         add("implementation", "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
         add("implementation", "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
         add("implementation", "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")

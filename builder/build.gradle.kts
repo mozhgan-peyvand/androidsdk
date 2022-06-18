@@ -9,29 +9,12 @@ android {
     compileSdk = BuildAndroidConfig.COMPILE_SDK_VERSION
     defaultConfig {
         multiDexEnabled = true
-        minSdk = Ext.minimumSdkVersion
-        targetSdk = BuildAndroidConfig.TARGET_SDK_VERSION
-        vectorDrawables.useSupportLibrary = BuildAndroidConfig.SUPPORT_LIBRARY_VECTOR_DRAWABLES
-//        versionCode = generateVersionCode()
-//        versionName = generateVersionName()
     }
     sourceSets {
         getByName("main").java.srcDir("src/main/kotlin")
         getByName("main").java.srcDir(file("$buildDir/generated/source/kapt/main"))
         getByName("test").java.srcDir("src/test/kotlin")
         getByName("androidTest").java.srcDir("src/androidTest/kotlin")
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    composeOptions {
-
-        kotlinCompilerExtensionVersion = "1.0.1"
-    }
-    buildFeatures {
-        compose = true
     }
 }
 
@@ -57,7 +40,6 @@ dependencies {
     addSqlLite()
     addRetrofit()
     addPinentryEditText()
-    addCompose()
 }
 
 
