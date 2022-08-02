@@ -7,6 +7,7 @@ include(":builder")
 include(":sample")
 include(":ui-document")
 include(":ui-user")
+include(":ui-menu")
 
 pluginManagement {
     plugins {

@@ -22,6 +22,7 @@ import ir.part.sdk.ara.base.di.MainScope
 import ir.part.sdk.ara.builder.di.BuilderComponent
 import ir.part.sdk.ara.builder.util.localizedContext
 import ir.part.sdk.ara.common.ui.view.theme.AraTheme
+import ir.part.sdk.ara.ui.menu.util.navigation.addMenuGraph
 import ir.part.sdk.ara.ui.user.util.navigation.UserRouter
 import ir.part.sdk.ara.ui.user.util.navigation.addUserGraph
 
@@ -76,8 +77,9 @@ class HomeActivity : ComponentProviderActivity() {
     fun AppNavigation(){
         val navController = rememberNavController()
 
-        NavHost(navController, startDestination = UserRouter.UserHomeScreen.router) {
+        NavHost(navController, startDestination = UserRouter.Graph.router) {
             addUserGraph(navController)
+            addMenuGraph(navController)
         }
     }
 }

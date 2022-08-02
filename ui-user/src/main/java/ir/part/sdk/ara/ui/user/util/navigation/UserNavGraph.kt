@@ -16,7 +16,7 @@ import ir.part.sdk.ara.ui.user.screens.register.RegisterScreen
 
 fun NavGraphBuilder.addUserGraph(navController: NavHostController) {
     navigation(
-        route = UserRouter.UserHomeScreen.router,
+        route = UserRouter.Graph.router,
         startDestination = UserRouter.UserRegisterScreen.router
     ) {
 
