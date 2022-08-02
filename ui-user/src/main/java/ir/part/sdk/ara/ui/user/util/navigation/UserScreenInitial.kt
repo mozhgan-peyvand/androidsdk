@@ -12,7 +12,7 @@ fun NavGraphBuilder.homeScreen(
     screen: @Composable (NavBackStackEntry) -> Unit
 ) {
     safeScreenInitial(
-        sourceScreen = UserRouter.UserHomeScreen.router,
+        sourceScreen = UserRouter.Graph.router,
         screenSetUp = {
             screen.invoke(it)
         }

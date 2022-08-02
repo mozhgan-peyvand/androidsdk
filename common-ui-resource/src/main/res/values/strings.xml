@@ -1,5 +1,14 @@
 <resources>
 
+    <string name="label_change_password">تغییر کلمه عبور</string>
+    <string name="label_guide">راهنما</string>
+    <string name="label_about_us">درباره ی ما</string>
+    <string name="label_terms_and_conditions">شرایط و الزامات</string>
+    <string name="label_disclaimer">سلب مسئولیت</string>
+    <string name="label_rahyar_address">آدرس رهیارهای اجتماعی</string>
+    <string name="label_submit_comment">ثبت نظر</string>
+    <string name="label_call_center">مرکز تماس</string>
+    <string name="label_exit">خروج</string>
 </resources>
 
 
