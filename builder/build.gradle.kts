@@ -27,7 +27,8 @@ dependencies {
             BuildModules.Libraries.COMMON_UI_RESOURCE,
             BuildModules.Libraries.COMMON_UI_VIEW,
             BuildModules.Libraries.UI_USER,
-            BuildModules.Libraries.UI_MENU
+            BuildModules.Libraries.UI_MENU,
+            BuildModules.Libraries.UI_HOME
         )
     )
 

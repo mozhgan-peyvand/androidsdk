@@ -3,6 +3,12 @@
     <string name="home">صفحه خانه</string>
     <string name="msg_dialog_try_again_message">خطا در عملیات دوباره تلاش نمایید.</string>
 
+    <!-- START Home STRING-->
+    <string name="label_menu_files">پرونده‌ها</string>
+    <string name="label_menu_personal_info">اطلاعات فردی</string>
+    <string name="label_menu_validation_request">اعتبارسنجی</string>
+    <string name="label_menu_others">سایر</string>
+
 
 </resources>
 
