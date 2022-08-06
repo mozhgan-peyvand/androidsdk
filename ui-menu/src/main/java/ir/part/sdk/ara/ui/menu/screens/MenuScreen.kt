@@ -31,28 +31,20 @@ fun MenuScreen(onChangePasswordClick: () -> Unit) {
 
         // list items
         MenuItem(R.drawable.ic_lock, R.string.label_change_password, onClick = onChangePasswordClick)
-        DividerMenuItem()
 
         MenuItem(icon = R.drawable.ic_question, title = R.string.label_guide, onClick = {})
-        DividerMenuItem()
 
         MenuItem(icon = R.drawable.ic_info, title = R.string.label_about_us, onClick = {})
-        DividerMenuItem()
 
         MenuItem(icon = R.drawable.ic_paper,title = R.string.label_terms_and_conditions,onClick = {})
-        DividerMenuItem()
 
         MenuItem(icon = R.drawable.ic_award, title = R.string.label_disclaimer, onClick = {})
-        DividerMenuItem()
 
         MenuItem(icon = R.drawable.ic_location, title = R.string.label_rahyar_address, onClick = {})
-        DividerMenuItem()
 
         MenuItem(icon = R.drawable.ic_comment, title = R.string.label_submit_comment, onClick = {})
-        DividerMenuItem()
 
         MenuItem(icon = R.drawable.ic_headphones_mic,title = R.string.label_call_center,onClick = {})
-        DividerMenuItem()
 
         MenuItem(icon = R.drawable.ic_exit, title = R.string.label_exit, onClick = {})
 
@@ -75,9 +67,9 @@ private fun MainMenuHeader() {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween) {
         Column() {
-            Text(text = "", style = MaterialTheme.typography.h6, color = ColorWhite)
+            Text(text = "", style = MaterialTheme.typography.h6, color = ColorWhite) // todo get national code and set it here
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_2x)))
-            Text(text = "",
+            Text(text = "", // todo get phone number code and set it here
                 style = MaterialTheme.typography.body2,
                 color = ColorWhite)
         }
@@ -101,10 +93,7 @@ private fun MenuItem(@DrawableRes icon: Int, @StringRes title: Int, onClick: () 
         Image(painter = painterResource(id = icon),
             contentDescription = "user profile")
     }
-}
 
-@Composable
-private fun DividerMenuItem() {
     Divider(
         color = MaterialTheme.colors.divider(),
         modifier = Modifier
@@ -112,4 +101,5 @@ private fun DividerMenuItem() {
             .height(1.dp).padding(horizontal = 16.dp)
     )
 }
+
 
