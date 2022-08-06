@@ -231,7 +231,7 @@ class DialogUiHandler {
                         top = dimensionResource(DimensionResource.spacing_5x),
                         start = dimensionResource(DimensionResource.spacing_5x),
                         end = dimensionResource(DimensionResource.spacing_5x),
-                    ), style = MaterialTheme.typography.subtitle1TextPrimary()
+                    ), style = MaterialTheme.typography.subtitle1TextPrimaryBold()
                 )
                 Row(modifier = Modifier.padding(top = dimensionResource(DimensionResource.spacing_5x))) {
                     Button(
@@ -359,7 +359,7 @@ class DialogUiHandler {
                         top = dimensionResource(DimensionResource.spacing_5x),
                         start = dimensionResource(DimensionResource.spacing_5x),
                         end = dimensionResource(DimensionResource.spacing_5x)
-                    ), style = MaterialTheme.typography.subtitle1TextPrimary()
+                    ), style = MaterialTheme.typography.subtitle1TextPrimaryBold()
                 )
                 Row(modifier = Modifier.padding(top = dimensionResource(DimensionResource.spacing_5x))) {
 

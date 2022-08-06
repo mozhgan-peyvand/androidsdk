@@ -53,7 +53,9 @@ val Typography = Typography(
 @Composable
 fun Typography.subtitle1TextPrimary(): TextStyle {
     return Typography.subtitle1.copy(
-        color = MaterialTheme.colors.textPrimary()
+        color = MaterialTheme.colors.textPrimary(),
+        fontWeight = FontWeight.Normal
+
     )
 }
 
@@ -77,6 +79,29 @@ fun Typography.subtitle1TextPrimaryBold(): TextStyle {
 fun Typography.subtitle2TextPrimary(): TextStyle {
     return Typography.subtitle2.copy(
         color = MaterialTheme.colors.textPrimary()
+    )
+}
+
+@Composable
+fun Typography.body2TextSecondary(): TextStyle {
+    return Typography.body2.copy(
+        color = MaterialTheme.colors.textSecondary(),
+    )
+}
+
+
+@Composable
+fun Typography.body2TextSecondaryBold(): TextStyle {
+    return Typography.body2.copy(
+        color = MaterialTheme.colors.textSecondary(),
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
+fun Typography.body2Highlight(): TextStyle {
+    return Typography.body2.copy(
+        color = ColorBlueDarker
     )
 }
 
