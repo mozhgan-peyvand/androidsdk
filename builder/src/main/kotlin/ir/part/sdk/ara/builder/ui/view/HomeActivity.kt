@@ -6,8 +6,10 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -15,15 +17,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
 import ir.part.sdk.ara.base.di.MainScope
 import ir.part.sdk.ara.builder.di.BuilderComponent
+import ir.part.sdk.ara.builder.ui.bottomnavigation.BottomBarScreen
 import ir.part.sdk.ara.builder.util.localizedContext
 import ir.part.sdk.ara.common.ui.view.theme.AraTheme
+import ir.part.sdk.ara.home.utils.navigation.HomeRouter
+import ir.part.sdk.ara.home.utils.navigation.addHomeGraph
 import ir.part.sdk.ara.ui.menu.util.navigation.addMenuGraph
-import ir.part.sdk.ara.ui.user.util.navigation.UserRouter
 import ir.part.sdk.ara.ui.user.util.navigation.addUserGraph
 
 
@@ -33,7 +38,9 @@ class HomeActivity : ComponentProviderActivity() {
     companion object {
         var appId = ""
     }
+
     private var darkTheme = mutableStateOf(false)
+    private lateinit var navController: NavHostController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +51,7 @@ class HomeActivity : ComponentProviderActivity() {
             darkTheme = rememberSaveable {
                 mutableStateOf(false)
             }
+            navController = rememberNavController()
 
             AraTheme(darkTheme = darkTheme.value) {
                 Scaffold(
@@ -53,8 +61,13 @@ class HomeActivity : ComponentProviderActivity() {
                         .background(
                             color = MaterialTheme.colors.background
                         ),
+                    bottomBar = {
+                        BottomBarScreen(navController = navController)
+                    }
                 ) { innerPadding ->
-                    AppNavigation()
+                    Box(modifier = Modifier.padding(innerPadding)) {
+                        AppNavigation()
+                    }
                 }
 
             }
@@ -74,10 +87,9 @@ class HomeActivity : ComponentProviderActivity() {
     private fun provideComponent() = BuilderComponent.builder(this)
 
     @Composable
-    fun AppNavigation(){
-        val navController = rememberNavController()
-
-        NavHost(navController, startDestination = UserRouter.Graph.router) {
+    fun AppNavigation() {
+        NavHost(navController, startDestination = HomeRouter.HomeGraph.router) {
+            addHomeGraph(navController)
             addUserGraph(navController)
             addMenuGraph(navController)
         }

@@ -3,6 +3,7 @@ class BuildModules {
         BASE(":base", "${BuildAndroidConfig.LIBRARY_PACKAGE_NAME}:base"),
         UI_USER(":ui-user", "${BuildAndroidConfig.LIBRARY_PACKAGE_NAME}:ui-user"),
         UI_MENU(":ui-menu", "${BuildAndroidConfig.LIBRARY_PACKAGE_NAME}:ui-menu"),
+        UI_HOME(":ui-home", "${BuildAndroidConfig.LIBRARY_PACKAGE_NAME}:ui-home"),
         AraLibrary(":builder", "${BuildAndroidConfig.LIBRARY_PACKAGE_NAME}:builder"),
         DATA(":data", "${BuildAndroidConfig.LIBRARY_PACKAGE_NAME}:data"),
         DOMAIN(":domain", "${BuildAndroidConfig.LIBRARY_PACKAGE_NAME}:domain"),

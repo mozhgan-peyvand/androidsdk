@@ -49,7 +49,7 @@ fun Project.addAndroidMaterial() {
 
 fun Project.addConstrainLayout() {
     dependencies {
-        add("implementation", "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02")
+        add("implementation", "androidx.constraintlayout:constraintlayout-compose:1.0.1")
     }
 }
 
@@ -162,7 +162,7 @@ fun Project.addGlide() {
 
 fun Project.addLottie() {
     dependencies {
-        add("implementation", "com.airbnb.android:lottie-compose:5.0.3")
+        add("implementation", "com.airbnb.android:lottie-compose:5.2.0")
     }
 }
 

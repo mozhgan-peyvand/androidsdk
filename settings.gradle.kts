@@ -15,3 +15,4 @@ pluginManagement {
         id("org.jetbrains.kotlin.jvm") version "1.5.30"
     }
 }
+include(":ui-home")

@@ -159,3 +159,9 @@ fun Typography.h5OnPrimary(): TextStyle {
         color = MaterialTheme.colors.onPrimary
     )
 }
+
+@Composable
+fun Typography.buttonTextStyle(): TextStyle {
+    return TextStyle(fontFamily = FontFamily(Font(R.font.iran_yekan_bold)), fontSize = 25.sp)
+}
+
