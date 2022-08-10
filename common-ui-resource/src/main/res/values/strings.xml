@@ -9,6 +9,8 @@
     <string name="label_submit_comment">ثبت نظر</string>
     <string name="label_call_center">مرکز تماس</string>
     <string name="label_exit">خروج</string>
+    <string name="label_dear_user">کاربر محترم</string>
+    <string name="label_attention">توجه</string>
 </resources>
 
 

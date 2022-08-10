@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.navigation
 import ir.part.sdk.ara.ui.menu.screens.MenuScreen
 
+import ir.part.sdk.ara.ui.menu.screens.TermsAndConditionScreen
 
 fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
     navigation(
@@ -15,7 +16,15 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
         mainMenuScreen {
             MenuScreen(onChangePasswordClick = {
                 navController.navigateToChangePasswordScreen()
+            }, onTermsAndConditionClick = {
+                navController.navigateToTermsAndConditionScreen()
             }) // todo add remained navigation from main menu screen
+        }
+
+        termsAndConditionsScreen {
+            TermsAndConditionScreen(onNavigateUp = {
+                navController.navigateUp()
+            })
         }
 
     }
