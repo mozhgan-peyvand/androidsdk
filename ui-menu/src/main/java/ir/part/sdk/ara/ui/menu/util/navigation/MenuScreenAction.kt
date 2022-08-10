@@ -9,3 +9,6 @@ fun NavHostController.navigateToChangePasswordScreen() =
 
 fun NavHostController.navigateToTermsAndConditionScreen() =
     safeNavigate(MenuRouter.TermsAndConditionsScreen.router)
+
+fun NavHostController.navigateToAboutUsScreen() =
+    safeNavigate(MenuRouter.AboutUsScreen.router)

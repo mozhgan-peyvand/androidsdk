@@ -26,3 +26,14 @@ fun NavGraphBuilder.termsAndConditionsScreen(
         }
     )
 }
+
+fun NavGraphBuilder.aboutUsScreen(
+    screen: @Composable (NavBackStackEntry) -> Unit
+) {
+    safeScreenInitial(
+        sourceScreen = MenuRouter.AboutUsScreen.router,
+        screenSetUp = {
+            screen.invoke(it)
+        }
+    )
+}
