@@ -12,3 +12,6 @@ fun NavHostController.navigateToTermsAndConditionScreen() =
 
 fun NavHostController.navigateToAboutUsScreen() =
     safeNavigate(MenuRouter.AboutUsScreen.router)
+
+fun NavHostController.navigateToDisclaimerScreen() =
+    safeNavigate(MenuRouter.DisclaimerScreen.router)
