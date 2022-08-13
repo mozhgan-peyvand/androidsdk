@@ -37,3 +37,14 @@ fun NavGraphBuilder.aboutUsScreen(
         }
     )
 }
+
+fun NavGraphBuilder.disclaimerScreen(
+    screen: @Composable (NavBackStackEntry) -> Unit
+) {
+    safeScreenInitial(
+        sourceScreen = MenuRouter.DisclaimerScreen.router,
+        screenSetUp = {
+            screen.invoke(it)
+        }
+    )
+}

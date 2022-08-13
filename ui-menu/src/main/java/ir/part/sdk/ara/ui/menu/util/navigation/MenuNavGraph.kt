@@ -4,6 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.navigation
 import ir.part.sdk.ara.ui.menu.screens.AboutUsScreen
+import ir.part.sdk.ara.ui.menu.screens.DisclaimerScreen
 import ir.part.sdk.ara.ui.menu.screens.MenuScreen
 import ir.part.sdk.ara.ui.menu.screens.TermsAndConditionScreen
 
@@ -20,6 +21,8 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
                 navController.navigateToTermsAndConditionScreen()
             }, onAboutUsClick = {
                 navController.navigateToAboutUsScreen()
+            }, onDisclaimerClick = {
+                navController.navigateToDisclaimerScreen()
             }) // todo add remained navigation from main menu screen
         }
 
@@ -31,6 +34,12 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
 
         aboutUsScreen {
             AboutUsScreen(onNavigateUp = {
+                navController.navigateUp()
+            })
+        }
+
+        disclaimerScreen {
+            DisclaimerScreen(onNavigateUp = {
                 navController.navigateUp()
             })
         }
