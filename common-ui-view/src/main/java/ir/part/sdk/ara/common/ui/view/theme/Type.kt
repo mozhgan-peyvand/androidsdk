@@ -76,6 +76,14 @@ fun Typography.subtitle1TextPrimaryBold(): TextStyle {
 }
 
 @Composable
+fun Typography.subtitle1TextHighlight(): TextStyle {
+    return Typography.subtitle1.copy(
+        color = MaterialTheme.colors.textPrimary(),
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
 fun Typography.subtitle2TextPrimary(): TextStyle {
     return Typography.subtitle2.copy(
         color = MaterialTheme.colors.textPrimary()

@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.menu.screens
+package ir.part.sdk.ara.common.ui.view.commonCompose
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,10 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import ir.part.sdk.ara.common.ui.view.R
 import ir.part.sdk.ara.common.ui.view.theme.body2TextSecondary
 import ir.part.sdk.ara.common.ui.view.theme.disabled
-import ir.part.sdk.merat.ui.menu.R
-
+import ir.part.sdk.ara.common.ui.view.theme.h6Bold
 
 @Composable
 fun MenuTopAppBarContent(title: String, onNavigateUp: () -> Unit) {
@@ -50,4 +50,10 @@ fun MenuTopAppBarContent(title: String, onNavigateUp: () -> Unit) {
 @Composable
 fun TextBody2Secondary(text: String) {
     Text(text = text, style = MaterialTheme.typography.body2TextSecondary())
+}
+
+
+@Composable
+fun TextHeadline6PrimaryBold(text: String) {
+    Text(text = text , style = MaterialTheme.typography.h6Bold())
 }

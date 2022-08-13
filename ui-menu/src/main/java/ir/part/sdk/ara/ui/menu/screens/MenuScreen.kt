@@ -19,7 +19,7 @@ import ir.part.sdk.ara.common.ui.view.theme.*
 import ir.part.sdk.merat.ui.menu.R
 
 @Composable
-fun MenuScreen(onChangePasswordClick: () -> Unit, onTermsAndConditionClick: () -> Unit) {
+fun MenuScreen(onChangePasswordClick: () -> Unit, onTermsAndConditionClick: () -> Unit, onAboutUsClick: () -> Unit) {
     val scrollState = rememberScrollState()
     Column(modifier = Modifier
         .fillMaxSize()
@@ -34,7 +34,7 @@ fun MenuScreen(onChangePasswordClick: () -> Unit, onTermsAndConditionClick: () -
 
         MenuItem(icon = R.drawable.ic_question, title = R.string.label_guide, onClick = {})
 
-        MenuItem(icon = R.drawable.ic_info, title = R.string.label_about_us, onClick = {})
+        MenuItem(icon = R.drawable.ic_info, title = R.string.label_about_us, onClick = onAboutUsClick)
 
         MenuItem(icon = R.drawable.ic_paper,title = R.string.label_terms_and_conditions,onClick = onTermsAndConditionClick)
 
