@@ -15,3 +15,6 @@ fun NavHostController.navigateToAboutUsScreen() =
 
 fun NavHostController.navigateToDisclaimerScreen() =
     safeNavigate(MenuRouter.DisclaimerScreen.router)
+
+fun NavHostController.navigateToCallCenterScreen() =
+    safeNavigate(MenuRouter.CallCenterScreen.router)

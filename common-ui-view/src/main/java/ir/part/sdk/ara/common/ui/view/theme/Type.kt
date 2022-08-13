@@ -91,6 +91,14 @@ fun Typography.subtitle2TextPrimary(): TextStyle {
 }
 
 @Composable
+fun Typography.body2TextPrimaryBold(): TextStyle {
+    return Typography.body2.copy(
+        color = MaterialTheme.colors.textPrimary(),
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
 fun Typography.body2TextSecondary(): TextStyle {
     return Typography.body2.copy(
         color = MaterialTheme.colors.textSecondary(),
