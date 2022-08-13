@@ -3,10 +3,7 @@ package ir.part.sdk.ara.ui.menu.util.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.navigation
-import ir.part.sdk.ara.ui.menu.screens.AboutUsScreen
-import ir.part.sdk.ara.ui.menu.screens.DisclaimerScreen
-import ir.part.sdk.ara.ui.menu.screens.MenuScreen
-import ir.part.sdk.ara.ui.menu.screens.TermsAndConditionScreen
+import ir.part.sdk.ara.ui.menu.screens.*
 
 fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
     navigation(
@@ -23,6 +20,8 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
                 navController.navigateToAboutUsScreen()
             }, onDisclaimerClick = {
                 navController.navigateToDisclaimerScreen()
+            }, onCallCenterClick = {
+                navController.navigateToCallCenterScreen()
             }) // todo add remained navigation from main menu screen
         }
 
@@ -40,6 +39,12 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
 
         disclaimerScreen {
             DisclaimerScreen(onNavigateUp = {
+                navController.navigateUp()
+            })
+        }
+
+        callCenterScreen {
+            CallCenterScreen (onNavigateUp = {
                 navController.navigateUp()
             })
         }

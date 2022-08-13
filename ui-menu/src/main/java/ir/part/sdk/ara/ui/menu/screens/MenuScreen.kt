@@ -24,6 +24,7 @@ fun MenuScreen(
     onTermsAndConditionClick: () -> Unit,
     onAboutUsClick: () -> Unit,
     onDisclaimerClick: () -> Unit,
+    onCallCenterClick: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
     Column(modifier = Modifier
@@ -49,7 +50,7 @@ fun MenuScreen(
 
         MenuItem(icon = R.drawable.ic_comment, title = R.string.label_submit_comment, onClick = {})
 
-        MenuItem(icon = R.drawable.ic_headphones_mic,title = R.string.label_call_center,onClick = {})
+        MenuItem(icon = R.drawable.ic_headphones_mic,title = R.string.label_call_center,onClick = onCallCenterClick)
 
         MenuItem(icon = R.drawable.ic_exit, title = R.string.label_exit, onClick = {})
 
