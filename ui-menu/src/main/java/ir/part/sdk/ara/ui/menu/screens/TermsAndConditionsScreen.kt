@@ -13,9 +13,9 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import ir.part.sdk.ara.common.ui.view.commonCompose.MenuTopAppBarContent
-import ir.part.sdk.ara.common.ui.view.commonCompose.TextBody2Secondary
 import ir.part.sdk.ara.common.ui.view.theme.*
+import ir.part.sdk.ara.ui.menu.screens.common.MenuTopAppBarContent
+import ir.part.sdk.ara.ui.menu.screens.common.TextBody2Secondary
 import ir.part.sdk.merat.ui.menu.R
 
 @Composable

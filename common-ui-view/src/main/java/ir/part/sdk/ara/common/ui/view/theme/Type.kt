@@ -165,6 +165,13 @@ fun Typography.h5Bold(): TextStyle {
 }
 
 @Composable
+fun Typography.h5Highlight(): TextStyle {
+    return Typography.h5.copy(
+        color = ColorBlueDarker
+    )
+}
+
+@Composable
 fun Typography.h6Bold(): TextStyle {
     return Typography.h6.copy(
         fontWeight = FontWeight.Bold,

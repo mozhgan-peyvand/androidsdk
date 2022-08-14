@@ -59,3 +59,14 @@ fun NavGraphBuilder.callCenterScreen(
         }
     )
 }
+
+fun NavGraphBuilder.guideScreen(
+    screen: @Composable (NavBackStackEntry) -> Unit
+) {
+    safeScreenInitial(
+        sourceScreen = MenuRouter.GuideScreen.router,
+        screenSetUp = {
+            screen.invoke(it)
+        }
+    )
+}

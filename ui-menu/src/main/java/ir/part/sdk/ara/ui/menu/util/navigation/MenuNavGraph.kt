@@ -22,6 +22,8 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
                 navController.navigateToDisclaimerScreen()
             }, onCallCenterClick = {
                 navController.navigateToCallCenterScreen()
+            }, onGuideClick = {
+                navController.navigateToGuideScreen()
             }) // todo add remained navigation from main menu screen
         }
 
@@ -44,7 +46,13 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
         }
 
         callCenterScreen {
-            CallCenterScreen (onNavigateUp = {
+            CallCenterScreen(onNavigateUp = {
+                navController.navigateUp()
+            })
+        }
+
+        guideScreen {
+            GuideScreen(onNavigateUp = {
                 navController.navigateUp()
             })
         }

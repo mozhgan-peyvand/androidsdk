@@ -1,22 +1,19 @@
 package ir.part.sdk.ara.ui.menu.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import ir.part.sdk.ara.common.ui.view.commonCompose.MenuTopAppBarContent
-import ir.part.sdk.ara.common.ui.view.commonCompose.TextBody2Secondary
-import ir.part.sdk.ara.common.ui.view.commonCompose.TextHeadline6PrimaryBold
 import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker
-import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker2
+import ir.part.sdk.ara.ui.menu.screens.common.HighlightedBulletWithTextBody2Secondary
+import ir.part.sdk.ara.ui.menu.screens.common.MenuTopAppBarContent
+import ir.part.sdk.ara.ui.menu.screens.common.TextBody2Secondary
+import ir.part.sdk.ara.ui.menu.screens.common.TextHeadline6PrimaryBold
 import ir.part.sdk.merat.ui.menu.BuildConfig
 import ir.part.sdk.merat.ui.menu.R
 
@@ -89,23 +86,6 @@ fun AboutUsContent() {
     }
 
 }
-
-@Composable
-private fun HighlightedBulletWithTextBody2Secondary(text: String) {
-    Row {
-        Column(Modifier.padding(top = dimensionResource(id = R.dimen.spacing_2x))) {
-            Box(
-                modifier = Modifier
-                    .size(dimensionResource(id = R.dimen.spacing_2x))
-                    .clip(CircleShape)
-                    .background(ColorBlueDarker2)
-            )
-        }
-        Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.spacing_4x)))
-        TextBody2Secondary(text)
-    }
-}
-
 
 @Composable
 private fun VersionBottomBar() {
