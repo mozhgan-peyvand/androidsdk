@@ -25,6 +25,7 @@ fun MenuScreen(
     onAboutUsClick: () -> Unit,
     onDisclaimerClick: () -> Unit,
     onCallCenterClick: () -> Unit,
+    onGuideClick: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
     Column(modifier = Modifier
@@ -38,7 +39,7 @@ fun MenuScreen(
         // list items
         MenuItem(R.drawable.ic_lock, R.string.label_change_password, onClick = onChangePasswordClick)
 
-        MenuItem(icon = R.drawable.ic_question, title = R.string.label_guide, onClick = {})
+        MenuItem(icon = R.drawable.ic_question, title = R.string.label_guide, onClick = onGuideClick)
 
         MenuItem(icon = R.drawable.ic_info, title = R.string.label_about_us, onClick = onAboutUsClick)
 

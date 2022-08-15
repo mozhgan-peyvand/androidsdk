@@ -20,12 +20,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import ir.part.sdk.ara.common.ui.view.commonCompose.MenuTopAppBarContent
-import ir.part.sdk.ara.common.ui.view.commonCompose.TextBody2Secondary
-import ir.part.sdk.ara.common.ui.view.commonCompose.TextHeadline6PrimaryBold
 import ir.part.sdk.ara.common.ui.view.theme.body2TextPrimaryBold
 import ir.part.sdk.ara.common.ui.view.theme.body2TextSecondaryBold
 import ir.part.sdk.ara.common.ui.view.theme.divider
+import ir.part.sdk.ara.ui.menu.screens.common.MenuTopAppBarContent
+import ir.part.sdk.ara.ui.menu.screens.common.TextBody2Secondary
+import ir.part.sdk.ara.ui.menu.screens.common.TextHeadline6PrimaryBold
 import ir.part.sdk.merat.ui.menu.R
 
 @Composable
