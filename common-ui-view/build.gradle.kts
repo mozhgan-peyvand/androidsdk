@@ -4,6 +4,13 @@ plugins {
     id(BuildPlugins.KOTLIN_KAPT)
 }
 
+android {
+    kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs.plus("-Xjvm-default=enable")
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
 dependencies {
     addDependency(
         listOf(
@@ -19,6 +26,8 @@ dependencies {
     addArchitectureComponents()
     addNavigationComponent()
     addLottie()
+    addPersianDate()
+    addNavigationComponent()
     addGlide()
     addAppCompat()
 }

@@ -8,7 +8,7 @@ sealed class BottomNavigationItems(
     val icon: Int
 ) {
     object Document : BottomNavigationItems(
-        route = "",
+        route = "ui-document://documentFileListScreen",
         title = R.string.label_menu_files,
         icon = R.drawable.merat_ic_icon_files
     )
@@ -20,13 +20,13 @@ sealed class BottomNavigationItems(
     )
 
     object SubmitRequest : BottomNavigationItems(
-        route = "",
+        route = "ui-document://documentSubmitScreen",
         title = R.string.label_menu_validation_request,
         icon = R.drawable.merat_ic_circle_filled
     )
 
     object Menu : BottomNavigationItems(
-        route = "ui-menu://menuGraph",
+        route = "ui-menu://mainMenuScreen",
         title = R.string.label_menu_others,
         icon = R.drawable.merat_ic_favorite_filled
     )

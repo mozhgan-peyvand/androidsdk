@@ -20,8 +20,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import com.airbnb.lottie.compose.*
+import ir.part.sdk.ara.common.ui.view.*
 import ir.part.sdk.ara.common.ui.view.R
-import ir.part.sdk.ara.common.ui.view.theme.*
+import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker
+import ir.part.sdk.ara.common.ui.view.theme.h6Bold
+import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextPrimaryBold
 
 class DialogUiHandler {
 

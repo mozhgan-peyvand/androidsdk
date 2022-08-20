@@ -6,7 +6,7 @@ import ir.part.sdk.ara.common.ui.view.navigationHelper.safeNavigate
 fun NavHostController.navigateToRequestValidation() {
     // TODO: when validation task in done using screen hear
     safeNavigate(
-        destinationScreen = "",
+        destinationScreen = BottomNavigationItems.SubmitRequest.route,
     )
 }
 
@@ -19,7 +19,7 @@ fun NavHostController.navigateToMenu() {
 fun NavHostController.navigateToDocumentList() {
     // TODO: when documentList task in done using screen hear
     safeNavigate(
-        destinationScreen = "",
+        destinationScreen = BottomNavigationItems.Document.route,
     )
 }
 

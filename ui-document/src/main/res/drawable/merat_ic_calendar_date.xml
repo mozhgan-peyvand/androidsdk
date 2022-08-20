@@ -1,0 +1,62 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16.5dp"
+    android:viewportWidth="16"
+    android:viewportHeight="16.5">
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M1,6h14"
+        android:strokeWidth="1"
+        android:strokeColor="@color/commonResourceColorControlNormal"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M14,3h-12a1,1 0,0 0,-1 1v11a1,1 0,0 0,1 1h12a1,1 0,0 0,1 -1v-11a1,1 0,0 0,-1 -1z"
+        android:strokeWidth="1"
+        android:strokeColor="@color/commonResourceColorControlNormal"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M4,1v2"
+        android:strokeWidth="1"
+        android:strokeColor="@color/commonResourceColorControlNormal"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M12,1v2"
+        android:strokeWidth="1"
+        android:strokeColor="@color/commonResourceColorControlNormal"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M8,1v2"
+        android:strokeWidth="1"
+        android:strokeColor="@color/commonResourceColorControlNormal"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M6,8v6"
+        android:strokeWidth="1"
+        android:strokeColor="@color/commonResourceColorControlNormal"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M10,8v6"
+        android:strokeWidth="1"
+        android:strokeColor="@color/commonResourceColorControlNormal"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M3,11h10"
+        android:strokeWidth="1"
+        android:strokeColor="@color/commonResourceColorControlNormal"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

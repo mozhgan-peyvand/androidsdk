@@ -4,14 +4,15 @@ import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.domain.document.entities.*
 
 interface BarjavandRepository {
-    suspend fun getPersonalDocumentRemote(nationalCode: String): InvokeStatus<List<PersonalDocuments>?>
+    suspend fun getPersonalDocumentRemote(): InvokeStatus<List<PersonalDocuments>?>
     suspend fun rejectRequestByUser(documentRejectRequestByUserParam: DocumentRejectRequestByUserParam): InvokeStatus<Boolean>
-    suspend fun setDisableCustomerFlag(
-        fileIdNew: String,
-        readMessage: ReadMessage
+    suspend fun setHasUnreadMessage(
+        documentId: String,
+        hasUnreadMessage: Boolean
     ): InvokeStatus<Boolean>
 
     suspend fun getPersonalInfoConstants(): InvokeStatus<PersonalInfoConstants?>
-    suspend fun getPersonalInfoCLub(unions: List<String>): InvokeStatus<List<PersonalInfoClub>?>
+    suspend fun getPersonalInfoClub(): InvokeStatus<List<PersonalInfoClub>?>
+    suspend fun getApplicantInformationRemote(): InvokeStatus<PersonalInfoSubmitDocument?>
 
 }

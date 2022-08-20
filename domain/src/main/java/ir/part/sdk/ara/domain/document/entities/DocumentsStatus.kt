@@ -1,19 +1,19 @@
 package ir.part.sdk.ara.domain.document.entities
 
 enum class DocumentsStatus {
-    Code_11,
-    Code_11_3,
-    Code_11_6,
-    Code_12,
-    Code_12_3,
-    Code_12_6,
-    Code_13,
-    Code_14,
-    Code_18,
-    Code_21,
-    Code_31,
-    Code_100,
-    Code_200,
-    Code_300,
-    Code_400;
+    CODE_11,
+    CODE_11_3,
+    CODE_11_6,
+    CODE_12,
+    CODE_12_3,
+    CODE_12_6,
+    CODE_13,
+    CODE_14,
+    CODE_18,
+    CODE_21,
+    CODE_31,
+    CODE_100,
+    CODE_200,
+    CODE_300,
+    CODE_400;
 }

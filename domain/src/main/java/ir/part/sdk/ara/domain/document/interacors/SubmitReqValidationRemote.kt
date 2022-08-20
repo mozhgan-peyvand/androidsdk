@@ -3,10 +3,10 @@ package ir.part.sdk.ara.domain.document.interacors
 
 import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.model.InvokeStatus
-import ir.part.sdk.ara.domain.document.entities.SubmitReqValidation
 import ir.part.sdk.ara.domain.document.entities.SubmitReqValidationParam
+import ir.part.sdk.ara.domain.document.entities.SubmitResponseValidation
 import ir.part.sdk.ara.domain.document.repository.DashboardRepository
-import ir.part.sdk.ara.util.SuspendingWorkInteractor
+import ir.part.sdk.ara.util.ResultInteractor
 import javax.inject.Inject
 
 
@@ -14,11 +14,11 @@ import javax.inject.Inject
 class SubmitReqValidationRemote @Inject constructor(
     private val repository: DashboardRepository
 
-) : SuspendingWorkInteractor<SubmitReqValidationRemote.Param, SubmitReqValidation?>() {
+) : ResultInteractor<SubmitReqValidationRemote.Param, SubmitResponseValidation?>() {
 
 //    private external fun detect()
 
-    override suspend fun doWork(params: Param): InvokeStatus<SubmitReqValidation?> {
+    override suspend fun doWork(params: Param): InvokeStatus<SubmitResponseValidation?> {
         //        val job = GlobalScope.launch {
 //            System.loadLibrary("main-lib")
 //            detect()

@@ -24,7 +24,7 @@ data class PersonalDocumentsEntity(
     @field:Json(name = "hasUnreadMessage")
     val hasUnreadMessage: Boolean = false,
     @field:Json(name = "validationResult")
-    val validationResult: DocumentResultValidationEntity,
+    val validationResult: DocumentResultValidationEntity? = null,
     @field:Json(name = "createdAt")
     val createdAt: String? = null,
     @field:Json(name = "amount")
@@ -35,9 +35,6 @@ data class PersonalDocumentsEntity(
     var family: String? = null,
     var statusName: String? = null,
     var statusTitle: String? = null
-    //TODO : it will be in future
-//    @field:Json(name = "REJECTED_IN_STATE_12")
-//    val rejectedInState12: Boolean? = null,
 ) {
     fun toPersonalDocuments() = PersonalDocuments(
         fileIdNew = fileIdNew,
@@ -47,7 +44,7 @@ data class PersonalDocumentsEntity(
         unionId = unionId,
         messageList = message?.map { it.toPersonalDocumentMessage() },
         hasUnreadMessage = hasUnreadMessage,
-        validationResult = validationResult.toFileResultValidation(),
+        validationResult = validationResult?.toFileResultValidation(),
         createdAt = createdAt,
         amount = amount,
         statusId = statusId.let {

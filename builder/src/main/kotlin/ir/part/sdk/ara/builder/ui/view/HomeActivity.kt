@@ -28,6 +28,7 @@ import ir.part.sdk.ara.builder.util.localizedContext
 import ir.part.sdk.ara.common.ui.view.theme.AraTheme
 import ir.part.sdk.ara.home.utils.navigation.HomeRouter
 import ir.part.sdk.ara.home.utils.navigation.addHomeGraph
+import ir.part.sdk.ara.ui.document.utils.navigation.addDocumentGraph
 import ir.part.sdk.ara.ui.menu.util.navigation.addMenuGraph
 import ir.part.sdk.ara.ui.user.util.navigation.addUserGraph
 
@@ -92,6 +93,7 @@ class HomeActivity : ComponentProviderActivity() {
             addHomeGraph(navController)
             addUserGraph(navController)
             addMenuGraph(navController)
+            addDocumentGraph(navController)
         }
     }
 }

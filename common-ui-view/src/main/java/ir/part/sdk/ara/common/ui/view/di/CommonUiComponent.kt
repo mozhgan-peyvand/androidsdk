@@ -9,9 +9,6 @@ import ir.part.sdk.ara.di.DataComponent
     dependencies = [
         BaseComponent::class,
         DataComponent::class
-    ],
-    modules = [
-        CommonUiModule::class
     ]
 )
 interface CommonUiComponent : BasicComponent {
@@ -24,7 +21,6 @@ interface CommonUiComponent : BasicComponent {
         ): CommonUiComponent
     }
 
-
     companion object {
         fun builder(componentProvider: ComponentProviderActivity): CommonUiComponent {
             return (componentProvider.provideComponent(
@@ -36,5 +32,4 @@ interface CommonUiComponent : BasicComponent {
             )) as CommonUiComponent
         }
     }
-
 }

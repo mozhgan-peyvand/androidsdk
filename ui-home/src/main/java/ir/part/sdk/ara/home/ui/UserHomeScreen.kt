@@ -17,8 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import ir.part.sdk.ara.common.ui.view.primaryDark
 import ir.part.sdk.ara.common.ui.view.theme.buttonTextStyle
-import ir.part.sdk.ara.common.ui.view.theme.primaryDark
 
 @Composable
 fun UserHomeScreen(navigateToLoginScreen: () -> Unit, navigateToRegisterScreen: () -> Unit) {

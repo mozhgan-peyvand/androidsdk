@@ -8,9 +8,9 @@ import ir.part.sdk.ara.data.barjavand.di.BarjavandComponent
 import ir.part.sdk.ara.data.dashboard.di.DataDashboardComponent
 import ir.part.sdk.ara.data.state.di.DataStateComponent
 import ir.part.sdk.ara.data.userManager.di.DataUserManagerComponent
-import ir.part.sdk.ara.domain.document.di.DomainDocumentComponent
 import ir.part.sdk.ara.domain.tasks.di.DomainTaskComponent
 import ir.part.sdk.ara.domain.user.di.DomainUserManagerComponent
+import ir.part.sdk.ara.ui.document.di.DocumentComponent
 import ir.part.sdk.ara.ui.user.di.UserComponent
 
 @MainScope
@@ -23,7 +23,7 @@ import ir.part.sdk.ara.ui.user.di.UserComponent
         BarjavandComponent::class,
         DataDashboardComponent::class,
         DataStateComponent::class,
-        DomainDocumentComponent::class,
+        DocumentComponent::class,
         DomainTaskComponent::class,
         UserComponent::class
 
@@ -41,7 +41,7 @@ interface BuilderComponent : BasicComponent {
             barjavandComponent: BarjavandComponent,
             dataDashboardComponent: DataDashboardComponent,
             dataStateComponent: DataStateComponent,
-            domainDocumentComponent: DomainDocumentComponent,
+            domainDocumentComponent: DocumentComponent,
             domainTaskComponent: DomainTaskComponent,
             userComponent: UserComponent
         ): BuilderComponent
@@ -63,7 +63,7 @@ interface BuilderComponent : BasicComponent {
                     barjavandComponent = BarjavandComponent.builder(componentProvider),
                     dataDashboardComponent = DataDashboardComponent.builder(componentProvider),
                     dataStateComponent = DataStateComponent.builder(componentProvider),
-                    domainDocumentComponent = DomainDocumentComponent.builder(componentProvider),
+                    domainDocumentComponent = DocumentComponent.builder(componentProvider),
                     domainTaskComponent = DomainTaskComponent.builder(componentProvider),
                     userComponent = UserComponent.builder(componentProvider)
                 )
