@@ -13,8 +13,8 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import ir.part.sdk.ara.common.ui.view.disabled
 import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker
-import ir.part.sdk.ara.common.ui.view.theme.disabled
 
 @Composable
 fun BottomBarScreen(navController: NavHostController) {
@@ -42,13 +42,13 @@ private fun BottomBar(navController: NavHostController) {
                 ) {
                     when (screen) {
                         is BottomNavigationItems.Document -> {
-                            // TODO: define navigate
+                            navController.navigateToDocumentList()
                         }
                         is BottomNavigationItems.PersonalInfo -> {
                             // TODO: define builder class
                         }
                         is BottomNavigationItems.SubmitRequest -> {
-                            // TODO: define navigate
+                            navController.navigateToRequestValidation()
                         }
                         is BottomNavigationItems.Menu -> {
                             navController.navigateToMenu()

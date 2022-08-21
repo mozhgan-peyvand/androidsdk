@@ -22,12 +22,10 @@ class ApiUrlHelper @Inject constructor(
     }
 
     private fun update() {
+
         userManager = UserManager(context.getString(R.string.API_URL_UserManager))
-
         barjavand = Barjavand(context.getString(R.string.API_URL_Barjavand))
-
         dashboard = Dashboard(context.getString(R.string.API_URL_Dashboard))
-
         stateService = StateService(context.getString(R.string.API_URL_STATE_SERVICE))
 
         userManager.update()
@@ -46,13 +44,6 @@ class ApiUrlHelper @Inject constructor(
         lateinit var signUp: String
         lateinit var logout: String
 
-        //todo api : i need to new api for handle them
-//        lateinit var rejectRequestByUser: String
-//        lateinit var getTokenRequest: String
-//        lateinit var paymentPage: String
-
-//        lateinit var getRahyarInfo: String
-
         override fun update() {
             signUp = "$baseUrl/service/userManager@1/signUp"
             captcha = "$baseUrl/service/userManager@1/getCaptcha"
@@ -61,15 +52,6 @@ class ApiUrlHelper @Inject constructor(
             logout = "$baseUrl/service/userManager@1/logout"
             login = "$baseUrl/service/userManager@1/login"
             changeAuthenticatePack = "$baseUrl/service/userManager@1/changeAuthenticatePack"
-
-
-//            rejectRequestByUser = "$baseUrl/app/userProfile/rejectRequestByUserMobile"
-//            getTokenRequest = "$baseUrl/app/validationRequest/getTokenRequestMobile"
-//            paymentPage = "$baseUrl/app/validationRequest/paymentPageMobile"
-
-//            getRahyarInfo = "$baseUrl/app/userProfile/getSocialAssistanceMobile"
-
-
         }
     }
 
@@ -86,10 +68,11 @@ class ApiUrlHelper @Inject constructor(
         lateinit var getConstant: String
 
         override fun update() {
-            getApplicationInformation = "$baseUrl/service/barjavand@3/data"
+            getApplicationInformation =
+                "$baseUrl/service/barjavand@3/data"
             setHasUnReadMessage = "$baseUrl/service/barjavand@3/data"
             getDocumentOverView = "$baseUrl/service/barjavand@3/data"
-            getUnion = "$baseUrl/service/union@1/unions"
+            getUnion = "$baseUrl/service/barjavand@3/data"
             getConstant = "$baseUrl/service/barjavand@3/data"
         }
     }

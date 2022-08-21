@@ -9,6 +9,7 @@ import androidx.compose.material.ripple.RippleTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
+import ir.part.sdk.ara.common.ui.view.CustomAttributes
 
 @Composable
 fun AraTheme(

@@ -88,7 +88,11 @@ class CommonModulePlugin : Plugin<Project> {
                             "API_URL_UserManager",
                             "\"http://usermanager-v1-dev.apipart.ir\""
                         )
-                        resValue("string", "API_URL_Barjavand", "\"http://192.168.5.21:4550\"")
+                        resValue(
+                            "string",
+                            "API_URL_Barjavand",
+                            "\"http://barjavand-v3-dev.apipart.ir\""
+                        )
                         resValue(
                             "string",
                             "API_URL_Dashboard",

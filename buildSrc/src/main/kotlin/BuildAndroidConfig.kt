@@ -18,7 +18,6 @@ object Ext {
     const val versionMajor = 1
     const val versionMinor = 0
     const val versionPatch = 0
-    const val minimumSdkVersion = 21
 }
 
 fun generateVersionCode(): Int {

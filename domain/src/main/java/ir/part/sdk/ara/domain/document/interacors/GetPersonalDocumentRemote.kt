@@ -5,7 +5,7 @@ import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.domain.document.entities.PersonalDocuments
 import ir.part.sdk.ara.domain.document.repository.BarjavandRepository
-import ir.part.sdk.ara.util.SuspendingWorkInteractor
+import ir.part.sdk.ara.util.ResultInteractor
 import javax.inject.Inject
 
 
@@ -13,19 +13,17 @@ import javax.inject.Inject
 class GetPersonalDocumentRemote @Inject constructor(
     private val repository: BarjavandRepository
 
-) : SuspendingWorkInteractor<GetPersonalDocumentRemote.Param, List<PersonalDocuments>?>() {
+) : ResultInteractor<Unit, List<PersonalDocuments>?>() {
 
 //    private external fun detect()
 
-    override suspend fun doWork(params: Param): InvokeStatus<List<PersonalDocuments>?> {
+    override suspend fun doWork(params: Unit): InvokeStatus<List<PersonalDocuments>?> {
         //        val job = GlobalScope.launch {
 //            System.loadLibrary("main-lib")
 //            detect()
 //        }
 //        job.join()
 
-        return repository.getPersonalDocumentRemote(params.nationalCode)
+        return repository.getPersonalDocumentRemote()
     }
-    data class Param(val nationalCode: String)
-
 }

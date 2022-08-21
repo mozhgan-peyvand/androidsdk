@@ -20,9 +20,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import ir.part.sdk.ara.common.ui.view.divider
 import ir.part.sdk.ara.common.ui.view.theme.body2TextPrimaryBold
 import ir.part.sdk.ara.common.ui.view.theme.body2TextSecondaryBold
-import ir.part.sdk.ara.common.ui.view.theme.divider
 import ir.part.sdk.ara.ui.menu.screens.common.MenuTopAppBarContent
 import ir.part.sdk.ara.ui.menu.screens.common.TextBody2Secondary
 import ir.part.sdk.ara.ui.menu.screens.common.TextHeadline6PrimaryBold
@@ -91,8 +91,10 @@ private fun CallInfoBoard() {
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = dimensionResource(id = R.dimen.spacing_4x),
-                        horizontal = dimensionResource(id = R.dimen.spacing_2x)),
+                    .padding(
+                        vertical = dimensionResource(id = R.dimen.spacing_4x),
+                        horizontal = dimensionResource(id = R.dimen.spacing_2x)
+                    ),
                 text = stringResource(id = R.string.label_everyday_of_week_24h),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.body2TextPrimaryBold(),
@@ -103,8 +105,10 @@ private fun CallInfoBoard() {
                 .clickable {
                     openCallCenterDial(context = context)
                 }
-                .padding(vertical = dimensionResource(id = R.dimen.spacing_4x),
-                    horizontal = dimensionResource(id = R.dimen.spacing_2x))
+                .padding(
+                    vertical = dimensionResource(id = R.dimen.spacing_4x),
+                    horizontal = dimensionResource(id = R.dimen.spacing_2x)
+                )
                 .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically) {

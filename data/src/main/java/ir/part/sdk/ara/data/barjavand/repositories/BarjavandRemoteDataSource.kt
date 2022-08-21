@@ -1,11 +1,9 @@
 package ir.part.sdk.ara.data.barjavand.repositories
 
-import ir.part.sdk.ara.data.barjavand.entities.BarjavandGetParamsRequest
-import ir.part.sdk.ara.data.barjavand.entities.DocumentRejectRequestByUserParamModel
-import ir.part.sdk.ara.data.barjavand.entities.ReadMessageEntity
-import ir.part.sdk.ara.data.barjavand.entities.SetFlagEntity
+import ir.part.sdk.ara.data.barjavand.entities.*
 import ir.part.sdk.ara.util.api.BaseRemoteDataSource
 import ir.part.sdk.ara.util.api.safeApiCall
+import org.json.JSONObject
 import javax.inject.Inject
 
 /**
@@ -16,11 +14,27 @@ class BarjavandRemoteDataSource @Inject constructor(
     private val service: BarjavandService,
 ) : BaseRemoteDataSource() {
 
+    suspend fun getApplicantInformation(nationalCode: String) = safeApiCall(
+        call = { requestApplicantInformation(nationalCode) },
+        errorMessage = "Error getting personal Files"
+    )
+
+    private suspend fun requestApplicantInformation(nationalCode: String) =
+        checkApiResult(
+            service.getApplicantInformation(
+                url = urls.barjavand.getApplicationInformation,
+                options = BarjavandGetParamsRequest(
+                    schemaName = "applicantInformation",
+                    schemaVersion = "1.0.1",
+                    id = nationalCode
+                ).toHashMap()
+            )
+        )
+
     suspend fun getDocumentOverView(nationalCode: String) = safeApiCall(
         call = { requestGetDocumentOverView(nationalCode) },
         errorMessage = "Error getting personal Files"
     )
-
 
     private suspend fun requestGetDocumentOverView(nationalCode: String) =
 
@@ -30,10 +44,7 @@ class BarjavandRemoteDataSource @Inject constructor(
                 options = BarjavandGetParamsRequest(
                     schemaName = "document",
                     schemaVersion = "1.0.0",
-                    spec = "applicant-overview",
-                    tags = arrayOf("userType_applicant", "username_$nationalCode").joinToString(
-                        separator = "&"
-                    )
+                    tags = JSONObject().put("applicantUsername", nationalCode).toString()
                 ).toHashMap()
             )
         )
@@ -52,24 +63,33 @@ class BarjavandRemoteDataSource @Inject constructor(
             )
         )
 
-    suspend fun setHasUnReadMessage(fileIdNew: String, readMessageEntity: ReadMessageEntity) =
+    suspend fun setHasUnReadMessage(
+        documentId: String,
+        hasUnreadMessage: Boolean,
+        nationalCode: String
+    ) =
         safeApiCall(
-            call = { requestSetHasUnReadMessage(fileIdNew, readMessageEntity) },
+            call = { requestSetHasUnReadMessage(documentId, hasUnreadMessage, nationalCode) },
             errorMessage = "Error set customer flag"
         )
 
     private suspend fun requestSetHasUnReadMessage(
-        fileIdNew: String,
-        readMessageEntity: ReadMessageEntity
+        documentId: String,
+        hasUnreadMessage: Boolean,
+        nationalCode: String
     ) =
         checkApiResult(
             service.setHasUnReadMessage(
                 url = urls.barjavand.setHasUnReadMessage,
-                SetFlagEntity(
-                    schemaName = "document",
-                    schemaVersion = "1.0.0",
-                    dataId = fileIdNew,
-                    data = readMessageEntity
+                setHasUnreadMessageParamEntity = SetHasUnreadMessageParamEntity(
+                    schema = Schema(
+                        name = "document",
+                        version = "1.0.0"
+                    ),
+                    id = "$nationalCode-$documentId",
+                    data = SetHasUnreadMessageParamEntityData(
+                        hasUnreadMessage
+                    )
                 )
             )
         )
@@ -86,22 +106,25 @@ class BarjavandRemoteDataSource @Inject constructor(
                 options = BarjavandGetParamsRequest(
                     schemaName = "constants",
                     schemaVersion = "1.0.0",
-                    dataId = "constants"
+                    id = "constants"
                 ).toHashMap()
             )
         )
 
-    suspend fun getUnion(clubIds: List<String>) =
+    suspend fun getUnion() =
         safeApiCall(
-            call = { requestGetUnion(clubIds) },
+            call = { requestGetUnion() },
             errorMessage = "Error getting personalInfo club"
         )
 
-    private suspend fun requestGetUnion(clubIds: List<String>) = checkApiResult(
-        service.getUnion(
-            url = urls.barjavand.getUnion,
-            unionIds = clubIds.joinToString(",")
+    private suspend fun requestGetUnion() =
+        checkApiResult(
+            service.getUnion(
+                url = urls.barjavand.getUnion,
+                options = BarjavandGetParamsRequest(
+                    schemaName = "unions",
+                    schemaVersion = "1.0.0"
+                ).toHashMap()
+            )
         )
-    )
-
 }

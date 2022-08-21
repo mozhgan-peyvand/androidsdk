@@ -6,11 +6,11 @@ import ir.part.sdk.ara.base.di.SK
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.base.util.AesEncryptor
 import ir.part.sdk.ara.data.dashboard.entites.DoneResponse
-import ir.part.sdk.ara.data.dashboard.entites.SubmitReqValidationEntity
+import ir.part.sdk.ara.data.dashboard.entites.SubmitResponseValidationEntity
 import ir.part.sdk.ara.data.dashboard.entites.TaskResponse
 import ir.part.sdk.ara.data.dashboard.mappers.toSubmitReqValidationParamModel
-import ir.part.sdk.ara.domain.document.entities.SubmitReqValidation
 import ir.part.sdk.ara.domain.document.entities.SubmitReqValidationParam
+import ir.part.sdk.ara.domain.document.entities.SubmitResponseValidation
 import ir.part.sdk.ara.domain.document.repository.DashboardRepository
 import ir.part.sdk.ara.domain.tasks.entities.Done
 import ir.part.sdk.ara.domain.tasks.entities.TaskInfo
@@ -49,7 +49,6 @@ class DashboardRepositoryImpl @Inject constructor(
                 data.item?.map { it.toTaskInfo() }
 
         })
-    // TODO: is correct ?
 
     override suspend fun requestDoingTask(
         processInstanceId: String,
@@ -68,7 +67,6 @@ class DashboardRepositoryImpl @Inject constructor(
             }
         })
 
-
     override suspend fun requestDoneTask(
         processInstanceId: String,
         taskId: String
@@ -83,18 +81,15 @@ class DashboardRepositoryImpl @Inject constructor(
             data.item?.toDone()
     })
 
-
-    override suspend fun submitReqValidation(submitReqValidationParam: SubmitReqValidationParam): InvokeStatus<SubmitReqValidation?> =
+    override suspend fun submitReqValidation(submitReqValidationParam: SubmitReqValidationParam): InvokeStatus<SubmitResponseValidation?> =
         requestExecutor.execute(object :
-            InvokeStatus.ApiEventListener<PublicResponse<SubmitReqValidationEntity>, SubmitReqValidation?> {
-            override suspend fun onRequestCall(): InvokeStatus<PublicResponse<SubmitReqValidationEntity>> =
+            InvokeStatus.ApiEventListener<PublicResponse<SubmitResponseValidationEntity>, SubmitResponseValidation?> {
+            override suspend fun onRequestCall(): InvokeStatus<PublicResponse<SubmitResponseValidationEntity>> =
                 remoteDataSource.submitReqValidation(
-                    pref.getString("CurrentUserNationalCode", null)?.let {
-                        AesEncryptor().decrypt(it, sk)
-                    } ?: "", submitReqValidationParam.toSubmitReqValidationParamModel()
+                    submitReqValidationParam.toSubmitReqValidationParamModel()
                 )
 
-            override fun onConvertResult(data: PublicResponse<SubmitReqValidationEntity>): SubmitReqValidation? =
-                data.item?.toSubmitReqValidation()
+            override fun onConvertResult(data: PublicResponse<SubmitResponseValidationEntity>): SubmitResponseValidation? =
+                data.item?.toSubmitResponseValidation()
         })
 }

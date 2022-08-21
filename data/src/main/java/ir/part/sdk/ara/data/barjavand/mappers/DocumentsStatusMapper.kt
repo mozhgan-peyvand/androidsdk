@@ -5,20 +5,20 @@ import ir.part.sdk.ara.domain.document.entities.DocumentsStatus
 
 fun DocumentsStatus.toFilesStatusEntity(): DocumentsStatusEntity {
     return when (this) {
-        DocumentsStatus.Code_11 -> DocumentsStatusEntity.Code_11
-        DocumentsStatus.Code_11_3 -> DocumentsStatusEntity.Code_11_3
-        DocumentsStatus.Code_11_6 -> DocumentsStatusEntity.Code_11_6
-        DocumentsStatus.Code_12 -> DocumentsStatusEntity.Code_12
-        DocumentsStatus.Code_12_3 -> DocumentsStatusEntity.Code_12_3
-        DocumentsStatus.Code_12_6 -> DocumentsStatusEntity.Code_12_6
-        DocumentsStatus.Code_13 -> DocumentsStatusEntity.Code_13
-        DocumentsStatus.Code_14 -> DocumentsStatusEntity.Code_14
-        DocumentsStatus.Code_18 -> DocumentsStatusEntity.Code_18
-        DocumentsStatus.Code_21 -> DocumentsStatusEntity.Code_21
-        DocumentsStatus.Code_31 -> DocumentsStatusEntity.Code_31
-        DocumentsStatus.Code_100 -> DocumentsStatusEntity.Code_100
-        DocumentsStatus.Code_200 -> DocumentsStatusEntity.Code_200
-        DocumentsStatus.Code_300 -> DocumentsStatusEntity.Code_300
-        DocumentsStatus.Code_400 -> DocumentsStatusEntity.Code_400
+        DocumentsStatus.CODE_11 -> DocumentsStatusEntity.CODE_11
+        DocumentsStatus.CODE_11_3 -> DocumentsStatusEntity.CODE_11_3
+        DocumentsStatus.CODE_11_6 -> DocumentsStatusEntity.CODE_11_6
+        DocumentsStatus.CODE_12 -> DocumentsStatusEntity.CODE_12
+        DocumentsStatus.CODE_12_3 -> DocumentsStatusEntity.CODE_12_3
+        DocumentsStatus.CODE_12_6 -> DocumentsStatusEntity.CODE_12_6
+        DocumentsStatus.CODE_13 -> DocumentsStatusEntity.CODE_13
+        DocumentsStatus.CODE_14 -> DocumentsStatusEntity.CODE_14
+        DocumentsStatus.CODE_18 -> DocumentsStatusEntity.CODE_18
+        DocumentsStatus.CODE_21 -> DocumentsStatusEntity.CODE_21
+        DocumentsStatus.CODE_31 -> DocumentsStatusEntity.CODE_31
+        DocumentsStatus.CODE_100 -> DocumentsStatusEntity.CODE_100
+        DocumentsStatus.CODE_200 -> DocumentsStatusEntity.CODE_200
+        DocumentsStatus.CODE_300 -> DocumentsStatusEntity.CODE_300
+        DocumentsStatus.CODE_400 -> DocumentsStatusEntity.CODE_400
     }
 }

@@ -7,8 +7,12 @@ dependencies {
     addDependency(
         listOf(
             BuildModules.Libraries.BASE,
-            BuildModules.Libraries.COMMON_UI_VIEW
-        )
+            BuildModules.Libraries.DOMAIN,
+            BuildModules.Libraries.DATA,
+            BuildModules.Libraries.COMMON_UI_VIEW,
+
+
+            )
     )
 
     addKotshi()
@@ -16,4 +20,13 @@ dependencies {
     addDagger2()
     addArchitectureComponents()
     addAndroidMaterial()
+    addConstrainLayout()
+    addAndroidMaterial()
+    addNavigationComponent()
+    addAppCompat()
+    addJsonLogic()
+    addLottie()
+    addSwipeRefresh()
+    addPager()
+
 }

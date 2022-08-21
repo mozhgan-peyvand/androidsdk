@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
+import ir.part.sdk.ara.common.ui.view.disabled
+import ir.part.sdk.ara.common.ui.view.statusBar
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 
 

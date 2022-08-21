@@ -15,6 +15,10 @@ class BuildModules {
             ":common-ui-view",
             "${BuildAndroidConfig.LIBRARY_PACKAGE_NAME}:common-ui-view"
         ),
+        UI_DOCUMENT(
+            ":ui-document",
+            "${BuildAndroidConfig.LIBRARY_PACKAGE_NAME}:ui-document"
+        ),
     }
 }
 

@@ -8,7 +8,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import ir.part.sdk.ara.common.ui.view.R
+import ir.part.sdk.ara.common.ui.view.*
 
 
 val Typography = Typography(
@@ -150,6 +150,22 @@ fun Typography.captionPrimary(): TextStyle {
 }
 
 @Composable
+fun Typography.captionPrimaryBold(): TextStyle {
+    return Typography.caption.copy(
+        color = MaterialTheme.colors.textPrimary(),
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
+fun Typography.captionPrimaryBoldSuccess(): TextStyle {
+    return Typography.caption.copy(
+        color = MaterialTheme.colors.success(),
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
 fun Typography.captionError(): TextStyle {
     return Typography.caption.copy(
         color = MaterialTheme.colors.error
@@ -179,7 +195,15 @@ fun Typography.h6Bold(): TextStyle {
 }
 
 @Composable
-fun Typography.meratOutlinedButton_Primary_Normal(): TextStyle {
+fun Typography.h6BoldPrimary(): TextStyle {
+    return Typography.h6.copy(
+        fontWeight = FontWeight.Bold,
+        color = MaterialTheme.colors.textPrimary()
+    )
+}
+
+@Composable
+fun Typography.outlinedButtonPrimaryNormal(): TextStyle {
     return Typography.body2.copy(
         fontWeight = FontWeight.Bold,
         color = ColorBlueDarker
@@ -187,7 +211,14 @@ fun Typography.meratOutlinedButton_Primary_Normal(): TextStyle {
 }
 
 @Composable
-fun Typography.subtitle2_Primary_Bold(): TextStyle {
+fun Typography.body2Primary(): TextStyle {
+    return Typography.body2.copy(
+        color = MaterialTheme.colors.textPrimary()
+    )
+}
+
+@Composable
+fun Typography.subtitle2PrimaryBold(): TextStyle {
     return Typography.subtitle2.copy(
         fontWeight = FontWeight.Bold,
         color = ColorGrayDarker
@@ -209,7 +240,37 @@ fun Typography.h5OnPrimary(): TextStyle {
 }
 
 @Composable
+fun Typography.body2PrimaryBold(): TextStyle {
+    return Typography.body2.copy(
+        color = MaterialTheme.colors.textPrimary(), fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
+fun Typography.body2Secondary(): TextStyle {
+    return Typography.body2.copy(
+        color = MaterialTheme.colors.textSecondary()
+    )
+}
+
+@Composable
+fun Typography.body2SecondaryBold(): TextStyle {
+    return Typography.body2.copy(
+        color = MaterialTheme.colors.textSecondary(),
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
+fun Typography.subtitle2TextPrimaryBold(): TextStyle {
+    return Typography.subtitle2.copy(
+        color = MaterialTheme.colors.textPrimary(),
+        fontWeight = FontWeight.Bold
+    )
+}
+
+
+@Composable
 fun Typography.buttonTextStyle(): TextStyle {
     return TextStyle(fontFamily = FontFamily(Font(R.font.iran_yekan_bold)), fontSize = 25.sp)
 }
-

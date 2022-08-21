@@ -16,27 +16,25 @@ class DashboardRemoteDataSource @Inject constructor(
 ) : BaseRemoteDataSource() {
 
     suspend fun submitReqValidation(
-        nationalCode: String,
         submitReqValidationParamModel: SubmitReqValidationParamModel
     ) =
         safeApiCall(
-            call = { requestSubmitReqValidation(nationalCode, submitReqValidationParamModel) },
+            call = { requestSubmitReqValidation(submitReqValidationParamModel) },
             errorMessage = "Error submit Request Validation"
         )
 
     private suspend fun requestSubmitReqValidation(
-        nationalCode: String,
         submitReqValidationParamModel: SubmitReqValidationParamModel
     ) =
         checkApiResult(
             service.newDocumentProcess(
                 url = urls.dashboard.newDocumentProcess,
-                SubmitReqValidationParamModel(
-                    processId = "b8db28da-53ba-4545-bcac-a82a45eb7ec9",
-                    dashboardId = "3337a727-4d73-492e-9d60-f5d2c6deb103",
-                    actorId = "407d4149-1ff2-47fb-a029-bc16b79f2a0b",
+                submitReqValidationParamModel = SubmitReqValidationParamModel(
+                    // todo : change to dynamic after get task is implemented
+                    processId = "b5872c85-caae-4ab9-833b-a3b37af420fb",
+                    dashboardId = "60e11757-128c-4de8-9c68-28ce06bed1bf",
+                    actorId = "279b8d69-c71a-4ff2-81e5-4143f6a839e7",
                     event = "new",
-                    tags = listOf("username_$nationalCode"),
                     unionId = submitReqValidationParamModel.unionId
                 )
             )
@@ -65,6 +63,7 @@ class DashboardRemoteDataSource @Inject constructor(
             service.requestDoingTask(
                 url = urls.dashboard.doingTask,
                 doingEntity = DoingEntity(
+                    // todo : change to dynamic after get task is implemented
                     actorId = "407d4149-1ff2-47fb-a029-bc16b79f2a0b",
                     status = "doing",
                     dashboardId = "aa7f32e1-ff21-4b5b-92e1-c37da3499a43",
@@ -85,6 +84,7 @@ class DashboardRemoteDataSource @Inject constructor(
             service.requestDoneTask(
                 url = urls.dashboard.doneTask,
                 DoneEntity(
+                    // todo : change to dynamic after get task is implemented
                     processInstanceId = processInstanceId,
                     taskId = taskId,
                     dashboardId = "aa7f32e1-ff21-4b5b-92e1-c37da3499a43",

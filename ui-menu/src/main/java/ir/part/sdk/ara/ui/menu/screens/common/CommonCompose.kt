@@ -14,11 +14,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import ir.part.sdk.merat.ui.menu.R
+import ir.part.sdk.ara.common.ui.view.disabled
 import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker2
 import ir.part.sdk.ara.common.ui.view.theme.body2TextSecondary
-import ir.part.sdk.ara.common.ui.view.theme.disabled
 import ir.part.sdk.ara.common.ui.view.theme.h6Bold
+import ir.part.sdk.merat.ui.menu.R
 
 @Composable
 fun MenuTopAppBarContent(title: String, onNavigateUp: () -> Unit) {
@@ -56,7 +56,7 @@ fun TextBody2Secondary(text: String) {
 
 @Composable
 fun TextHeadline6PrimaryBold(text: String) {
-    Text(text = text , style = MaterialTheme.typography.h6Bold())
+    Text(text = text, style = MaterialTheme.typography.h6Bold())
 }
 
 @Composable

@@ -15,7 +15,11 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import ir.part.sdk.ara.common.ui.view.theme.*
+import ir.part.sdk.ara.common.ui.view.divider
+import ir.part.sdk.ara.common.ui.view.theme.ColorBlue
+import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker
+import ir.part.sdk.ara.common.ui.view.theme.ColorWhite
+import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextSecondary
 import ir.part.sdk.merat.ui.menu.R
 
 @Composable
@@ -63,16 +67,23 @@ fun MenuScreen(
 private fun MainMenuHeader() {
     Row(modifier = Modifier
         .fillMaxWidth()
-        .background(Brush.verticalGradient(
-            listOf(ColorBlueDarker,
-                ColorBlue)
-        ))
-        .padding(top = dimensionResource(id = R.dimen.spacing_8x),
+        .background(
+            Brush.verticalGradient(
+                listOf(
+                    ColorBlueDarker,
+                    ColorBlue
+                )
+            )
+        )
+        .padding(
+            top = dimensionResource(id = R.dimen.spacing_8x),
             bottom = dimensionResource(id = R.dimen.spacing_8x),
             start = dimensionResource(id = R.dimen.spacing_4x),
-            end = dimensionResource(id = R.dimen.spacing_7x)),
+            end = dimensionResource(id = R.dimen.spacing_7x)
+        ),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween) {
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
         Column() {
             Text(text = "", style = MaterialTheme.typography.h6, color = ColorWhite) // todo get national code and set it here
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_2x)))
@@ -105,7 +116,8 @@ private fun MenuItem(@DrawableRes icon: Int, @StringRes title: Int, onClick: () 
         color = MaterialTheme.colors.divider(),
         modifier = Modifier
             .fillMaxWidth()
-            .height(1.dp).padding(horizontal = dimensionResource(id = R.dimen.spacing_4x))
+            .height(1.dp)
+            .padding(horizontal = dimensionResource(id = R.dimen.spacing_4x))
     )
 }
 

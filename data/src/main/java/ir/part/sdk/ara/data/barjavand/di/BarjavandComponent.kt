@@ -5,7 +5,6 @@ import ir.part.sdk.ara.base.di.*
 import ir.part.sdk.ara.data.dashboard.di.RepositoryDashboardModule
 import ir.part.sdk.ara.data.dashboard.di.ServiceDashboardModule
 import ir.part.sdk.ara.di.DataComponent
-import ir.part.sdk.ara.domain.document.di.DomainDocumentComponent
 import ir.part.sdk.ara.domain.document.interacors.*
 
 
@@ -14,7 +13,6 @@ import ir.part.sdk.ara.domain.document.interacors.*
     dependencies = [
         BaseComponent::class,
         DataComponent::class,
-        DomainDocumentComponent::class,
     ],
     modules = [
         RepositoryBarjavandModule::class,
@@ -29,17 +27,17 @@ interface BarjavandComponent : BasicComponent {
     interface Factory {
         fun create(
             baseComponent: BaseComponent,
-            dataComponent: DataComponent,
-            domainDocumentComponent: DomainDocumentComponent
+            dataComponent: DataComponent
         ): BarjavandComponent
     }
 
     fun injectGetPersonalDocumentRemote(): GetPersonalDocumentRemote
     fun injectGetPersonalInfoConstantsRemote(): GetPersonalInfoConstantsRemote
     fun injectGetRejectRequestByUserRemote(): GetRejectRequestByUserRemote
-    fun injectSetDisableCustomerFlagRemote(): SetDisableCustomerFlagRemote
+    fun injectSetHasUnreadMessageRemote(): SetHasUnreadMessageRemote
     fun injectSubmitReqValidationRemote(): SubmitReqValidationRemote
     fun injectGetPersonalInfoClubRemote(): GetPersonalInfoClubRemote
+    fun injectGetApplicantInformationRemote(): GetApplicantInformationRemote
 
 
     companion object {
@@ -48,8 +46,7 @@ interface BarjavandComponent : BasicComponent {
                 ComponentsKey.DATA_BARJAVAND,
                 DaggerBarjavandComponent.factory().create(
                     baseComponent = BaseComponent.builder(componentProvider),
-                    dataComponent = DataComponent.builder(componentProvider),
-                    domainDocumentComponent = DomainDocumentComponent.builder(componentProvider)
+                    dataComponent = DataComponent.builder(componentProvider)
                 )
             )) as BarjavandComponent
         }

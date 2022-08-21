@@ -21,7 +21,10 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import ir.part.sdk.ara.common.ui.view.theme.*
+import ir.part.sdk.ara.common.ui.view.divider
+import ir.part.sdk.ara.common.ui.view.theme.body2TextPrimaryBold
+import ir.part.sdk.ara.common.ui.view.theme.body2TextSecondaryBold
+import ir.part.sdk.ara.common.ui.view.theme.h5Highlight
 import ir.part.sdk.ara.ui.menu.screens.common.HighlightedBulletWithTextBody2Secondary
 import ir.part.sdk.ara.ui.menu.screens.common.MenuTopAppBarContent
 import ir.part.sdk.merat.ui.menu.R
@@ -29,8 +32,10 @@ import ir.part.sdk.merat.ui.menu.R
 @Composable
 fun GuideScreen(onNavigateUp: () -> Unit) {
     Column() {
-        TopAppBar(backgroundColor = Color.White,
-            elevation = dimensionResource(id = R.dimen.spacing_half_base)) {
+        TopAppBar(
+            backgroundColor = Color.White,
+            elevation = dimensionResource(id = R.dimen.spacing_half_base)
+        ) {
             MenuTopAppBarContent(title = stringResource(id = R.string.label_guide),
                 onNavigateUp = {
                     onNavigateUp()
@@ -55,25 +60,32 @@ private fun GuideContent() {
     })
 
 
-    LazyColumn(Modifier.padding(
-        horizontal = dimensionResource(id = R.dimen.spacing_4x),
-    ), horizontalAlignment = Alignment.Start
+    LazyColumn(
+        Modifier.padding(
+            horizontal = dimensionResource(id = R.dimen.spacing_4x),
+        ), horizontalAlignment = Alignment.Start
     ) {
         item {
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_7x)))
-            Row(modifier = Modifier
-                .clickable {
-                    downloadGuideFile(context)
-                },
+            Row(
+                modifier = Modifier
+                    .clickable {
+                        downloadGuideFile(context)
+                    },
                 horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically) {
-                Icon(painter = painterResource(id = R.drawable.ic_download),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_download),
                     tint = Color.Unspecified,
-                    contentDescription = "download")
+                    contentDescription = "download"
+                )
 
-                Text(modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.spacing_3x)),
+                Text(
+                    modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.spacing_3x)),
                     text = stringResource(id = R.string.label_download_guide_file),
-                    style = MaterialTheme.typography.h5Highlight())
+                    style = MaterialTheme.typography.h5Highlight()
+                )
             }
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_4x)))
@@ -151,7 +163,8 @@ private fun GuideItemExpandable(item: GuideView) {
                 )
 
                 if (item.description.isNotEmpty()) {
-                    Icon(painter = painterResource(id = R.drawable.ic_arrow_down),
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_arrow_down),
                         contentDescription = "expand", modifier = Modifier
                             .rotate(rotateAngle)
                     )

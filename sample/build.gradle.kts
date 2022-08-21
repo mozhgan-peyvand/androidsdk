@@ -21,7 +21,7 @@ android {
     defaultConfig {
         applicationId = BuildAndroidConfig.APPLICATION_ID
         multiDexEnabled = true
-        minSdk = Ext.minimumSdkVersion
+        minSdk = BuildAndroidConfig.MIN_SDK_VERSION
         targetSdk = BuildAndroidConfig.TARGET_SDK_VERSION
         testInstrumentationRunner = BuildAndroidConfig.TEST_INSTRUMENTATION_RUNNER
         vectorDrawables.useSupportLibrary = BuildAndroidConfig.SUPPORT_LIBRARY_VECTOR_DRAWABLES
@@ -162,7 +162,6 @@ dependencies {
         addArchitectureComponents()
         addNavigationComponent()
         addTimber()
-        addRetrofit()
         addDependency(
             listOf(
                 BuildModules.Libraries.BASE,
@@ -174,7 +173,6 @@ dependencies {
             )
         )
     }
-
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
 

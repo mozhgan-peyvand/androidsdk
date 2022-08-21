@@ -54,3 +54,37 @@ fun getTryAgainDialog(
     builder.Build()
     return builder
 }
+
+@Composable
+fun getSuccessDialog(
+    title: String,
+    description: String,
+    submitAction: () -> Unit
+): DialogManager {
+
+    val builder = DialogManager.builder()
+        .setDialogType(DialogType.SuccessDialog.name)
+        .setDialogTitleMessage(title)
+        .setDialogDetailMessage(description)
+        .setSubmitAction { submitAction() }
+    builder.Build()
+
+    return builder
+}
+
+@Composable
+fun getErrorDialog(
+    title: String,
+    description: String,
+    submitAction: () -> Unit
+): DialogManager {
+
+    val builder = DialogManager.builder()
+        .setDialogType(DialogType.ErrorDialog.name)
+        .setDialogTitleMessage(title)
+        .setDialogDetailMessage(description)
+        .setSubmitAction { submitAction() }
+    builder.Build()
+
+    return builder
+}

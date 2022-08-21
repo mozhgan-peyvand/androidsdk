@@ -14,11 +14,12 @@ interface DashboardService {
     suspend fun newDocumentProcess(
         @Url url: String,
         @Body submitReqValidationParamModel: SubmitReqValidationParamModel
-    ): Response<PublicResponse<SubmitReqValidationEntity>>
+    ): Response<PublicResponse<SubmitResponseValidationEntity>>
 
     @GET
     suspend fun getTask(
         @Url url: String,
+        // todo : check if should be static or not
         @Query("dashboardId") dashboardId: String = "aa7f32e1-ff21-4b5b-92e1-c37da3499a43",
         @Query("processInstanceId") processInstanceId: String
     ): Response<PublicResponse<List<TaskResponse>>>
@@ -27,6 +28,7 @@ interface DashboardService {
     @PUT
     suspend fun requestDoingTask(
         @Url url: String,
+        // todo : check if should be static or not
         @Query("dashboardId") dashboardId: String = "aa7f32e1-ff21-4b5b-92e1-c37da3499a43",
         @Body doingEntity: DoingEntity
     ): Response<PublicResponse<String>>

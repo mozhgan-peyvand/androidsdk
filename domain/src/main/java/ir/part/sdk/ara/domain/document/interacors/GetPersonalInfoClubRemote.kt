@@ -13,19 +13,17 @@ import javax.inject.Inject
 class GetPersonalInfoClubRemote @Inject constructor(
     private val repository: BarjavandRepository
 
-) : SuspendingWorkInteractor<GetPersonalInfoClubRemote.Param, List<PersonalInfoClub>?>() {
+) : SuspendingWorkInteractor<Unit, List<PersonalInfoClub>?>() {
 
 //    private external fun detect()
 
-    override suspend fun doWork(params: Param): InvokeStatus<List<PersonalInfoClub>?> {
+    override suspend fun doWork(params: Unit): InvokeStatus<List<PersonalInfoClub>?> {
         //        val job = GlobalScope.launch {
 //            System.loadLibrary("main-lib")
 //            detect()
 //        }
 //        job.join()
 
-        return repository.getPersonalInfoCLub(params.unions)
+        return repository.getPersonalInfoClub()
     }
-    data class Param(val unions: List<String>)
-
 }

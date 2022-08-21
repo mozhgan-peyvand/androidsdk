@@ -21,9 +21,7 @@ fun Project.addCompose() {
         add("debugImplementation", "androidx.compose.ui:ui-tooling:$composeVersion")
         add("implementation", "androidx.activity:activity-compose:1.3.1")
         add("implementation", "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-        add("implementation","androidx.navigation:navigation-compose:2.5.0-beta01")
-
-
+        add("implementation", "androidx.navigation:navigation-compose:2.5.0-beta01")
     }
 }
 
@@ -62,8 +60,8 @@ fun Project.addCoroutine() {
 
 fun Project.addPersianDate() {
     dependencies {
-        add("implementation", "com.github.samanzamani.persiandate:PersianDate:0.7")
-        add("implementation", "com.github.aliab:Persian-Date-Picker-Dialog:1.4")
+        add("implementation", "com.github.samanzamani:PersianDate:1.5.4")
+        add("implementation", "com.github.aliab:Persian-Date-Picker-Dialog:1.8.0")
     }
 }
 
@@ -181,6 +179,20 @@ fun Project.addRoom() {
         add("testImplementation", "androidx.room:room-testing:2.2.5")
     }
 }
+
+fun Project.addSwipeRefresh() {
+    dependencies {
+        add("implementation", "com.google.accompanist:accompanist-swiperefresh:0.20.3")
+    }
+}
+
+fun Project.addPager() {
+    dependencies {
+        add("implementation", "com.google.accompanist:accompanist-pager:0.23.1")
+        add("implementation", "com.google.accompanist:accompanist-pager-indicators:0.23.1")
+    }
+}
+
 
 fun Project.addDependency(
     libraryNames: List<BuildModules.Libraries>
