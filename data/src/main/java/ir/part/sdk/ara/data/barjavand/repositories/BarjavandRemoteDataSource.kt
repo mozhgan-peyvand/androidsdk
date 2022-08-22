@@ -49,17 +49,17 @@ class BarjavandRemoteDataSource @Inject constructor(
             )
         )
 
-    suspend fun rejectRequestByUser(documentRejectRequestByUserParamModel: DocumentRejectRequestByUserParamModel) =
+    suspend fun removeDocument(removeDocumentParamRequest: RemoveDocumentParamRequest) =
         safeApiCall(
-            call = { requestRejectRequestByUser(documentRejectRequestByUserParamModel) },
-            errorMessage = "Error reject request by user"
+            call = { requestRemoveDocument(removeDocumentParamRequest) },
+            errorMessage = "Error removing document"
         )
 
-    private suspend fun requestRejectRequestByUser(documentRejectRequestByUserParamModel: DocumentRejectRequestByUserParamModel) =
+    private suspend fun requestRemoveDocument(removeDocumentParamRequest: RemoveDocumentParamRequest) =
         checkApiResult(
-            service.rejectRequestByUser(
-                url = "",
-                documentRejectRequestByUserParamModel
+            service.removeDocument(
+                url = urls.barjavand.removeDocument,
+                removeDocumentParamRequest
             )
         )
 

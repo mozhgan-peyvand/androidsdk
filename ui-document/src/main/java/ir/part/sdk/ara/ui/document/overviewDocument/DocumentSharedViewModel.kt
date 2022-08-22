@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import ir.part.sdk.ara.common.ui.view.DateUtil
 import ir.part.sdk.ara.common.ui.view.ExceptionHelper
 import ir.part.sdk.ara.common.ui.view.api.*
-import ir.part.sdk.ara.domain.document.entities.DocumentRejectRequestByUserParam
+import ir.part.sdk.ara.domain.document.entities.RemoveDocumentParam
 import ir.part.sdk.ara.domain.document.interacors.*
 import ir.part.sdk.ara.ui.document.overviewDocument.model.OverviewDocumentView
 import ir.part.sdk.ara.ui.document.submitDocument.mapper.toPersonalDocumentsView
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class DocumentSharedViewModel @Inject constructor(
     private val getApplicantInformationRemote: GetApplicantInformationRemote,
     private val getPersonalDocumentRemote: GetPersonalDocumentRemote,
-    private val getRejectRequestByUserRemote: GetRejectRequestByUserRemote,
+    private val setRemoveDocumentRemote: SetRemoveDocumentRemote,
     private val getPersonalInfoConstantsRemote: GetPersonalInfoConstantsRemote,
     private val setHasUnreadMessageRemote: SetHasUnreadMessageRemote,
     private val exceptionHelper: ExceptionHelper
@@ -33,7 +33,6 @@ class DocumentSharedViewModel @Inject constructor(
     private val uiMessageManager = UiMessageManager()
     private val dateUtil = DateUtil()
 
-    var getRejectRequestByUserView = mutableStateOf<Boolean?>(null)
 
     val loadingAndMessageState: StateFlow<PublicState> = combine(
         loadingState.observable,
@@ -76,15 +75,6 @@ class DocumentSharedViewModel @Inject constructor(
         getPersonalInfo()
         getPersonalDocument()
         getPersonalInfoConstants()
-
-        getRejectRequestByUserRemote.flow.collectAndChangeLoadingAndMessageStatus(
-            viewModelScope,
-            loadingState,
-            exceptionHelper,
-            uiMessageManager
-        ) {
-            getRejectRequestByUserView.value = it
-        }
     }
 
     private fun getPersonalInfo() {
@@ -121,12 +111,22 @@ class DocumentSharedViewModel @Inject constructor(
     }
 
 
-    fun getRequestRejectByUserRemote(documentRejectRequestByUserParam: DocumentRejectRequestByUserParam) {
-        getRejectRequestByUserRemote(
-            GetRejectRequestByUserRemote.Param(
-                documentRejectRequestByUserParam
-            )
-        )
+    fun removeDocument(documentId: Long, onRemoveDocumentResponse: () -> Unit) {
+        viewModelScope.launch {
+            if (loadingState.count.toInt() == 0) {
+                clearAllMessage()
+                setRemoveDocumentRemote.invoke(
+                    SetRemoveDocumentRemote.Param(RemoveDocumentParam(documentId))
+                ).collectAndChangeLoadingAndMessageStatus(
+                    viewModelScope,
+                    loadingState,
+                    exceptionHelper,
+                    uiMessageManager
+                ) {
+                    onRemoveDocumentResponse()
+                }
+            }
+        }
     }
 
     fun setHasUnreadMessage(

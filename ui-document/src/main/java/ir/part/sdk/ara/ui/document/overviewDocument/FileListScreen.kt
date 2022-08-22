@@ -28,6 +28,7 @@ import ir.part.sdk.ara.common.ui.view.*
 import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.api.UiMessage
 import ir.part.sdk.ara.common.ui.view.theme.*
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getDeleteDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
@@ -39,9 +40,6 @@ import ir.part.sdk.ara.ui.document.utils.common.AraFileDoesNotExist
 import ir.part.sdk.ara.ui.document.utils.common.AraFileNotFound
 import ir.part.sdk.ara.ui.document.utils.common.AraRetryLayout
 
-typealias StringRes = R.string
-typealias DrawableRes = R.drawable
-typealias DimenRes = R.dimen
 
 
 //todo : check merat dialog and stuff when clicked on payment icon
@@ -65,6 +63,11 @@ fun FileListScreen(
             id = R.string.msg_file_validation_result
         )
     ) {}
+
+    val removeDocumentDeleteDialog = getDeleteDialog(
+        title = stringResource(id = R.string.label_dialog_file_remove_title),
+        description = stringResource(id = R.string.msg_dialog_file_remove_message)
+    )
 
     var docList: List<PersonalDocumentsView>? by remember {
         mutableStateOf(listOf())
@@ -135,7 +138,15 @@ fun FileListScreen(
 //            }
             },
             onDocumentRemoveIconClick = {
-                //todo : add this when delete api is ready
+                it?.let { documentId ->
+                    removeDocumentDeleteDialog.setSubmitAction {
+                        removeDocumentDeleteDialog.dismiss()
+                        viewModel.removeDocument(
+                            documentId
+                        ) { viewModel.refreshFileListScreenRequest() }
+                    }.show()
+
+                }
             },
             onDocumentPaymentIconClick = {
                 //todo : add this when payment api is ready
@@ -153,7 +164,7 @@ private fun ScreenContent(
     onDocumentSelect: (PersonalDocumentsView) -> Unit,
     uiErrorMessage: UiMessage?,
     onDocumentValidationIconClick: (DocumentsStatusView?, Long?, PersonalDocumentsView?) -> Unit,
-    onDocumentRemoveIconClick: () -> Unit,
+    onDocumentRemoveIconClick: (Long?) -> Unit,
     onDocumentPaymentIconClick: () -> Unit
 ) {
 
@@ -226,7 +237,9 @@ private fun ScreenContent(
                             onDocumentValidationIconClick = { statusCode, id, document ->
                                 onDocumentValidationIconClick(statusCode, id, document)
                             },
-                            onDocumentRemoveIconClick = { onDocumentRemoveIconClick() },
+                            onDocumentRemoveIconClick = {
+                                onDocumentRemoveIconClick(it)
+                            },
                             onDocumentPaymentIconClick = { onDocumentPaymentIconClick() })
                     } else {
                         Column(
@@ -253,7 +266,9 @@ private fun ScreenContent(
                             onDocumentValidationIconClick = { statusCode, id, document ->
                                 onDocumentValidationIconClick(statusCode, id, document)
                             },
-                            onDocumentRemoveIconClick = { onDocumentRemoveIconClick() },
+                            onDocumentRemoveIconClick = {
+                                onDocumentRemoveIconClick(it)
+                            },
                             onDocumentPaymentIconClick = { onDocumentPaymentIconClick() })
                     } else {
                         Column(
@@ -323,7 +338,7 @@ private fun DocumentsList(
     documents: List<PersonalDocumentsView>,
     onItemClick: (PersonalDocumentsView) -> Unit,
     onDocumentValidationIconClick: (DocumentsStatusView?, Long?, PersonalDocumentsView?) -> Unit,
-    onDocumentRemoveIconClick: () -> Unit,
+    onDocumentRemoveIconClick: (Long?) -> Unit,
     onDocumentPaymentIconClick: () -> Unit
 ) {
 
@@ -343,7 +358,9 @@ private fun DocumentsList(
                 onItemClick = {
                     onItemClick(it)
                 },
-                onDocumentRemoveIconClick = { onDocumentRemoveIconClick() },
+                onDocumentRemoveIconClick = {
+                    onDocumentRemoveIconClick(it)
+                },
                 onDocumentPaymentIconClick = { onDocumentPaymentIconClick() },
                 onDocumentValidationIconClick = { statusCode, id, selectedDocument ->
                     onDocumentValidationIconClick(statusCode, id, selectedDocument)
@@ -359,7 +376,7 @@ private fun DocumentListItem(
     document: PersonalDocumentsView,
     onItemClick: (PersonalDocumentsView) -> Unit,
     onDocumentValidationIconClick: (DocumentsStatusView?, Long?, PersonalDocumentsView?) -> Unit,
-    onDocumentRemoveIconClick: () -> Unit,
+    onDocumentRemoveIconClick: (Long?) -> Unit,
     onDocumentPaymentIconClick: () -> Unit
 ) {
 
@@ -520,31 +537,33 @@ private fun DocumentListItem(
                 color = document.statusId?.color ?: DocumentsStatusView.CODE_11.color
             )
 
-            if (document.statusId == DocumentsStatusView.CODE_21 ||
-                (document.statusId?.code != null &&
-                        document.statusId?.code!! < 18f)
-            ) {
-                Icon(
-                    modifier = Modifier
-                        .layoutId("deleteIcon")
-                        .padding(start = dimensionResource(id = R.dimen.spacing_base))
-                        .clickable {
-                            onDocumentRemoveIconClick()
-                        },
-                    painter = painterResource(id = R.drawable.ara_ic_bin),
-                    contentDescription = "ara_ic_bin",
-                    tint = MaterialTheme.colors.textSecondary()
-                )
+            // todo : move the next icon and spacer in this condition when status code api is ready
 
-                Spacer(
-                    modifier = Modifier
-                        .layoutId("line")
-                        .width(dimensionResource(id = R.dimen.divider_height))
-                        .height(dimensionResource(id = R.dimen.spacing_7x))
-                        .background(MaterialTheme.colors.textSecondary())
-                )
+//            if (document.statusId == DocumentsStatusView.CODE_21 ||
+//                (document.statusId?.code != null &&
+//                        document.statusId?.code!! < 18f)
+//            ) {
+//            }
 
-            }
+            Icon(
+                modifier = Modifier
+                    .layoutId("deleteIcon")
+                    .padding(start = dimensionResource(id = R.dimen.spacing_base))
+                    .clickable {
+                        onDocumentRemoveIconClick(document.fileId)
+                    },
+                painter = painterResource(id = R.drawable.ara_ic_bin),
+                contentDescription = "ara_ic_bin",
+                tint = MaterialTheme.colors.textSecondary()
+            )
+
+            Spacer(
+                modifier = Modifier
+                    .layoutId("line")
+                    .width(dimensionResource(id = R.dimen.divider_height))
+                    .height(dimensionResource(id = R.dimen.spacing_7x))
+                    .background(MaterialTheme.colors.textSecondary())
+            )
 
             if (document.statusId == DocumentsStatusView.CODE_18) {
                 Icon(

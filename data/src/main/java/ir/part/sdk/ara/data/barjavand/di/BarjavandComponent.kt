@@ -33,7 +33,7 @@ interface BarjavandComponent : BasicComponent {
 
     fun injectGetPersonalDocumentRemote(): GetPersonalDocumentRemote
     fun injectGetPersonalInfoConstantsRemote(): GetPersonalInfoConstantsRemote
-    fun injectGetRejectRequestByUserRemote(): GetRejectRequestByUserRemote
+    fun injectGetRejectRequestByUserRemote(): SetRemoveDocumentRemote
     fun injectSetHasUnreadMessageRemote(): SetHasUnreadMessageRemote
     fun injectSubmitReqValidationRemote(): SubmitReqValidationRemote
     fun injectGetPersonalInfoClubRemote(): GetPersonalInfoClubRemote

@@ -23,10 +23,10 @@ interface BarjavandService {
         @QueryMap options: Map<String, String>
     ): Response<PublicResponse<PublicResponseData<BarjavandResultEntity<PersonalDocumentsEntity>>>>
 
-    @POST
-    suspend fun rejectRequestByUser(
+    @PATCH
+    suspend fun removeDocument(
         @Url url: String,
-        @Body documentRejectRequestByUserParamModel: DocumentRejectRequestByUserParamModel
+        @Body removeDocumentParamRequest: RemoveDocumentParamRequest
     ): Response<Unit>
 
     @PATCH
