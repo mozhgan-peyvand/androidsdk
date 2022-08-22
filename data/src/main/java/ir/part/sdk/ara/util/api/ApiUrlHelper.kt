@@ -67,6 +67,8 @@ class ApiUrlHelper @Inject constructor(
 
         lateinit var getConstant: String
 
+        lateinit var removeDocument: String
+
         override fun update() {
             getApplicationInformation =
                 "$baseUrl/service/barjavand@3/data"
@@ -74,6 +76,7 @@ class ApiUrlHelper @Inject constructor(
             getDocumentOverView = "$baseUrl/service/barjavand@3/data"
             getUnion = "$baseUrl/service/barjavand@3/data"
             getConstant = "$baseUrl/service/barjavand@3/data"
+            removeDocument = "$baseUrl/service/barjavand@3/data"
         }
     }
 

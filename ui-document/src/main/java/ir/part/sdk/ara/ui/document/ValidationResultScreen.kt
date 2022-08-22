@@ -19,13 +19,13 @@ import ir.part.sdk.ara.common.ui.view.primaryDark
 import ir.part.sdk.ara.common.ui.view.theme.body2Secondary
 import ir.part.sdk.ara.common.ui.view.theme.body2SecondaryBold
 import ir.part.sdk.ara.common.ui.view.theme.h6BoldPrimary
-import ir.part.sdk.ara.ui.document.overviewDocument.DimenRes
 import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
-import ir.part.sdk.ara.ui.document.overviewDocument.StringRes
 import ir.part.sdk.ara.ui.document.submitDocument.model.PersonalDocumentsView
 import ir.part.sdk.ara.ui.document.submitDocument.model.PersonalInfoSubmitDocumentView
 import ir.part.sdk.ara.ui.document.utils.common.DocumentGenericLayout
 
+typealias StringRes = R.string
+typealias DimenRes = R.dimen
 
 @Composable
 fun ValidationResultScreen(viewModel: DocumentSharedViewModel? = null) {

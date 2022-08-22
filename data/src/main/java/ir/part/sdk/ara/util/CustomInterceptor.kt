@@ -92,7 +92,8 @@ class CustomInterceptor @Inject constructor(
             request.url().toString().contains(urls.barjavand.getUnion) ||
             request.url().toString().contains(urls.barjavand.getDocumentOverView) ||
             request.url().toString().contains(urls.barjavand.getConstant) ||
-            request.url().toString().contains(urls.barjavand.setHasUnReadMessage)
+            request.url().toString().contains(urls.barjavand.setHasUnReadMessage) ||
+            request.url().toString().contains(urls.barjavand.removeDocument)
         ) {
             requestBuilder.addHeader("gateway-token", token)
             requestBuilder.addHeader("userName", nationalCode)

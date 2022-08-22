@@ -5,7 +5,7 @@ import ir.part.sdk.ara.domain.document.entities.*
 
 interface BarjavandRepository {
     suspend fun getPersonalDocumentRemote(): InvokeStatus<List<PersonalDocuments>?>
-    suspend fun rejectRequestByUser(documentRejectRequestByUserParam: DocumentRejectRequestByUserParam): InvokeStatus<Boolean>
+    suspend fun rejectRequestByUser(removeDocumentParam: RemoveDocumentParam): InvokeStatus<Boolean>
     suspend fun setHasUnreadMessage(
         documentId: String,
         hasUnreadMessage: Boolean

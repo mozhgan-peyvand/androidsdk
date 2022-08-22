@@ -6,7 +6,7 @@ import ir.part.sdk.ara.base.di.SK
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.base.util.AesEncryptor
 import ir.part.sdk.ara.data.barjavand.entities.*
-import ir.part.sdk.ara.data.barjavand.mappers.toDocumentRejectRequestByUserParamModel
+import ir.part.sdk.ara.data.barjavand.mappers.toRemoveDocumentParamRequest
 import ir.part.sdk.ara.domain.document.entities.*
 import ir.part.sdk.ara.domain.document.repository.BarjavandRepository
 import ir.part.sdk.ara.model.PublicResponse
@@ -72,12 +72,23 @@ class BarjavandRepositoryImp @Inject constructor(
 
         })
 
-    override suspend fun rejectRequestByUser(documentRejectRequestByUserParam: DocumentRejectRequestByUserParam): InvokeStatus<Boolean> =
+    override suspend fun rejectRequestByUser(removeDocumentParam: RemoveDocumentParam): InvokeStatus<Boolean> =
         requestExecutor.execute(object :
             InvokeStatus.ApiEventListener<Unit, Boolean> {
             override suspend fun onRequestCall(): InvokeStatus<Unit> =
-                remoteDataSource.rejectRequestByUser(
-                    documentRejectRequestByUserParam.toDocumentRejectRequestByUserParamModel()
+                remoteDataSource.removeDocument(
+                    removeDocumentParam.toRemoveDocumentParamRequest(
+                        id = "${
+                            pref.getString(
+                                "CurrentUserNationalCode",
+                                null
+                            )?.let {
+                                AesEncryptor().decrypt(it, sk)
+                            } ?: ""
+                        }-${removeDocumentParam.documentId.toString()}",
+                        schema = Schema(name = "document", version = "1.0.0"),
+                        newTag = Tag(archive = "true"),
+                    )
                 )
 
             override fun onConvertResult(data: Unit): Boolean = true

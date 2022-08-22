@@ -35,6 +35,8 @@
 
     <string name="param_file_detail_title">اطلاعات پرونده %s</string>
     <string name="label_file_validation_result">نتیجه اعتبارسنجی</string>
+    <string name="label_dialog_file_remove_title">حذف پرونده</string>
+    <string name="msg_dialog_file_remove_message">آیا از حذف این پرونده مطمئن هستید؟</string>
 
 
     <string name="label_file_number">شماره پرونده</string>
