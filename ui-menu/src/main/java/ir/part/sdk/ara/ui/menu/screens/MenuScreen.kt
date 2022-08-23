@@ -30,6 +30,7 @@ fun MenuScreen(
     onDisclaimerClick: () -> Unit,
     onCallCenterClick: () -> Unit,
     onGuideClick: () -> Unit,
+    onSubmitCommentClick: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
     Column(modifier = Modifier
@@ -41,21 +42,35 @@ fun MenuScreen(
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
 
         // list items
-        MenuItem(R.drawable.ic_lock, R.string.label_change_password, onClick = onChangePasswordClick)
+        MenuItem(R.drawable.ic_lock,
+            R.string.label_change_password,
+            onClick = onChangePasswordClick)
 
-        MenuItem(icon = R.drawable.ic_question, title = R.string.label_guide, onClick = onGuideClick)
+        MenuItem(icon = R.drawable.ic_question,
+            title = R.string.label_guide,
+            onClick = onGuideClick)
 
-        MenuItem(icon = R.drawable.ic_info, title = R.string.label_about_us, onClick = onAboutUsClick)
+        MenuItem(icon = R.drawable.ic_info,
+            title = R.string.label_about_us,
+            onClick = onAboutUsClick)
 
-        MenuItem(icon = R.drawable.ic_paper,title = R.string.label_terms_and_conditions,onClick = onTermsAndConditionClick)
+        MenuItem(icon = R.drawable.ic_paper,
+            title = R.string.label_terms_and_conditions,
+            onClick = onTermsAndConditionClick)
 
-        MenuItem(icon = R.drawable.ic_award, title = R.string.label_disclaimer, onClick = onDisclaimerClick)
+        MenuItem(icon = R.drawable.ic_award,
+            title = R.string.label_disclaimer,
+            onClick = onDisclaimerClick)
 
         MenuItem(icon = R.drawable.ic_location, title = R.string.label_rahyar_address, onClick = {})
 
-        MenuItem(icon = R.drawable.ic_comment, title = R.string.label_submit_comment, onClick = {})
+        MenuItem(icon = R.drawable.ic_comment,
+            title = R.string.label_submit_comment,
+            onClick = onSubmitCommentClick)
 
-        MenuItem(icon = R.drawable.ic_headphones_mic,title = R.string.label_call_center,onClick = onCallCenterClick)
+        MenuItem(icon = R.drawable.ic_headphones_mic,
+            title = R.string.label_call_center,
+            onClick = onCallCenterClick)
 
         MenuItem(icon = R.drawable.ic_exit, title = R.string.label_exit, onClick = {})
 
@@ -85,7 +100,9 @@ private fun MainMenuHeader() {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column() {
-            Text(text = "", style = MaterialTheme.typography.h6, color = ColorWhite) // todo get national code and set it here
+            Text(text = "",
+                style = MaterialTheme.typography.h6,
+                color = ColorWhite) // todo get national code and set it here
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_2x)))
             Text(text = "", // todo get phone number code and set it here
                 style = MaterialTheme.typography.body2,

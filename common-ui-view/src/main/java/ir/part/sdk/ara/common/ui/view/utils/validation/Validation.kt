@@ -16,6 +16,7 @@ sealed class Validation(val value: String, val validator: Validator) {
     object NationalCodeValidation : Validation("nationalCode", NationalCodeValidator())
     object MobilePhoneValidation : Validation("MobilePhone", MobilePhone())
     object PasswordLengthValidation : Validation("MobilePhone", MaxSizeString())
+    object PersianValidation: Validation("persian", PersianText())
 }
 
 

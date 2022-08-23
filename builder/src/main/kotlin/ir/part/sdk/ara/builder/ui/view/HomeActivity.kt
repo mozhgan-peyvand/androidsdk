@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
+import android.view.WindowManager
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -16,9 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
 import ir.part.sdk.ara.base.di.MainScope
@@ -26,9 +27,9 @@ import ir.part.sdk.ara.builder.di.BuilderComponent
 import ir.part.sdk.ara.builder.ui.bottomnavigation.BottomBarScreen
 import ir.part.sdk.ara.builder.util.localizedContext
 import ir.part.sdk.ara.common.ui.view.theme.AraTheme
-import ir.part.sdk.ara.home.utils.navigation.HomeRouter
 import ir.part.sdk.ara.home.utils.navigation.addHomeGraph
 import ir.part.sdk.ara.ui.document.utils.navigation.addDocumentGraph
+import ir.part.sdk.ara.ui.menu.util.navigation.MenuRouter
 import ir.part.sdk.ara.ui.menu.util.navigation.addMenuGraph
 import ir.part.sdk.ara.ui.user.util.navigation.addUserGraph
 
@@ -48,11 +49,20 @@ class HomeActivity : ComponentProviderActivity() {
         provideComponent().inject(this)
 
         setContent {
-            LocalContext.current.applicationContext
             darkTheme = rememberSaveable {
                 mutableStateOf(false)
             }
             navController = rememberNavController()
+
+            // handle soft input mode
+            when (navController.currentBackStackEntryAsState().value?.destination?.route) {
+                MenuRouter.SubmitCommentScreen.router -> {
+                    window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                }
+                else -> {
+                    window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+                }
+            }
 
             AraTheme(darkTheme = darkTheme.value) {
                 Scaffold(

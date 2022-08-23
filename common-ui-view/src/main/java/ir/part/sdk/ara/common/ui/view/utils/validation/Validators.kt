@@ -10,8 +10,8 @@ import java.util.regex.Pattern
 class RequiredValidator : Validator {
 
     override fun validate(input: Any): ValidationResult? {
-        (input as? String)?.let { input ->
-            return if (input.isEmpty()) {
+        (input as? String)?.let { text ->
+            return if (text.isEmpty()) {
                 ValidationResult(this)
             } else null
         } ?: return ValidationResult(this)
@@ -181,4 +181,22 @@ class MaxSizeString : Validator {
 
     override fun getMessageStringId() = R.string.msg_invalid_password_length
 
+}
+
+class PersianText : Validator {
+
+    private val pattern =
+        "^[\\u200C\\u0621\\u0622\\u0627\\u0623\\u0628\\u067e\\u062a\\u062b\\u062c\\u0686\\u062d\\u062e\\u062f\\u0630\\u0631\\u0632\\u0698\\u0633-\\u063a\\u0641\\u0642\\u06a9\\u06af\\u0644-\\u0646\\u0648\\u0624\\u0647\\u06cc\\u0626\\u0625\\u0671\\u0643\\u0629\\u064a\\u0649\\s]+\$"
+
+
+    override fun validate(input: Any): ValidationResult? {
+        return if ((input as? String ?: "").isNotEmpty()
+            && (input as? String ?: "").matches(pattern.toRegex())
+        ) null else ValidationResult(this)
+    }
+
+    override fun getErrorMessage(context: Context) =
+        String.format(context.getString(getMessageStringId()))
+
+    override fun getMessageStringId() = R.string.msg_invalid_persian
 }

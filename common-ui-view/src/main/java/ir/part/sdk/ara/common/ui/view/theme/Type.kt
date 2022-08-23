@@ -48,6 +48,10 @@ val Typography = Typography(
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal
     ),
+    button = TextStyle(
+        fontSize =  25.sp,
+        fontWeight = FontWeight.Bold
+    )
 )
 
 @Composable
@@ -272,5 +276,7 @@ fun Typography.subtitle2TextPrimaryBold(): TextStyle {
 
 @Composable
 fun Typography.buttonTextStyle(): TextStyle {
-    return TextStyle(fontFamily = FontFamily(Font(R.font.iran_yekan_bold)), fontSize = 25.sp)
+    return Typography.button.copy(
+        color = MaterialTheme.colors.onPrimary
+    )
 }

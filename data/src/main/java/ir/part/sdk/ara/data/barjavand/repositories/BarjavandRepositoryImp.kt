@@ -4,11 +4,17 @@ import android.content.SharedPreferences
 import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.di.SK
 import ir.part.sdk.ara.base.model.InvokeStatus
+import ir.part.sdk.ara.data.barjavand.entities.PersonalDocumentsEntity
+import ir.part.sdk.ara.data.barjavand.entities.PersonalInfoClubModel
+import ir.part.sdk.ara.data.barjavand.entities.PersonalInfoConstantsModel
 import ir.part.sdk.ara.base.util.AesEncryptor
 import ir.part.sdk.ara.data.barjavand.entities.*
+import ir.part.sdk.ara.data.barjavand.mappers.toBodyCommentEntity
 import ir.part.sdk.ara.data.barjavand.mappers.toRemoveDocumentParamRequest
 import ir.part.sdk.ara.domain.document.entities.*
 import ir.part.sdk.ara.domain.document.repository.BarjavandRepository
+import ir.part.sdk.ara.domain.menu.entities.BodyComment
+import ir.part.sdk.ara.domain.menu.repository.MenuBarjavandRepository
 import ir.part.sdk.ara.model.PublicResponse
 import ir.part.sdk.ara.model.PublicResponseData
 import ir.part.sdk.ara.util.api.RequestExecutor
@@ -19,8 +25,8 @@ class BarjavandRepositoryImp @Inject constructor(
     private val remoteDataSource: BarjavandRemoteDataSource,
     private val requestExecutor: RequestExecutor,
     @SK private val sk: String,
-    private val pref: SharedPreferences
-) : BarjavandRepository {
+    private val pref: SharedPreferences,
+) : BarjavandRepository, MenuBarjavandRepository {
 
     override suspend fun getPersonalInfoClub(): InvokeStatus<List<PersonalInfoClub>?> =
         requestExecutor.execute(object :
@@ -35,7 +41,6 @@ class BarjavandRepositoryImp @Inject constructor(
         })
 
     override suspend fun getApplicantInformationRemote(): InvokeStatus<PersonalInfoSubmitDocument?> =
-
         requestExecutor.execute(object :
             InvokeStatus.ApiEventListener<PublicResponse<PublicResponseData<BarjavandResultEntity<PersonalInfoModel>>>, PersonalInfoSubmitDocument?> {
             override suspend fun onRequestCall(): InvokeStatus<PublicResponse<PublicResponseData<BarjavandResultEntity<PersonalInfoModel>>>> =
@@ -50,7 +55,6 @@ class BarjavandRepositoryImp @Inject constructor(
             override fun onConvertResult(data: PublicResponse<PublicResponseData<BarjavandResultEntity<PersonalInfoModel>>>): PersonalInfoSubmitDocument? =
                 data.item?.results?.firstOrNull()?.data?.toPersonalInfoSubmitDocument()
         })
-
 
     override suspend fun getPersonalDocumentRemote(): InvokeStatus<List<PersonalDocuments>?> =
         requestExecutor.execute(object :
@@ -96,7 +100,7 @@ class BarjavandRepositoryImp @Inject constructor(
 
     override suspend fun setHasUnreadMessage(
         documentId: String,
-        hasUnreadMessage: Boolean
+        hasUnreadMessage: Boolean,
     ): InvokeStatus<Boolean> =
 
         requestExecutor.execute(object :
@@ -128,5 +132,16 @@ class BarjavandRepositoryImp @Inject constructor(
                 data.item?.results?.firstOrNull()?.data?.toPersonalInfoConstants()
         })
 
+    override suspend fun submitComment(bodyComment: BodyComment): InvokeStatus<Boolean> =
+        requestExecutor.execute(object : InvokeStatus.ApiEventListener<Unit, Boolean> {
+            override suspend fun onRequestCall(): InvokeStatus<Unit> =
+                remoteDataSource.submitComment(bodyComment.toBodyCommentEntity(),
+                    bodyComment.captcha.token,
+                    bodyComment.captcha.value)
+
+            override fun onConvertResult(data: Unit): Boolean {
+                return true
+            }
+        })
 
 }
