@@ -115,7 +115,7 @@ private fun CallInfoBoard() {
 
                 Text(
                     modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.spacing_2x)),
-                    text = stringResource(id = R.string.label_phone_number),
+                    text = stringResource(id = R.string.label_phone_number_with_colon),
                     style = MaterialTheme.typography.body2TextPrimaryBold(),
                 )
 

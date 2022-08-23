@@ -21,3 +21,6 @@ fun NavHostController.navigateToCallCenterScreen() =
 
 fun NavHostController.navigateToGuideScreen() =
     safeNavigate(MenuRouter.GuideScreen.router)
+
+fun NavHostController.navigateToSubmitCommentScreen() =
+    safeNavigate(MenuRouter.SubmitCommentScreen.router)

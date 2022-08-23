@@ -13,7 +13,7 @@ fun Project.addJsonLogic() {
 fun Project.addCompose() {
     dependencies {
 
-        val composeVersion = "1.0.1"
+        val composeVersion = "1.2.1"
         add("implementation", "androidx.compose.ui:ui:$composeVersion")
         add("implementation", "androidx.compose.material:material:$composeVersion")
         add("implementation", "androidx.compose.material:material-icons-extended:$composeVersion")

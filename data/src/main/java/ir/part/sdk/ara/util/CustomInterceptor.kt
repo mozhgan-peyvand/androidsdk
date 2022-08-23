@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 
 class CustomInterceptor @Inject constructor(
-    @SK private val sk: String
+    @SK private val sk: String,
 ) : Interceptor {
 
     @Inject
@@ -62,6 +62,11 @@ class CustomInterceptor @Inject constructor(
             requestBuilder.addHeader("gateway-token", token)
             requestBuilder.addHeader("token", token)
             requestBuilder.addHeader("userName", nationalCode)
+        }
+
+        if (request.url().toString().contains(urls.barjavand.submitComment)
+        ) {
+            requestBuilder.addHeader("gateway-system", "araMerat")
         }
 
         if (request.url().toString().contains(urls.dashboard.newDocumentProcess)

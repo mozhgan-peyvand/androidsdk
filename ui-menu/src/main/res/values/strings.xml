@@ -28,7 +28,8 @@
     <string name="label_call_center_description">شما می‌توانید در صورت بروز هرگونه مشکل و سوال با کارشناسان ما در ارتباط باشید. ما مشتاقانه آماده پاسخ گویی به سوالات شما هستیم.</string>
     <string name="label_call_info">اطلاعات تماس</string>
     <string name="label_everyday_of_week_24h">همه ایام هفته حتی روزهای تعطیل ۲۴ ساعت</string>
-    <string name="label_phone_number">شماره تماس :</string>
+    <string name="label_phone_number_with_colon">شماره تماس :</string>
+    <string name="label_phone_number">شماره تماس </string>
     <string name="label_call_center_phone">۷۲۴۲۳۹۰۰ - ۰۲۱‌</string>
     <string name="call_center_number">02172423900</string>
 
@@ -140,5 +141,22 @@
     <string name="description_array_guide_four">مدت زمان اعتبار گواهی اعتبارسنجی یکسال است و پس از یکسال، لازم است مجدد تقاضای اعتبارسنجی دهید.</string>
     <string name="description_array_guide_five">خدمات اعتبارسنجی به افراد ۱۸ تا ۸۰ سال ارائه می‌گردد.</string>
     <string name="description_array_guide_six">پرداخت به موقع اقساط، ضامن حفظ و افزایش رتبه اعتباری افراد خواهد بود.</string>
+
+
+    <string name="label_submit_comments">ثبت نظرات</string>
+    <string name="label_description_comment">شما می‌توانيد نظرات خود را از اين صفحه ارسال کنید. لطفاً ما را از نظرات، پيشنهادات و انتقادات خود بهره‌مند سازيد.</string>
+    <string name="label_name">نام</string>
+    <string name="label_enter_your_name">نام خود را وارد نمایید</string>
+    <string name="label_last_name">نام خانوادگی</string>
+    <string name="label_enter_your_last_name">نام خانوادگی خود را وارد نمایید</string>
+    <string name="label_email_persian">پست الکترونیک</string>
+    <string name="label_enter_your_email">پست الکترونیکی خود را وارد نمایید</string>
+    <string name="label_title_comment">شرح موضوع</string>
+    <string name="label_enter_your_comment_content">متن موضوع مورد نظر خود را وارد نمایید</string>
+    <string name="label_enter_your_phone_number">شماره تماس خود وارد نمایید</string>
+    <string name="label_enter_captcha">عبارت امنیتی را وارد نمایید</string>
+    <string name="label_send_comment">ارسال نظر</string>
+    <string name="msg_submit_comment_success">نظر شما با موفقیت ارسال شد.</string>
+
 
 </resources>

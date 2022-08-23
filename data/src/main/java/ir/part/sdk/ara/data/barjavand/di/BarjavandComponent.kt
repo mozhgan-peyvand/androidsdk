@@ -6,6 +6,8 @@ import ir.part.sdk.ara.data.dashboard.di.RepositoryDashboardModule
 import ir.part.sdk.ara.data.dashboard.di.ServiceDashboardModule
 import ir.part.sdk.ara.di.DataComponent
 import ir.part.sdk.ara.domain.document.interacors.*
+import ir.part.sdk.ara.domain.menu.di.DomainMenuComponent
+import ir.part.sdk.ara.domain.menu.interactors.SubmitCommentRemote
 
 
 @FeatureDataScope
@@ -13,12 +15,14 @@ import ir.part.sdk.ara.domain.document.interacors.*
     dependencies = [
         BaseComponent::class,
         DataComponent::class,
+        DomainMenuComponent::class
     ],
     modules = [
         RepositoryBarjavandModule::class,
         ServiceBarjavandModule::class,
         RepositoryDashboardModule::class,
-        ServiceDashboardModule::class
+        ServiceDashboardModule::class,
+        MenuRepositoryBarjavandModule::class
     ]
 )
 interface BarjavandComponent : BasicComponent {
@@ -27,7 +31,8 @@ interface BarjavandComponent : BasicComponent {
     interface Factory {
         fun create(
             baseComponent: BaseComponent,
-            dataComponent: DataComponent
+            dataComponent: DataComponent,
+            domainMenuComponent: DomainMenuComponent,
         ): BarjavandComponent
     }
 
@@ -38,6 +43,7 @@ interface BarjavandComponent : BasicComponent {
     fun injectSubmitReqValidationRemote(): SubmitReqValidationRemote
     fun injectGetPersonalInfoClubRemote(): GetPersonalInfoClubRemote
     fun injectGetApplicantInformationRemote(): GetApplicantInformationRemote
+    fun injectSubmitCommentRemote(): SubmitCommentRemote
 
 
     companion object {
@@ -46,7 +52,8 @@ interface BarjavandComponent : BasicComponent {
                 ComponentsKey.DATA_BARJAVAND,
                 DaggerBarjavandComponent.factory().create(
                     baseComponent = BaseComponent.builder(componentProvider),
-                    dataComponent = DataComponent.builder(componentProvider)
+                    dataComponent = DataComponent.builder(componentProvider),
+                    domainMenuComponent = DomainMenuComponent.builder(componentProvider)
                 )
             )) as BarjavandComponent
         }

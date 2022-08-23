@@ -50,7 +50,7 @@ class CommonModulePlugin : Plugin<Project> {
 
                 }
 
-                composeOptions.kotlinCompilerExtensionVersion = "1.0.1"
+                composeOptions.kotlinCompilerExtensionVersion = "1.0.5"
                 buildFeatures.compose = true
 
 

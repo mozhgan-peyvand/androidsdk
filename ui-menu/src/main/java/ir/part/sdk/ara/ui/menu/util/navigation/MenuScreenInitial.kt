@@ -70,3 +70,14 @@ fun NavGraphBuilder.guideScreen(
         }
     )
 }
+
+fun NavGraphBuilder.submitScreenScreen(
+    screen: @Composable (NavBackStackEntry) -> Unit
+) {
+    safeScreenInitial(
+        sourceScreen = MenuRouter.SubmitCommentScreen.router,
+        screenSetUp = {
+            screen.invoke(it)
+        }
+    )
+}

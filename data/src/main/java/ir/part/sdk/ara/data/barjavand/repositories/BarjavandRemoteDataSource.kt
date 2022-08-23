@@ -1,5 +1,6 @@
 package ir.part.sdk.ara.data.barjavand.repositories
 
+import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.data.barjavand.entities.*
 import ir.part.sdk.ara.util.api.BaseRemoteDataSource
 import ir.part.sdk.ara.util.api.safeApiCall
@@ -66,7 +67,7 @@ class BarjavandRemoteDataSource @Inject constructor(
     suspend fun setHasUnReadMessage(
         documentId: String,
         hasUnreadMessage: Boolean,
-        nationalCode: String
+        nationalCode: String,
     ) =
         safeApiCall(
             call = { requestSetHasUnReadMessage(documentId, hasUnreadMessage, nationalCode) },
@@ -76,7 +77,7 @@ class BarjavandRemoteDataSource @Inject constructor(
     private suspend fun requestSetHasUnReadMessage(
         documentId: String,
         hasUnreadMessage: Boolean,
-        nationalCode: String
+        nationalCode: String,
     ) =
         checkApiResult(
             service.setHasUnReadMessage(
@@ -127,4 +128,26 @@ class BarjavandRemoteDataSource @Inject constructor(
                 ).toHashMap()
             )
         )
+
+    suspend fun submitComment(
+        bodyComment: BodyCommentEntity,
+        captchaToken: String,
+        captchaValue: String,
+    ) =
+        safeApiCall(
+            call = { requestSubmitComment(bodyComment, captchaToken, captchaValue) },
+            errorMessage = "Error sending comment"
+        )
+
+    private suspend fun requestSubmitComment(
+        bodyComment: BodyCommentEntity,
+        captchaToken: String,
+        captchaValue: String,
+    ): InvokeStatus<Unit> {
+        urls.barjavand.submitComment
+        return checkApiResult(service.submitComment(url = urls.barjavand.submitComment,
+            bodyComment = bodyComment,
+            captchaToken = captchaToken,
+            captchaValue = captchaValue))
+    }
 }
