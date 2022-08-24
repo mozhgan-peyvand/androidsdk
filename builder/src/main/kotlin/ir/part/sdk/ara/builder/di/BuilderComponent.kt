@@ -12,7 +12,7 @@ import ir.part.sdk.ara.domain.menu.di.DomainMenuComponent
 import ir.part.sdk.ara.domain.tasks.di.DomainTaskComponent
 import ir.part.sdk.ara.domain.user.di.DomainUserManagerComponent
 import ir.part.sdk.ara.ui.document.di.DocumentComponent
-import ir.part.sdk.ara.ui.menu.di.MenuComponent
+import ir.part.sdk.ara.ui.menu.di.SubmitCommentScreenComponent
 import ir.part.sdk.ara.ui.shared.feature.di.SharedFeatureComponent
 import ir.part.sdk.ara.ui.user.di.UserComponent
 
@@ -30,8 +30,8 @@ import ir.part.sdk.ara.ui.user.di.UserComponent
         DomainTaskComponent::class,
         UserComponent::class,
         DomainMenuComponent::class,
-        MenuComponent::class,
-        SharedFeatureComponent::class
+        SharedFeatureComponent::class,
+        SubmitCommentScreenComponent::class
     ],
 )
 interface BuilderComponent : BasicComponent {
@@ -49,9 +49,9 @@ interface BuilderComponent : BasicComponent {
             domainDocumentComponent: DocumentComponent,
             domainTaskComponent: DomainTaskComponent,
             userComponent: UserComponent,
-            menuComponent: MenuComponent,
             domainMenuComponent: DomainMenuComponent,
-            sharedFeatureComponent: SharedFeatureComponent
+            sharedFeatureComponent: SharedFeatureComponent,
+            menuComponent: SubmitCommentScreenComponent,
         ): BuilderComponent
     }
 
@@ -74,9 +74,9 @@ interface BuilderComponent : BasicComponent {
                     domainDocumentComponent = DocumentComponent.builder(componentProvider),
                     domainTaskComponent = DomainTaskComponent.builder(componentProvider),
                     userComponent = UserComponent.builder(componentProvider),
-                    menuComponent = MenuComponent.builder(componentProvider),
                     domainMenuComponent = DomainMenuComponent.builder(componentProvider),
-                    sharedFeatureComponent = SharedFeatureComponent.builder(componentProvider)
+                    sharedFeatureComponent = SharedFeatureComponent.builder(componentProvider),
+                    menuComponent = SubmitCommentScreenComponent.builder(componentProvider),
                 )
             )) as BuilderComponent
         }
