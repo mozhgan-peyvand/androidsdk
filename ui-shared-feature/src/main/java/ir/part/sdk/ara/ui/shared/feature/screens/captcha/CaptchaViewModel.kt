@@ -1,16 +1,16 @@
-package ir.part.sdk.ara.ui.user.screens.captcha
+package ir.part.sdk.ara.ui.shared.feature.screens.captcha
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationResult
 import ir.part.sdk.ara.common.ui.view.ExceptionHelper
-import ir.part.sdk.ara.common.ui.view.api.UiMessageManager
 import ir.part.sdk.ara.common.ui.view.api.ObservableLoadingCounter
 import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.api.UiMessageManager
 import ir.part.sdk.ara.common.ui.view.api.collectAndChangeLoadingAndMessageStatus
+import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
+import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationResult
 import ir.part.sdk.ara.domain.user.interacors.GetCaptchaRemote
-import ir.part.sdk.ara.ui.user.util.validation.ValidationField
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine

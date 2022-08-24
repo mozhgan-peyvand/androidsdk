@@ -30,17 +30,17 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import ir.part.app.merat.ui.user.R
 import ir.part.sdk.ara.base.util.TasksName
-import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
+import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.ButtonBlue
 import ir.part.sdk.ara.common.ui.view.theme.ErrorText
-import ir.part.sdk.ara.common.ui.view.api.PublicState
-import ir.part.sdk.ara.ui.user.screens.captcha.Captcha
-import ir.part.sdk.ara.ui.user.screens.captcha.CaptchaViewModel
-import ir.part.sdk.ara.ui.user.util.validation.ValidationField
-import ir.part.sdk.ara.ui.user.util.validation.validateWidget
+import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
+import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
+import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
+import ir.part.sdk.ara.ui.shared.feature.screens.captcha.Captcha
+import ir.part.sdk.ara.ui.shared.feature.screens.captcha.CaptchaViewModel
 
 @Composable
 fun LoginScreen(

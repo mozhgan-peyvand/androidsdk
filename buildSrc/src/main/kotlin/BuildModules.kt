@@ -19,6 +19,10 @@ class BuildModules {
             ":ui-document",
             "${BuildAndroidConfig.LIBRARY_PACKAGE_NAME}:ui-document"
         ),
+        UI_SHARED_FEATURE(
+            ":ui-shared-feature",
+            "${BuildAndroidConfig.LIBRARY_PACKAGE_NAME}:ui-shared-feature"
+        )
     }
 }
 

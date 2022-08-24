@@ -1,7 +1,4 @@
-package ir.part.sdk.ara.ui.user.util.validation
-
-import ir.part.sdk.ara.common.ui.view.utils.validation.Validation
-import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationResult
+package ir.part.sdk.ara.common.ui.view.utils.validation
 
 enum class ValidationField {
     NATIONAL_CODE,

@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.user.screens.captcha
+package ir.part.sdk.ara.ui.shared.feature.screens.captcha
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -22,15 +22,15 @@ import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import ir.part.app.merat.ui.user.R
+import ir.part.app.merat.ui.shared.feature.R
+import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
+import ir.part.sdk.ara.common.ui.view.theme.ErrorText
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
-import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
-import ir.part.sdk.ara.common.ui.view.theme.ErrorText
-import ir.part.sdk.ara.common.ui.view.api.PublicState
-import ir.part.sdk.ara.ui.user.util.validation.ValidationField
-import ir.part.sdk.ara.ui.user.util.validation.validateWidget
+import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
+import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
 
 @Composable
 fun Captcha(
