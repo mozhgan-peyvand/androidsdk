@@ -1,14 +1,16 @@
 package ir.part.sdk.ara.ui.menu.di
 
 import dagger.Component
-import ir.part.sdk.ara.base.di.*
-import ir.part.sdk.ara.common.ui.view.AraViewModelFactory
+import ir.part.sdk.ara.base.di.BaseComponent
+import ir.part.sdk.ara.base.di.BasicComponent
+import ir.part.sdk.ara.base.di.ComponentProviderActivity
+import ir.part.sdk.ara.base.di.ComponentsKey
 import ir.part.sdk.ara.data.barjavand.di.BarjavandComponent
 import ir.part.sdk.ara.domain.menu.di.DomainMenuComponent
 import ir.part.sdk.ara.ui.menu.screens.comment.SubmitCommentViewModel
 
 
-@FeatureScope
+@SubmitCommentScreenScope
 @Component(
     dependencies = [
         BaseComponent::class,
@@ -16,7 +18,7 @@ import ir.part.sdk.ara.ui.menu.screens.comment.SubmitCommentViewModel
         BarjavandComponent::class
     ]
 )
-interface MenuComponent : BasicComponent {
+interface SubmitCommentScreenComponent : BasicComponent {
 
     @Component.Factory
     interface Factory {
@@ -24,22 +26,21 @@ interface MenuComponent : BasicComponent {
             baseComponent: BaseComponent,
             domainMenuComponent: DomainMenuComponent,
             barjavandComponent: BarjavandComponent,
-        ): MenuComponent
+        ): SubmitCommentScreenComponent
     }
 
-    fun getSubmitCommentViewModelProvider(): AraViewModelFactory<SubmitCommentViewModel>
+    fun getViewModel(): SubmitCommentViewModel
 
     companion object {
-        fun builder(componentProvider: ComponentProviderActivity): MenuComponent {
+        fun builder(componentProvider: ComponentProviderActivity): SubmitCommentScreenComponent {
             return (componentProvider.provideComponent(
                 ComponentsKey.UI_MENU,
-                DaggerMenuComponent.factory().create(
+                DaggerSubmitCommentScreenComponent.factory().create(
                     baseComponent = BaseComponent.builder(componentProvider),
                     domainMenuComponent = DomainMenuComponent.builder(componentProvider),
                     barjavandComponent = BarjavandComponent.builder(componentProvider)
-
                 )
-            )) as MenuComponent
+            )) as SubmitCommentScreenComponent
         }
     }
 }
