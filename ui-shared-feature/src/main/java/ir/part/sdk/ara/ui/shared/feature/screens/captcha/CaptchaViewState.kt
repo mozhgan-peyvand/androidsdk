@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.user.screens.captcha
+package ir.part.sdk.ara.ui.shared.feature.screens.captcha
 
 import android.graphics.Bitmap
 

@@ -11,8 +11,9 @@ import ir.part.sdk.ara.data.userManager.di.DataUserManagerComponent
 import ir.part.sdk.ara.domain.menu.di.DomainMenuComponent
 import ir.part.sdk.ara.domain.tasks.di.DomainTaskComponent
 import ir.part.sdk.ara.domain.user.di.DomainUserManagerComponent
-import ir.part.sdk.ara.ui.menu.di.MenuComponent
 import ir.part.sdk.ara.ui.document.di.DocumentComponent
+import ir.part.sdk.ara.ui.menu.di.MenuComponent
+import ir.part.sdk.ara.ui.shared.feature.di.SharedFeatureComponent
 import ir.part.sdk.ara.ui.user.di.UserComponent
 
 @MainScope
@@ -29,7 +30,8 @@ import ir.part.sdk.ara.ui.user.di.UserComponent
         DomainTaskComponent::class,
         UserComponent::class,
         DomainMenuComponent::class,
-        MenuComponent::class
+        MenuComponent::class,
+        SharedFeatureComponent::class
     ],
 )
 interface BuilderComponent : BasicComponent {
@@ -48,7 +50,8 @@ interface BuilderComponent : BasicComponent {
             domainTaskComponent: DomainTaskComponent,
             userComponent: UserComponent,
             menuComponent: MenuComponent,
-            domainMenuComponent: DomainMenuComponent
+            domainMenuComponent: DomainMenuComponent,
+            sharedFeatureComponent: SharedFeatureComponent
         ): BuilderComponent
     }
 
@@ -72,7 +75,8 @@ interface BuilderComponent : BasicComponent {
                     domainTaskComponent = DomainTaskComponent.builder(componentProvider),
                     userComponent = UserComponent.builder(componentProvider),
                     menuComponent = MenuComponent.builder(componentProvider),
-                    domainMenuComponent = DomainMenuComponent.builder(componentProvider)
+                    domainMenuComponent = DomainMenuComponent.builder(componentProvider),
+                    sharedFeatureComponent = SharedFeatureComponent.builder(componentProvider)
                 )
             )) as BuilderComponent
         }

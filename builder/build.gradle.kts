@@ -29,7 +29,7 @@ dependencies {
             BuildModules.Libraries.UI_USER,
             BuildModules.Libraries.UI_MENU,
             BuildModules.Libraries.UI_HOME,
-            BuildModules.Libraries.UI_DOCUMENT
+            BuildModules.Libraries.UI_SHARED_FEATURE
         )
     )
 

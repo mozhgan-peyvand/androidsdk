@@ -6,9 +6,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.navigation
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
-import ir.part.sdk.ara.ui.user.screens.captcha.CaptchaViewModel
-import ir.part.sdk.ara.ui.user.screens.changePassword.ChangePasswordScreen
+import ir.part.sdk.ara.ui.shared.feature.di.SharedFeatureComponent
+import ir.part.sdk.ara.ui.shared.feature.screens.captcha.CaptchaViewModel
 import ir.part.sdk.ara.ui.user.di.UserComponent
+import ir.part.sdk.ara.ui.user.screens.changePassword.ChangePasswordScreen
 import ir.part.sdk.ara.ui.user.screens.forgetPassword.ForgetPasswordScreen
 import ir.part.sdk.ara.ui.user.screens.forgetPasswordVerification.ForgetPasswordVerificationScreen
 import ir.part.sdk.ara.ui.user.screens.login.LoginScreen
@@ -32,7 +33,7 @@ fun NavGraphBuilder.addUserGraph(navController: NavHostController) {
             }
             if (showCaptcha) {
                 captchaViewModel =
-                    UserComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    SharedFeatureComponent.builder(LocalContext.current as ComponentProviderActivity)
                         .getCaptchaViewModel()
                 showCaptcha = false
             }
@@ -54,7 +55,7 @@ fun NavGraphBuilder.addUserGraph(navController: NavHostController) {
             }
             if (showCaptcha) {
                 captchaViewModel =
-                    UserComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    SharedFeatureComponent.builder(LocalContext.current as ComponentProviderActivity)
                         .getCaptchaViewModel()
                 showCaptcha = false
             }
@@ -79,7 +80,7 @@ fun NavGraphBuilder.addUserGraph(navController: NavHostController) {
             }
             if (showCaptcha) {
                 captchaViewModel =
-                    UserComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    SharedFeatureComponent.builder(LocalContext.current as ComponentProviderActivity)
                         .getCaptchaViewModel()
                 showCaptcha = false
 
