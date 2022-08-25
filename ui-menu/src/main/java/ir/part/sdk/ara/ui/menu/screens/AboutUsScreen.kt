@@ -9,11 +9,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import ir.part.sdk.ara.common.ui.view.common.HighlightedBulletWithTextBody2Secondary
+import ir.part.sdk.ara.common.ui.view.common.TextBody2Secondary
+import ir.part.sdk.ara.common.ui.view.common.TextHeadline6PrimaryBold
+import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker
-import ir.part.sdk.ara.ui.menu.screens.common.HighlightedBulletWithTextBody2Secondary
-import ir.part.sdk.ara.ui.menu.screens.common.MenuTopAppBarContent
-import ir.part.sdk.ara.ui.menu.screens.common.TextBody2Secondary
-import ir.part.sdk.ara.ui.menu.screens.common.TextHeadline6PrimaryBold
 import ir.part.sdk.merat.ui.menu.BuildConfig
 import ir.part.sdk.merat.ui.menu.R
 
@@ -24,7 +24,7 @@ fun AboutUsScreen(onNavigateUp: () -> Unit) {
         topBar = {
             TopAppBar(backgroundColor = MaterialTheme.colors.surface,
                 elevation = dimensionResource(id = R.dimen.spacing_half_base)) {
-                MenuTopAppBarContent(title = stringResource(id = R.string.label_about_us),
+                TopAppBarContent(title = stringResource(id = R.string.label_about_us),
                     onNavigateUp = {
                         onNavigateUp()
                     })
@@ -39,11 +39,13 @@ fun AboutUsScreen(onNavigateUp: () -> Unit) {
 }
 
 @Composable
-fun AboutUsContent() {
+private fun AboutUsContent() {
     val scrollState = rememberScrollState()
-    Column(modifier = Modifier
-        .verticalScroll(scrollState)
-        .padding(horizontal = dimensionResource(id = R.dimen.spacing_4x))) {
+    Column(
+        modifier = Modifier
+            .verticalScroll(scrollState)
+            .padding(horizontal = dimensionResource(id = R.dimen.spacing_4x))
+    ) {
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_6x)))
         TextHeadline6PrimaryBold(text = stringResource(id = R.string.label_introduce_merat_validation_system_body))
 

@@ -40,7 +40,11 @@ class DashboardRepositoryImpl @Inject constructor(
 
                 pref.edit().putString(
                     "taskId",
-                    AesEncryptor().encrypt(response.data?.item?.get(0)?.taskId ?: "", sk)
+                    (if (response.data?.item.isNullOrEmpty()) "" else response.data?.item?.get(0)?.taskId)?.let {
+                        AesEncryptor().encrypt(
+                            it, sk
+                        )
+                    }
                 ).apply()
                 return response
             }

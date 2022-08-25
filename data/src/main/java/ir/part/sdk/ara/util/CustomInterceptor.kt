@@ -44,16 +44,15 @@ class CustomInterceptor @Inject constructor(
             request.url().toString().contains(urls.userManager.captcha)
         ) {
             requestBuilder.addHeader("gateway-system", "araMerat")
-            requestBuilder.addHeader("system", "araMerat")
-
         }
+
+        //todo it will be fix in get task feature
 
         if (request.url().toString().contains(urls.userManager.changeAuthenticatePack)) {
             requestBuilder.addHeader("gateway-system", "araMerat")
-            requestBuilder.addHeader("userName", nationalCode)
+            requestBuilder.addHeader("process-instance-id", "")
             requestBuilder.addHeader("gateway-token", token)
-            requestBuilder.addHeader("system", "araMerat")
-            requestBuilder.addHeader("token", token)
+            requestBuilder.addHeader("task-instance-id", "")
         }
 
         if (request.url().toString().contains(urls.stateService.getBaseStateObject)
@@ -86,9 +85,6 @@ class CustomInterceptor @Inject constructor(
             request.url().toString().contains(urls.dashboard.getTask)
         ) {
             requestBuilder.addHeader("gateway-token", token)
-            requestBuilder.addHeader("user", "demoActor")
-            requestBuilder.addHeader("pass", "7MQZ!fT4f!RHL62")
-            requestBuilder.addHeader("org", "demo")
             requestBuilder.addHeader("gateway-system", "araMerat")
         }
 

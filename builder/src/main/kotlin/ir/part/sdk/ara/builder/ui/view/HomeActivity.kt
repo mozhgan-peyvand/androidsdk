@@ -26,6 +26,7 @@ import ir.part.sdk.ara.base.di.MainScope
 import ir.part.sdk.ara.builder.di.BuilderComponent
 import ir.part.sdk.ara.builder.ui.bottomnavigation.BottomBarScreen
 import ir.part.sdk.ara.builder.util.localizedContext
+import ir.part.sdk.ara.common.ui.view.ids.UiUserSharedIds
 import ir.part.sdk.ara.common.ui.view.theme.AraTheme
 import ir.part.sdk.ara.home.utils.navigation.HomeRouter
 import ir.part.sdk.ara.home.utils.navigation.addHomeGraph
@@ -57,7 +58,7 @@ class HomeActivity : ComponentProviderActivity() {
 
             // handle soft input mode
             when (navController.currentBackStackEntryAsState().value?.destination?.route) {
-                MenuRouter.SubmitCommentScreen.router -> {
+                MenuRouter.SubmitCommentScreen.router, UiUserSharedIds.UserChangePassword.screenRouter -> {
                     window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
                 }
                 else -> {

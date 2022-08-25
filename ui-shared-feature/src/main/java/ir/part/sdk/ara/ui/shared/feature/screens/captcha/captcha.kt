@@ -6,26 +6,24 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDirection
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import ir.part.app.merat.ui.shared.feature.R
 import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.primaryVariant
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.ErrorText
+import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextSecondary
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
@@ -43,7 +41,7 @@ fun Captcha(
     }
 
     Row {
-        Column(modifier = Modifier.weight(1f)) {
+        Column(modifier = Modifier.weight(2f)) {
             ShowCaptcha(captchaViewModel)
         }
         Button(
@@ -89,7 +87,14 @@ fun ShowCaptcha(captchaViewModel: CaptchaViewModel?) {
                 modifier = Modifier,
                 text = stringResource(id = R.string.label_security_code),
                 textAlign = TextAlign.End,
-                style = MaterialTheme.typography.subtitle1
+                style = MaterialTheme.typography.subtitle1TextSecondary()
+            )
+        },
+        leadingIcon = {
+            Icon(
+                painter = painterResource(R.drawable.merat_ic_access_key),
+                contentDescription = "",
+                tint = MaterialTheme.colors.primaryVariant()
             )
         },
         modifier = Modifier
@@ -100,7 +105,8 @@ fun ShowCaptcha(captchaViewModel: CaptchaViewModel?) {
                 end = dimensionResource(id = DimensionResource.spacing_2x)
             ),
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White
+            backgroundColor = Color.White,
+            unfocusedIndicatorColor = Color.LightGray
         ),
         textStyle = TextStyle(color = Color.Black, textDirection = TextDirection.Content),
         singleLine = true,
@@ -145,12 +151,4 @@ fun ProcessLoadingAndMessage(viewModel: CaptchaViewModel) {
         }
     }
 
-}
-
-@Preview(widthDp = 320, heightDp = 640)
-@Composable
-private fun CaptchaPreview() {
-    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-        Captcha()
-    }
 }

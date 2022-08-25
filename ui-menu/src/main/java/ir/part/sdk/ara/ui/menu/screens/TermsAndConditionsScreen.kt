@@ -13,13 +13,13 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import ir.part.sdk.ara.common.ui.view.common.TextBody2Secondary
+import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.divider
 import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker2
 import ir.part.sdk.ara.common.ui.view.theme.body2Highlight
 import ir.part.sdk.ara.common.ui.view.theme.body2TextSecondaryBold
 import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextPrimary
-import ir.part.sdk.ara.ui.menu.screens.common.MenuTopAppBarContent
-import ir.part.sdk.ara.ui.menu.screens.common.TextBody2Secondary
 import ir.part.sdk.merat.ui.menu.R
 
 @Composable
@@ -27,7 +27,7 @@ fun TermsAndConditionScreen(onNavigateUp: () -> Unit) {
     Column() {
         TopAppBar(backgroundColor = Color.White,
             elevation = dimensionResource(id = R.dimen.spacing_half_base)) {
-            MenuTopAppBarContent(title = stringResource(id = R.string.label_terms_and_conditions),
+            TopAppBarContent(title = stringResource(id = R.string.label_terms_and_conditions),
                 onNavigateUp = {
                     onNavigateUp()
                 })

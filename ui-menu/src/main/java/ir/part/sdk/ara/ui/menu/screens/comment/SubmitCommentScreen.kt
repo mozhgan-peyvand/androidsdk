@@ -1,16 +1,13 @@
 package ir.part.sdk.ara.ui.menu.screens.comment
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.dimensionResource
@@ -19,13 +16,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.common.SubmitActionContent
+import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.divider
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.*
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getSuccessDialog
-import ir.part.sdk.ara.ui.menu.screens.common.MenuTopAppBarContent
 import ir.part.sdk.merat.ui.menu.R
 
 @Composable
@@ -50,7 +48,7 @@ fun SubmitCommentScreen(onNavigateUp: () -> Unit, viewModel: SubmitCommentViewMo
         topBar = {
             TopAppBar(backgroundColor = MaterialTheme.colors.surface,
                 elevation = dimensionResource(id = R.dimen.spacing_half_base)) {
-                MenuTopAppBarContent(title = stringResource(id = R.string.label_submit_comments),
+                TopAppBarContent(title = stringResource(id = R.string.label_submit_comments),
                     onNavigateUp = {
                         onNavigateUp()
                     })
@@ -58,40 +56,13 @@ fun SubmitCommentScreen(onNavigateUp: () -> Unit, viewModel: SubmitCommentViewMo
         }, bottomBar = {
             SubmitActionContent(onSubmitClicked = {
                 viewModel.sendComment()
-            })
+            }, buttonText = R.string.label_send_comment)
         }) { innerPadding ->
         Box(Modifier.padding(innerPadding)) {
             CommentContent(viewModel = viewModel, showSuccessDialog = showSuccessDialog) {
                 viewModel.setSuccessDialogAsSeen()
                 onNavigateUp()
             }
-        }
-    }
-}
-
-@Composable
-private fun SubmitActionContent(onSubmitClicked: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .background(color = MaterialTheme.colors.background)
-            .padding(
-                start = dimensionResource(id = R.dimen.spacing_4x),
-                end = dimensionResource(id = R.dimen.spacing_4x),
-                top = dimensionResource(id = R.dimen.spacing_2x),
-                bottom = dimensionResource(id = R.dimen.spacing_6x),
-            )
-    ) {
-        Button(modifier = Modifier
-            .fillMaxWidth(),
-            contentPadding = PaddingValues(dimensionResource(id = R.dimen.spacing_base)),
-            onClick = onSubmitClicked,
-            shape = RoundedCornerShape(dimensionResource(id = R.dimen.spacing_2x)),
-
-            colors = ButtonDefaults.buttonColors(backgroundColor = ColorBlueDarker)) {
-            Text(text = stringResource(R.string.label_send_comment),
-                style = MaterialTheme.typography.buttonTextStyle(),
-                modifier = Modifier
-                    .background(Color.Transparent))
         }
     }
 }
