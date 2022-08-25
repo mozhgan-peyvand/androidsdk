@@ -94,27 +94,28 @@ class LoginViewModel @Inject constructor(
                     exceptionHelper,
                     uiMassageManager
                 ) {
-                    getTask()
+                    nextStep.value = "change-pass"
                 }
             }
         }
     }
+    //todo it will be fix in get task
 
-    private fun getTask() {
-        viewModelScope.launch {
-            if (loadingState.count.toInt() == 0) {
-                clearAllMessage()
-                getTaskRemote.invoke(Unit).collectAndChangeLoadingAndMessageStatus(
-                    viewModelScope,
-                    loadingState,
-                    exceptionHelper,
-                    uiMassageManager
-                ) {
-                    nextStep.value = it?.get(0)?.name.toString()
-                }
-            }
-        }
-    }
+//    private fun getTask() {
+//        viewModelScope.launch {
+//            if (loadingState.count.toInt() == 0) {
+//                clearAllMessage()
+//                getTaskRemote.invoke(Unit).collectAndChangeLoadingAndMessageStatus(
+//                    viewModelScope,
+//                    loadingState,
+//                    exceptionHelper,
+//                    uiMassageManager
+//                ) {
+//                    nextStep.value = "change-pass"
+//                }
+//            }
+//        }
+//    }
 
     fun setErrorNationalCode(errorList: Pair<ValidationField, List<ValidationResult>>) {
         errorValueNationalCode.value = errorList
@@ -132,7 +133,10 @@ class LoginViewModel @Inject constructor(
             ValidationField.NATIONAL_CODE,
             userName.value
         ).second.isNullOrEmpty() &&
-                validateWidget(ValidationField.LOGIN_PASSWORD, password.value).second.isNullOrEmpty()
+                validateWidget(
+                    ValidationField.LOGIN_PASSWORD,
+                    password.value
+                ).second.isNullOrEmpty()
     }
 
     private fun clearAllMessage() {

@@ -5,32 +5,31 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
 import ir.part.app.merat.ui.user.R
 import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.primaryVariant
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
-import ir.part.sdk.ara.common.ui.view.theme.ButtonBlue
+import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker
 import ir.part.sdk.ara.common.ui.view.theme.ErrorText
+import ir.part.sdk.ara.common.ui.view.theme.buttonTextStyle
+import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextSecondary
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
@@ -71,8 +70,7 @@ fun RegisterScreen(
             captchaViewModel = captchaViewModel
         )
 
-        ButtonBlue(
-            modifier = Modifier,
+        Button(
             onClick = {
                 captchaViewModel?.setError(
                     validateWidget(
@@ -91,13 +89,29 @@ fun RegisterScreen(
                 }
 
             },
-            text = stringResource(id = R.string.label_register)
-        )
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = ColorBlueDarker,
+                contentColor = Color.White
+            ),
+            modifier = Modifier
+                .padding(
+                    start = dimensionResource(id = R.dimen.spacing_4x),
+                    end = dimensionResource(id = R.dimen.spacing_4x),
+                    bottom = dimensionResource(id = R.dimen.spacing_base)
+                )
+                .clip(RoundedCornerShape(10.dp))
+                .fillMaxWidth()
+        ) {
+            Text(
+                text = stringResource(id = R.string.label_register),
+                style = MaterialTheme.typography.buttonTextStyle()
+            )
+        }
     }
 }
 
 @Composable
-fun ShowNationalCode(registerViewModel: RegisterViewModel) {
+private fun ShowNationalCode(registerViewModel: RegisterViewModel) {
     val maxChar = 10
     TextField(
         value = registerViewModel.userName.value,
@@ -116,7 +130,14 @@ fun ShowNationalCode(registerViewModel: RegisterViewModel) {
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(id = R.string.label_national_code),
                 textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle1
+                style = MaterialTheme.typography.subtitle1TextSecondary()
+            )
+        },
+        leadingIcon = {
+            Icon(
+                painter = painterResource(R.drawable.merat_ic_single),
+                contentDescription = "",
+                tint = MaterialTheme.colors.primaryVariant()
             )
         },
         modifier = Modifier
@@ -128,7 +149,8 @@ fun ShowNationalCode(registerViewModel: RegisterViewModel) {
                 end = dimensionResource(id = DimensionResource.spacing_2x)
             ),
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White
+            backgroundColor = Color.White,
+            unfocusedIndicatorColor = Color.LightGray
         ),
         textStyle = MaterialTheme.typography.subtitle1,
         singleLine = true,
@@ -148,7 +170,7 @@ fun ShowNationalCode(registerViewModel: RegisterViewModel) {
 }
 
 @Composable
-fun ShowEmail(registerViewModel: RegisterViewModel) {
+private fun ShowEmail(registerViewModel: RegisterViewModel) {
     TextField(
         value = registerViewModel.email.value,
         onValueChange = { inputValue ->
@@ -160,7 +182,14 @@ fun ShowEmail(registerViewModel: RegisterViewModel) {
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(id = R.string.label_email),
                 textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle1
+                style = MaterialTheme.typography.subtitle1TextSecondary()
+            )
+        },
+        leadingIcon = {
+            Icon(
+                painter = painterResource(R.drawable.merat_ic_mail),
+                contentDescription = "",
+                tint = MaterialTheme.colors.primaryVariant()
             )
         },
         modifier = Modifier
@@ -172,7 +201,8 @@ fun ShowEmail(registerViewModel: RegisterViewModel) {
                 end = dimensionResource(id = DimensionResource.spacing_2x)
             ),
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White
+            backgroundColor = Color.White,
+            unfocusedIndicatorColor = Color.LightGray
         ),
         textStyle = MaterialTheme.typography.subtitle1,
         singleLine = true,
@@ -192,7 +222,7 @@ fun ShowEmail(registerViewModel: RegisterViewModel) {
 }
 
 @Composable
-fun ShowPhone(registerViewModel: RegisterViewModel) {
+private fun ShowPhone(registerViewModel: RegisterViewModel) {
     val maxChar = 11
     TextField(
         value = registerViewModel.phone.value,
@@ -210,7 +240,14 @@ fun ShowPhone(registerViewModel: RegisterViewModel) {
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(id = R.string.label_phone),
                 textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle1
+                style = MaterialTheme.typography.subtitle1TextSecondary()
+            )
+        },
+        leadingIcon = {
+            Icon(
+                painter = painterResource(R.drawable.merat_ic_phone_button),
+                contentDescription = "",
+                tint = MaterialTheme.colors.primaryVariant()
             )
         },
         modifier = Modifier
@@ -222,7 +259,8 @@ fun ShowPhone(registerViewModel: RegisterViewModel) {
                 end = dimensionResource(id = DimensionResource.spacing_2x)
             ),
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White
+            backgroundColor = Color.White,
+            unfocusedIndicatorColor = Color.LightGray
         ),
         textStyle = MaterialTheme.typography.subtitle1,
         singleLine = true,
@@ -242,7 +280,7 @@ fun ShowPhone(registerViewModel: RegisterViewModel) {
 }
 
 @Composable
-fun ObserveLoadingState(
+private fun ObserveLoadingState(
     registerViewModel: RegisterViewModel
 ) {
     registerViewModel.loadingErrorState.value =
@@ -266,13 +304,5 @@ private fun ProcessLoadingAndErrorState(
         registerViewModel.loadingErrorState.value?.message?.let { messageModel ->
             dialog.setDialogDetailMessage(messageModel.message).show()
         }
-    }
-}
-
-@Preview(widthDp = 320, heightDp = 640)
-@Composable
-private fun RegisterPreview() {
-    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-        RegisterScreen()
     }
 }

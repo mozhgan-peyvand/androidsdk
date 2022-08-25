@@ -21,12 +21,12 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import ir.part.sdk.ara.common.ui.view.common.HighlightedBulletWithTextBody2Secondary
+import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.divider
 import ir.part.sdk.ara.common.ui.view.theme.body2TextPrimaryBold
 import ir.part.sdk.ara.common.ui.view.theme.body2TextSecondaryBold
 import ir.part.sdk.ara.common.ui.view.theme.h5Highlight
-import ir.part.sdk.ara.ui.menu.screens.common.HighlightedBulletWithTextBody2Secondary
-import ir.part.sdk.ara.ui.menu.screens.common.MenuTopAppBarContent
 import ir.part.sdk.merat.ui.menu.R
 
 @Composable
@@ -36,7 +36,7 @@ fun GuideScreen(onNavigateUp: () -> Unit) {
             backgroundColor = Color.White,
             elevation = dimensionResource(id = R.dimen.spacing_half_base)
         ) {
-            MenuTopAppBarContent(title = stringResource(id = R.string.label_guide),
+            TopAppBarContent(title = stringResource(id = R.string.label_guide),
                 onNavigateUp = {
                     onNavigateUp()
                 })

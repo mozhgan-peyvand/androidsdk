@@ -49,14 +49,16 @@ class ForgetPasswordViewModel @Inject constructor(
     )
 
 
-    fun setRecoverPassword(nationalCode: String) {
+    fun setRecoverPassword(nationalCode: String, captchaValue: String?, captchaToken: String?) {
         viewModelScope.launch {
             if (loadingState.count.toInt() == 0) {
                 clearAllMessage()
                 getForgetPasswordRemote.invoke(
                     GetForgetPasswordRemote.Param(
                         ForgetPasswordParam(
-                            nationalCode
+                            nationalCode,
+                            captchaValue,
+                            captchaToken
                         )
                     )
                 ).collectAndChangeLoadingAndMessageStatus(

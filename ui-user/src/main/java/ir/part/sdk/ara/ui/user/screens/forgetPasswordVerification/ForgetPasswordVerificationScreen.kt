@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -18,6 +20,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,8 +29,10 @@ import androidx.compose.ui.unit.dp
 import ir.part.app.merat.ui.user.R
 import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
-import ir.part.sdk.ara.common.ui.view.theme.ButtonBlue
+import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker
 import ir.part.sdk.ara.common.ui.view.theme.ErrorText
+import ir.part.sdk.ara.common.ui.view.theme.buttonTextStyle
+import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextSecondary
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
@@ -58,11 +63,13 @@ fun ForgetPasswordVerificationScreen(
             contentDescription = ""
         )
         Text(
-            modifier = Modifier.padding(dimensionResource(id = DimensionResource.spacing_2x)),
-            text = stringResource(id = R.string.label_recover_code)
+            modifier = Modifier.padding(dimensionResource(id = DimensionResource.spacing_4x)),
+            text = stringResource(id = R.string.label_recover_code),
+            style = MaterialTheme.typography.h5,
+            fontWeight = FontWeight.Bold
         )
         Text(
-            modifier = Modifier.padding(dimensionResource(id = DimensionResource.spacing_2x)),
+            modifier = Modifier.padding(dimensionResource(id = DimensionResource.spacing_4x)),
             text = stringResource(id = R.string.msg_recover_code_description)
         )
         forgetPasswordVerificationViewModel?.let {
@@ -71,8 +78,8 @@ fun ForgetPasswordVerificationScreen(
             ShowSendCode(forgetPasswordVerificationViewModel = it)
         }
         StartTimer(navigateUp = navigateUp)
-        ButtonBlue(
-            modifier = Modifier.fillMaxWidth(),
+
+        Button(
             onClick = {
                 if (validateWidget(
                         ValidationField.ACTIVITY_CODE,
@@ -92,8 +99,24 @@ fun ForgetPasswordVerificationScreen(
                     )
                 }
             },
-            text = stringResource(id = R.string.label_send_code)
-        )
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = ColorBlueDarker,
+                contentColor = Color.White
+            ),
+            modifier = Modifier
+                .padding(
+                    start = dimensionResource(id = R.dimen.spacing_4x),
+                    end = dimensionResource(id = R.dimen.spacing_4x),
+                    bottom = dimensionResource(id = R.dimen.spacing_base)
+                )
+                .clip(RoundedCornerShape(10.dp))
+                .fillMaxWidth()
+        ) {
+            Text(
+                text = stringResource(id = R.string.label_send_code),
+                style = MaterialTheme.typography.buttonTextStyle()
+            )
+        }
     }
 }
 
@@ -118,7 +141,8 @@ private fun StartTimer(
         if (time != "00:00") {
             Text(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(dimensionResource(id = DimensionResource.spacing_4x)),
                 text = time,
                 style = MaterialTheme.typography.subtitle2.copy(
                     textAlign = TextAlign.Center,
@@ -150,7 +174,7 @@ private fun StartTimer(
 }
 
 @Composable
-fun ShowSendCode(forgetPasswordVerificationViewModel: ForgetPasswordVerificationViewModel) {
+private fun ShowSendCode(forgetPasswordVerificationViewModel: ForgetPasswordVerificationViewModel) {
     TextField(
         value = forgetPasswordVerificationViewModel.codeValue.value,
         onValueChange = { inputValue ->
@@ -166,8 +190,8 @@ fun ShowSendCode(forgetPasswordVerificationViewModel: ForgetPasswordVerification
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(id = R.string.label_activation_code),
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle1
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.subtitle1TextSecondary()
             )
         },
         modifier = Modifier
@@ -179,7 +203,8 @@ fun ShowSendCode(forgetPasswordVerificationViewModel: ForgetPasswordVerification
                 end = dimensionResource(id = DimensionResource.spacing_2x)
             ),
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White
+            backgroundColor = Color.White,
+            unfocusedIndicatorColor = Color.LightGray
         ),
         textStyle = MaterialTheme.typography.subtitle1,
         singleLine = true,
@@ -200,7 +225,7 @@ fun ShowSendCode(forgetPasswordVerificationViewModel: ForgetPasswordVerification
 }
 
 @Composable
-fun ObserveLoadingState(
+private fun ObserveLoadingState(
     forgetPasswordVerificationViewModel: ForgetPasswordVerificationViewModel
 ) {
     forgetPasswordVerificationViewModel.loadingErrorState.value =
@@ -229,7 +254,7 @@ private fun ProcessLoadingAndErrorState(forgetPasswordVerificationViewModel: For
 
 @Preview(widthDp = 320, heightDp = 640)
 @Composable
-fun ForgetPasswordVerificationPre() {
+private fun ForgetPasswordVerificationPre() {
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
         ForgetPasswordVerificationScreen()
     }

@@ -1,9 +1,7 @@
 package ir.part.sdk.ara.ui.user.screens.changePassword
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -15,20 +13,22 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.LayoutDirection
 import ir.part.app.merat.ui.user.R
 import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.common.SubmitActionContent
+import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
+import ir.part.sdk.ara.common.ui.view.primaryVariant
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
-import ir.part.sdk.ara.common.ui.view.theme.ButtonBlue
 import ir.part.sdk.ara.common.ui.view.theme.ErrorText
+import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextSecondary
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
@@ -40,12 +40,44 @@ import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
 fun ChangePasswordScreen(
     changePasswordViewModel: ChangePasswordViewModel? = null
 ) {
-    Column {
 
+    Scaffold(modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                backgroundColor = MaterialTheme.colors.surface,
+                elevation = dimensionResource(id = R.dimen.spacing_half_base)
+            ) {
+                TopAppBarContent(title = stringResource(id = R.string.label_change_password),
+                    onNavigateUp = {
+
+                    })
+            }
+        }, bottomBar = {
+            SubmitActionContent(
+                onSubmitClicked = {
+                    if (changePasswordViewModel?.isValidationField() == true) {
+                        changePasswordViewModel.getChangePasswordRemote()
+                    }
+                },
+                buttonText = R.string.label_change_password
+            )
+        }) { innerPadding ->
+        Box(Modifier.padding(innerPadding)) {
+            ShowPasswordContent(changePasswordViewModel)
+        }
+
+    }
+}
+
+@Composable
+private fun ShowPasswordContent(changePasswordViewModel: ChangePasswordViewModel? = null) {
+    Column {
         Text(
             modifier = Modifier
                 .padding(dimensionResource(id = DimensionResource.spacing_4x)),
-            text = stringResource(id = R.string.msg_enter_password)
+            text = stringResource(id = R.string.label_change_password),
+            style = MaterialTheme.typography.h5,
+            fontWeight = FontWeight.Bold
         )
 
         changePasswordViewModel?.let {
@@ -55,22 +87,11 @@ fun ChangePasswordScreen(
             ShowNewPassword(changePasswordViewModel = it)
             ShowReNewPassword(changePasswordViewModel = it)
         }
-
-        ButtonBlue(
-            modifier = Modifier
-                .fillMaxWidth(),
-            onClick = {
-                if (changePasswordViewModel?.isValidationField() == true) {
-                    changePasswordViewModel.getChangePasswordRemote()
-                }
-            },
-            text = stringResource(id = R.string.label_change_password)
-        )
     }
 }
 
 @Composable
-fun ShowCurrentPassword(changePasswordViewModel: ChangePasswordViewModel) {
+private fun ShowCurrentPassword(changePasswordViewModel: ChangePasswordViewModel) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     TextField(
         value = changePasswordViewModel.currentPassword.value,
@@ -92,11 +113,18 @@ fun ShowCurrentPassword(changePasswordViewModel: ChangePasswordViewModel) {
                 )
             }
         },
+        leadingIcon = {
+            Icon(
+                painter = painterResource(R.drawable.ic_lock),
+                contentDescription = "",
+                tint = MaterialTheme.colors.primaryVariant()
+            )
+        },
         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIcon = {
             val image = if (passwordVisible)
-                Icons.Filled.Visibility
-            else Icons.Filled.VisibilityOff
+                Icons.Filled.VisibilityOff
+            else Icons.Filled.Visibility
 
             // Please provide localized description for accessibility services
             IconButton(onClick = { passwordVisible = !passwordVisible }) {
@@ -108,17 +136,18 @@ fun ShowCurrentPassword(changePasswordViewModel: ChangePasswordViewModel) {
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(id = R.string.label_password),
                 textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle1
+                style = MaterialTheme.typography.subtitle1TextSecondary()
             )
         },
         modifier = Modifier
             .fillMaxWidth()
             .clickable { }
             .padding(
-                dimensionResource(id = DimensionResource.spacing_2x)
+                dimensionResource(id = DimensionResource.spacing_4x)
             ),
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White
+            backgroundColor = Color.White,
+            unfocusedIndicatorColor = Color.LightGray
         ),
         textStyle = MaterialTheme.typography.subtitle1,
         singleLine = true,
@@ -137,7 +166,7 @@ fun ShowCurrentPassword(changePasswordViewModel: ChangePasswordViewModel) {
 }
 
 @Composable
-fun ShowNewPassword(changePasswordViewModel: ChangePasswordViewModel) {
+private fun ShowNewPassword(changePasswordViewModel: ChangePasswordViewModel) {
 
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     TextField(
@@ -163,32 +192,38 @@ fun ShowNewPassword(changePasswordViewModel: ChangePasswordViewModel) {
         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIcon = {
             val image = if (passwordVisible)
-                Icons.Filled.Visibility
-            else Icons.Filled.VisibilityOff
+                Icons.Filled.VisibilityOff
+            else Icons.Filled.Visibility
 
             // Please provide localized description for accessibility services
             IconButton(onClick = { passwordVisible = !passwordVisible }) {
                 Icon(imageVector = image, "")
             }
         },
+        leadingIcon = {
+            Icon(
+                painter = painterResource(R.drawable.ic_lock),
+                contentDescription = "",
+                tint = MaterialTheme.colors.primaryVariant()
+            )
+        },
         placeholder = {
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(id = R.string.label_new_password),
                 textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle1
+                style = MaterialTheme.typography.subtitle1TextSecondary()
             )
         },
         modifier = Modifier
             .fillMaxWidth()
             .clickable { }
             .padding(
-                bottom = dimensionResource(id = DimensionResource.spacing_2x),
-                start = dimensionResource(id = DimensionResource.spacing_2x),
-                end = dimensionResource(id = DimensionResource.spacing_2x)
+                dimensionResource(id = DimensionResource.spacing_4x)
             ),
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White
+            backgroundColor = Color.White,
+            unfocusedIndicatorColor = Color.LightGray
         ),
         textStyle = MaterialTheme.typography.subtitle1,
         singleLine = true,
@@ -208,7 +243,7 @@ fun ShowNewPassword(changePasswordViewModel: ChangePasswordViewModel) {
 }
 
 @Composable
-fun ShowReNewPassword(changePasswordViewModel: ChangePasswordViewModel) {
+private fun ShowReNewPassword(changePasswordViewModel: ChangePasswordViewModel) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
     TextField(
@@ -228,14 +263,21 @@ fun ShowReNewPassword(changePasswordViewModel: ChangePasswordViewModel) {
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(id = R.string.label_re_new_password),
                 textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle1
+                style = MaterialTheme.typography.subtitle1TextSecondary()
+            )
+        },
+        leadingIcon = {
+            Icon(
+                painter = painterResource(R.drawable.ic_lock),
+                contentDescription = "",
+                tint = MaterialTheme.colors.primaryVariant()
             )
         },
         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIcon = {
             val image = if (passwordVisible)
-                Icons.Filled.Visibility
-            else Icons.Filled.VisibilityOff
+                Icons.Filled.VisibilityOff
+            else Icons.Filled.Visibility
 
             // Please provide localized description for accessibility services
             IconButton(onClick = { passwordVisible = !passwordVisible }) {
@@ -246,12 +288,11 @@ fun ShowReNewPassword(changePasswordViewModel: ChangePasswordViewModel) {
             .fillMaxWidth()
             .clickable { }
             .padding(
-                bottom = dimensionResource(id = DimensionResource.spacing_2x),
-                start = dimensionResource(id = DimensionResource.spacing_2x),
-                end = dimensionResource(id = DimensionResource.spacing_2x)
+                dimensionResource(id = DimensionResource.spacing_4x)
             ),
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White
+            backgroundColor = Color.White,
+            unfocusedIndicatorColor = Color.LightGray
         ),
         textStyle = MaterialTheme.typography.subtitle1,
         singleLine = true,
@@ -270,7 +311,7 @@ fun ShowReNewPassword(changePasswordViewModel: ChangePasswordViewModel) {
 }
 
 @Composable
-fun ObserveLoadingState(changePasswordViewModel: ChangePasswordViewModel) {
+private fun ObserveLoadingState(changePasswordViewModel: ChangePasswordViewModel) {
     changePasswordViewModel.loadingErrorState.value =
         rememberFlowWithLifecycle(flow = changePasswordViewModel.loadingAndMessageState).collectAsState(
             initial = PublicState.Empty
@@ -278,7 +319,7 @@ fun ObserveLoadingState(changePasswordViewModel: ChangePasswordViewModel) {
 }
 
 @Composable
-fun ProcessLoadingAndErrorState(changePasswordViewModel: ChangePasswordViewModel) {
+private fun ProcessLoadingAndErrorState(changePasswordViewModel: ChangePasswordViewModel) {
     val dialog = getInfoDialog(stringResource(id = R.string.label_warning_title_dialog), "")
     val loadingDialog = getLoadingDialog()
     if (changePasswordViewModel.loadingErrorState.value?.refreshing == true) {
@@ -288,13 +329,5 @@ fun ProcessLoadingAndErrorState(changePasswordViewModel: ChangePasswordViewModel
         changePasswordViewModel.loadingErrorState.value?.message?.let { messageModel ->
             dialog.setDialogDetailMessage(messageModel.message).show()
         }
-    }
-}
-
-@Preview(widthDp = 320, heightDp = 640)
-@Composable
-fun ChangePasswordPre() {
-    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-        ChangePasswordScreen()
     }
 }
