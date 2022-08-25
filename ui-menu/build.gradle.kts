@@ -10,6 +10,7 @@ dependencies {
             BuildModules.Libraries.DOMAIN,
             BuildModules.Libraries.COMMON_UI_VIEW,
             BuildModules.Libraries.DATA,
+            BuildModules.Libraries.UI_SHARED_FEATURE
         )
     )
 

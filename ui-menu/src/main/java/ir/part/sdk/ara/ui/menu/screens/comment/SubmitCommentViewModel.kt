@@ -10,7 +10,6 @@ import ir.part.sdk.ara.common.ui.view.api.UiMessageManager
 import ir.part.sdk.ara.common.ui.view.api.collectAndChangeLoadingAndMessageStatus
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationResult
 import ir.part.sdk.ara.domain.menu.entities.BodyComment
-import ir.part.sdk.ara.domain.menu.entities.Captcha
 import ir.part.sdk.ara.domain.menu.entities.DataComment
 import ir.part.sdk.ara.domain.menu.interactors.SubmitCommentRemote
 import ir.part.sdk.ara.ui.menu.util.validation.ValidationField
@@ -52,9 +51,6 @@ class SubmitCommentViewModel @Inject constructor(
     val email = mutableStateOf("")
     val phone = mutableStateOf("")
     val commentText = mutableStateOf("")
-    val captchaValue = mutableStateOf("")
-    var captchaToken = ""
-
 
     var errorName =
         mutableStateOf(Pair(ValidationField.PERSIAN_REQUIRED, listOf<ValidationResult>()))
@@ -132,16 +128,17 @@ class SubmitCommentViewModel @Inject constructor(
                 && errorCommentText.value.second.isEmpty()
     }
 
-    fun sendComment() {
+    fun sendComment(isCaptchaValid: Boolean, captchaToken: String, captchaValue: String) {
         if (isAllFieldValid()) {
 
-            if (loadingState.count.toInt() == 0) {
+
+            if (loadingState.count.toInt() == 0 && isCaptchaValid) {
                 clearAllMessage()
 
                 // send
                 submitCommentRemote(SubmitCommentRemote.Param(BodyComment(
-                    captcha = Captcha(token = "",
-                        value = captchaValue.value),
+                    captchaValue = captchaValue,
+                    captchaToken = captchaToken,
                     data = DataComment(
                         description = commentText.value,
                         email = email.value,
@@ -167,8 +164,6 @@ class SubmitCommentViewModel @Inject constructor(
         email.value = ""
         phone.value = ""
         commentText.value = ""
-        captchaValue.value = ""
-        captchaToken = ""
     }
 
     private fun clearAllMessage() {

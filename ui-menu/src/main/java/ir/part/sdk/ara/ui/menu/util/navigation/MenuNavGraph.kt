@@ -13,6 +13,8 @@ import ir.part.sdk.ara.ui.menu.screens.comment.SubmitCommentScreen
 import ir.part.sdk.ara.ui.menu.screens.comment.SubmitCommentViewModel
 import ir.part.sdk.ara.ui.menu.screens.rahyar.RahyarScreen
 import ir.part.sdk.ara.ui.menu.screens.rahyar.RahyarViewModel
+import ir.part.sdk.ara.ui.shared.feature.di.SharedFeatureComponent
+import ir.part.sdk.ara.ui.shared.feature.screens.captcha.CaptchaViewModel
 
 fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
     navigation(
@@ -72,6 +74,11 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
         }
 
         submitScreenScreen {
+            val captchaViewModel: CaptchaViewModel = daggerViewModel {
+                SharedFeatureComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .getCaptchaViewModel()
+            }
+
             val commentViewModel: SubmitCommentViewModel = daggerViewModel {
                 SubmitCommentScreenComponent.builder(LocalContext.current as ComponentProviderActivity)
                     .getViewModel()
@@ -79,7 +86,7 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
 
             SubmitCommentScreen(onNavigateUp = {
                 navController.navigateUp()
-            }, viewModel = commentViewModel)
+            }, submitCommentViewModel = commentViewModel, captchaViewModel = captchaViewModel)
         }
 
         rahyarScreen {

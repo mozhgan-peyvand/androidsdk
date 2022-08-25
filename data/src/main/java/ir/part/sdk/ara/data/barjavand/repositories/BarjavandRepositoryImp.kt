@@ -133,11 +133,9 @@ class BarjavandRepositoryImp @Inject constructor(
     override suspend fun submitComment(bodyComment: BodyComment): InvokeStatus<Boolean> =
         requestExecutor.execute(object : InvokeStatus.ApiEventListener<Unit, Boolean> {
             override suspend fun onRequestCall(): InvokeStatus<Unit> =
-                remoteDataSource.submitComment(
-                    bodyComment.toBodyCommentEntity(),
-                    bodyComment.captcha.token,
-                    bodyComment.captcha.value
-                )
+                remoteDataSource.submitComment(bodyComment.toBodyCommentEntity(),
+                    bodyComment.captchaToken,
+                    bodyComment.captchaValue)
 
             override fun onConvertResult(data: Unit): Boolean {
                 return true

@@ -24,24 +24,31 @@ import ir.part.sdk.ara.common.ui.view.theme.*
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getSuccessDialog
+import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
+import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
+import ir.part.sdk.ara.ui.shared.feature.screens.captcha.Captcha
+import ir.part.sdk.ara.ui.shared.feature.screens.captcha.CaptchaViewModel
 import ir.part.sdk.merat.ui.menu.R
 
 @Composable
-fun SubmitCommentScreen(onNavigateUp: () -> Unit, viewModel: SubmitCommentViewModel) {
+fun SubmitCommentScreen(
+    onNavigateUp: () -> Unit, submitCommentViewModel: SubmitCommentViewModel,
+    captchaViewModel: CaptchaViewModel,
+) {
 
     var showSuccessDialog by remember {
         mutableStateOf(false)
     }
-    showSuccessDialog = viewModel.showSuccessDialog.value
+    showSuccessDialog = submitCommentViewModel.showSuccessDialog.value
 
     val loadingErrorState =
-        rememberFlowWithLifecycle(flow = viewModel.loadingAndMessageState).collectAsState(
+        rememberFlowWithLifecycle(flow = submitCommentViewModel.loadingAndMessageState).collectAsState(
             initial = PublicState.Empty
         )
     ProcessLoadingAndErrorState(
         loadingErrorState.value,
         onErrorDialogDismissed = {
-            viewModel.loadingAndMessageState.value.message = null
+            submitCommentViewModel.loadingAndMessageState.value.message = null
         })
 
     Scaffold(modifier = Modifier.fillMaxSize(),
@@ -54,15 +61,34 @@ fun SubmitCommentScreen(onNavigateUp: () -> Unit, viewModel: SubmitCommentViewMo
                     })
             }
         }, bottomBar = {
-            SubmitActionContent(onSubmitClicked = {
-                viewModel.sendComment()
-            }, buttonText = R.string.label_send_comment)
+            SubmitActionContent(
+                onSubmitClicked = {
+
+                    captchaViewModel.setError(
+                        validateWidget(
+                            ValidationField.CAPTCHA,
+                            captchaViewModel.captchaValue.value
+                        )
+                    )
+
+                    submitCommentViewModel.sendComment(
+                        isCaptchaValid = captchaViewModel.errorValue.value.second.isEmpty(),
+                        captchaToken = captchaViewModel.captchaViewState.value?.token ?: "",
+                        captchaValue = captchaViewModel.captchaValue.value
+                    )
+
+                },
+                buttonText = R.string.label_send_comment)
+
         }) { innerPadding ->
         Box(Modifier.padding(innerPadding)) {
-            CommentContent(viewModel = viewModel, showSuccessDialog = showSuccessDialog) {
-                viewModel.setSuccessDialogAsSeen()
-                onNavigateUp()
-            }
+            CommentContent(viewModel = submitCommentViewModel,
+                showSuccessDialog = showSuccessDialog,
+                captchaViewModel = captchaViewModel,
+                onSuccessDialogConfirmed = {
+                    submitCommentViewModel.setSuccessDialogAsSeen()
+                    onNavigateUp()
+                })
         }
     }
 }
@@ -72,6 +98,7 @@ private fun CommentContent(
     viewModel: SubmitCommentViewModel,
     showSuccessDialog: Boolean,
     onSuccessDialogConfirmed: () -> Unit,
+    captchaViewModel: CaptchaViewModel,
 ) {
     if (showSuccessDialog) {
         getSuccessDialog(
@@ -154,9 +181,11 @@ private fun CommentContent(
             isLastField = true)
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_6x)))
 
-        CaptchaContent(onCaptchaValueChanged = {
-            //todo
-        })
+        Text(text = stringResource(id = R.string.label_enter_captcha),
+            style = MaterialTheme.typography.subtitle1TextPrimaryBold())
+        Captcha(
+            captchaViewModel = captchaViewModel
+        )
     }
 }
 
@@ -206,13 +235,6 @@ private fun CommentTextFieldItem(
         errorMessage.isNotEmpty(),
         errorMessage = errorMessage
     )
-}
-
-@Composable
-private fun CaptchaContent(onCaptchaValueChanged: (String) -> Unit) {
-    Text(text = stringResource(id = R.string.label_enter_captcha),
-        style = MaterialTheme.typography.subtitle1TextPrimaryBold())
-    // todo add captcha part
 }
 
 @Composable

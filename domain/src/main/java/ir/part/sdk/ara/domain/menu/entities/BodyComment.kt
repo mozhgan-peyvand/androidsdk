@@ -1,13 +1,9 @@
 package ir.part.sdk.ara.domain.menu.entities
 
 data class BodyComment(
-    val captcha: Captcha,
+    val captchaToken: String,
+    val captchaValue: String,
     val data: DataComment,
-)
-
-data class Captcha(
-    val token: String,
-    val value: String,
 )
 
 data class DataComment(
