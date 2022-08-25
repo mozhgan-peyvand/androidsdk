@@ -14,7 +14,8 @@ enum class ComponentsKey {
     DATA_USER_MANAGER,
     DATA_STATE,
     UI_DOCUMENT,
-    UI_MENU,
+    UI_MENU_COMMENT,
+    UI_MENU_RAHYAR,
     UI_USER,
     UI_SHARED_FEATURE
 }

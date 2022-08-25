@@ -24,3 +24,6 @@ fun NavHostController.navigateToGuideScreen() =
 
 fun NavHostController.navigateToSubmitCommentScreen() =
     safeNavigate(MenuRouter.SubmitCommentScreen.router)
+
+fun NavHostController.navigateToRahyarScreen() =
+    safeNavigate(MenuRouter.RahyarAddressScreen.router)

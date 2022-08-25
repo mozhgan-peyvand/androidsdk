@@ -157,6 +157,11 @@
     <string name="label_enter_captcha">عبارت امنیتی را وارد نمایید</string>
     <string name="label_send_comment">ارسال نظر</string>
     <string name="msg_submit_comment_success">نظر شما با موفقیت ارسال شد.</string>
-
+    <string name="label_rahyar_menu">آدرس رهیاری‌های اجتماعی</string>
+    <string name="label_choose_city">انتخاب استان </string>
+    <string name="label_choose_all_city">همه ی استان ها</string>
+    <string name="label_choose_your_city">استان مورد نظر خود را انتخاب نمایید</string>
+    <string name="label_search_word">عبارت موردنظر راواردکنید</string>
+    <string name="label_address">آدرس‌ها</string>
 
 </resources>

@@ -6,4 +6,8 @@ import javax.inject.Scope
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
 annotation class SubmitCommentScreenScope
 
+@Scope
+@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
+annotation class RahyarScreenScope
+
 

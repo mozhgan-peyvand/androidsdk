@@ -19,4 +19,5 @@ dependencies {
     addArchitectureComponents()
     addAndroidMaterial()
     addNavigationComponent()
+    addConstrainLayout()
 }

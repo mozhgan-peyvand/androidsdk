@@ -145,9 +145,30 @@ class BarjavandRemoteDataSource @Inject constructor(
         captchaValue: String,
     ): InvokeStatus<Unit> {
         urls.barjavand.submitComment
-        return checkApiResult(service.submitComment(url = urls.barjavand.submitComment,
-            bodyComment = bodyComment,
-            captchaToken = captchaToken,
-            captchaValue = captchaValue))
+        return checkApiResult(
+            service.submitComment(
+                url = urls.barjavand.submitComment,
+                bodyComment = bodyComment,
+                captchaToken = captchaToken,
+                captchaValue = captchaValue
+            )
+        )
     }
+
+
+    suspend fun getRahyar(province: String?) = safeApiCall(
+        call = { requestGetRahyar(province) },
+        errorMessage = "Error Getting Rahyar"
+    )
+
+    private suspend fun requestGetRahyar(province: String?) = checkApiResult(
+        service.getRahyar(
+            url = urls.barjavand.getRahyar,
+            options = BarjavandGetParamsRequest(
+                schemaName = "socialInitiatives",
+                schemaVersion = "1.0.0",
+                tags = province.let { JSONObject().put("province", it).toString() }
+            ).toHashMap()
+        )
+    )
 }

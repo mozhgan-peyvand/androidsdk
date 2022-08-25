@@ -142,7 +142,7 @@ fun Typography.subtitle2TextSecondary(): TextStyle {
 @Composable
 fun Typography.subtitle2Highlight(): TextStyle {
     return Typography.subtitle2.copy(
-        color = MaterialTheme.colors.primaryDark()
+        color = MaterialTheme.colors.primaryVariant()
     )
 }
 

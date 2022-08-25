@@ -6,10 +6,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.navigation
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
 import ir.part.sdk.ara.common.ui.view.di.daggerViewModel
+import ir.part.sdk.ara.ui.menu.di.RahyarScreenComponent
 import ir.part.sdk.ara.ui.menu.di.SubmitCommentScreenComponent
 import ir.part.sdk.ara.ui.menu.screens.*
 import ir.part.sdk.ara.ui.menu.screens.comment.SubmitCommentScreen
 import ir.part.sdk.ara.ui.menu.screens.comment.SubmitCommentViewModel
+import ir.part.sdk.ara.ui.menu.screens.rahyar.RahyarScreen
+import ir.part.sdk.ara.ui.menu.screens.rahyar.RahyarViewModel
 
 fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
     navigation(
@@ -32,6 +35,8 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
                 navController.navigateToGuideScreen()
             }, onSubmitCommentClick = {
                 navController.navigateToSubmitCommentScreen()
+            }, onRahyarClick = {
+                navController.navigateToRahyarScreen()
             }) // todo add remained navigation from main menu screen
         }
 
@@ -77,5 +82,14 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
             }, viewModel = commentViewModel)
         }
 
+        rahyarScreen {
+            val rahyarViewModel: RahyarViewModel = daggerViewModel {
+                RahyarScreenComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .getRahyarViewModel()
+            }
+            RahyarScreen(rahyarViewModel = rahyarViewModel) {
+                navController.popBackStack()
+            }
+        }
     }
 }
