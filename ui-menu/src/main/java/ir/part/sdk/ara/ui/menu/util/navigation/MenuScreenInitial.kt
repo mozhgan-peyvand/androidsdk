@@ -81,3 +81,14 @@ fun NavGraphBuilder.submitScreenScreen(
         }
     )
 }
+
+fun NavGraphBuilder.rahyarScreen(
+    screen: @Composable (NavBackStackEntry) -> Unit
+) {
+    safeScreenInitial(
+        sourceScreen = MenuRouter.RahyarAddressScreen.router,
+        screenSetUp = {
+            screen.invoke(it)
+        }
+    )
+}

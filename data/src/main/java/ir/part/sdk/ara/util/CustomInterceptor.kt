@@ -105,6 +105,15 @@ class CustomInterceptor @Inject constructor(
             requestBuilder.addHeader("gateway-system", "araMerat")
         }
 
+        if (request.url().toString().contains(urls.barjavand.getRahyar) || request.url().toString()
+                .contains(urls.barjavand.getConstant)
+        ) {
+            requestBuilder.addHeader("gateway-system", "araMerat")
+            requestBuilder.addHeader(
+                "gateway-token",
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzeXN0ZW0iOiJhcmFNZXJhdCIsImNyZWF0ZVRpbWUiOiIxNDAxMDYwMzEwMTMyODQ0OCIsInVzZXJJZCI6IjUzZGZhMWIyLWVhZGUtNGIwYi1hYjIzLWE5ZjQ5YmQ2NzM5NCIsInVuaXF1ZUZpZWxkcyI6W3sidXNlcm5hbWUiOiI4ODg4MDA4ODg4In1dLCJkYXRhIjp7ImlkTnVtYmVyIjpudWxsLCJ1c2VybmFtZSI6Ijg4ODgwMDg4ODgiLCJjZWxscGhvbmVOdW1iZXJzIjpbeyJpZCI6MCwidmFsdWUiOiIwOTM4Nzk0OTI3OSJ9XSwiZW1haWwiOiJiYXJAZ21haWwuY29tIiwicm9sZXMiOlsiYXBwbGljYW50Il19fQ.mOVLI3PMPR6USIuW9cPxIesZVO3BloOiSuOiR4-VJ6k"
+            )
+        }
         return chain.proceed(requestBuilder.build())
     }
 }

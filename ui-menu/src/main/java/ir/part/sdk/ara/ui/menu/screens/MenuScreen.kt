@@ -31,6 +31,7 @@ fun MenuScreen(
     onCallCenterClick: () -> Unit,
     onGuideClick: () -> Unit,
     onSubmitCommentClick: () -> Unit,
+    onRahyarClick: () -> Unit
 ) {
     val scrollState = rememberScrollState()
     Column(modifier = Modifier
@@ -42,35 +43,52 @@ fun MenuScreen(
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
 
         // list items
-        MenuItem(R.drawable.ic_lock,
+        MenuItem(
+            R.drawable.ic_lock,
             R.string.label_change_password,
-            onClick = onChangePasswordClick)
+            onClick = onChangePasswordClick
+        )
 
-        MenuItem(icon = R.drawable.ic_question,
+        MenuItem(
+            icon = R.drawable.ic_question,
             title = R.string.label_guide,
-            onClick = onGuideClick)
+            onClick = onGuideClick
+        )
 
-        MenuItem(icon = R.drawable.ic_info,
+        MenuItem(
+            icon = R.drawable.ic_info,
             title = R.string.label_about_us,
-            onClick = onAboutUsClick)
+            onClick = onAboutUsClick
+        )
 
-        MenuItem(icon = R.drawable.ic_paper,
+        MenuItem(
+            icon = R.drawable.ic_paper,
             title = R.string.label_terms_and_conditions,
-            onClick = onTermsAndConditionClick)
+            onClick = onTermsAndConditionClick
+        )
 
-        MenuItem(icon = R.drawable.ic_award,
+        MenuItem(
+            icon = R.drawable.ic_award,
             title = R.string.label_disclaimer,
-            onClick = onDisclaimerClick)
+            onClick = onDisclaimerClick
+        )
 
-        MenuItem(icon = R.drawable.ic_location, title = R.string.label_rahyar_address, onClick = {})
+        MenuItem(
+            icon = R.drawable.ic_location,
+            title = R.string.label_rahyar_address,
+            onClick = { onRahyarClick() })
 
-        MenuItem(icon = R.drawable.ic_comment,
+        MenuItem(
+            icon = R.drawable.ic_comment,
             title = R.string.label_submit_comment,
-            onClick = onSubmitCommentClick)
+            onClick = onSubmitCommentClick
+        )
 
-        MenuItem(icon = R.drawable.ic_headphones_mic,
+        MenuItem(
+            icon = R.drawable.ic_headphones_mic,
             title = R.string.label_call_center,
-            onClick = onCallCenterClick)
+            onClick = onCallCenterClick
+        )
 
         MenuItem(icon = R.drawable.ic_exit, title = R.string.label_exit, onClick = {})
 

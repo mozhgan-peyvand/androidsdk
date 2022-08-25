@@ -7,6 +7,7 @@ import ir.part.sdk.ara.data.dashboard.di.ServiceDashboardModule
 import ir.part.sdk.ara.di.DataComponent
 import ir.part.sdk.ara.domain.document.interacors.*
 import ir.part.sdk.ara.domain.menu.di.DomainMenuComponent
+import ir.part.sdk.ara.domain.menu.interactors.GetRahyarRemote
 import ir.part.sdk.ara.domain.menu.interactors.SubmitCommentRemote
 
 
@@ -44,6 +45,7 @@ interface BarjavandComponent : BasicComponent {
     fun injectGetPersonalInfoClubRemote(): GetPersonalInfoClubRemote
     fun injectGetApplicantInformationRemote(): GetApplicantInformationRemote
     fun injectSubmitCommentRemote(): SubmitCommentRemote
+    fun injectRahyarRemote(): GetRahyarRemote
 
 
     companion object {

@@ -7,10 +7,9 @@ import ir.part.sdk.ara.base.di.ComponentProviderActivity
 import ir.part.sdk.ara.base.di.ComponentsKey
 import ir.part.sdk.ara.data.barjavand.di.BarjavandComponent
 import ir.part.sdk.ara.domain.menu.di.DomainMenuComponent
-import ir.part.sdk.ara.ui.menu.screens.comment.SubmitCommentViewModel
+import ir.part.sdk.ara.ui.menu.screens.rahyar.RahyarViewModel
 
-
-@SubmitCommentScreenScope
+@RahyarScreenScope
 @Component(
     dependencies = [
         BaseComponent::class,
@@ -18,7 +17,7 @@ import ir.part.sdk.ara.ui.menu.screens.comment.SubmitCommentViewModel
         BarjavandComponent::class
     ]
 )
-interface SubmitCommentScreenComponent : BasicComponent {
+interface RahyarScreenComponent : BasicComponent {
 
     @Component.Factory
     interface Factory {
@@ -26,22 +25,21 @@ interface SubmitCommentScreenComponent : BasicComponent {
             baseComponent: BaseComponent,
             domainMenuComponent: DomainMenuComponent,
             barjavandComponent: BarjavandComponent,
-        ): SubmitCommentScreenComponent
+        ): RahyarScreenComponent
     }
 
-    fun getViewModel(): SubmitCommentViewModel
+    fun getRahyarViewModel(): RahyarViewModel
 
     companion object {
-        fun builder(componentProvider: ComponentProviderActivity): SubmitCommentScreenComponent {
+        fun builder(componentProvider: ComponentProviderActivity): RahyarScreenComponent {
             return (componentProvider.provideComponent(
-                ComponentsKey.UI_MENU_COMMENT,
-                DaggerSubmitCommentScreenComponent.factory().create(
+                ComponentsKey.UI_MENU_RAHYAR,
+                DaggerRahyarScreenComponent.factory().create(
                     baseComponent = BaseComponent.builder(componentProvider),
                     domainMenuComponent = DomainMenuComponent.builder(componentProvider),
                     barjavandComponent = BarjavandComponent.builder(componentProvider)
                 )
-            )) as SubmitCommentScreenComponent
+            )) as RahyarScreenComponent
         }
     }
 }
-

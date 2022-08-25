@@ -54,4 +54,10 @@ interface BarjavandService {
         @Header("captcha-value") captchaValue: String,
         @Body bodyComment: BodyCommentEntity,
     ): Response<Unit>
+
+    @GET
+    suspend fun getRahyar(
+        @Url url: String,
+        @QueryMap options: Map<String, String>
+    ): Response<PublicResponse<List<RahyarModel>>>
 }
