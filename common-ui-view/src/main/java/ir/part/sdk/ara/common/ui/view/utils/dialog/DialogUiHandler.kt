@@ -22,9 +22,7 @@ import androidx.constraintlayout.compose.ConstraintSet
 import com.airbnb.lottie.compose.*
 import ir.part.sdk.ara.common.ui.view.*
 import ir.part.sdk.ara.common.ui.view.R
-import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker
-import ir.part.sdk.ara.common.ui.view.theme.h6Bold
-import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextPrimaryBold
+import ir.part.sdk.ara.common.ui.view.theme.*
 
 class DialogUiHandler {
 
@@ -33,6 +31,8 @@ class DialogUiHandler {
         dialogType: String,
         submitAction: (() -> Unit)? = null,
         cancelAction: (() -> Unit)? = null,
+        submitText: Int? = null,
+        cancelText: Int? = null,
         title: String? = null,
         description: String? = null
     ) {
@@ -111,6 +111,19 @@ class DialogUiHandler {
                     iconId = DrawableResource.common_view_ic_wifi_off,
                     iconBackgroundColor = MaterialTheme.colors.error,
                     iconPlaceHolderColor = MaterialTheme.colors.errorBackground()
+                )
+            }
+            DialogType.UpdateSdkDialog.name -> {
+                PromptDialog(
+                    title = title ?: stringResource(id = StringResource.label_warning_title_dialog),
+                    description = description ?: "",
+                    submitText = submitText ?: 0,
+                    cancelText = cancelText ?: 0,
+                    submitAction = submitAction,
+                    cancelAction = cancelAction,
+                    iconId = R.drawable.merat_ic_c_info,
+                    iconBackgroundColor = ColorRed,
+                    iconPlaceHolderColor = ColorRedLight
                 )
             }
         }

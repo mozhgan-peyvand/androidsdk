@@ -9,6 +9,7 @@ import ir.part.sdk.ara.domain.document.interacors.*
 import ir.part.sdk.ara.domain.menu.di.DomainMenuComponent
 import ir.part.sdk.ara.domain.menu.interactors.GetRahyarRemote
 import ir.part.sdk.ara.domain.menu.interactors.SubmitCommentRemote
+import ir.part.sdk.ara.domain.version.interactors.GetVersionRemote
 
 
 @FeatureDataScope
@@ -46,6 +47,7 @@ interface BarjavandComponent : BasicComponent {
     fun injectGetApplicantInformationRemote(): GetApplicantInformationRemote
     fun injectSubmitCommentRemote(): SubmitCommentRemote
     fun injectRahyarRemote(): GetRahyarRemote
+    fun injectGetVersionRemote(): GetVersionRemote
 
 
     companion object {

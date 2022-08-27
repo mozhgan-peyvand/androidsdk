@@ -20,9 +20,16 @@ import androidx.constraintlayout.compose.Dimension
 import ir.part.sdk.ara.common.ui.view.primaryDark
 import ir.part.sdk.ara.common.ui.view.theme.buttonTextPrimaryVariantStyle
 import ir.part.sdk.ara.common.ui.view.theme.buttonTextStyle
+import ir.part.sdk.ara.home.version.ShowVersionDialog
+import ir.part.sdk.ara.home.version.VersionViewModel
 
 @Composable
-fun UserHomeScreen(navigateToLoginScreen: () -> Unit, navigateToRegisterScreen: () -> Unit) {
+fun UserHomeScreen(
+    navigateToLoginScreen: () -> Unit,
+    navigateToRegisterScreen: () -> Unit,
+    versionViewModel: VersionViewModel
+) {
+    ShowVersionDialog(versionViewModel = versionViewModel)
     UserHomeScreenElement(navigateToLoginScreen, navigateToRegisterScreen)
 }
 

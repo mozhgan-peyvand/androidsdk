@@ -7,5 +7,6 @@ enum class DialogType {
     ErrorDialog,
     ConnectionDialog,
     SuccessDialog,
-    InfoDialog
+    InfoDialog,
+    UpdateSdkDialog
 }

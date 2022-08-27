@@ -171,4 +171,19 @@ class BarjavandRemoteDataSource @Inject constructor(
             ).toHashMap()
         )
     )
+
+    suspend fun getVersion() = safeApiCall(
+        call = { requestGetVersion() },
+        errorMessage = "Error getting version number"
+    )
+
+    private suspend fun requestGetVersion() = checkApiResult(
+        service.getVersion(
+            url = urls.barjavand.getVersion,
+            options = BarjavandGetParamsRequest(
+                schemaName = "androidApplicationMeta",
+                schemaVersion = "1.0.0"
+            ).toHashMap()
+        )
+    )
 }

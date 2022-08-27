@@ -2,6 +2,7 @@ package ir.part.sdk.ara.domain.document.repository
 
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.domain.document.entities.*
+import ir.part.sdk.ara.domain.version.entities.VersionDetail
 
 interface BarjavandRepository {
     suspend fun getPersonalDocumentRemote(): InvokeStatus<List<PersonalDocuments>?>
@@ -14,5 +15,6 @@ interface BarjavandRepository {
     suspend fun getPersonalInfoConstants(): InvokeStatus<PersonalInfoConstants?>
     suspend fun getPersonalInfoClub(): InvokeStatus<List<PersonalInfoClub>?>
     suspend fun getApplicantInformationRemote(): InvokeStatus<PersonalInfoSubmitDocument?>
+    suspend fun getVersion(): InvokeStatus<List<VersionDetail>?>
 
 }

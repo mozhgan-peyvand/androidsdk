@@ -73,6 +73,8 @@ class ApiUrlHelper @Inject constructor(
 
         lateinit var getRahyar: String
 
+        lateinit var getVersion: String
+
         override fun update() {
             getApplicationInformation =
                 "$baseUrl/service/barjavand@3/data"
@@ -83,6 +85,7 @@ class ApiUrlHelper @Inject constructor(
             submitComment = "$baseUrl/service/barjavand@3/data/comments"
             removeDocument = "$baseUrl/service/barjavand@3/data"
             getRahyar = "$baseUrl/service/barjavand@3/data"
+            getVersion = "$baseUrl/service/barjavand@3/data/androidMeta"
         }
     }
 

@@ -56,6 +56,27 @@ fun getTryAgainDialog(
 }
 
 @Composable
+fun getSdkUpdateDialog(
+    title: String,
+    message: String,
+    submitText: Int,
+    cancelText: Int,
+    submitCallback: (() -> Unit)? = null,
+    cancelCallBack: (() -> Unit)? = null
+): DialogManager {
+    val builder = DialogManager.builder()
+        .setDialogType(DialogType.UpdateSdkDialog.name)
+        .setDialogTitleMessage(title)
+        .setDialogDetailMessage(message)
+        .setCancelText(cancelText)
+        .setSubmitText(submitText)
+        .setSubmitAction { submitCallback?.invoke() }
+        .setCancelAction { cancelCallBack?.invoke() }
+    builder.Build()
+    return builder
+}
+
+@Composable
 fun getSuccessDialog(
     title: String,
     description: String,

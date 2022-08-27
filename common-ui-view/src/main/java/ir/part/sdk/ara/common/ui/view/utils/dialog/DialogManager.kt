@@ -7,10 +7,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 
-class DialogManager {
+open class DialogManager {
     private lateinit var _dialogType: String
     private var _titleDialog: String? = null
     private var _descriptionDialog: String? = null
+    private var _submitText: Int? = null
+    private var _cancelText: Int? = null
     private var _submitAction: (() -> Unit)? = null
     private var _cancelAction: (() -> Unit)? = null
 
@@ -23,6 +25,16 @@ class DialogManager {
 
     fun setDialogTitleMessage(title: String): DialogManager {
         _titleDialog = title
+        return this
+    }
+
+    fun setSubmitText(submitText: Int): DialogManager {
+        _submitText = submitText
+        return this
+    }
+
+    fun setCancelText(cancelText: Int): DialogManager {
+        _cancelText = cancelText
         return this
     }
 
@@ -65,7 +77,10 @@ class DialogManager {
                     submitAction = { dismiss(_submitAction) },
                     cancelAction = { dismiss(_cancelAction) },
                     title = _titleDialog,
-                    description = _descriptionDialog
+                    description = _descriptionDialog,
+                    cancelText = _cancelText,
+                    submitText = _submitText
+
                 )
             }
         }

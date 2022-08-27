@@ -60,4 +60,10 @@ interface BarjavandService {
         @Url url: String,
         @QueryMap options: Map<String, String>
     ): Response<PublicResponse<List<RahyarModel>>>
+
+    @GET
+    suspend fun getVersion(
+        @Url url: String,
+        @QueryMap options: Map<String, String>
+    ): Response<PublicResponse<PublicResponseData<BarjavandResultEntity<VersionDetailModel>>>>
 }
