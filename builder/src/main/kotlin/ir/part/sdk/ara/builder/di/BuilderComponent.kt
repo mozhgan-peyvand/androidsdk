@@ -11,6 +11,8 @@ import ir.part.sdk.ara.data.userManager.di.DataUserManagerComponent
 import ir.part.sdk.ara.domain.menu.di.DomainMenuComponent
 import ir.part.sdk.ara.domain.tasks.di.DomainTaskComponent
 import ir.part.sdk.ara.domain.user.di.DomainUserManagerComponent
+import ir.part.sdk.ara.domain.version.di.DomainHomeComponent
+import ir.part.sdk.ara.home.di.VersionScreenComponent
 import ir.part.sdk.ara.ui.document.di.DocumentComponent
 import ir.part.sdk.ara.ui.menu.di.RahyarScreenComponent
 import ir.part.sdk.ara.ui.menu.di.SubmitCommentScreenComponent
@@ -31,9 +33,11 @@ import ir.part.sdk.ara.ui.user.di.UserComponent
         DomainTaskComponent::class,
         UserComponent::class,
         DomainMenuComponent::class,
+        DomainHomeComponent::class,
         SharedFeatureComponent::class,
         SubmitCommentScreenComponent::class,
-        RahyarScreenComponent::class
+        RahyarScreenComponent::class,
+        VersionScreenComponent::class,
     ],
 )
 interface BuilderComponent : BasicComponent {
@@ -52,9 +56,11 @@ interface BuilderComponent : BasicComponent {
             domainTaskComponent: DomainTaskComponent,
             userComponent: UserComponent,
             domainMenuComponent: DomainMenuComponent,
+            domainHomeComponent: DomainHomeComponent,
             sharedFeatureComponent: SharedFeatureComponent,
             menuComponent: SubmitCommentScreenComponent,
-            rahyarComponent: RahyarScreenComponent
+            rahyarComponent: RahyarScreenComponent,
+            homeComponent: VersionScreenComponent
         ): BuilderComponent
     }
 
@@ -78,9 +84,11 @@ interface BuilderComponent : BasicComponent {
                     domainTaskComponent = DomainTaskComponent.builder(componentProvider),
                     userComponent = UserComponent.builder(componentProvider),
                     domainMenuComponent = DomainMenuComponent.builder(componentProvider),
+                    domainHomeComponent = DomainHomeComponent.builder(componentProvider),
                     sharedFeatureComponent = SharedFeatureComponent.builder(componentProvider),
                     menuComponent = SubmitCommentScreenComponent.builder(componentProvider),
-                    rahyarComponent = RahyarScreenComponent.builder(componentProvider)
+                    rahyarComponent = RahyarScreenComponent.builder(componentProvider),
+                    homeComponent = VersionScreenComponent.builder(componentProvider)
                 )
             )) as BuilderComponent
         }

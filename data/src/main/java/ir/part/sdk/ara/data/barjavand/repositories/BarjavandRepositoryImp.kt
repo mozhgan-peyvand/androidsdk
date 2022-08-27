@@ -13,6 +13,7 @@ import ir.part.sdk.ara.domain.document.repository.BarjavandRepository
 import ir.part.sdk.ara.domain.menu.entities.BodyComment
 import ir.part.sdk.ara.domain.menu.entities.Rahyar
 import ir.part.sdk.ara.domain.menu.repository.MenuBarjavandRepository
+import ir.part.sdk.ara.domain.version.entities.VersionDetail
 import ir.part.sdk.ara.model.PublicResponse
 import ir.part.sdk.ara.model.PublicResponseData
 import ir.part.sdk.ara.util.api.RequestExecutor
@@ -152,5 +153,16 @@ class BarjavandRepositoryImp @Inject constructor(
                 data.item?.map { it.toRahyar() }
         })
 
+    override suspend fun getVersion(): InvokeStatus<List<VersionDetail>?> =
+        requestExecutor.execute(object :
+            InvokeStatus.ApiEventListener<PublicResponse<PublicResponseData<BarjavandResultEntity<VersionDetailModel>>>, List<VersionDetail>?> {
+            override suspend fun onRequestCall(): InvokeStatus<PublicResponse<PublicResponseData<BarjavandResultEntity<VersionDetailModel>>>> =
+                remoteDataSource.getVersion()
+
+            override fun onConvertResult(data: PublicResponse<PublicResponseData<BarjavandResultEntity<VersionDetailModel>>>): List<VersionDetail>? =
+                data.item?.results?.map {
+                    it.data.toVersionDetail()
+                }
+        })
 
 }

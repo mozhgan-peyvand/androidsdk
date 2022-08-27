@@ -70,6 +70,13 @@
     <string name="msg_invalid_length_text_between_2_and_5">حروف باید در بازه ی %d تا %d کاراکتر باشد</string>
     <string name="msg_invalid_size_list">تعداد آیتم ها باید بین %d تا %d باشد</string>
 
+    <string name="msg_updateError_when_user_use_as_a_library_is_force">کاربرگرامی نسخه جدید سامانه اعتبار سنجی منتشر شده است در صورت نیاز به استفاده از این سرویس دکمه اپدیت را کلیک نمایید در غیر اینصورت با زدن دکمه بازگشت به منوی اصلی بر خواهید گشت.</string>
+    <string name="msg_updateError_when_user_use_as_a_library_is_not_force">کاربر گرامی نسخه جدید مرآت منتشر شده است لطفا نسبت به اپدیت کردن نسخه خود اقدام فرمایید.</string>
+    <string name="label_term_attention">توجه</string>
+    <string name="btn_download_new_version">دانلود نسخه جدید</string>
+    <string name="msg_updateError_when_user_use_as_a_library">کاربر گرامی برای استفاده از این سرویس لطفا نسخه جدید اپلیکیشن را نصب نمایید.</string>
+    <string name="btn_exit_from_sdk">بازگشت</string>
+    <string name="btn_exit_dialog">فعلا خیر</string>
 </resources>
 
 

@@ -15,17 +15,19 @@ object BuildAndroidConfig {
 
 
 object Ext {
-    const val versionMajor = 1
+    const val versionBusiness = 1 // versionBusiness rage only between  1 to 9
+    const val versionMajor = 0
     const val versionMinor = 0
     const val versionPatch = 0
+    const val minimumSdkVersion = 17
 }
 
 fun generateVersionCode(): Int {
-    return Ext.versionMajor * 10000 + Ext.versionMinor * 100 + Ext.versionPatch
+    return Ext.minimumSdkVersion * 10000000 + Ext.versionBusiness * 1000000 + Ext.versionMajor * 10000 + Ext.versionMinor * 100 + Ext.versionPatch
 }
 
 fun generateVersionName(): String {
-    return "${Ext.versionMajor}.${Ext.versionMinor}.${Ext.versionPatch}"
+    return "${Ext.versionBusiness}.${Ext.versionMajor}.${Ext.versionMinor}.${Ext.versionPatch}"
 }
 
 @Suppress("SimpleDateFormat")

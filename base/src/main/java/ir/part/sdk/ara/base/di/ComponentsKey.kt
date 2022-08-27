@@ -9,6 +9,7 @@ enum class ComponentsKey {
     DOMAIN_USER_MANAGER,
     DOMAIN_TASK,
     DOMAIN_MENU,
+    DOMAIN_HOME,
     DATA_DASHBOARD,
     DATA_BARJAVAND,
     DATA_USER_MANAGER,
@@ -17,5 +18,6 @@ enum class ComponentsKey {
     UI_MENU_COMMENT,
     UI_MENU_RAHYAR,
     UI_USER,
-    UI_SHARED_FEATURE
+    UI_SHARED_FEATURE,
+    UI_HOME
 }

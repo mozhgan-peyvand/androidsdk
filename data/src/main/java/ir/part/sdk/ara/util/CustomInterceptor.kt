@@ -110,6 +110,9 @@ class CustomInterceptor @Inject constructor(
                 token
             )
         }
+        if (request.url().toString().contains(urls.barjavand.getVersion)) {
+            requestBuilder.addHeader("gateway-system", "araMerat")
+        }
         return chain.proceed(requestBuilder.build())
     }
 }
