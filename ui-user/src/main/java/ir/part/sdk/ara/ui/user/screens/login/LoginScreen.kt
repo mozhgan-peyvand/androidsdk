@@ -51,13 +51,13 @@ import ir.part.sdk.ara.ui.shared.feature.screens.captcha.CaptchaViewModel
 fun LoginScreen(
     captchaViewModel: CaptchaViewModel? = null,
     navigateToForgetPassword: (() -> Unit)? = null,
-    navigateToChangePassword: (() -> Unit)? = null,
+    navigateToDocument: (() -> Unit)? = null,
     loginViewModel: LoginViewModel? = null
 ) {
 
     // todo it will fix in get task
     when (loginViewModel?.nextStep?.value) {
-        TasksName.ChangePass.value -> navigateToChangePassword?.invoke()
+        TasksName.StartNewDocument.value -> navigateToDocument?.invoke()
         else -> {}
     }
 

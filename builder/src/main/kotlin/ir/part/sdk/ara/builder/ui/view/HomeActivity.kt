@@ -58,7 +58,7 @@ class HomeActivity : ComponentProviderActivity() {
 
             // handle soft input mode
             when (navController.currentBackStackEntryAsState().value?.destination?.route) {
-                MenuRouter.SubmitCommentScreen.router, UiUserSharedIds.UserChangePassword.screenRouter -> {
+                MenuRouter.SubmitCommentScreen.router, UiUserSharedIds.UserChangePassword.router -> {
                     window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
                 }
                 else -> {

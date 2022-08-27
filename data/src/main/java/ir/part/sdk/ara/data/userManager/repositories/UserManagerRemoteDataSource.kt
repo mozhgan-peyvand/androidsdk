@@ -31,12 +31,13 @@ class UserManagerRemoteDataSource @Inject constructor(
         )
 
         if (result is InvokeSuccess) {
-            result.data.item?.token?.let { token ->
+            result.data.item?.let { it ->
                 return InvokeSuccess(
                     UserManagerEntity(
                         nationalCode = loginParamModel.username,
-                        token = token,
-                        cookie = "" // TODO: how to get cookie?
+                        token = it.token,
+                        cookie = "", // TODO: how to get cookie?,
+                        mobilePhone = it.cellphoneNumbers[0].value
                     )
                 )
             }

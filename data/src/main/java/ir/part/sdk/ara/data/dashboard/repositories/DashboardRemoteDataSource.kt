@@ -39,16 +39,18 @@ class DashboardRemoteDataSource @Inject constructor(
                 )
             )
         )
-    suspend fun getTask(processInstanceId: String) = safeApiCall(
-        call = { requestGetTask(processInstanceId) },
+
+    suspend fun getTask(processInstanceId: String, tags: String) = safeApiCall(
+        call = { requestGetTask(processInstanceId, tags) },
         errorMessage = "Error getting taskInfo"
     )
 
-    private suspend fun requestGetTask(processInstanceId: String) =
+    private suspend fun requestGetTask(processInstanceId: String, tags: String) =
         checkApiResult(
             service.getTask(
                 url = urls.dashboard.getTask,
-                processInstanceId = processInstanceId
+                processInstanceId = processInstanceId,
+                tags = tags
             )
         )
 

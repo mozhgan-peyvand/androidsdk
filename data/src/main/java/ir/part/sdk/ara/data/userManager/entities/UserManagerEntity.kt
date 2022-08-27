@@ -15,7 +15,8 @@ data class UserManagerEntity(
     @ColumnInfo(name = "ut")
     var token: String,
     @ColumnInfo(name = "uc")
-    var cookie: String
+    var cookie: String,
+    var mobilePhone: String
 ) {
     fun toUser() = User(
         nationalCode = nationalCode,

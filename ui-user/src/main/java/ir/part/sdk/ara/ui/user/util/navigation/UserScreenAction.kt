@@ -1,6 +1,7 @@
 package ir.part.sdk.ara.ui.user.util.navigation
 
 import androidx.navigation.NavHostController
+import ir.part.sdk.ara.common.ui.view.ids.UiUserSharedIds
 import ir.part.sdk.ara.common.ui.view.navigationHelper.safeNavigate
 
 
@@ -19,3 +20,9 @@ fun NavHostController.navigateToChangePasswordScreen() =
 
 fun NavHostController.navigateToVerificationPasswordScreen(param: String) =
     safeNavigate(UserRouter.UserForgetPasswordVerificationScreen.router, args = listOf(param))
+
+fun NavHostController.navigateToSubmitDocumentScreen() {
+    safeNavigate(
+        destinationScreen = UiUserSharedIds.SubmitDocument.router,
+    )
+}

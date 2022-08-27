@@ -22,7 +22,7 @@ interface DashboardService {
         // todo : check if should be static or not
         @Query("dashboardId") dashboardId: String = "aa7f32e1-ff21-4b5b-92e1-c37da3499a43",
         @Query("processInstanceId") processInstanceId: String,
-        @Query("tags") tags: String = listOf("\"" + "username_8888008888" + "\"").toString()
+        @Query("tags") tags: String
     ): Response<PublicResponse<List<TaskResponse>>>
 
 
