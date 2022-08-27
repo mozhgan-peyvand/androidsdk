@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import ir.part.sdk.ara.common.ui.view.R
 import ir.part.sdk.ara.common.ui.view.disabled
 import ir.part.sdk.ara.common.ui.view.theme.*
@@ -41,10 +40,8 @@ fun TopAppBarContent(title: String, onNavigateUp: () -> Unit) {
         Text(
             modifier = Modifier.padding(dimensionResource(id = DimensionResource.spacing_2x)),
             text = title,
-            style = MaterialTheme.typography.h5,
-            fontWeight = FontWeight.Bold
+            style = MaterialTheme.typography.h5BoldPrimary(),
         )
-
     }
 }
 

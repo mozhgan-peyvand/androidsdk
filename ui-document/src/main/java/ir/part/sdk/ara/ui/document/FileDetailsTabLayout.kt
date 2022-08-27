@@ -1,21 +1,19 @@
 package ir.part.sdk.ara.ui.document
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.ExperimentalUnitApi
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.*
+import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
+import ir.part.sdk.ara.common.ui.view.textPrimary
 import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
 import kotlinx.coroutines.launch
 
@@ -40,11 +38,12 @@ sealed class TabItem(
         })
 }
 
-@OptIn(ExperimentalUnitApi::class, ExperimentalPagerApi::class)
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun DetailsScreenViewPager(
     documentSharedViewModel: DocumentSharedViewModel?,
-    showResultValidation: Boolean = false
+    showResultValidation: Boolean = false,
+    onNavigateUp: () -> Unit
 ) {
 
     val list =
@@ -69,24 +68,20 @@ fun DetailsScreenViewPager(
 
     Scaffold(
         topBar = {
-            TopAppBar(backgroundColor = MaterialTheme.colors.background) {
-                Text(
-                    text = stringResource(
-                        id = stringRec.param_file_detail_title,
-                        documentSharedViewModel?.itemPersonalDocument?.value?.fileId.toString()
-                    ),
-                    style = TextStyle(color = Color.Black),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = TextUnit(
-                        24F,
-                        TextUnitType.Sp
-                    ),
-                    textAlign = TextAlign.Center
-                )
+            TopAppBar(
+                backgroundColor = Color.White,
+                elevation = dimensionResource(id = R.dimen.spacing_half_base)
+            ) {
+                TopAppBarContent(title = stringResource(
+                    id = stringRec.param_file_detail_title,
+                    documentSharedViewModel?.itemPersonalDocument?.value?.fileId.toString()
+                ),
+                    onNavigateUp = {
+                        onNavigateUp()
+                    })
             }
         }) {
-
-        Column() {
+        Column(Modifier.padding(it)) {
             Tabs(pagerState = pagerState, list = list)
 
             if (documentSharedViewModel != null) {
@@ -125,7 +120,7 @@ private fun Tabs(pagerState: PagerState, list: List<TabItem>) {
                 text = {
                     Text(
                         stringResource(id = list[index].title),
-                        color = Color.Black
+                        style = MaterialTheme.typography.subtitle2
                     )
                 },
                 selected = pagerState.currentPage == index,
@@ -133,7 +128,8 @@ private fun Tabs(pagerState: PagerState, list: List<TabItem>) {
                     scope.launch {
                         pagerState.animateScrollToPage(index)
                     }
-                }
+                },
+                selectedContentColor = MaterialTheme.colors.textPrimary()
             )
         }
     }
