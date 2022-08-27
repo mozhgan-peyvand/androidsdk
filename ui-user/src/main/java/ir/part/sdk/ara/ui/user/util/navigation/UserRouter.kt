@@ -10,6 +10,8 @@ sealed class UserRouter(val router: String) {
     object UserLoginScreen : UserRouter(router = "$moduleName://userLoginScreen")
     object UserRegisterScreen : UserRouter(router = "$moduleName://userRegister")
     object UserForgetPasswordScreen : UserRouter(router = "$moduleName://userForgetPasswordScreen")
-    object UserForgetPasswordVerificationScreen : UserRouter(router = "$moduleName://userForgetPasswordVerificationScreen")
+    object UserForgetPasswordVerificationScreen :
+        UserRouter(router = "$moduleName://userForgetPasswordVerificationScreen")
+
     object UserChangePasswordScreen : UserRouter(router = "$moduleName://userChangePasswordScreen")
 }

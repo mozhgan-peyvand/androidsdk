@@ -5,7 +5,7 @@ import ir.part.sdk.ara.common.ui.view.ids.UiUserSharedIds
 import ir.part.sdk.ara.common.ui.view.navigationHelper.safeNavigate
 
 fun NavHostController.navigateToChangePasswordScreen() =
-    safeNavigate(UiUserSharedIds.UserChangePassword.screenRouter)
+    safeNavigate(UiUserSharedIds.UserChangePassword.router)
 
 fun NavHostController.navigateToTermsAndConditionScreen() =
     safeNavigate(MenuRouter.TermsAndConditionsScreen.router)

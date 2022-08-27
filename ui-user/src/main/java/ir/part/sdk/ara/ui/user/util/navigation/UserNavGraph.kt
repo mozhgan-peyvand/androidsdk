@@ -66,7 +66,7 @@ fun NavGraphBuilder.addUserGraph(navController: NavHostController) {
             LoginScreen(
                 captchaViewModel = captchaViewModel,
                 navigateToForgetPassword = { navController.navigateToForgetPasswordScreen() },
-                navigateToChangePassword = { navController.navigateToChangePasswordScreen() },
+                navigateToDocument = { navController.navigateToSubmitDocumentScreen() },
                 loginViewModel = loginViewModel
             )
         }

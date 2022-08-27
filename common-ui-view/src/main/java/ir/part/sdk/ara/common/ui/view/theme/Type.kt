@@ -280,3 +280,11 @@ fun Typography.buttonTextStyle(): TextStyle {
         color = MaterialTheme.colors.onPrimary
     )
 }
+
+@Composable
+fun Typography.buttonTextPrimaryVariantStyle(): TextStyle {
+    return Typography.button.copy(
+        color = MaterialTheme.colors.primaryVariant()
+    )
+}
+

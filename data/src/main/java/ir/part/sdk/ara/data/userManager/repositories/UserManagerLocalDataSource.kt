@@ -8,7 +8,6 @@ import ir.part.sdk.ara.base.util.AesEncryptor
 import ir.part.sdk.ara.base.util.CoroutinesDispatcherProvider
 import ir.part.sdk.ara.data.userManager.entities.UserManagerEntity
 import ir.part.sdk.ara.db.AraDb
-import ir.part.sdk.ara.util.CustomInterceptor
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -33,6 +32,10 @@ class UserManagerLocalDataSource @Inject constructor(
         try {
             araDb.withTransaction {
                 dao.removeUsers()
+                pref.edit().putString(
+                    "mobilePhone",
+                    userEntity.mobilePhone.let { AesEncryptor().encrypt(it, sk) }
+                )
                 pref.edit().putString(
                     "token",
                     userEntity.token.let { AesEncryptor().encrypt(it, sk) }

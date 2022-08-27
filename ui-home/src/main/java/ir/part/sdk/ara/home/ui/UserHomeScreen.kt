@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import ir.part.sdk.ara.common.ui.view.primaryDark
+import ir.part.sdk.ara.common.ui.view.theme.buttonTextPrimaryVariantStyle
 import ir.part.sdk.ara.common.ui.view.theme.buttonTextStyle
 
 @Composable
@@ -111,7 +112,7 @@ private fun UserHomeScreenElement(
                 ) {
                 Text(
                     text = stringResource(id = R.string.btn_login),
-                    style = MaterialTheme.typography.buttonTextStyle()
+                    style = MaterialTheme.typography.buttonTextPrimaryVariantStyle()
                 )
             }
         }

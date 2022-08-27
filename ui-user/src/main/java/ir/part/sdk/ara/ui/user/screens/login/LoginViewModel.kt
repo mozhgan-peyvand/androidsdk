@@ -77,28 +77,28 @@ class LoginViewModel @Inject constructor(
                     uiMassageManager
                 ) {
                     if (it) {
-                        getBaseState()
+                        nextStep.value = "start-new-document"
                     }
                 }
             }
         }
     }
-
-    private fun getBaseState() {
-        viewModelScope.launch {
-            if (loadingState.count.toInt() == 0) {
-                clearAllMessage()
-                getBaseStateRemote.invoke(Unit).collectAndChangeLoadingAndMessageStatus(
-                    viewModelScope,
-                    loadingState,
-                    exceptionHelper,
-                    uiMassageManager
-                ) {
-                    nextStep.value = "change-pass"
-                }
-            }
-        }
-    }
+    // TODO: it will be fix in get task 
+//    private fun getBaseState() {
+//        viewModelScope.launch {
+//            if (loadingState.count.toInt() == 0) {
+//                clearAllMessage()
+//                getBaseStateRemote.invoke(Unit).collectAndChangeLoadingAndMessageStatus(
+//                    viewModelScope,
+//                    loadingState,
+//                    exceptionHelper,
+//                    uiMassageManager
+//                ) {
+//                    nextStep.value = "start-new-document"
+//                }
+//            }
+//        }
+//    }
     //todo it will be fix in get task
 
 //    private fun getTask() {
