@@ -49,7 +49,7 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal
     ),
     button = TextStyle(
-        fontSize =  25.sp,
+        fontSize = 25.sp,
         fontWeight = FontWeight.Bold
     )
 )
@@ -190,6 +190,15 @@ fun Typography.h5Highlight(): TextStyle {
         color = ColorBlueDarker
     )
 }
+
+@Composable
+fun Typography.h5BoldPrimary(): TextStyle {
+    return Typography.h5.copy(
+        color = MaterialTheme.colors.textPrimary(),
+        fontWeight = FontWeight.Bold
+    )
+}
+
 
 @Composable
 fun Typography.h6Bold(): TextStyle {

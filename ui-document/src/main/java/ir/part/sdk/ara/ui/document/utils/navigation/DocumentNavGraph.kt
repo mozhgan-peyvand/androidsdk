@@ -61,7 +61,10 @@ fun NavGraphBuilder.addDocumentGraph(navController: NavHostController) {
         fileDetailScreenViewPager {
 
             DetailsScreenViewPager(
-                documentSharedViewModel = sharedViewModel
+                documentSharedViewModel = sharedViewModel,
+                onNavigateUp = {
+                    navController.navigateUp()
+                }
             )
         }
 
@@ -70,7 +73,10 @@ fun NavGraphBuilder.addDocumentGraph(navController: NavHostController) {
 
             DetailsScreenViewPager(
                 documentSharedViewModel = sharedViewModel,
-                showResultValidation = true
+                showResultValidation = true,
+                onNavigateUp = {
+                    navController.navigateUp()
+                }
             )
 
         }
