@@ -35,7 +35,7 @@ class UserManagerLocalDataSource @Inject constructor(
                 pref.edit().putString(
                     "mobilePhone",
                     userEntity.mobilePhone.let { AesEncryptor().encrypt(it, sk) }
-                )
+                ).apply()
                 pref.edit().putString(
                     "token",
                     userEntity.token.let { AesEncryptor().encrypt(it, sk) }
@@ -106,6 +106,13 @@ class UserManagerLocalDataSource @Inject constructor(
 
     fun getNationalCode(): String {
         return pref.getString("CurrentUserNationalCode", null)?.let {
+            AesEncryptor()
+                .decrypt(it, sk)
+        } ?: ""
+    }
+
+    fun getPhoneNumber(): String {
+        return pref.getString("mobilePhone", null)?.let {
             AesEncryptor()
                 .decrypt(it, sk)
         } ?: ""

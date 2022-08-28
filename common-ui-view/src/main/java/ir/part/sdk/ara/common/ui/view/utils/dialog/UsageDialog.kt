@@ -1,5 +1,6 @@
 package ir.part.sdk.ara.common.ui.view.utils.dialog
 
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import ir.part.sdk.ara.common.ui.view.R
@@ -97,7 +98,9 @@ fun getSuccessDialog(
 fun getErrorDialog(
     title: String,
     description: String,
-    submitAction: () -> Unit
+    submitAction: () -> Unit,
+    @StringRes cancelText: Int? = null,
+    cancelAction: (() -> Unit)? = null,
 ): DialogManager {
 
     val builder = DialogManager.builder()
@@ -105,6 +108,14 @@ fun getErrorDialog(
         .setDialogTitleMessage(title)
         .setDialogDetailMessage(description)
         .setSubmitAction { submitAction() }
+
+    if (cancelText != null) {
+        builder.setCancelText(cancelText)
+    }
+    if (cancelAction != null) {
+        builder.setCancelAction(cancelAction)
+    }
+
     builder.Build()
 
     return builder

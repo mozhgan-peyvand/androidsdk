@@ -118,7 +118,9 @@ fun NavGraphBuilder.addUserGraph(navController: NavHostController) {
             val changePasswordViewModel =
                 UserComponent.builder(LocalContext.current as ComponentProviderActivity)
                     .getChangePasswordViewModel()
-            ChangePasswordScreen(changePasswordViewModel = changePasswordViewModel)
+            ChangePasswordScreen(changePasswordViewModel = changePasswordViewModel, onNavigateUp = {
+                navController.navigateUp()
+            })
         }
     }
 }

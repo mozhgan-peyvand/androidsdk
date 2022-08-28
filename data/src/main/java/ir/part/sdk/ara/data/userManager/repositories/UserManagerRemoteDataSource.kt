@@ -100,15 +100,6 @@ class UserManagerRemoteDataSource @Inject constructor(
             )
         )
 
-
-    suspend fun logout() = safeApiCall(
-        call = { requestLogout() },
-        errorMessage = "Error logout"
-    )
-
-    private suspend fun requestLogout() =
-        checkApiResult(service.getLogout(url = urls.userManager.logout))
-
     suspend fun changePassword(changePasswordParamModel: ChangePasswordParamModel) =
         safeApiCall(
             call = { requestChangePassword(changePasswordParamModel) },
@@ -133,4 +124,10 @@ class UserManagerRemoteDataSource @Inject constructor(
         checkApiResult(service.getCaptcha(url = urls.userManager.captcha))
 
 
+    suspend fun logout() = safeApiCall(
+        call = { requestLogout() },
+        errorMessage = "Error logging out"
+    )
+
+    private suspend fun requestLogout() = checkApiResult(service.logout(urls.userManager.logout))
 }

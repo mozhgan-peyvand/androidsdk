@@ -26,21 +26,21 @@ interface UserManagerService {
     ): Response<Unit>
 
     @GET
-    suspend fun getLogout(@Url url: String): Response<PublicResponse<LoginEntity>>
-
-    @GET
     suspend fun getCaptcha(@Url url: String): Response<PublicResponse<CaptchaEntity>>
 
     @POST
     suspend fun getChangePassword(
         @Url url: String,
-        @Body changePasswordParamModel: ChangePasswordParamModel
+        @Body changePasswordParamModel: ChangePasswordParamModel,
     ): Response<Unit>
 
     @POST
     suspend fun signUp(
         @Url url: String,
-        @Body data: RegisterParamModel
+        @Body data: RegisterParamModel,
     ): Response<PublicResponse<RegisterResponseNetwork>>
+
+    @GET
+    suspend fun logout(@Url url: String): Response<Unit>
 
 }

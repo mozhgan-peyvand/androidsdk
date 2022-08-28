@@ -16,7 +16,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -28,6 +27,7 @@ import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.primaryVariant
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.ErrorText
+import ir.part.sdk.ara.common.ui.view.theme.h6BoldPrimary
 import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextSecondary
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
@@ -38,7 +38,8 @@ import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
 
 @Composable
 fun ChangePasswordScreen(
-    changePasswordViewModel: ChangePasswordViewModel? = null
+    changePasswordViewModel: ChangePasswordViewModel? = null,
+    onNavigateUp: () -> Unit,
 ) {
 
     Scaffold(modifier = Modifier.fillMaxSize(),
@@ -49,7 +50,7 @@ fun ChangePasswordScreen(
             ) {
                 TopAppBarContent(title = stringResource(id = R.string.label_change_password),
                     onNavigateUp = {
-
+                        onNavigateUp()
                     })
             }
         }, bottomBar = {
@@ -72,12 +73,12 @@ fun ChangePasswordScreen(
 @Composable
 private fun ShowPasswordContent(changePasswordViewModel: ChangePasswordViewModel? = null) {
     Column {
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_9x)))
         Text(
             modifier = Modifier
-                .padding(dimensionResource(id = DimensionResource.spacing_4x)),
+                .padding(horizontal = dimensionResource(id = DimensionResource.spacing_4x)),
             text = stringResource(id = R.string.label_change_password),
-            style = MaterialTheme.typography.h5,
-            fontWeight = FontWeight.Bold
+            style = MaterialTheme.typography.h6BoldPrimary()
         )
 
         changePasswordViewModel?.let {
@@ -93,6 +94,7 @@ private fun ShowPasswordContent(changePasswordViewModel: ChangePasswordViewModel
 @Composable
 private fun ShowCurrentPassword(changePasswordViewModel: ChangePasswordViewModel) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
+    Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
     TextField(
         value = changePasswordViewModel.currentPassword.value,
         onValueChange = { inputValue ->

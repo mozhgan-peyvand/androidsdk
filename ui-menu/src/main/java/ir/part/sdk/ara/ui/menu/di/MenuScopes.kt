@@ -10,4 +10,8 @@ annotation class SubmitCommentScreenScope
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
 annotation class RahyarScreenScope
 
+@Scope
+@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
+annotation class MenuScreenScope
+
 

@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.navigation
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
 import ir.part.sdk.ara.common.ui.view.di.daggerViewModel
+import ir.part.sdk.ara.ui.menu.di.MenuScreenComponent
 import ir.part.sdk.ara.ui.menu.di.RahyarScreenComponent
 import ir.part.sdk.ara.ui.menu.di.SubmitCommentScreenComponent
 import ir.part.sdk.ara.ui.menu.screens.*
@@ -23,23 +24,30 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
     ) {
 
         mainMenuScreen {
-            MenuScreen(onChangePasswordClick = {
-                navController.navigateToChangePasswordScreen()
-            }, onTermsAndConditionClick = {
-                navController.navigateToTermsAndConditionScreen()
-            }, onAboutUsClick = {
-                navController.navigateToAboutUsScreen()
-            }, onDisclaimerClick = {
-                navController.navigateToDisclaimerScreen()
-            }, onCallCenterClick = {
-                navController.navigateToCallCenterScreen()
-            }, onGuideClick = {
-                navController.navigateToGuideScreen()
-            }, onSubmitCommentClick = {
-                navController.navigateToSubmitCommentScreen()
-            }, onRahyarClick = {
-                navController.navigateToRahyarScreen()
-            }) // todo add remained navigation from main menu screen
+            val menuViewModel: MenuViewModel = daggerViewModel {
+                MenuScreenComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .getMenuViewModel()
+            }
+
+            MenuScreen(
+                menuViewModel = menuViewModel,
+                onChangePasswordClick = {
+                    navController.navigateToChangePasswordScreen()
+                }, onTermsAndConditionClick = {
+                    navController.navigateToTermsAndConditionScreen()
+                }, onAboutUsClick = {
+                    navController.navigateToAboutUsScreen()
+                }, onDisclaimerClick = {
+                    navController.navigateToDisclaimerScreen()
+                }, onCallCenterClick = {
+                    navController.navigateToCallCenterScreen()
+                }, onGuideClick = {
+                    navController.navigateToGuideScreen()
+                }, onSubmitCommentClick = {
+                    navController.navigateToSubmitCommentScreen()
+                }, onRahyarClick = {
+                    navController.navigateToRahyarScreen()
+                })
         }
 
         termsAndConditionsScreen {

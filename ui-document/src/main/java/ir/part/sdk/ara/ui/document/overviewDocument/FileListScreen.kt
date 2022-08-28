@@ -61,8 +61,8 @@ fun FileListScreen(
         title = stringResource(id = R.string.label_file_validation_result),
         description = stringResource(
             id = R.string.msg_file_validation_result
-        )
-    ) {}
+        ), submitAction = {}
+    )
 
     val removeDocumentDeleteDialog = getDeleteDialog(
         title = stringResource(id = R.string.label_dialog_file_remove_title),

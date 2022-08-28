@@ -1,11 +1,12 @@
 package ir.part.sdk.ara.home.utils.navigation
 
 import androidx.navigation.NavHostController
+import ir.part.sdk.ara.common.ui.view.ids.UiUserSharedIds
 import ir.part.sdk.ara.common.ui.view.navigationHelper.safeNavigate
 
 fun NavHostController.navigateToUserHomeScreen() {
     safeNavigate(
-        destinationScreen = HomeRouter.UserHomeScreen.router,
+        destinationScreen = UiUserSharedIds.UserHomeScreen.router,
         popUpTo = HomeRouter.SplashScreen.router,
         inclusiveScreen = true
     )

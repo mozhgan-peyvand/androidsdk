@@ -55,6 +55,11 @@ class CustomInterceptor @Inject constructor(
             requestBuilder.addHeader("task-instance-id", "")
         }
 
+        if (request.url().toString().contains(urls.userManager.logout)) {
+            requestBuilder.addHeader("gateway-system", "araMerat")
+            requestBuilder.addHeader("gateway-token", token)
+        }
+
         if (request.url().toString().contains(urls.stateService.getBaseStateObject)
         ) {
             requestBuilder.addHeader("gateway-system", "araMerat")
