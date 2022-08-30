@@ -1,6 +1,7 @@
 package ir.part.sdk.ara.home.version
 
 import android.app.Activity
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -9,7 +10,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
-import ir.part.sdk.ara.common.ui.view.utils.dialog.DialogManager
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getSdkUpdateDialog
@@ -28,28 +28,36 @@ fun ShowVersionDialog(versionViewModel: VersionViewModel) {
         mutableStateOf<Boolean?>(null)
     }
     isShowForceDialog.value = versionViewModel.listHasFilterOrNot.value
+    VersionDialog(isShowForceDialog.value, context)
+}
 
-    if (isShowForceDialog.value == true) {
-        getSdkUpdateDialog(
-            title = stringResource(id = R.string.label_term_attention),
-            message = stringResource(id = R.string.msg_updateError_when_user_use_as_a_library_is_force),
-            submitText = R.string.btn_download_new_version,
-            cancelText = R.string.btn_exit_from_sdk,
-        ).setSubmitAction {
-            DialogManager().dismiss()
+@Composable
+private fun VersionDialog(isShowForceDialog: Boolean?, context: Context) {
+    val isForceDialog = getSdkUpdateDialog(
+        title = stringResource(id = R.string.label_term_attention),
+        message = stringResource(id = R.string.msg_updateError_when_user_use_as_a_library_is_force),
+        submitText = R.string.btn_download_new_version,
+        cancelText = R.string.btn_exit_from_sdk,
+    )
+
+    val isNotForceDialog = getSdkUpdateDialog(
+        title = stringResource(id = R.string.label_term_attention),
+        message = stringResource(id = R.string.msg_updateError_when_user_use_as_a_library_is_not_force),
+        submitText = R.string.btn_download_new_version,
+        cancelText = R.string.btn_exit_dialog
+    )
+
+    if (isShowForceDialog == true) {
+        isForceDialog.setSubmitAction {
+            isForceDialog.dismiss()
         }.setCancelAction {
             (context as? Activity)?.finish()
         }.show()
-    } else if (isShowForceDialog.value == false) {
-        getSdkUpdateDialog(
-            title = stringResource(id = R.string.label_term_attention),
-            message = stringResource(id = R.string.msg_updateError_when_user_use_as_a_library_is_not_force),
-            submitText = R.string.btn_download_new_version,
-            cancelText = R.string.btn_exit_dialog
-        ).setSubmitAction {
-            DialogManager().dismiss()
+    } else if (isShowForceDialog == false) {
+        isNotForceDialog.setSubmitAction {
+            isNotForceDialog.dismiss()
         }.setCancelAction {
-            DialogManager().dismiss()
+            isNotForceDialog.dismiss()
         }.show()
     }
 }
