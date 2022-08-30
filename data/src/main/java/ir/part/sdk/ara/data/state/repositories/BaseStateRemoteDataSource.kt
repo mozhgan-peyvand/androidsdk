@@ -16,8 +16,7 @@ class BaseStateRemoteDataSource @Inject constructor(private val service: BaseSta
     private suspend fun requestBaseState(nationalCode: String) = checkApiResult(
         service.baseStateObject(
             url = urls.stateService.getBaseStateObject,
-
-            BaseStateEntity(
+            baseStateEntity = BaseStateEntity(
                 searchToken = "processType_base&username_$nationalCode",
                 include = listOf("id", "keys", "body"),
                 sort = true,
@@ -26,7 +25,8 @@ class BaseStateRemoteDataSource @Inject constructor(private val service: BaseSta
                 pagination = true,
                 pageSize = 2,
                 pageNumber = 1
-            )
+            ),
+            username = nationalCode
         )
     )
 

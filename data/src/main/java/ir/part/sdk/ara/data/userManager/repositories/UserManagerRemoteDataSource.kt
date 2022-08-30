@@ -100,18 +100,34 @@ class UserManagerRemoteDataSource @Inject constructor(
             )
         )
 
-    suspend fun changePassword(changePasswordParamModel: ChangePasswordParamModel) =
+    suspend fun changePassword(
+        changePasswordParamModel: ChangePasswordParamModel,
+        processInstanceId: String,
+        taskInstanceId: String
+    ) =
         safeApiCall(
-            call = { requestChangePassword(changePasswordParamModel) },
+            call = {
+                requestChangePassword(
+                    changePasswordParamModel = changePasswordParamModel,
+                    processInstanceId = processInstanceId,
+                    taskInstanceId = taskInstanceId,
+                )
+            },
             errorMessage = "Error getting register"
         )
 
 
-    private suspend fun requestChangePassword(changePasswordParamModel: ChangePasswordParamModel) =
+    private suspend fun requestChangePassword(
+        changePasswordParamModel: ChangePasswordParamModel,
+        processInstanceId: String,
+        taskInstanceId: String
+    ) =
         checkApiResult(
             service.getChangePassword(
                 url = urls.userManager.changeAuthenticatePack,
-                changePasswordParamModel
+                processInstanceId = processInstanceId,
+                taskInstanceId = taskInstanceId,
+                changePasswordParamModel = changePasswordParamModel
             )
         )
 

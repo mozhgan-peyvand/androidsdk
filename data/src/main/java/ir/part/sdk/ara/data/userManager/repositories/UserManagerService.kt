@@ -31,7 +31,9 @@ interface UserManagerService {
     @POST
     suspend fun getChangePassword(
         @Url url: String,
-        @Body changePasswordParamModel: ChangePasswordParamModel,
+        @Header("process-instance-id") processInstanceId: String,
+        @Header("task-instance-id") taskInstanceId: String,
+        @Body changePasswordParamModel: ChangePasswordParamModel
     ): Response<Unit>
 
     @POST

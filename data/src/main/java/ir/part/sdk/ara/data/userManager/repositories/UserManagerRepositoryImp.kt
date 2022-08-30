@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.di.SK
 import ir.part.sdk.ara.base.model.InvokeStatus
+import ir.part.sdk.ara.base.util.AesEncryptor
 import ir.part.sdk.ara.data.userManager.entities.CaptchaEntity
 import ir.part.sdk.ara.data.userManager.entities.ForgetPasswordVerificationParamModel
 import ir.part.sdk.ara.data.userManager.entities.RegisterResponseNetwork
@@ -64,8 +65,15 @@ class UserManagerRepositoryImp @Inject constructor(
         requestExecutor.execute(object :
             InvokeStatus.ApiEventListener<Unit, Boolean> {
             override suspend fun onRequestCall(): InvokeStatus<Unit> {
-                return remoteDataSource.changePassword(changePasswordParam.toChangePasswordParamModel())
+                return remoteDataSource.changePassword(changePasswordParamModel = changePasswordParam.toChangePasswordParamModel(),
+                    processInstanceId = pref.getString("processInstanceId", null)?.let {
+                        AesEncryptor().decrypt(it, sk)
+                    } ?: "",
+                    taskInstanceId = pref.getString("taskInstanceId", null)?.let {
+                        AesEncryptor().decrypt(it, sk)
+                    } ?: "")
             }
+
             override fun onConvertResult(data: Unit) = true
         })
 
