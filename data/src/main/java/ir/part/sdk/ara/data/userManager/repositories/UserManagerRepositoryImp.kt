@@ -1,8 +1,13 @@
 package ir.part.sdk.ara.data.userManager.repositories
 
+import android.content.SharedPreferences
 import ir.part.sdk.ara.base.di.FeatureDataScope
+import ir.part.sdk.ara.base.di.SK
 import ir.part.sdk.ara.base.model.InvokeStatus
-import ir.part.sdk.ara.data.userManager.entities.*
+import ir.part.sdk.ara.data.userManager.entities.CaptchaEntity
+import ir.part.sdk.ara.data.userManager.entities.ForgetPasswordVerificationParamModel
+import ir.part.sdk.ara.data.userManager.entities.RegisterResponseNetwork
+import ir.part.sdk.ara.data.userManager.entities.UserManagerEntity
 import ir.part.sdk.ara.data.userManager.mappers.toChangePasswordParamModel
 import ir.part.sdk.ara.data.userManager.mappers.toForgetPasswordParamModel
 import ir.part.sdk.ara.data.userManager.mappers.toLoginParamModel
@@ -17,7 +22,9 @@ import javax.inject.Inject
 class UserManagerRepositoryImp @Inject constructor(
     private val localDataSource: UserManagerLocalDataSource,
     private val remoteDataSource: UserManagerRemoteDataSource,
-    private val requestExecutor: RequestExecutor
+    private val requestExecutor: RequestExecutor,
+    @SK private val sk: String,
+    private val pref: SharedPreferences,
 ) : UserManagerRepository {
 
     override suspend fun getCaptchaRemote(): InvokeStatus<Captcha?> =
@@ -29,15 +36,6 @@ class UserManagerRepositoryImp @Inject constructor(
             override fun onConvertResult(data: PublicResponse<CaptchaEntity>): Captcha? =
                 data.item?.toCaptcha()
 
-        })
-
-    override suspend fun getLogOut(): InvokeStatus<Boolean> =
-        requestExecutor.execute(object :
-            InvokeStatus.ApiEventListener<PublicResponse<LoginEntity>, Boolean> {
-            override suspend fun onRequestCall(): InvokeStatus<PublicResponse<LoginEntity>> =
-                remoteDataSource.logout()
-
-            override fun onConvertResult(data: PublicResponse<LoginEntity>): Boolean = true
         })
 
     override suspend fun getLoginRemote(loginParam: LoginParam): InvokeStatus<Boolean> =
@@ -113,8 +111,24 @@ class UserManagerRepositoryImp @Inject constructor(
         return localDataSource.getNationalCode()
     }
 
+    override fun getPhoneNumber(): String {
+        return localDataSource.getPhoneNumber()
+    }
+
     override fun clearAllTables() {
         localDataSource.clearAllTables()
     }
 
+    override suspend fun logout(): InvokeStatus<Boolean> = requestExecutor.execute(object :
+        InvokeStatus.ApiEventListener<Unit, Boolean> {
+        override suspend fun onRequestCall(): InvokeStatus<Unit> =
+            remoteDataSource.logout()
+
+        override fun onConvertResult(data: Unit): Boolean {
+            pref.edit().remove("CurrentUserNationalCode").apply()
+            pref.edit().remove("token").apply()
+            pref.edit().remove("mobilePhone").apply()
+            return true
+        }
+    })
 }

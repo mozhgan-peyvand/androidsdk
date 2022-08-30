@@ -12,6 +12,7 @@
     <string name="label_dear_user">کاربر محترم</string>
     <string name="label_attention">توجه</string>
     <string name="msg_invalid_persian">فقط حروف فارسی مجاز است!</string>
+    <string name="label_dissuasion">انصراف</string>
 </resources>
 
 

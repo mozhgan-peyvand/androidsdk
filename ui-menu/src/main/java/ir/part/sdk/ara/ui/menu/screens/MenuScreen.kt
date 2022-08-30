@@ -1,5 +1,6 @@
 package ir.part.sdk.ara.ui.menu.screens
 
+import android.app.Activity
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.*
@@ -7,23 +8,26 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.divider
-import ir.part.sdk.ara.common.ui.view.theme.ColorBlue
-import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker
-import ir.part.sdk.ara.common.ui.view.theme.ColorWhite
-import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextSecondary
+import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
+import ir.part.sdk.ara.common.ui.view.theme.*
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.merat.ui.menu.R
 
 @Composable
 fun MenuScreen(
+    menuViewModel: MenuViewModel,
     onChangePasswordClick: () -> Unit,
     onTermsAndConditionClick: () -> Unit,
     onAboutUsClick: () -> Unit,
@@ -31,14 +35,56 @@ fun MenuScreen(
     onCallCenterClick: () -> Unit,
     onGuideClick: () -> Unit,
     onSubmitCommentClick: () -> Unit,
-    onRahyarClick: () -> Unit
+    onRahyarClick: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
     Column(modifier = Modifier
         .fillMaxSize()
         .verticalScroll(scrollState)) {
 
-        MainMenuHeader()
+        val showLogoutQuestionDialog = remember {
+            mutableStateOf(false)
+        }
+        ShowExitDialogIfNeeded(showLogoutQuestionDialog.value, onConfirmedLogout = {
+            menuViewModel.logout()
+        }, onCancelDialog = {
+            showLogoutQuestionDialog.value = false
+        })
+        var shouldLogout by remember {
+            mutableStateOf(false)
+        }
+        shouldLogout = menuViewModel.successfulLogout.value == true
+        if (shouldLogout) {
+//            showLogoutQuestionDialog.value = false
+//            onLogoutUser()
+//            menuViewModel.successfulLogout.value = false // todo uncomment this and comment the rest of code block after implementing all navigation in app
+
+            val activity = (LocalContext.current as? Activity)
+            activity?.finish()
+        }
+
+        val loadingErrorState =
+            rememberFlowWithLifecycle(flow = menuViewModel.loadingAndMessageState).collectAsState(
+                initial = PublicState.Empty
+            )
+        ProcessLoadingAndErrorState(
+            loadingErrorState.value,
+            onErrorDialogDismissed = {
+                menuViewModel.loadingAndMessageState.value.message = null
+            },
+            onLoadingDialogStarted = {
+                showLogoutQuestionDialog.value = false
+            })
+        var phone by remember {
+            mutableStateOf("")
+        }
+        phone = menuViewModel.phoneNumber.value
+        var nationalCode by remember {
+            mutableStateOf("")
+        }
+        nationalCode = menuViewModel.nationalCode.value
+
+        MainMenuHeader(phone = phone, nationalCode = nationalCode)
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
 
@@ -90,14 +136,40 @@ fun MenuScreen(
             onClick = onCallCenterClick
         )
 
-        MenuItem(icon = R.drawable.ic_exit, title = R.string.label_exit, onClick = {})
-
+        MenuItem(icon = R.drawable.ic_exit, title = R.string.label_exit, onClick = {
+            showLogoutQuestionDialog.value = true
+        })
     }
 
 }
 
 @Composable
-private fun MainMenuHeader() {
+private fun ShowExitDialogIfNeeded(
+    shouldShow: Boolean,
+    onConfirmedLogout: () -> Unit,
+    onCancelDialog: () -> Unit,
+) {
+    val exitDialog = getErrorDialog(
+        title = stringResource(id = R.string.label_exit),
+        description = stringResource(id = R.string.label_would_you_like_to_logout_from_your_account),
+        cancelText = R.string.label_dissuasion,
+        submitAction = {
+            onConfirmedLogout()
+        },
+        cancelAction = {
+            onCancelDialog()
+        })
+
+
+    if (shouldShow) {
+        exitDialog.show()
+    } else {
+        exitDialog.dismiss()
+    }
+}
+
+@Composable
+private fun MainMenuHeader(phone: String, nationalCode: String) {
     Row(modifier = Modifier
         .fillMaxWidth()
         .background(
@@ -118,12 +190,12 @@ private fun MainMenuHeader() {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column() {
-            Text(text = "",
-                style = MaterialTheme.typography.h6,
-                color = ColorWhite) // todo get national code and set it here
+            Text(text = nationalCode,
+                style = MaterialTheme.typography.h6OnPrimary(),
+                color = ColorWhite)
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_2x)))
-            Text(text = "", // todo get phone number code and set it here
-                style = MaterialTheme.typography.body2,
+            Text(text = phone,
+                style = MaterialTheme.typography.body2TextOnPrimary(),
                 color = ColorWhite)
         }
         Image(painter = painterResource(id = R.drawable.ic_user_profile),
@@ -154,6 +226,32 @@ private fun MenuItem(@DrawableRes icon: Int, @StringRes title: Int, onClick: () 
             .height(1.dp)
             .padding(horizontal = dimensionResource(id = R.dimen.spacing_4x))
     )
+}
+
+@Composable
+private fun ProcessLoadingAndErrorState(
+    input: PublicState?,
+    onErrorDialogDismissed: () -> Unit,
+    onLoadingDialogStarted: () -> Unit,
+) {
+    val dialog = getErrorDialog(
+        title = stringResource(id = R.string.msg_general_error_title),
+        description = "",
+        submitAction = {
+            onErrorDialogDismissed()
+        }
+    )
+    val loadingDialog = getLoadingDialog()
+
+    if (input?.refreshing == true) {
+        loadingDialog.show()
+        onLoadingDialogStarted()
+    } else {
+        loadingDialog.dismiss()
+        input?.message?.let { messageModel ->
+            dialog.setDialogDetailMessage(messageModel.message).show()
+        }
+    }
 }
 
 

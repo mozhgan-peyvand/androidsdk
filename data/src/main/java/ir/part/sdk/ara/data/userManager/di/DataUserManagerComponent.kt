@@ -38,10 +38,11 @@ interface DataUserManagerComponent : BasicComponent {
     fun injectGetForgetPasswordVerificationRemote(): GetForgetPasswordVerificationRemote
     fun injectGetLoginRemote(): GetLoginRemote
     fun injectGetNationalCode(): GetNationalCode
+    fun injectGetPhoneNumber(): GetPhoneNumber
     fun injectGetRegisterRemote(): GetRegisterRemote
     fun injectGetChangePasswordRemote(): GetChangePasswordRemote
-    fun injectGetLogOutRemote(): GetLogOutRemote
     fun injectGetCaptchaRemote(): GetCaptchaRemote
+    fun injectLogout(): Logout
 
     companion object {
         fun builder(componentProvider: ComponentProviderActivity): DataUserManagerComponent {

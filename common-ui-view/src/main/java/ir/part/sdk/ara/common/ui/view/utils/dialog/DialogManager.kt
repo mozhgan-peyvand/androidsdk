@@ -34,7 +34,7 @@ open class DialogManager {
     }
 
     fun setCancelText(cancelText: Int): DialogManager {
-        _cancelText = cancelText
+        this._cancelText = cancelText
         return this
     }
 
@@ -52,6 +52,7 @@ open class DialogManager {
         _cancelAction = cancelAction
         return this
     }
+
 
     companion object {
         fun builder(): DialogManager {
@@ -79,8 +80,7 @@ open class DialogManager {
                     title = _titleDialog,
                     description = _descriptionDialog,
                     cancelText = _cancelText,
-                    submitText = _submitText
-
+                    submitText = _submitText,
                 )
             }
         }

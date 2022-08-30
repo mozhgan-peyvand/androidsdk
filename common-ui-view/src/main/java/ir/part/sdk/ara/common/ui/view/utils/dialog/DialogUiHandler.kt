@@ -34,7 +34,7 @@ class DialogUiHandler {
         submitText: Int? = null,
         cancelText: Int? = null,
         title: String? = null,
-        description: String? = null
+        description: String? = null,
     ) {
         when (dialogType) {
             DialogType.LoadingDialog.name -> {
@@ -70,7 +70,9 @@ class DialogUiHandler {
                     submitText = StringResource.label_confirmation_dialog,
                     iconId = DrawableResource.common_view_ic_c_warning,
                     iconBackgroundColor = MaterialTheme.colors.error,
-                    iconPlaceHolderColor = MaterialTheme.colors.errorBackground()
+                    iconPlaceHolderColor = MaterialTheme.colors.errorBackground(),
+                    cancelLabel = cancelText,
+                    cancelAction = cancelAction
                 )
             }
             DialogType.DeleteDialog.name -> {
@@ -181,7 +183,7 @@ class DialogUiHandler {
         cancelText: Int,
         iconId: Int,
         iconBackgroundColor: Color,
-        iconPlaceHolderColor: Color
+        iconPlaceHolderColor: Color,
     ) {
         Card(
             modifier = Modifier.fillMaxWidth(),
@@ -305,10 +307,12 @@ class DialogUiHandler {
         title: String,
         description: String,
         submitAction: (() -> Unit)? = null,
+        cancelAction: (() -> Unit)? = null,
         submitText: Int,
+        cancelLabel: Int? = null,
         iconId: Int,
         iconBackgroundColor: Color,
-        iconPlaceHolderColor: Color
+        iconPlaceHolderColor: Color,
     ) {
 
         Card(
@@ -399,7 +403,35 @@ class DialogUiHandler {
                             )
                         )
                     }
-                    Spacer(modifier = Modifier.weight(1f))
+                    if (cancelLabel == null) {
+                        Spacer(modifier = Modifier.weight(1f))
+                    } else {
+                        Spacer(modifier = Modifier.weight(0.1f))
+                        OutlinedButton(
+                            onClick = {
+                                cancelAction?.invoke()
+                            },
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(
+                                    end = dimensionResource(DimensionResource.spacing_5x),
+                                    start = dimensionResource(DimensionResource.spacing_2x)
+                                ),
+                            border = BorderStroke(
+                                width = dimensionResource(id = DimensionResource.spacing_quarter_base),
+                                color = MaterialTheme.colors.primaryVariant
+                            ),
+                            shape = MaterialTheme.shapes.medium
+                        ) {
+                            Text(
+                                text = stringResource(id = cancelLabel),
+                                style = MaterialTheme.typography.subtitle2.copy(
+                                    textAlign = TextAlign.Center,
+                                    color = MaterialTheme.colors.primaryVariant
+                                )
+                            )
+                        }
+                    }
                 }
             }
         }
