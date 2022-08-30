@@ -13,6 +13,9 @@ interface DashboardService {
     @POST
     suspend fun newDocumentProcess(
         @Url url: String,
+        @Header("username") username: String,
+        @Header("process-instance-id") processInstanceId: String,
+        @Header("task-instance-id") taskInstanceId: String,
         @Body submitReqValidationParamModel: SubmitReqValidationParamModel
     ): Response<PublicResponse<SubmitResponseValidationEntity>>
 

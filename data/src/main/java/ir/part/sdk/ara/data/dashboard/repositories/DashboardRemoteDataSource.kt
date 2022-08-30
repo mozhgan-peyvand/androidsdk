@@ -16,15 +16,28 @@ class DashboardRemoteDataSource @Inject constructor(
 ) : BaseRemoteDataSource() {
 
     suspend fun submitReqValidation(
-        submitReqValidationParamModel: SubmitReqValidationParamModel
+        submitReqValidationParamModel: SubmitReqValidationParamModel,
+        nationalCode: String,
+        processInstanceId: String,
+        taskInstanceId: String
     ) =
         safeApiCall(
-            call = { requestSubmitReqValidation(submitReqValidationParamModel) },
+            call = {
+                requestSubmitReqValidation(
+                    submitReqValidationParamModel = submitReqValidationParamModel,
+                    nationalCode = nationalCode,
+                    processInstanceId = processInstanceId,
+                    taskInstanceId = taskInstanceId
+                )
+            },
             errorMessage = "Error submit Request Validation"
         )
 
     private suspend fun requestSubmitReqValidation(
-        submitReqValidationParamModel: SubmitReqValidationParamModel
+        submitReqValidationParamModel: SubmitReqValidationParamModel,
+        nationalCode: String,
+        processInstanceId: String,
+        taskInstanceId: String
     ) =
         checkApiResult(
             service.newDocumentProcess(
@@ -36,7 +49,10 @@ class DashboardRemoteDataSource @Inject constructor(
                     actorId = "279b8d69-c71a-4ff2-81e5-4143f6a839e7",
                     event = "new",
                     unionId = submitReqValidationParamModel.unionId
-                )
+                ),
+                username = nationalCode,
+                processInstanceId = processInstanceId,
+                taskInstanceId = taskInstanceId
             )
         )
 

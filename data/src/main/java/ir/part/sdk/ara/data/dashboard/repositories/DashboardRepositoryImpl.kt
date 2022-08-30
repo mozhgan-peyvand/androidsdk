@@ -97,7 +97,16 @@ class DashboardRepositoryImpl @Inject constructor(
             InvokeStatus.ApiEventListener<PublicResponse<SubmitResponseValidationEntity>, SubmitResponseValidation?> {
             override suspend fun onRequestCall(): InvokeStatus<PublicResponse<SubmitResponseValidationEntity>> =
                 remoteDataSource.submitReqValidation(
-                    submitReqValidationParam.toSubmitReqValidationParamModel()
+                    submitReqValidationParam.toSubmitReqValidationParamModel(),
+                    processInstanceId = pref.getString("processInstanceId", null)?.let {
+                        AesEncryptor().decrypt(it, sk)
+                    } ?: "",
+                    taskInstanceId = pref.getString("taskInstanceId", null)?.let {
+                        AesEncryptor().decrypt(it, sk)
+                    } ?: "",
+                    nationalCode = pref.getString("CurrentUserNationalCode", null)?.let {
+                        AesEncryptor().decrypt(it, sk)
+                    } ?: ""
                 )
 
             override fun onConvertResult(data: PublicResponse<SubmitResponseValidationEntity>): SubmitResponseValidation? =
