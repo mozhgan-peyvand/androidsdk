@@ -18,12 +18,15 @@
 
 package ir.part.sdk.ara.common.ui.view
 
+import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun <T> rememberFlowWithLifecycle(
@@ -35,4 +38,15 @@ fun <T> rememberFlowWithLifecycle(
         lifecycle = lifecycle,
         minActiveState = minActiveState
     )
+}
+
+inline fun <T> Flow<T>.collectOnActivity(
+    activity: ComponentActivity,
+    crossinline onCollect: (T) -> Unit
+) {
+    activity.lifecycleScope.launchWhenStarted {
+        this@collectOnActivity.collectLatest {
+            onCollect(it)
+        }
+    }
 }

@@ -3,6 +3,8 @@ package ir.part.sdk.ara.util
 
 import android.content.SharedPreferences
 import ir.part.sdk.ara.base.di.SK
+import ir.part.sdk.ara.base.event.MeratEvent
+import ir.part.sdk.ara.base.event.MeratEventPublisher
 import ir.part.sdk.ara.base.util.AesEncryptor
 import ir.part.sdk.ara.util.api.ApiUrlHelper
 import okhttp3.Interceptor
@@ -35,6 +37,10 @@ class CustomInterceptor @Inject constructor(
         requestBuilder.addHeader("gateway-system", "araMerat")
         requestBuilder.addHeader("gateway-token", token)
 
+        val response = chain.proceed(requestBuilder.build())
+        if (response.code() == 401) {
+            MeratEventPublisher.publishEvent(officeEvent = MeratEvent.TokenExpired)
+        }
         return chain.proceed(requestBuilder.build())
     }
 }
