@@ -23,9 +23,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
 import ir.part.sdk.ara.base.di.MainScope
+import ir.part.sdk.ara.base.event.MeratEvent
+import ir.part.sdk.ara.base.event.MeratEventPublisher
 import ir.part.sdk.ara.builder.di.BuilderComponent
 import ir.part.sdk.ara.builder.ui.bottomnavigation.BottomBarScreen
+import ir.part.sdk.ara.builder.ui.bottomnavigation.navigateToLogin
 import ir.part.sdk.ara.builder.util.localizedContext
+import ir.part.sdk.ara.common.ui.view.collectOnActivity
 import ir.part.sdk.ara.common.ui.view.ids.UiUserSharedIds
 import ir.part.sdk.ara.common.ui.view.theme.AraTheme
 import ir.part.sdk.ara.home.utils.navigation.HomeRouter
@@ -83,6 +87,12 @@ class HomeActivity : ComponentProviderActivity() {
                     }
                 }
 
+            }
+        }
+
+        MeratEventPublisher.events.collectOnActivity(this@HomeActivity) {
+            if (it == MeratEvent.TokenExpired) {
+                navController.navigateToLogin()
             }
         }
     }

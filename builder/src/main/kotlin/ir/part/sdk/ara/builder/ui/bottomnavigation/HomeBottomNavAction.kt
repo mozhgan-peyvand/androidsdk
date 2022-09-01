@@ -1,6 +1,7 @@
 package ir.part.sdk.ara.builder.ui.bottomnavigation
 
 import androidx.navigation.NavHostController
+import ir.part.sdk.ara.common.ui.view.ids.UiUserSharedIds
 import ir.part.sdk.ara.common.ui.view.navigationHelper.safeNavigate
 
 fun NavHostController.navigateToRequestValidation() {
@@ -26,4 +27,13 @@ fun NavHostController.navigateToDocumentList() {
 fun navigateToPersonalInfo() {
     // TODO: setup namabar builder
 
+}
+
+fun NavHostController.navigateToLogin() {
+    popBackStack()
+    safeNavigate(
+        destinationScreen = UiUserSharedIds.UserLogin.router,
+        popUpTo = UiUserSharedIds.UserLogin.router,
+        inclusiveScreen = true
+    )
 }
