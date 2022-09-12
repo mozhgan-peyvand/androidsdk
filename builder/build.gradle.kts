@@ -34,6 +34,7 @@ dependencies {
     )
 
     addDagger2()
+    addNamabar()
     addConstrainLayout()
     addSecurity()
     addAndroidMaterial()
