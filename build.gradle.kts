@@ -1,7 +1,15 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
-        mavenLocal()
+        maven {
+            url = uri("https://nexus.partdp.ir/repository/android-psg/")
+            artifactUrls("https://nexus.partdp.ir/repository/android-psg/")
+            credentials {
+                username = "android-psg"
+                password = "P}s%AYdg,4R{U8bY"
+            }
+        }
+//        mavenLocal()
         mavenCentral()
         google()
     }
@@ -23,7 +31,7 @@ allprojects {
                 password = "P}s%AYdg,4R{U8bY"
             }
         }
-        mavenLocal()
+//        mavenLocal()
         mavenCentral()
         google()
 //        maven("https://mvnrepository.com/artifact/com.android.tools.lint/lint-gradle-api")
