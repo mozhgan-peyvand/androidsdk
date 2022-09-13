@@ -41,6 +41,6 @@ class CustomInterceptor @Inject constructor(
         if (response.code() == 401) {
             MeratEventPublisher.publishEvent(officeEvent = MeratEvent.TokenExpired)
         }
-        return chain.proceed(requestBuilder.build())
+        return response
     }
 }
