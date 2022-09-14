@@ -24,4 +24,5 @@ interface UserManagerRepository {
     fun getCurrentUser(): User?
 
     suspend fun logout(): InvokeStatus<Boolean>
+    fun getToken(): String
 }

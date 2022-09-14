@@ -19,7 +19,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -27,11 +26,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import ir.part.app.merat.ui.user.R
-import ir.part.sdk.ara.base.util.TasksName
 import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.primaryVariant
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
@@ -46,33 +42,38 @@ import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
 import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
 import ir.part.sdk.ara.ui.shared.feature.screens.captcha.Captcha
 import ir.part.sdk.ara.ui.shared.feature.screens.captcha.CaptchaViewModel
+import ir.part.sdk.ara.ui.shared.feature.screens.task.TasksManagerViewModel
 
 @Composable
 fun LoginScreen(
     captchaViewModel: CaptchaViewModel? = null,
     navigateToForgetPassword: (() -> Unit)? = null,
-    navigateToDocument: (() -> Unit)? = null,
-    loginViewModel: LoginViewModel? = null
+    loginViewModel: LoginViewModel? = null,
+    tasksManagerViewModel: TasksManagerViewModel
 ) {
 
-    // todo it will fix in get task
-    when (loginViewModel?.nextStep?.value) {
-        TasksName.StartNewDocument.value -> navigateToDocument?.invoke()
-        else -> {}
+    val loginLoadingErrorState = loginViewModel?.let {
+        rememberFlowWithLifecycle(flow = it.loadingAndMessageState).collectAsState(initial = PublicState.Empty)
     }
+
+    val taskLoadingErrorState =
+        rememberFlowWithLifecycle(flow = tasksManagerViewModel.loadingAndMessageState).collectAsState(
+            initial = PublicState.Empty
+        )
+
+    ProcessLoadingAndErrorState(input = loginLoadingErrorState?.value)
+    ProcessLoadingAndErrorState(input = taskLoadingErrorState.value)
 
     Column(modifier = Modifier.fillMaxWidth()) {
 
         Image(
             modifier = Modifier.fillMaxWidth(),
             contentScale = ContentScale.FillWidth,
-            painter = painterResource(id =R.drawable.merat_login_background),
+            painter = painterResource(id = R.drawable.merat_login_background),
             contentDescription = ""
         )
 
         loginViewModel?.let {
-            ObserveLoadingState(loginViewModel = it)
-            ProcessLoadingAndErrorState(loginViewModel = it)
             ShowUserName(loginViewModel = it)
             ShowPassword(loginViewModel = it)
         }
@@ -95,7 +96,10 @@ fun LoginScreen(
                 ) {
                     loginViewModel.getLogin(
                         captchaValue = captchaViewModel?.captchaValue?.value ?: "",
-                        captchaToken = captchaViewModel?.captchaViewState?.value?.token ?: ""
+                        captchaToken = captchaViewModel?.captchaViewState?.value?.token ?: "",
+                        onSuccess = {
+                            tasksManagerViewModel.getBaseState(it)
+                        }
                     )
                 }
             },
@@ -192,8 +196,8 @@ private fun ShowUserName(loginViewModel: LoginViewModel) {
         isError = loginViewModel.errorValueNationalCode.value.second.isNotEmpty()
     )
     ErrorText(
-        visible = !loginViewModel.errorValueNationalCode.value.second.isNullOrEmpty(),
-        errorMessage = if (!loginViewModel.errorValueNationalCode.value.second.isNullOrEmpty()) loginViewModel.errorValueNationalCode.value.second.last().validator.getErrorMessage(
+        visible = loginViewModel.errorValueNationalCode.value.second.isNotEmpty(),
+        errorMessage = if (loginViewModel.errorValueNationalCode.value.second.isNotEmpty()) loginViewModel.errorValueNationalCode.value.second.last().validator.getErrorMessage(
             LocalContext.current
         ) else ""
     )
@@ -261,47 +265,28 @@ private fun ShowPassword(loginViewModel: LoginViewModel) {
         isError = loginViewModel.errorValuePassword.value.second.isNotEmpty()
     )
     ErrorText(
-        visible = !loginViewModel.errorValuePassword.value.second.isNullOrEmpty(),
-        errorMessage = if (!loginViewModel.errorValuePassword.value.second.isNullOrEmpty()) loginViewModel.errorValuePassword.value.second.last().validator.getErrorMessage(
+        visible = loginViewModel.errorValuePassword.value.second.isNotEmpty(),
+        errorMessage = if (loginViewModel.errorValuePassword.value.second.isNotEmpty()) loginViewModel.errorValuePassword.value.second.last().validator.getErrorMessage(
             LocalContext.current
         ) else ""
     )
 }
 
 @Composable
-private fun ObserveLoadingState(
-    loginViewModel: LoginViewModel
-) {
-    loginViewModel.loadingErrorState.value =
-        rememberFlowWithLifecycle(loginViewModel.loadingAndMessageState).collectAsState(initial = PublicState.Empty).value
-}
-
-@Composable
-private fun ProcessLoadingAndErrorState(loginViewModel: LoginViewModel) {
-    val dialog = getInfoDialog(
+private fun ProcessLoadingAndErrorState(input: PublicState?) {
+    val loadingDialog = getLoadingDialog()
+    val errorDialog = getInfoDialog(
         title = stringResource(id = R.string.label_warning_title_dialog),
         description = ""
     )
-    val loadingDialog = getLoadingDialog()
 
-    if (loginViewModel.loadingErrorState.value?.refreshing == true) {
+    if (input?.refreshing == true) {
         loadingDialog.show()
     } else {
         loadingDialog.dismiss()
-        loginViewModel.loadingErrorState.value?.message?.let { messageModel ->
-            dialog.setDialogDetailMessage(messageModel.message).show()
+        input?.message?.let { messageModel ->
+            errorDialog.setDialogDetailMessage(messageModel.message).show()
         }
     }
 }
-
-
-@Preview(widthDp = 320, heightDp = 640)
-@Composable
-private fun LoginPreviews() {
-    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-        LoginScreen()
-    }
-}
-
-
 

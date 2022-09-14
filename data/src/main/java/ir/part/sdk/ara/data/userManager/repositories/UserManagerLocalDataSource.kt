@@ -118,4 +118,11 @@ class UserManagerLocalDataSource @Inject constructor(
         } ?: ""
     }
 
+    fun getToken(): String {
+        return pref.getString("token", null)?.let {
+            AesEncryptor()
+                .decrypt(it, sk)
+        } ?: ""
+    }
+
 }

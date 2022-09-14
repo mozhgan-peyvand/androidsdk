@@ -11,8 +11,6 @@ import ir.part.sdk.ara.common.ui.view.api.collectAndChangeLoadingAndMessageStatu
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationResult
 import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
-import ir.part.sdk.ara.domain.tasks.interacors.GetBaseStateRemote
-import ir.part.sdk.ara.domain.tasks.interacors.GetTaskRemote
 import ir.part.sdk.ara.domain.user.interacors.GetLoginRemote
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -23,15 +21,11 @@ import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
     private var getLoginRemote: GetLoginRemote,
-    private var getBaseStateRemote: GetBaseStateRemote,
-    private var getTaskRemote: GetTaskRemote,
     private var exceptionHelper: ExceptionHelper
 ) : ViewModel() {
 
-    var nextStep = mutableStateOf("")
     var loadingState = ObservableLoadingCounter()
     var uiMassageManager = UiMessageManager()
-    val loadingErrorState = mutableStateOf<PublicState?>(null)
 
     //errorFields
     var errorValueNationalCode =
@@ -57,65 +51,32 @@ class LoginViewModel @Inject constructor(
         initialValue = PublicState.Empty
     )
 
-    fun getLogin(captchaValue: String, captchaToken: String) {
+    fun getLogin(captchaValue: String, captchaToken: String, onSuccess: (Boolean) -> Unit) {
         viewModelScope.launch {
-            if (loadingState.count.toInt() == 0) {
-                clearAllMessage()
-                getLoginRemote.invoke(
-                    GetLoginRemote.Param(
-                        LoginView(
-                            nationalCode = userName.value,
-                            password = password.value,
-                            captchaValue = captchaValue,
-                            captchaToken = captchaToken
-                        ).toLoginParam()
-                    )
-                ).collectAndChangeLoadingAndMessageStatus(
-                    viewModelScope,
-                    loadingState,
-                    exceptionHelper,
-                    uiMassageManager
-                ) {
-                    if (it) {
-                        nextStep.value = "start-new-document"
-                    }
+//            if (loadingState.count.toInt() == 0) {
+            clearAllMessage()
+            getLoginRemote.invoke(
+                GetLoginRemote.Param(
+                    LoginView(
+                        nationalCode = userName.value,
+                        password = password.value,
+                        captchaValue = captchaValue,
+                        captchaToken = captchaToken
+                    ).toLoginParam()
+                )
+            ).collectAndChangeLoadingAndMessageStatus(
+                viewModelScope,
+                loadingState,
+                exceptionHelper,
+                uiMassageManager
+            ) {
+                if (it) {
+                    onSuccess(it)
                 }
             }
+//            }
         }
     }
-    // TODO: it will be fix in get task 
-//    private fun getBaseState() {
-//        viewModelScope.launch {
-//            if (loadingState.count.toInt() == 0) {
-//                clearAllMessage()
-//                getBaseStateRemote.invoke(Unit).collectAndChangeLoadingAndMessageStatus(
-//                    viewModelScope,
-//                    loadingState,
-//                    exceptionHelper,
-//                    uiMassageManager
-//                ) {
-//                    nextStep.value = "start-new-document"
-//                }
-//            }
-//        }
-//    }
-    //todo it will be fix in get task
-
-//    private fun getTask() {
-//        viewModelScope.launch {
-//            if (loadingState.count.toInt() == 0) {
-//                clearAllMessage()
-//                getTaskRemote.invoke(Unit).collectAndChangeLoadingAndMessageStatus(
-//                    viewModelScope,
-//                    loadingState,
-//                    exceptionHelper,
-//                    uiMassageManager
-//                ) {
-//                    nextStep.value = "change-pass"
-//                }
-//            }
-//        }
-//    }
 
     fun setErrorNationalCode(errorList: Pair<ValidationField, List<ValidationResult>>) {
         errorValueNationalCode.value = errorList
@@ -132,11 +93,11 @@ class LoginViewModel @Inject constructor(
         return validateWidget(
             ValidationField.NATIONAL_CODE,
             userName.value
-        ).second.isNullOrEmpty() &&
+        ).second.isEmpty() &&
                 validateWidget(
                     ValidationField.LOGIN_PASSWORD,
                     password.value
-                ).second.isNullOrEmpty()
+                ).second.isEmpty()
     }
 
     private fun clearAllMessage() {

@@ -2,7 +2,7 @@ package ir.part.sdk.ara.domain.tasks.entities
 
 data class Done(
     val body: DoneInfo?,
-    val keys: List<String?>
+    val keys: List<String?>?
 )
 
 data class DoneInfo(

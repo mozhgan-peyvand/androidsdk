@@ -74,21 +74,19 @@ class SubmitDocumentViewModel @Inject constructor(
 
     fun submitReqValidation(unionId: String, onResponse: (SubmitResponseValidationView?) -> Unit) {
         viewModelScope.launch {
-            if (loadingState.count.toInt() == 0) {
-                clearAllMessage()
-                submitReqValidationRemote.invoke(
-                    SubmitReqValidationRemote.Param(
-                        SubmitRequestView(unionId = unionId.toInt())
-                            .toSubmitReqValidationParam()
-                    )
-                ).collectAndChangeLoadingAndMessageStatus(
-                    viewModelScope,
-                    loadingState,
-                    exceptionHelper,
-                    uiMessageManager
-                ) {
-                    onResponse(it?.toSubmitResponseValidationView())
-                }
+            clearAllMessage()
+            submitReqValidationRemote.invoke(
+                SubmitReqValidationRemote.Param(
+                    SubmitRequestView(unionId = unionId.toInt())
+                        .toSubmitReqValidationParam()
+                )
+            ).collectAndChangeLoadingAndMessageStatus(
+                viewModelScope,
+                loadingState,
+                exceptionHelper,
+                uiMessageManager
+            ) {
+                onResponse(it?.toSubmitResponseValidationView())
             }
         }
     }

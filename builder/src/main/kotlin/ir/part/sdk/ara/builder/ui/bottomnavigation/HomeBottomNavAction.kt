@@ -5,7 +5,6 @@ import ir.part.sdk.ara.common.ui.view.ids.UiUserSharedIds
 import ir.part.sdk.ara.common.ui.view.navigationHelper.safeNavigate
 
 fun NavHostController.navigateToRequestValidation() {
-    // TODO: when validation task in done using screen hear
     safeNavigate(
         destinationScreen = BottomNavigationItems.SubmitRequest.route,
     )
@@ -18,15 +17,21 @@ fun NavHostController.navigateToMenu() {
 }
 
 fun NavHostController.navigateToDocumentList() {
-    // TODO: when documentList task in done using screen hear
     safeNavigate(
         destinationScreen = BottomNavigationItems.Document.route,
     )
 }
 
-fun navigateToPersonalInfo() {
-    // TODO: setup namabar builder
+fun NavHostController.navigateToNamabar() {
+    safeNavigate(
+        destinationScreen = BottomNavigationItems.PersonalInfo.route
+    )
+}
 
+fun NavHostController.navigateToChangePass() {
+    safeNavigate(
+        destinationScreen = UiUserSharedIds.UserChangePassword.router,
+    )
 }
 
 fun NavHostController.navigateToLogin() {

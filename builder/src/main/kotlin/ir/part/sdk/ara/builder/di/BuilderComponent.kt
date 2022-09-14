@@ -41,6 +41,9 @@ import ir.part.sdk.ara.ui.user.di.UserComponent
         MenuScreenComponent::class,
         VersionScreenComponent::class,
     ],
+    modules = [
+        ViewModelModule::class
+    ]
 )
 interface BuilderComponent : BasicComponent {
 

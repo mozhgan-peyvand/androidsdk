@@ -5,9 +5,8 @@ import ir.part.sdk.ara.domain.tasks.entities.Done
 import ir.part.sdk.ara.domain.tasks.entities.TaskInfo
 
 interface TaskRepository {
-    suspend fun requestGetTask(): InvokeStatus<List<TaskInfo>?>
-    suspend fun requestDoingTask(processInstanceId: String, taskId: String): InvokeStatus<String?>
-    suspend fun requestDoneTask(processInstanceId: String, taskId: String): InvokeStatus<Done?>
-
-
+    suspend fun requestGetDoingTasks(): InvokeStatus<TaskInfo?>
+    suspend fun requestDoingTask(): InvokeStatus<String?>
+    suspend fun requestDoneTask(): InvokeStatus<Done?>
+    fun getTaskInstanceId(): String
 }

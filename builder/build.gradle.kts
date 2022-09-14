@@ -15,6 +15,10 @@ android {
         getByName("test").java.srcDir("src/test/kotlin")
         getByName("androidTest").java.srcDir("src/androidTest/kotlin")
     }
+    kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs.plus("-Xjvm-default=enable")
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {

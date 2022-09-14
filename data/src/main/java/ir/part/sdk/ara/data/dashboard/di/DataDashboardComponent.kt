@@ -4,9 +4,10 @@ import dagger.Component
 import ir.part.sdk.ara.base.di.*
 import ir.part.sdk.ara.di.DataComponent
 import ir.part.sdk.ara.domain.tasks.di.DomainTaskComponent
-import ir.part.sdk.ara.domain.tasks.interacors.DoingTaskRemote
-import ir.part.sdk.ara.domain.tasks.interacors.DoneTaskRemote
-import ir.part.sdk.ara.domain.tasks.interacors.GetTaskRemote
+import ir.part.sdk.ara.domain.tasks.interacors.DoingRemote
+import ir.part.sdk.ara.domain.tasks.interacors.DoneRemote
+import ir.part.sdk.ara.domain.tasks.interacors.GetDoingTasksRemote
+import ir.part.sdk.ara.domain.tasks.interacors.GetTaskInstanceId
 
 
 @FeatureDataScope
@@ -33,10 +34,10 @@ interface DataDashboardComponent : BasicComponent {
         ): DataDashboardComponent
     }
 
-    //    fun injectGetBaseStateRemote(): GetBaseStateRemote
-    fun injectGetTaskRemote(): GetTaskRemote
-    fun injectDoingTaskRemote(): DoingTaskRemote
-    fun injectDoneTaskRemote(): DoneTaskRemote
+    fun injectGetTaskRemote(): GetDoingTasksRemote
+    fun injectDoingTaskRemote(): DoingRemote
+    fun injectDoneTaskRemote(): DoneRemote
+    fun injectGetTaskInstanceId(): GetTaskInstanceId
 
     companion object {
         fun builder(componentProvider: ComponentProviderActivity): DataDashboardComponent {

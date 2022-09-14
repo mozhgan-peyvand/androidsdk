@@ -21,6 +21,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import ir.part.app.merat.ui.user.R
+import ir.part.sdk.ara.base.util.TasksName
 import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.common.SubmitActionContent
 import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
@@ -34,21 +35,37 @@ import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
 import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
+import ir.part.sdk.ara.ui.shared.feature.screens.task.TasksManagerViewModel
 
 
 @Composable
 fun ChangePasswordScreen(
     changePasswordViewModel: ChangePasswordViewModel? = null,
     onNavigateUp: () -> Unit,
+    tasksManagerViewModel: TasksManagerViewModel
 ) {
 
-    Scaffold(modifier = Modifier.fillMaxSize(),
+    val taskLoadingErrorState =
+        rememberFlowWithLifecycle(flow = tasksManagerViewModel.loadingAndMessageState).collectAsState(
+            initial = PublicState.Empty
+        )
+
+    val changePassLoadingErrorState = changePasswordViewModel?.let {
+        rememberFlowWithLifecycle(flow = it.loadingAndMessageState).collectAsState(initial = PublicState.Empty)
+    }
+
+    ProcessLoadingAndErrorState(input = changePassLoadingErrorState?.value)
+    ProcessLoadingAndErrorState(input = taskLoadingErrorState.value)
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
                 backgroundColor = MaterialTheme.colors.surface,
                 elevation = dimensionResource(id = R.dimen.spacing_half_base)
             ) {
-                TopAppBarContent(title = stringResource(id = R.string.label_change_password),
+                TopAppBarContent(
+                    title = stringResource(id = R.string.label_change_password),
                     onNavigateUp = {
                         onNavigateUp()
                     })
@@ -57,7 +74,11 @@ fun ChangePasswordScreen(
             SubmitActionContent(
                 onSubmitClicked = {
                     if (changePasswordViewModel?.isValidationField() == true) {
-                        changePasswordViewModel.getChangePasswordRemote()
+                        changePasswordViewModel.getChangePasswordRemote(onSuccess = {
+                            if (tasksManagerViewModel.getDoingTaskName == TasksName.CHANG_PASS) {
+                                tasksManagerViewModel.done()
+                            }
+                        })
                     }
                 },
                 buttonText = R.string.label_change_password
@@ -82,8 +103,6 @@ private fun ShowPasswordContent(changePasswordViewModel: ChangePasswordViewModel
         )
 
         changePasswordViewModel?.let {
-            ObserveLoadingState(changePasswordViewModel = it)
-            ProcessLoadingAndErrorState(changePasswordViewModel = it)
             ShowCurrentPassword(changePasswordViewModel = it)
             ShowNewPassword(changePasswordViewModel = it)
             ShowReNewPassword(changePasswordViewModel = it)
@@ -159,8 +178,8 @@ private fun ShowCurrentPassword(changePasswordViewModel: ChangePasswordViewModel
         isError = changePasswordViewModel.errorValuePassword.value.second.isNotEmpty()
     )
     ErrorText(
-        visible = !changePasswordViewModel.errorValuePassword.value.second.isNullOrEmpty(),
-        errorMessage = if (!changePasswordViewModel.errorValuePassword.value.second.isNullOrEmpty())
+        visible = changePasswordViewModel.errorValuePassword.value.second.isNotEmpty(),
+        errorMessage = if (changePasswordViewModel.errorValuePassword.value.second.isNotEmpty())
             changePasswordViewModel.errorValuePassword.value.second.last().validator.getErrorMessage(
                 LocalContext.current
             ) else ""
@@ -235,8 +254,8 @@ private fun ShowNewPassword(changePasswordViewModel: ChangePasswordViewModel) {
         isError = changePasswordViewModel.errorValueNewPassword.value.second.isNotEmpty()
     )
     ErrorText(
-        visible = !changePasswordViewModel.errorValueNewPassword.value.second.isNullOrEmpty(),
-        errorMessage = if (!changePasswordViewModel.errorValueNewPassword.value.second.isNullOrEmpty())
+        visible = changePasswordViewModel.errorValueNewPassword.value.second.isNotEmpty(),
+        errorMessage = if (changePasswordViewModel.errorValueNewPassword.value.second.isNotEmpty())
             changePasswordViewModel.errorValueNewPassword.value.second.last().validator.getErrorMessage(
                 LocalContext.current
             ) else ""
@@ -304,32 +323,29 @@ private fun ShowReNewPassword(changePasswordViewModel: ChangePasswordViewModel) 
         isError = changePasswordViewModel.errorValueReNewPassword.value.second.isNotEmpty()
     )
     ErrorText(
-        visible = !changePasswordViewModel.errorValueReNewPassword.value.second.isNullOrEmpty(),
-        errorMessage = if (!changePasswordViewModel.errorValueReNewPassword.value.second.isNullOrEmpty())
+        visible = changePasswordViewModel.errorValueReNewPassword.value.second.isNotEmpty(),
+        errorMessage = if (changePasswordViewModel.errorValueReNewPassword.value.second.isNotEmpty())
             changePasswordViewModel.errorValueReNewPassword.value.second.last().validator.getErrorMessage(
                 LocalContext.current
             ) else ""
     )
 }
 
-@Composable
-private fun ObserveLoadingState(changePasswordViewModel: ChangePasswordViewModel) {
-    changePasswordViewModel.loadingErrorState.value =
-        rememberFlowWithLifecycle(flow = changePasswordViewModel.loadingAndMessageState).collectAsState(
-            initial = PublicState.Empty
-        ).value
-}
 
 @Composable
-private fun ProcessLoadingAndErrorState(changePasswordViewModel: ChangePasswordViewModel) {
-    val dialog = getInfoDialog(stringResource(id = R.string.label_warning_title_dialog), "")
+private fun ProcessLoadingAndErrorState(input: PublicState?) {
     val loadingDialog = getLoadingDialog()
-    if (changePasswordViewModel.loadingErrorState.value?.refreshing == true) {
+    val errorDialog = getInfoDialog(
+        title = stringResource(id = R.string.label_warning_title_dialog),
+        description = ""
+    )
+
+    if (input?.refreshing == true) {
         loadingDialog.show()
     } else {
         loadingDialog.dismiss()
-        changePasswordViewModel.loadingErrorState.value?.message?.let { messageModel ->
-            dialog.setDialogDetailMessage(messageModel.message).show()
+        input?.message?.let { messageModel ->
+            errorDialog.setDialogDetailMessage(messageModel.message).show()
         }
     }
 }

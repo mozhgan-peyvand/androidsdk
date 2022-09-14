@@ -24,8 +24,8 @@ class UserManagerRepositoryImp @Inject constructor(
     private val localDataSource: UserManagerLocalDataSource,
     private val remoteDataSource: UserManagerRemoteDataSource,
     private val requestExecutor: RequestExecutor,
-    @SK private val sk: String,
     private val pref: SharedPreferences,
+    @SK private val sk: String
 ) : UserManagerRepository {
 
     override suspend fun getCaptchaRemote(): InvokeStatus<Captcha?> =
@@ -139,4 +139,6 @@ class UserManagerRepositoryImp @Inject constructor(
             return true
         }
     })
+
+    override fun getToken(): String = localDataSource.getToken()
 }

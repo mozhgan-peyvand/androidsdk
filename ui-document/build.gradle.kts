@@ -4,15 +4,16 @@ plugins {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":ui-shared-feature")))
     addDependency(
         listOf(
             BuildModules.Libraries.BASE,
             BuildModules.Libraries.DOMAIN,
             BuildModules.Libraries.DATA,
             BuildModules.Libraries.COMMON_UI_VIEW,
+            BuildModules.Libraries.UI_SHARED_FEATURE
 
-
-            )
+        )
     )
 
     addKotshi()

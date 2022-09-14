@@ -11,6 +11,15 @@ data class BaseStateResponse(
     val pid: String? = null,
     @field:Json(name = "piid")
     val processInstanceId: String? = null,
-    @field:Json(name = "relatedprocessInstanceIds")
-    val relatedProcessInstanceIds: List<String?> = listOf()
+    @field:Json(name = "relatedPIIDs")
+    val relatedProcessInstanceIds: List<String?> = listOf(),
+    @field:Json(name = "tasks")
+    val tasks: Map<String, Status>? = null
+)
+
+
+@JsonClass(generateAdapter = true)
+data class Status(
+    @field:Json(name = "status")
+    val status: String?
 )

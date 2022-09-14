@@ -5,6 +5,6 @@ import ir.part.sdk.ara.data.userManager.entities.OldAuthenticateExtra
 import ir.part.sdk.ara.domain.user.entities.ChangePasswordParam
 
 fun ChangePasswordParam.toChangePasswordParamModel() = ChangePasswordParamModel(
-    password = currentPassword,
-    oldAuthenticateExtra = OldAuthenticateExtra(newPassword)
+    password = newPassword,
+    oldAuthenticateExtra = OldAuthenticateExtra(currentPassword)
 )

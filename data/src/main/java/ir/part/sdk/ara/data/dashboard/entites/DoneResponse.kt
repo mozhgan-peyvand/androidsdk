@@ -12,7 +12,7 @@ data class DoneResponse(
     @Json(name = "body")
     val body: DoneInfoEntity?,
     @Json(name = "keys")
-    val keys: List<String?>
+    val keys: List<String?>?
 ) {
     fun toDone() = Done(
         body = body?.toDoneInfo(),

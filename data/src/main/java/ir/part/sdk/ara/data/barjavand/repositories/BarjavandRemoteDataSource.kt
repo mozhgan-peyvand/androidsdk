@@ -45,7 +45,9 @@ class BarjavandRemoteDataSource @Inject constructor(
                 options = BarjavandGetParamsRequest(
                     schemaName = "document",
                     schemaVersion = "1.0.0",
-                    tags = JSONObject().put("applicantUsername", nationalCode).toString()
+                    tags = JSONObject().put("applicantUsername", nationalCode)
+                        .put("archive", "false")
+                        .toString()
                 ).toHashMap()
             )
         )

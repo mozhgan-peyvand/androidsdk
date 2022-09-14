@@ -19,29 +19,26 @@ interface DashboardService {
         @Body submitReqValidationParamModel: SubmitReqValidationParamModel
     ): Response<PublicResponse<SubmitResponseValidationEntity>>
 
-    @GET
-    suspend fun getTask(
-        @Url url: String,
-        // todo : check if should be static or not
-        @Query("dashboardId") dashboardId: String = "aa7f32e1-ff21-4b5b-92e1-c37da3499a43",
-        @Query("processInstanceId") processInstanceId: String,
-        @Query("tags") tags: String
-    ): Response<PublicResponse<List<TaskResponse>>>
-
-
     @PUT
-    suspend fun requestDoingTask(
+    suspend fun doing(
         @Url url: String,
-        // todo : check if should be static or not
-        @Query("dashboardId") dashboardId: String = "aa7f32e1-ff21-4b5b-92e1-c37da3499a43",
+        @Header("task-instance-id") taskInstanceId: String,
+        @Header("process-instance-id") processInstanceId: String,
         @Body doingEntity: DoingEntity
-    ): Response<PublicResponse<String>>
-
+    ): Response<PublicResponse<DoingResponse>>
 
     @PUT
-    suspend fun requestDoneTask(
+    suspend fun done(
         @Url url: String,
+        @Header("task-instance-id") taskInstanceId: String,
+        @Header("process-instance-id") processInstanceId: String,
         @Body doneEntity: DoneEntity
     ): Response<PublicResponse<DoneResponse>>
+
+    @GET
+    suspend fun getDoingTasks(
+        @Url url: String,
+        @Query("processInstanceIds") processInstanceId: String
+    ): Response<PublicResponse<List<TaskResponse>>>
 
 }
