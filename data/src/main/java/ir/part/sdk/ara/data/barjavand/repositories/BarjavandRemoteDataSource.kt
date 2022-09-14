@@ -106,8 +106,7 @@ class BarjavandRemoteDataSource @Inject constructor(
                 url = urls.barjavand.getConstant,
                 options = BarjavandGetParamsRequest(
                     schemaName = "constants",
-                    schemaVersion = "1.0.0",
-                    id = "constants"
+                    schemaVersion = "1.0.0"
                 ).toHashMap()
             )
         )
