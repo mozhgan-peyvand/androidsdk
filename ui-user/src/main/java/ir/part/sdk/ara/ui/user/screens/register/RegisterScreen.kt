@@ -9,8 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -43,10 +42,16 @@ import ir.part.sdk.ara.ui.shared.feature.screens.captcha.CaptchaViewModel
 fun RegisterScreen(
     registerViewModel: RegisterViewModel? = null,
     captchaViewModel: CaptchaViewModel? = null,
-    navigateToLogin: (() -> Unit)? = null
+    navigateToLogin: () -> Unit
 ) {
-    if (registerViewModel?.registerDone?.value == true) {
-        navigateToLogin?.invoke()
+
+    var isRegisteredSuccessfully: Boolean by remember {
+        mutableStateOf(false)
+    }
+
+    RegisterSuccessHandler(isRegisteredSuccessfully) {
+        navigateToLogin.invoke()
+        isRegisteredSuccessfully = false
     }
 
     Column {
@@ -85,7 +90,9 @@ fun RegisterScreen(
                     registerViewModel.setRegister(
                         captchaToken = captchaViewModel?.captchaViewState?.value?.token ?: "",
                         captchaValue = captchaViewModel?.captchaValue?.value ?: ""
-                    )
+                    ) {
+                        isRegisteredSuccessfully = it
+                    }
                 }
 
             },
@@ -304,5 +311,12 @@ private fun ProcessLoadingAndErrorState(
         registerViewModel.loadingErrorState.value?.message?.let { messageModel ->
             dialog.setDialogDetailMessage(messageModel.message).show()
         }
+    }
+}
+
+@Composable
+private fun RegisterSuccessHandler(isRegisteredSuccessfully: Boolean, onSuccess: () -> Unit) {
+    if (isRegisteredSuccessfully) {
+        onSuccess()
     }
 }

@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import ir.part.sdk.ara.base.util.TasksName
 import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.divider
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
@@ -33,6 +34,7 @@ import ir.part.sdk.ara.ui.document.submitDocument.model.PersonalInfoClubView
 import ir.part.sdk.ara.ui.document.submitDocument.model.PersonalInfoSubmitDocumentView
 import ir.part.sdk.ara.ui.document.submitDocument.model.SubmitDocumentView
 import ir.part.sdk.ara.ui.document.submitDocument.model.SubmitResponseValidationView
+import ir.part.sdk.ara.ui.shared.feature.screens.task.TasksManagerViewModel
 import kotlinx.coroutines.launch
 
 
@@ -40,7 +42,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun SubmitDocumentScreen(
     viewModel: SubmitDocumentViewModel,
-    navigateToFileList: () -> Unit
+    navigateToFileList: () -> Unit,
+    tasksManagerViewModel: TasksManagerViewModel
 ) {
 
     var submitDocumentResponseState: SubmitResponseValidationView? by remember {
@@ -58,16 +61,27 @@ fun SubmitDocumentScreen(
 
     val dataState =
         rememberFlowWithLifecycle(viewModel.state).collectAsState(initial = SubmitDocumentView.Empty)
-    val loadingErrorState =
+
+    val taskLoadingErrorState =
+        rememberFlowWithLifecycle(flow = tasksManagerViewModel.loadingAndMessageState).collectAsState(
+            initial = PublicState.Empty
+        )
+
+    val submitDocumentLoadingErrorState =
         rememberFlowWithLifecycle(flow = viewModel.loadingAndMessageState).collectAsState(
             initial = PublicState.Empty
         )
 
-    ProcessLoadingAndErrorState(input = loadingErrorState.value)
+    ProcessLoadingAndErrorState(input = taskLoadingErrorState.value)
+    ProcessLoadingAndErrorState(input = submitDocumentLoadingErrorState.value)
 
     SubmitDocumentRequestSuccessHandler(response = submitDocumentResponseState) {
+        if (tasksManagerViewModel.getDoingTaskName == TasksName.START_NEW_DOCUMENT) {
+            tasksManagerViewModel.done()
+        } else {
+            navigateToFileList.invoke()
+        }
         submitDocumentResponseState = null
-        navigateToFileList.invoke()
     }
 
     ModalBottomSheetLayout(
@@ -115,7 +129,9 @@ fun SubmitDocumentScreen(
                             // request if validated
                             selectedUnion?.id?.let { id ->
                                 viewModel.submitReqValidation(unionId = id) {
-                                    submitDocumentResponseState = it
+                                    if (it?.documentSerialNumber != null) {
+                                        submitDocumentResponseState = it
+                                    }
                                 }
                             }
                         }
@@ -125,6 +141,7 @@ fun SubmitDocumentScreen(
                 Column(
                     modifier = Modifier
                         .verticalScroll(scrollState)
+                        .padding(it)
                         .padding(
                             start = dimensionResource(id = DimensionResource.spacing_4x),
                             top = dimensionResource(id = DimensionResource.spacing_9x),

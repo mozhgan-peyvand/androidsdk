@@ -28,7 +28,7 @@ interface UserManagerService {
     @GET
     suspend fun getCaptcha(@Url url: String): Response<PublicResponse<CaptchaEntity>>
 
-    @POST
+    @PUT
     suspend fun getChangePassword(
         @Url url: String,
         @Header("process-instance-id") processInstanceId: String,

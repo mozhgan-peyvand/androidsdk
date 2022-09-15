@@ -14,7 +14,7 @@ sealed class BottomNavigationItems(
     )
 
     object PersonalInfo : BottomNavigationItems(
-        route = "",
+        route = "namabar-sdk://personalInformation",
         title = R.string.label_menu_personal_info,
         icon = R.drawable.merat_ic_single
     )

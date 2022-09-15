@@ -12,9 +12,13 @@ import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
 import ir.part.sdk.ara.ui.document.overviewDocument.FileListScreen
 import ir.part.sdk.ara.ui.document.submitDocument.SubmitDocumentScreen
 import ir.part.sdk.ara.ui.document.submitDocument.SubmitDocumentViewModel
+import ir.part.sdk.ara.ui.shared.feature.screens.task.TasksManagerViewModel
 
 
-fun NavGraphBuilder.addDocumentGraph(navController: NavHostController) {
+fun NavGraphBuilder.addDocumentGraph(
+    navController: NavHostController,
+    tasksManagerViewModel: TasksManagerViewModel
+) {
     navigation(
         route = DocumentRouter.DocumentGraph.router,
         startDestination = DocumentRouter.DocumentFileListScreen.router
@@ -32,7 +36,8 @@ fun NavGraphBuilder.addDocumentGraph(navController: NavHostController) {
 
             SubmitDocumentScreen(
                 viewModel = submitDocumentViewModel,
-                navigateToFileList = { navController.navigateToFileListScreen() }
+                navigateToFileList = { navController.navigateToFileListScreen() },
+                tasksManagerViewModel = tasksManagerViewModel
             )
         }
 

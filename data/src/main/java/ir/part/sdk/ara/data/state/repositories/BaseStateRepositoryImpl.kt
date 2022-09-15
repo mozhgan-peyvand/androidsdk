@@ -15,6 +15,7 @@ import javax.inject.Inject
 
 @FeatureDataScope
 class BaseStateRepositoryImpl @Inject constructor(
+    private val stateLocalDataSource: StateLocalDataSource,
     private val remoteDataSource: BaseStateRemoteDataSource,
     private val requestExecutor: RequestExecutor,
     private val pref: SharedPreferences,
@@ -30,6 +31,11 @@ class BaseStateRepositoryImpl @Inject constructor(
                     } ?: ""
                 )
                 pref.edit().putString(
+                    "processId",
+                    AesEncryptor().encrypt(response.data?.item?.pid ?: "", sk)
+                )
+                    .apply()
+                pref.edit().putString(
                     "processInstanceId",
                     AesEncryptor().encrypt(response.data?.item?.processInstanceId ?: "", sk)
                 )
@@ -41,4 +47,6 @@ class BaseStateRepositoryImpl @Inject constructor(
                 data.item?.toBaseState()
         }
         )
+
+    override fun getProcessInstanceId(): String = stateLocalDataSource.getProcessInstanceId()
 }

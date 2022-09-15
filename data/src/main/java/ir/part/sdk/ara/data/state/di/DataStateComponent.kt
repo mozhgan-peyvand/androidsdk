@@ -5,6 +5,7 @@ import ir.part.sdk.ara.base.di.*
 import ir.part.sdk.ara.di.DataComponent
 import ir.part.sdk.ara.domain.tasks.di.DomainTaskComponent
 import ir.part.sdk.ara.domain.tasks.interacors.GetBaseStateRemote
+import ir.part.sdk.ara.domain.tasks.interacors.GetProcessInstanceId
 
 
 @FeatureDataScope
@@ -31,6 +32,7 @@ interface DataStateComponent : BasicComponent {
     }
 
     fun injectGetBaseStateRemote(): GetBaseStateRemote
+    fun injectGetProcessInstanceId(): GetProcessInstanceId
 
     companion object {
         fun builder(componentProvider: ComponentProviderActivity): DataStateComponent {

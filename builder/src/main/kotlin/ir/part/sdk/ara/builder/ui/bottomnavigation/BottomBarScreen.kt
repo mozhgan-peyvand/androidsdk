@@ -45,7 +45,7 @@ private fun BottomBar(navController: NavHostController) {
                             navController.navigateToDocumentList()
                         }
                         is BottomNavigationItems.PersonalInfo -> {
-                            // TODO: define builder class
+                            navController.navigateToNamabar()
                         }
                         is BottomNavigationItems.SubmitRequest -> {
                             navController.navigateToRequestValidation()

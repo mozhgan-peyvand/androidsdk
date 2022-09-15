@@ -8,6 +8,7 @@ import androidx.navigation.navigation
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
 import ir.part.sdk.ara.ui.shared.feature.di.SharedFeatureComponent
 import ir.part.sdk.ara.ui.shared.feature.screens.captcha.CaptchaViewModel
+import ir.part.sdk.ara.ui.shared.feature.screens.task.TasksManagerViewModel
 import ir.part.sdk.ara.ui.user.di.UserComponent
 import ir.part.sdk.ara.ui.user.screens.changePassword.ChangePasswordScreen
 import ir.part.sdk.ara.ui.user.screens.forgetPassword.ForgetPasswordScreen
@@ -15,7 +16,10 @@ import ir.part.sdk.ara.ui.user.screens.forgetPasswordVerification.ForgetPassword
 import ir.part.sdk.ara.ui.user.screens.login.LoginScreen
 import ir.part.sdk.ara.ui.user.screens.register.RegisterScreen
 
-fun NavGraphBuilder.addUserGraph(navController: NavHostController) {
+fun NavGraphBuilder.addUserGraph(
+    navController: NavHostController,
+    tasksManagerViewModel: TasksManagerViewModel
+) {
     navigation(
         route = UserRouter.Graph.router,
         startDestination = UserRouter.UserRegisterScreen.router
@@ -42,7 +46,9 @@ fun NavGraphBuilder.addUserGraph(navController: NavHostController) {
                     .getRegisterViewModel()
             RegisterScreen(
                 captchaViewModel = captchaViewModel,
-                navigateToLogin = { navController.navigateToLoginScreen() },
+                navigateToLogin = {
+                    navController.navigateToLoginScreen()
+                },
                 registerViewModel = registerViewModel
             )
         }
@@ -66,8 +72,8 @@ fun NavGraphBuilder.addUserGraph(navController: NavHostController) {
             LoginScreen(
                 captchaViewModel = captchaViewModel,
                 navigateToForgetPassword = { navController.navigateToForgetPasswordScreen() },
-                navigateToDocument = { navController.navigateToSubmitDocumentScreen() },
-                loginViewModel = loginViewModel
+                loginViewModel = loginViewModel,
+                tasksManagerViewModel = tasksManagerViewModel
             )
         }
 
@@ -118,9 +124,12 @@ fun NavGraphBuilder.addUserGraph(navController: NavHostController) {
             val changePasswordViewModel =
                 UserComponent.builder(LocalContext.current as ComponentProviderActivity)
                     .getChangePasswordViewModel()
-            ChangePasswordScreen(changePasswordViewModel = changePasswordViewModel, onNavigateUp = {
-                navController.navigateUp()
-            })
+            ChangePasswordScreen(
+                changePasswordViewModel = changePasswordViewModel, onNavigateUp = {
+                    navController.navigateUp()
+                },
+                tasksManagerViewModel = tasksManagerViewModel
+            )
         }
     }
 }

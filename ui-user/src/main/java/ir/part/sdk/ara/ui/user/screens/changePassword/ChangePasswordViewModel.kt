@@ -24,10 +24,10 @@ class ChangePasswordViewModel @Inject constructor(
     var exceptionHelper: ExceptionHelper
 ) : ViewModel() {
 
-    var isChangePassword = mutableStateOf(false)
     var uiMessageManager = UiMessageManager()
     var loadingState = ObservableLoadingCounter()
-    var loadingErrorState = mutableStateOf<PublicState?>(null)
+
+    var isChangePassword = mutableStateOf(false)
     var errorValuePassword =
         mutableStateOf(Pair(ValidationField.CAPTCHA, listOf<ValidationResult>()))
 
@@ -41,7 +41,6 @@ class ChangePasswordViewModel @Inject constructor(
     var currentPassword = mutableStateOf("")
     var newPassword = mutableStateOf("")
     var reNewPassword = mutableStateOf("")
-
 
     var loadingAndMessageState: StateFlow<PublicState> = combine(
         loadingState.observable,
@@ -60,27 +59,26 @@ class ChangePasswordViewModel @Inject constructor(
     )
 
 
-    fun getChangePasswordRemote() {
+    fun getChangePasswordRemote(onSuccess: () -> Unit) {
         viewModelScope.launch {
-            if (loadingState.count.toInt() == 0) {
-                clearAllMessage()
-                getChangePasswordRemote.invoke(
-                    GetChangePasswordRemote.Param(
-                        changePasswordParam = ChangePasswordView(
-                            currentPassword = currentPassword.value,
-                            newPassword = newPassword.value,
-                            renewPassword = reNewPassword.value
-                        ).toChangePasswordParam()
-                    )
-                ).collectAndChangeLoadingAndMessageStatus(
-                    viewModelScope,
-                    loadingState,
-                    exceptionHelper,
-                    uiMessageManager
-                ) {
-                    if (it) {
-                        isChangePassword.value = true
-                    }
+            clearAllMessage()
+            getChangePasswordRemote.invoke(
+                GetChangePasswordRemote.Param(
+                    changePasswordParam = ChangePasswordView(
+                        currentPassword = currentPassword.value,
+                        newPassword = newPassword.value,
+                        renewPassword = reNewPassword.value
+                    ).toChangePasswordParam()
+                )
+            ).collectAndChangeLoadingAndMessageStatus(
+                viewModelScope,
+                loadingState,
+                exceptionHelper,
+                uiMessageManager
+            ) {
+                if (it) {
+                    isChangePassword.value = true
+                    onSuccess()
                 }
             }
         }
@@ -107,12 +105,12 @@ class ChangePasswordViewModel @Inject constructor(
         return validateWidget(
             ValidationField.PASSWORD,
             currentPassword.value
-        ).second.isNullOrEmpty() &&
+        ).second.isEmpty() &&
                 validateWidget(
                     ValidationField.PASSWORD,
                     newPassword.value
-                ).second.isNullOrEmpty() &&
-                validateWidget(ValidationField.PASSWORD, reNewPassword.value).second.isNullOrEmpty()
+                ).second.isEmpty() &&
+                validateWidget(ValidationField.PASSWORD, reNewPassword.value).second.isEmpty()
     }
 
     private fun clearAllMessage() {

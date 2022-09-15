@@ -5,9 +5,10 @@ import se.ansman.kotshi.JsonSerializable
 
 @JsonSerializable
 data class DoingEntity(
-    val actorId: String? = null,
-    val dashboardId: String? = null,
+    val taskName: String? = null,
     val processInstanceId: String,
-    val status: String? = null,
-    val taskId: String
+    val taskId: String,
+    val dashboardId: String? = null,
+    val actorId: String? = null,
+    val status: String? = null
 )

@@ -19,7 +19,8 @@ class DashboardRemoteDataSource @Inject constructor(
         submitReqValidationParamModel: SubmitReqValidationParamModel,
         nationalCode: String,
         processInstanceId: String,
-        taskInstanceId: String
+        taskInstanceId: String,
+        processId: String
     ) =
         safeApiCall(
             call = {
@@ -27,7 +28,8 @@ class DashboardRemoteDataSource @Inject constructor(
                     submitReqValidationParamModel = submitReqValidationParamModel,
                     nationalCode = nationalCode,
                     processInstanceId = processInstanceId,
-                    taskInstanceId = taskInstanceId
+                    taskInstanceId = taskInstanceId,
+                    processId = processId
                 )
             },
             errorMessage = "Error submit Request Validation"
@@ -37,14 +39,14 @@ class DashboardRemoteDataSource @Inject constructor(
         submitReqValidationParamModel: SubmitReqValidationParamModel,
         nationalCode: String,
         processInstanceId: String,
-        taskInstanceId: String
+        taskInstanceId: String,
+        processId: String
     ) =
         checkApiResult(
             service.newDocumentProcess(
                 url = urls.dashboard.newDocumentProcess,
                 submitReqValidationParamModel = SubmitReqValidationParamModel(
-                    // todo : change to dynamic after get task is implemented
-                    processId = "b5872c85-caae-4ab9-833b-a3b37af420fb",
+                    processId = processId,
                     dashboardId = "60e11757-128c-4de8-9c68-28ce06bed1bf",
                     actorId = "279b8d69-c71a-4ff2-81e5-4143f6a839e7",
                     event = "new",
@@ -56,61 +58,104 @@ class DashboardRemoteDataSource @Inject constructor(
             )
         )
 
-    suspend fun getTask(processInstanceId: String, tags: String) = safeApiCall(
-        call = { requestGetTask(processInstanceId, tags) },
-        errorMessage = "Error getting taskInfo"
-    )
-
-    private suspend fun requestGetTask(processInstanceId: String, tags: String) =
-        checkApiResult(
-            service.getTask(
-                url = urls.dashboard.getTask,
-                processInstanceId = processInstanceId,
-                tags = tags
-            )
-        )
-
-
-    suspend fun doingTask(processInstanceId: String, taskId: String) = safeApiCall(
-        call = { requestDoingTask(processInstanceId, taskId) },
-        errorMessage = "Error done taskInfo"
-    )
-
-    private suspend fun requestDoingTask(processInstanceId: String, taskId: String) =
-        checkApiResult(
-            service.requestDoingTask(
-                url = urls.dashboard.doingTask,
-                doingEntity = DoingEntity(
-                    // todo : change to dynamic after get task is implemented
-                    actorId = "407d4149-1ff2-47fb-a029-bc16b79f2a0b",
-                    status = "doing",
-                    dashboardId = "aa7f32e1-ff21-4b5b-92e1-c37da3499a43",
-                    processInstanceId = processInstanceId,
-                    taskId = taskId
-                )
-            )
-        )
-
-
-    suspend fun doneTask(processInstanceId: String, taskId: String) = safeApiCall(
-        call = { requestDoneTask(processInstanceId, taskId) },
-        errorMessage = "Error done taskInfo"
-    )
-
-    private suspend fun requestDoneTask(processInstanceId: String, taskId: String) =
-        checkApiResult(
-            service.requestDoneTask(
-                url = urls.dashboard.doneTask,
-                DoneEntity(
-                    // todo : change to dynamic after get task is implemented
+    suspend fun doingTask(
+        processInstanceId: String,
+        taskId: String,
+        taskInstanceId: String,
+        taskName: String
+    ) =
+        safeApiCall(
+            call = {
+                requestDoingTask(
                     processInstanceId = processInstanceId,
                     taskId = taskId,
-                    dashboardId = "aa7f32e1-ff21-4b5b-92e1-c37da3499a43",
-                    actorId = "407d4149-1ff2-47fb-a029-bc16b79f2a0b",
-                    state = true,
-                    status = "done"
+                    taskInstanceId = taskInstanceId,
+                    taskName = taskName
                 )
+            },
+            errorMessage = "Error doing task"
+        )
+
+    private suspend fun requestDoingTask(
+        processInstanceId: String,
+        taskId: String,
+        taskInstanceId: String,
+        taskName: String
+    ) =
+        checkApiResult(
+            service.doing(
+                url = urls.dashboard.doingTask,
+                doingEntity = DoingEntity(
+                    actorId = "279b8d69-c71a-4ff2-81e5-4143f6a839e7",
+                    status = "doing",
+                    dashboardId = "60e11757-128c-4de8-9c68-28ce06bed1bf",
+                    processInstanceId = processInstanceId,
+                    taskId = taskId,
+                    taskName = taskName
+                ),
+                processInstanceId = processInstanceId,
+                taskInstanceId = taskInstanceId
             )
         )
 
+    suspend fun doneTask(
+        processInstanceId: String,
+        taskId: String,
+        taskInstanceId: String,
+        taskName: String
+    ) =
+        safeApiCall(
+            call = {
+                requestDoneTask(
+                    processInstanceId = processInstanceId,
+                    taskId = taskId,
+                    taskInstanceId = taskInstanceId,
+                    taskName = taskName
+                )
+            },
+            errorMessage = "Error done task"
+        )
+
+    private suspend fun requestDoneTask(
+        processInstanceId: String,
+        taskId: String,
+        taskInstanceId: String,
+        taskName: String
+    ) =
+        checkApiResult(
+            service.done(
+                url = urls.dashboard.doneTask,
+                doneEntity = DoneEntity(
+                    processInstanceId = processInstanceId,
+                    taskId = taskId,
+                    dashboardId = "60e11757-128c-4de8-9c68-28ce06bed1bf",
+                    actorId = "279b8d69-c71a-4ff2-81e5-4143f6a839e7",
+                    state = true,
+                    status = "done",
+                    taskName = taskName
+                ),
+                taskInstanceId = taskInstanceId,
+                processInstanceId = processInstanceId
+            )
+        )
+
+    suspend fun getDoingTasks(processInstanceId: String) =
+        safeApiCall(
+            call = {
+                requestGetDoingTasks(
+                    processInstanceId = processInstanceId,
+                )
+            },
+            errorMessage = "Error get doing tasks"
+        )
+
+    private suspend fun requestGetDoingTasks(
+        processInstanceId: String
+    ) =
+        checkApiResult(
+            service.getDoingTasks(
+                url = urls.dashboard.getDoingTasks,
+                processInstanceId = processInstanceId
+            )
+        )
 }

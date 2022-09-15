@@ -24,8 +24,6 @@ class RegisterViewModel @Inject constructor(
     private val exceptionHelper: ExceptionHelper
 ) : ViewModel() {
 
-    var registerDone = mutableStateOf(false)
-
     private val loadingState = ObservableLoadingCounter()
 
     var loadingErrorState = mutableStateOf<PublicState?>(null)
@@ -59,7 +57,7 @@ class RegisterViewModel @Inject constructor(
         initialValue = PublicState.Empty
     )
 
-    fun setRegister(captchaToken: String, captchaValue: String) {
+    fun setRegister(captchaToken: String, captchaValue: String, onSuccess: (Boolean) -> Unit) {
         viewModelScope.launch {
             if (loadingState.count.toInt() == 0) {
                 clearAllMessage()
@@ -79,8 +77,7 @@ class RegisterViewModel @Inject constructor(
                     exceptionHelper,
                     uiMessageManager
                 ) {
-                    registerDone.value = it
-
+                    onSuccess(it)
                 }
             }
         }
@@ -107,9 +104,9 @@ class RegisterViewModel @Inject constructor(
 
         return validateWidget(
             ValidationField.NATIONAL_CODE, userName.value
-        ).second.isNullOrEmpty() &&
-                validateWidget(ValidationField.EMAIL, email.value).second.isNullOrEmpty() &&
-                validateWidget(ValidationField.PHONE, phone.value).second.isNullOrEmpty()
+        ).second.isEmpty() &&
+                validateWidget(ValidationField.EMAIL, email.value).second.isEmpty() &&
+                validateWidget(ValidationField.PHONE, phone.value).second.isEmpty()
     }
 
     private fun clearAllMessage() {

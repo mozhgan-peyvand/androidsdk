@@ -9,7 +9,11 @@ import ir.part.sdk.ara.common.ui.view.ExceptionHelper
 import ir.part.sdk.ara.common.ui.view.launchWithErrorHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import java.util.concurrent.atomic.AtomicInteger
 
 class ObservableLoadingCounter {
@@ -39,8 +43,9 @@ fun <T> Flow<InvokeStatus<T>>.collectAndChangeLoadingAndMessageStatus(
         when (status) {
             is InvokeStarted -> counter.addLoader()
             is InvokeSuccess<T> -> {
-                counter.removeLoader()
                 returnData?.invoke(status.data)
+                delay(100)
+                counter.removeLoader()
             }
             is InvokeError -> {
                 counter.removeLoader()

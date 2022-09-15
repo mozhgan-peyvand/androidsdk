@@ -9,12 +9,12 @@ import ir.part.sdk.namabar.builder.entities.SendRequestView
 import ir.part.sdk.namabar.builder.entities.ServerInfoView
 
 
-private fun namabarBuilder(
+fun namabarBuilder(
     token: String,
     userName: String,
     taskInstanceId: String,
     processInstanceId: String,
-    doneRequest: () -> Unit,
+    onPostRequest: () -> Unit,
     onFullScreenChangeState: (Boolean) -> Unit
 ): Namabar {
     val serverInfo = ServerInfoView(
@@ -60,7 +60,7 @@ private fun namabarBuilder(
         .setRequest(
             object : NamabarRequest {
                 override suspend fun onPostRequest(): Boolean {
-                    doneRequest.invoke()
+                    onPostRequest.invoke()
                     return true
                 }
 

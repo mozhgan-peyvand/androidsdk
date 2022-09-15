@@ -43,6 +43,7 @@ interface DataUserManagerComponent : BasicComponent {
     fun injectGetChangePasswordRemote(): GetChangePasswordRemote
     fun injectGetCaptchaRemote(): GetCaptchaRemote
     fun injectLogout(): Logout
+    fun injectGetToken(): GetToken
 
     companion object {
         fun builder(componentProvider: ComponentProviderActivity): DataUserManagerComponent {

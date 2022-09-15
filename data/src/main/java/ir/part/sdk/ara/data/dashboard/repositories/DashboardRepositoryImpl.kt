@@ -5,6 +5,7 @@ import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.di.SK
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.base.util.AesEncryptor
+import ir.part.sdk.ara.data.dashboard.entites.DoingResponse
 import ir.part.sdk.ara.data.dashboard.entites.DoneResponse
 import ir.part.sdk.ara.data.dashboard.entites.SubmitResponseValidationEntity
 import ir.part.sdk.ara.data.dashboard.entites.TaskResponse
@@ -21,71 +22,94 @@ import javax.inject.Inject
 
 @FeatureDataScope
 class DashboardRepositoryImpl @Inject constructor(
+    private val dashboardLocalDataSource: DashboardLocalDataSource,
     private val remoteDataSource: DashboardRemoteDataSource,
     private val pref: SharedPreferences,
     private val requestExecutor: RequestExecutor,
     @SK private val sk: String
 ) : TaskRepository, DashboardRepository {
 
-    override suspend fun requestGetTask(): InvokeStatus<List<TaskInfo>?> =
+    override suspend fun requestGetDoingTasks(): InvokeStatus<TaskInfo?> =
         requestExecutor.execute(object :
-            InvokeStatus.ApiEventListener<PublicResponse<List<TaskResponse>>, List<TaskInfo>?> {
+            InvokeStatus.ApiEventListener<PublicResponse<List<TaskResponse>>, TaskInfo?> {
             override suspend fun onRequestCall(): InvokeStatus<PublicResponse<List<TaskResponse>>> {
-                val response: InvokeStatus<PublicResponse<List<TaskResponse>>> =
-                    remoteDataSource.getTask(
-                        pref.getString("processInstanceId", null)?.let {
-                            AesEncryptor().decrypt(it, sk)
-                        } ?: "",
-                        listOf(
-                            "\"" + "username_${
-                                pref.getString("CurrentUserNationalCode", null)?.let {
-                                    AesEncryptor()
-                                        .decrypt(it, sk)
-                                } ?: ""
-                            }" + "\"").toString()
-                    )
 
-                pref.edit().putString(
-                    "taskId",
-                    (if (response.data?.item.isNullOrEmpty()) "" else response.data?.item?.get(0)?.taskId)?.let {
-                        AesEncryptor().encrypt(
-                            it, sk
-                        )
-                    }
-                ).apply()
-                return response
+                val processInstanceId =
+                    listOf(("\"" + (pref.getString("processInstanceId", null)?.let {
+                        AesEncryptor().decrypt(it, sk)
+                    } ?: "") + "\"")).toString()
+
+                return remoteDataSource.getDoingTasks(
+                    processInstanceId = processInstanceId
+                )
             }
 
-            override fun onConvertResult(data: PublicResponse<List<TaskResponse>>): List<TaskInfo>? =
-                data.item?.map { it.toTaskInfo() }
+            override fun onConvertResult(data: PublicResponse<List<TaskResponse>>): TaskInfo? {
+                pref.edit().putString(
+                    "taskId",
+                    AesEncryptor().encrypt(data.item?.firstOrNull()?.taskId ?: "", sk)
+                )
+                    .apply()
+
+                pref.edit().putString(
+                    "taskInstanceId",
+                    AesEncryptor().encrypt(data.item?.firstOrNull()?.id ?: "", sk)
+                )
+                    .apply()
+
+                pref.edit().putString(
+                    "taskName",
+                    AesEncryptor().encrypt(data.item?.firstOrNull()?.name ?: "", sk)
+                )
+                    .apply()
+                return data.item?.firstOrNull()?.toTaskInfo()
+            }
 
         })
 
     override suspend fun requestDoingTask(
-        processInstanceId: String,
-        taskId: String
     ): InvokeStatus<String?> =
         requestExecutor.execute(object :
-            InvokeStatus.ApiEventListener<PublicResponse<String>, String?> {
-            override suspend fun onRequestCall(): InvokeStatus<PublicResponse<String>> =
+            InvokeStatus.ApiEventListener<PublicResponse<DoingResponse>, String?> {
+            override suspend fun onRequestCall(): InvokeStatus<PublicResponse<DoingResponse>> =
                 remoteDataSource.doingTask(
-                    processInstanceId,
-                    taskId
+                    processInstanceId = pref.getString("processInstanceId", null)?.let {
+                        AesEncryptor().decrypt(it, sk)
+                    } ?: "",
+                    taskId = pref.getString("taskId", null)?.let {
+                        AesEncryptor().decrypt(it, sk)
+                    } ?: "",
+                    taskInstanceId = pref.getString("taskInstanceId", null)?.let {
+                        AesEncryptor().decrypt(it, sk)
+                    } ?: "",
+                    taskName = pref.getString("taskName", null)?.let {
+                        AesEncryptor().decrypt(it, sk)
+                    } ?: ""
                 )
 
-            override fun onConvertResult(data: PublicResponse<String>): String {
+            override fun onConvertResult(data: PublicResponse<DoingResponse>): String {
                 return data.item.toString()
             }
         })
 
     override suspend fun requestDoneTask(
-        processInstanceId: String,
-        taskId: String
+
     ): InvokeStatus<Done?> = requestExecutor.execute(object :
         InvokeStatus.ApiEventListener<PublicResponse<DoneResponse>, Done?> {
         override suspend fun onRequestCall(): InvokeStatus<PublicResponse<DoneResponse>> =
             remoteDataSource.doneTask(
-                processInstanceId, taskId
+                processInstanceId = pref.getString("processInstanceId", null)?.let {
+                    AesEncryptor().decrypt(it, sk)
+                } ?: "",
+                taskId = pref.getString("taskId", null)?.let {
+                    AesEncryptor().decrypt(it, sk)
+                } ?: "",
+                taskInstanceId = pref.getString("taskInstanceId", null)?.let {
+                    AesEncryptor().decrypt(it, sk)
+                } ?: "",
+                taskName = pref.getString("taskName", null)?.let {
+                    AesEncryptor().decrypt(it, sk)
+                } ?: ""
             )
 
         override fun onConvertResult(data: PublicResponse<DoneResponse>): Done? =
@@ -106,10 +130,17 @@ class DashboardRepositoryImpl @Inject constructor(
                     } ?: "",
                     nationalCode = pref.getString("CurrentUserNationalCode", null)?.let {
                         AesEncryptor().decrypt(it, sk)
+                    } ?: "",
+                    processId = pref.getString("processId", null)?.let {
+                        AesEncryptor().decrypt(it, sk)
                     } ?: ""
                 )
 
             override fun onConvertResult(data: PublicResponse<SubmitResponseValidationEntity>): SubmitResponseValidation? =
                 data.item?.toSubmitResponseValidation()
         })
+
+    override fun getTaskInstanceId(): String = dashboardLocalDataSource.getTaskInstanceId()
+
+
 }
