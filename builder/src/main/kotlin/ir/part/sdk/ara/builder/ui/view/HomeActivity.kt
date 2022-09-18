@@ -61,6 +61,7 @@ class HomeActivity : ComponentProviderActivity() {
 
     private var darkTheme = mutableStateOf(false)
     private lateinit var navController: NavHostController
+    private var currentTask: TasksName? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,7 +97,7 @@ class HomeActivity : ComponentProviderActivity() {
                             color = MaterialTheme.colors.background
                         ),
                     bottomBar = {
-                        BottomBarScreen(navController = navController)
+                        BottomBarScreen(navController = navController, currentTask)
                     }
                 ) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
@@ -109,6 +110,7 @@ class HomeActivity : ComponentProviderActivity() {
             { hasDoc ->
                 if (hasDoc == true) {
                     navController.navigateToFileListScreen()
+                    currentTask = TasksName.USER_HAS_DOC
                     userHasDoc = null
                 } else if (hasDoc == false) {
                     navController.navigateToRequestValidation()
@@ -119,6 +121,7 @@ class HomeActivity : ComponentProviderActivity() {
             LaunchedEffect(key1 = true, block =
             {
                 tasksManagerViewModel.currentTask.collectLatest {
+                    currentTask = it
                     when (it) {
                         TasksName.CHANG_PASS -> {
                             navController.navigateToChangePass()
