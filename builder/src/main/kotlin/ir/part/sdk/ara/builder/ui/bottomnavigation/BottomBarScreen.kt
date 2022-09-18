@@ -13,16 +13,17 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import ir.part.sdk.ara.base.util.TasksName
 import ir.part.sdk.ara.common.ui.view.disabled
 import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker
 
 @Composable
-fun BottomBarScreen(navController: NavHostController) {
-    BottomBar(navController = navController)
+fun BottomBarScreen(navController: NavHostController, currentTask: TasksName?) {
+    BottomBar(navController = navController, currentTask)
 }
 
 @Composable
-private fun BottomBar(navController: NavHostController) {
+private fun BottomBar(navController: NavHostController, chooseTask: TasksName?) {
     val screens = listOf(
         BottomNavigationItems.Document,
         BottomNavigationItems.PersonalInfo,
@@ -35,25 +36,108 @@ private fun BottomBar(navController: NavHostController) {
     val currentDestination = navBackStackEntry?.destination
     if (showBottomBar) {
         BottomNavigation {
-            screens.forEach { screen ->
-                AddItem(
-                    screen = screen,
-                    currentDestination = currentDestination,
-                ) {
-                    when (screen) {
-                        is BottomNavigationItems.Document -> {
+            when (chooseTask) {
+                TasksName.COMPLETE_INFO -> {
+                    AddItem(
+                        screen = BottomNavigationItems.Document,
+                        currentDestination = currentDestination,
+                        itemNavigation = {
                             navController.navigateToDocumentList()
-                        }
-                        is BottomNavigationItems.PersonalInfo -> {
+                        },
+                        itemEnable = false
+                    )
+                    AddItem(
+                        screen = BottomNavigationItems.PersonalInfo,
+                        currentDestination = currentDestination,
+                        itemNavigation = {
                             navController.navigateToNamabar()
-                        }
-                        is BottomNavigationItems.SubmitRequest -> {
+                        },
+                        itemEnable = true
+                    )
+                    AddItem(
+                        screen = BottomNavigationItems.SubmitRequest,
+                        currentDestination = currentDestination,
+                        itemNavigation = {
                             navController.navigateToRequestValidation()
-                        }
-                        is BottomNavigationItems.Menu -> {
+                        },
+                        itemEnable = false
+                    )
+                    AddItem(
+                        screen = BottomNavigationItems.Menu,
+                        currentDestination = currentDestination,
+                        itemNavigation = {
                             navController.navigateToMenu()
-                        }
-                    }
+                        },
+                        itemEnable = true
+                    )
+                }
+                TasksName.START_NEW_DOCUMENT -> {
+                    AddItem(
+                        screen = BottomNavigationItems.Document,
+                        currentDestination = currentDestination,
+                        itemNavigation = {
+                            navController.navigateToDocumentList()
+                        },
+                        itemEnable = false
+                    )
+                    AddItem(
+                        screen = BottomNavigationItems.PersonalInfo,
+                        currentDestination = currentDestination,
+                        itemNavigation = {
+                            navController.navigateToNamabar()
+                        },
+                        itemEnable = true
+                    )
+                    AddItem(
+                        screen = BottomNavigationItems.SubmitRequest,
+                        currentDestination = currentDestination,
+                        itemNavigation = {
+                            navController.navigateToRequestValidation()
+                        },
+                        itemEnable = true
+                    )
+                    AddItem(
+                        screen = BottomNavigationItems.Menu,
+                        currentDestination = currentDestination,
+                        itemNavigation = {
+                            navController.navigateToMenu()
+                        },
+                        itemEnable = true
+                    )
+                }
+                TasksName.USER_HAS_DOC -> {
+                    AddItem(
+                        screen = BottomNavigationItems.Document,
+                        currentDestination = currentDestination,
+                        itemNavigation = {
+                            navController.navigateToDocumentList()
+                        },
+                        itemEnable = true
+                    )
+                    AddItem(
+                        screen = BottomNavigationItems.PersonalInfo,
+                        currentDestination = currentDestination,
+                        itemNavigation = {
+                            navController.navigateToNamabar()
+                        },
+                        itemEnable = true
+                    )
+                    AddItem(
+                        screen = BottomNavigationItems.SubmitRequest,
+                        currentDestination = currentDestination,
+                        itemNavigation = {
+                            navController.navigateToRequestValidation()
+                        },
+                        itemEnable = true
+                    )
+                    AddItem(
+                        screen = BottomNavigationItems.Menu,
+                        currentDestination = currentDestination,
+                        itemNavigation = {
+                            navController.navigateToMenu()
+                        },
+                        itemEnable = true
+                    )
                 }
             }
         }
@@ -64,11 +148,14 @@ private fun BottomBar(navController: NavHostController) {
 private fun RowScope.AddItem(
     screen: BottomNavigationItems,
     currentDestination: NavDestination?,
-    itemNavigation: () -> Unit
+    itemNavigation: () -> Unit,
+    itemEnable: Boolean
 ) {
-    BottomNavigationItem(modifier = Modifier
-        .fillMaxSize()
-        .background(color = MaterialTheme.colors.background),
+    BottomNavigationItem(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colors.background),
+        enabled = itemEnable,
         label = {
             Text(text = stringResource(id = screen.title))
         },

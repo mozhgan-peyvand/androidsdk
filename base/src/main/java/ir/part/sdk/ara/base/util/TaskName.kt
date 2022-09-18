@@ -4,7 +4,8 @@ enum class TasksName(val value: String) {
     CHANG_PASS("change-pass"),
     COMPLETE_INFO("complete-info"),
     START_NEW_DOCUMENT("start-new-document"),
-    NO_TASK("no-task");
+    NO_TASK("no-task"),
+    USER_HAS_DOC("user_has_doc");
 
     companion object {
         fun enumValueOf(name: String?): TasksName {
