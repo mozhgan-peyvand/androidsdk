@@ -194,9 +194,11 @@ private fun MainMenuHeader(phone: String, nationalCode: String) {
                 style = MaterialTheme.typography.h6OnPrimary(),
                 color = ColorWhite)
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_2x)))
-            Text(text = phone,
-                style = MaterialTheme.typography.body2TextOnPrimary(),
-                color = ColorWhite)
+            Text(
+                text = phone,
+                style = MaterialTheme.typography.body2OnPrimary(),
+                color = ColorWhite
+            )
         }
         Image(painter = painterResource(id = R.drawable.ic_user_profile),
             contentDescription = "user profile")

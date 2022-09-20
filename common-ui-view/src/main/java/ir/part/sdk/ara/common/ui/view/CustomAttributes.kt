@@ -15,10 +15,6 @@ fun Colors.errorBackground() =
 fun Colors.success() =
     CustomAttributes.success ?: kotlin.run { if (isLight) ColorGreen else ColorBlue }// todo: dark?}
 
-fun Colors.dialogBackground() =
-    CustomAttributes.dialogBackground
-        ?: kotlin.run { if (isLight) ColorWhite else ColorBlue }// todo: dark?}
-
 fun Colors.successBackground() =
     CustomAttributes.successBackground
         ?: kotlin.run { if (isLight) ColorGreenLight else ColorBlue }// todo: dark?}
@@ -50,17 +46,14 @@ fun Colors.error() =
 fun Colors.primaryVariant() =
     CustomAttributes.error
         ?: kotlin.run { if (isLight) ColorBlueDarker else ColorBlueDarker }// todo: dark?}
-//fun Colors.accent() =
-//    CustomAttributes.accent ?: kotlin.run { if (isLight) ColorCyan else ColorBlue }// todo: dark?}
 
 fun Colors.highlightBackground() =
     CustomAttributes.highlightBackground
         ?: kotlin.run { if (isLight) ColorBlueLight else ColorBlue }// todo: dark?}
 
-fun Colors.textHighlight() = CustomAttributes.textHighlight ?: kotlin.run { primaryDark() }
-fun Colors.controlNormal() = CustomAttributes.controlNormal ?: kotlin.run { textSecondary() }
-fun Colors.controlActivated() = CustomAttributes.controlActivated ?: kotlin.run { primaryVariant }
-fun Colors.controlHighlight() = CustomAttributes.controlHighlight ?: kotlin.run { primary }
+fun Colors.onPrimary() =
+    CustomAttributes.onPrimary
+        ?: kotlin.run { if (isLight) ColorWhite else ColorWhite }// todo: dark?}
 
 
 /**

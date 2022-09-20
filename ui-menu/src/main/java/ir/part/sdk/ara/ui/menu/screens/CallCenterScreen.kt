@@ -24,8 +24,8 @@ import ir.part.sdk.ara.common.ui.view.common.TextBody2Secondary
 import ir.part.sdk.ara.common.ui.view.common.TextHeadline6PrimaryBold
 import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.divider
-import ir.part.sdk.ara.common.ui.view.theme.body2TextPrimaryBold
-import ir.part.sdk.ara.common.ui.view.theme.body2TextSecondaryBold
+import ir.part.sdk.ara.common.ui.view.theme.body2BoldTextPrimary
+import ir.part.sdk.ara.common.ui.view.theme.body2BoldTextSecondary
 import ir.part.sdk.merat.ui.menu.R
 
 @Composable
@@ -85,7 +85,7 @@ private fun CallInfoBoard() {
                     ),
                 textAlign = TextAlign.Start,
                 text = stringResource(id = R.string.label_call_info),
-                style = MaterialTheme.typography.body2TextSecondaryBold(),
+                style = MaterialTheme.typography.body2BoldTextSecondary(),
             )
 
             Text(
@@ -97,7 +97,7 @@ private fun CallInfoBoard() {
                     ),
                 text = stringResource(id = R.string.label_everyday_of_week_24h),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body2TextPrimaryBold(),
+                style = MaterialTheme.typography.body2BoldTextPrimary(),
             )
 
             Row(modifier = Modifier
@@ -116,13 +116,13 @@ private fun CallInfoBoard() {
                 Text(
                     modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.spacing_2x)),
                     text = stringResource(id = R.string.label_phone_number_with_colon),
-                    style = MaterialTheme.typography.body2TextPrimaryBold(),
+                    style = MaterialTheme.typography.body2BoldTextPrimary(),
                 )
 
                 Text(
                     modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.spacing_2x)),
                     text = stringResource(id = R.string.label_call_center_phone),
-                    style = MaterialTheme.typography.body2TextPrimaryBold(),
+                    style = MaterialTheme.typography.body2BoldTextPrimary(),
                 )
             }
         }

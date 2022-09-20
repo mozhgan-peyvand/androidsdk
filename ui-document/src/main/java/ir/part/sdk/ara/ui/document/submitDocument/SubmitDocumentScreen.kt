@@ -204,7 +204,7 @@ private fun ScreenContent(
     Text(
         modifier = Modifier.padding(top = dimensionResource(id = DimensionResource.spacing_8x)),
         text = stringResource(id = R.string.label_union),
-        style = MaterialTheme.typography.captionPrimaryBold()
+        style = MaterialTheme.typography.captionBoldTextPrimary()
     )
 
     TextField(

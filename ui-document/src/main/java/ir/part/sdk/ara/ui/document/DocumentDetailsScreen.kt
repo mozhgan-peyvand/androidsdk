@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
-import ir.part.sdk.ara.common.ui.view.theme.h6BoldPrimary
+import ir.part.sdk.ara.common.ui.view.theme.h6BoldTextPrimary
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
@@ -80,7 +80,7 @@ private fun DocumentDetail(
     ) {
         Text(
             text = stringResource(id = stringRec.label_file_detail_request_title),
-            style = MaterialTheme.typography.h6BoldPrimary(),
+            style = MaterialTheme.typography.h6BoldTextPrimary(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(

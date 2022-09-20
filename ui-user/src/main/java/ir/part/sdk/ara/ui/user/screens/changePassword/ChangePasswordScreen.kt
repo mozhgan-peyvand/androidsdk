@@ -28,7 +28,7 @@ import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.primaryVariant
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.ErrorText
-import ir.part.sdk.ara.common.ui.view.theme.h6BoldPrimary
+import ir.part.sdk.ara.common.ui.view.theme.h6BoldTextPrimary
 import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextSecondary
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
@@ -99,7 +99,7 @@ private fun ShowPasswordContent(changePasswordViewModel: ChangePasswordViewModel
             modifier = Modifier
                 .padding(horizontal = dimensionResource(id = DimensionResource.spacing_4x)),
             text = stringResource(id = R.string.label_change_password),
-            style = MaterialTheme.typography.h6BoldPrimary()
+            style = MaterialTheme.typography.h6BoldTextPrimary()
         )
 
         changePasswordViewModel?.let {

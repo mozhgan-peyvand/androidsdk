@@ -140,7 +140,7 @@ private fun RahyarScreenElement(
             Column(modifier = Modifier.fillMaxSize()) {
                 Text(
                     text = stringResource(id = R.string.label_choose_city),
-                    style = MaterialTheme.typography.captionPrimary(),
+                    style = MaterialTheme.typography.captionTextPrimary(),
                     modifier = Modifier.padding(
                         end = dimensionResource(id = R.dimen.spacing_4x),
                         start = dimensionResource(id = R.dimen.spacing_4x), top = dimensionResource(
@@ -176,7 +176,7 @@ private fun RahyarScreenElement(
                 )
                 Text(
                     text = stringResource(id = R.string.label_address),
-                    style = MaterialTheme.typography.h6BoldPrimary(),
+                    style = MaterialTheme.typography.h6BoldTextPrimary(),
                     modifier = Modifier.padding(
                         end = dimensionResource(id = R.dimen.spacing_4x),
                         start = dimensionResource(id = R.dimen.spacing_4x),
@@ -234,7 +234,7 @@ private fun RahyarListElement(rahyarItems: RahyarView, doingIntent: (String) -> 
                 top = dimensionResource(id = R.dimen.spacing_2x),
                 bottom = dimensionResource(id = R.dimen.spacing_2x)
             ),
-            style = MaterialTheme.typography.caption_Secondary()
+            style = MaterialTheme.typography.captionTextSecondary()
         )
         Column() {
             rahyarItems.telephone.split("\n").forEach {
@@ -259,7 +259,7 @@ private fun RahyarListElement(rahyarItems: RahyarView, doingIntent: (String) -> 
                             )
                             .clickable {
                                 doingIntent(it)
-                            }, style = MaterialTheme.typography.subtitle2Highlight(),
+                            }, style = MaterialTheme.typography.subtitle2PrimaryVariant(),
                         textDecoration = TextDecoration.Underline
                     )
                 }
@@ -327,7 +327,7 @@ private fun RahyarToolbar(
                             start.linkTo(backButton.end)
                             bottom.linkTo(parent.bottom)
                         },
-                    style = MaterialTheme.typography.h6BoldPrimary()
+                    style = MaterialTheme.typography.h6BoldTextPrimary()
                 )
                 Image(
                     painter = painterResource(id = R.drawable.merat_ic_zoom_out),

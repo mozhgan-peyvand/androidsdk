@@ -16,9 +16,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import ir.part.sdk.ara.common.ui.view.divider
 import ir.part.sdk.ara.common.ui.view.primaryDark
-import ir.part.sdk.ara.common.ui.view.theme.body2Secondary
-import ir.part.sdk.ara.common.ui.view.theme.body2SecondaryBold
-import ir.part.sdk.ara.common.ui.view.theme.h6BoldPrimary
+import ir.part.sdk.ara.common.ui.view.theme.body2BoldTextSecondary
+import ir.part.sdk.ara.common.ui.view.theme.body2TextSecondary
+import ir.part.sdk.ara.common.ui.view.theme.h6BoldTextPrimary
 import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
 import ir.part.sdk.ara.ui.document.submitDocument.model.PersonalDocumentsView
 import ir.part.sdk.ara.ui.document.submitDocument.model.PersonalInfoSubmitDocumentView
@@ -64,7 +64,7 @@ private fun ValidationResult(
     ) {
         Text(
             text = stringResource(id = StringRes.label_file_validation_result),
-            style = MaterialTheme.typography.h6BoldPrimary(),
+            style = MaterialTheme.typography.h6BoldTextPrimary(),
             modifier = modifier
                 .fillMaxWidth()
                 .padding(
@@ -94,7 +94,7 @@ private fun ValidationResult(
         Text(
             text = stringResource(id = stringRec.msg_result_validation_info),
             textAlign = TextAlign.Start,
-            style = MaterialTheme.typography.body2SecondaryBold(),
+            style = MaterialTheme.typography.body2BoldTextSecondary(),
             modifier = Modifier
                 .background(MaterialTheme.colors.divider())
                 .padding(dimensionResource(id = dimensRec.spacing_4x))
@@ -145,7 +145,7 @@ private fun ValidationResult(
                 selectedDocument?.requestDateView.toString()
             ),
             textAlign = TextAlign.Start,
-            style = MaterialTheme.typography.body2SecondaryBold(),
+            style = MaterialTheme.typography.body2BoldTextSecondary(),
             modifier = Modifier
                 .background(MaterialTheme.colors.divider())
                 .padding(dimensionResource(id = dimensRec.spacing_4x)),
@@ -163,7 +163,7 @@ private fun TextWithDot(des: Int, shape: RoundedCornerShape = CircleShape) {
     ) {
         Text(
             text = stringResource(id = des),
-            style = MaterialTheme.typography.body2Secondary(),
+            style = MaterialTheme.typography.body2TextSecondary(),
             textAlign = TextAlign.Start,
             modifier = Modifier.padding(
                 end = dimensionResource(id = DimenRes.spacing_2x),

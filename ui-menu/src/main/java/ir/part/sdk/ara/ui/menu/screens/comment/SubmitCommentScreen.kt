@@ -181,8 +181,10 @@ private fun CommentContent(
             isLastField = true)
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_6x)))
 
-        Text(text = stringResource(id = R.string.label_enter_captcha),
-            style = MaterialTheme.typography.subtitle1TextPrimaryBold())
+        Text(
+            text = stringResource(id = R.string.label_enter_captcha),
+            style = MaterialTheme.typography.subtitle1BoldTextPrimary()
+        )
         Captcha(
             captchaViewModel = captchaViewModel
         )
@@ -201,8 +203,10 @@ private fun CommentTextFieldItem(
 ) {
     val focusManager = LocalFocusManager.current
 
-    Text(text = title,
-        style = MaterialTheme.typography.captionPrimary())
+    Text(
+        text = title,
+        style = MaterialTheme.typography.captionTextPrimary()
+    )
 
     TextField(
         value = value,
