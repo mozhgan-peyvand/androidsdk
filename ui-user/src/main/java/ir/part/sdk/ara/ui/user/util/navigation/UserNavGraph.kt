@@ -47,7 +47,10 @@ fun NavGraphBuilder.addUserGraph(
             RegisterScreen(
                 captchaViewModel = captchaViewModel,
                 navigateToLogin = {
-                    navController.navigateToLoginScreen()
+                    navController.navigateToLoginScreen(
+                        popUpTo = UserRouter.UserRegisterScreen.router,
+                        inclusive = true
+                    )
                 },
                 registerViewModel = registerViewModel
             )

@@ -240,7 +240,7 @@ class DialogUiHandler {
                     Text(
                         text = title,
                         modifier = Modifier.padding(start = dimensionResource(DimensionResource.spacing_3x)),
-                        style = MaterialTheme.typography.h6Bold()
+                        style = MaterialTheme.typography.h6BoldPrimary()
                     )
                 }
                 Text(
@@ -249,7 +249,7 @@ class DialogUiHandler {
                         top = dimensionResource(DimensionResource.spacing_5x),
                         start = dimensionResource(DimensionResource.spacing_5x),
                         end = dimensionResource(DimensionResource.spacing_5x),
-                    ), style = MaterialTheme.typography.subtitle1TextPrimaryBold()
+                    ), style = MaterialTheme.typography.subtitle1TextPrimary()
                 )
                 Row(modifier = Modifier.padding(top = dimensionResource(DimensionResource.spacing_5x))) {
                     Button(
@@ -261,7 +261,7 @@ class DialogUiHandler {
                                 start = dimensionResource(DimensionResource.spacing_5x)
                             ),
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = MaterialTheme.colors.primaryVariant
+                            backgroundColor = MaterialTheme.colors.primaryVariant()
                         ), shape = MaterialTheme.shapes.medium
                     ) {
                         Text(
@@ -282,7 +282,7 @@ class DialogUiHandler {
                                 start = dimensionResource(DimensionResource.spacing_2x)
                             ), border = BorderStroke(
                             width = dimensionResource(id = DimensionResource.spacing_half_base),
-                            color = ColorBlueDarker
+                            color = MaterialTheme.colors.primaryVariant()
                         ),
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = MaterialTheme.colors.surface
@@ -292,7 +292,7 @@ class DialogUiHandler {
                             text = stringResource(id = cancelText),
                             style = MaterialTheme.typography.subtitle2.copy(
                                 textAlign = TextAlign.Center,
-                                color = MaterialTheme.colors.primaryVariant
+                                color = MaterialTheme.colors.primaryVariant()
                             ),
                             modifier = Modifier.padding(dimensionResource(id = DimensionResource.spacing_half_base))
                         )
@@ -392,7 +392,7 @@ class DialogUiHandler {
                                 start = dimensionResource(DimensionResource.spacing_5x)
                             ),
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = MaterialTheme.colors.primaryVariant
+                            backgroundColor = MaterialTheme.colors.primaryVariant()
                         ), shape = MaterialTheme.shapes.medium
                     ) {
                         Text(
@@ -419,7 +419,7 @@ class DialogUiHandler {
                                 ),
                             border = BorderStroke(
                                 width = dimensionResource(id = DimensionResource.spacing_quarter_base),
-                                color = MaterialTheme.colors.primaryVariant
+                                color = MaterialTheme.colors.primaryVariant()
                             ),
                             shape = MaterialTheme.shapes.medium
                         ) {
@@ -427,7 +427,7 @@ class DialogUiHandler {
                                 text = stringResource(id = cancelLabel),
                                 style = MaterialTheme.typography.subtitle2.copy(
                                     textAlign = TextAlign.Center,
-                                    color = MaterialTheme.colors.primaryVariant
+                                    color = MaterialTheme.colors.primaryVariant()
                                 )
                             )
                         }

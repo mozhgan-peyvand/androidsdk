@@ -8,6 +8,8 @@
     <string name="label_menu_personal_info">اطلاعات فردی</string>
     <string name="label_menu_validation_request">اعتبارسنجی</string>
     <string name="label_menu_others">سایر</string>
+    <string name="press_once_again_back_button_to_exit">برای خروج مجدداً دکمه بازگشت را بزنید!</string>
+    <string name="msg_sign_out">آیا مایل به خروج از حساب کاربری خود هستید؟</string>
 
 
 </resources>
