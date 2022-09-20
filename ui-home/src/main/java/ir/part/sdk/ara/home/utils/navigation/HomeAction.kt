@@ -5,10 +5,9 @@ import ir.part.sdk.ara.common.ui.view.ids.UiUserSharedIds
 import ir.part.sdk.ara.common.ui.view.navigationHelper.safeNavigate
 
 fun NavHostController.navigateToUserHomeScreen() {
+    popBackStack()
     safeNavigate(
         destinationScreen = UiUserSharedIds.UserHomeScreen.router,
-        popUpTo = HomeRouter.SplashScreen.router,
-        inclusiveScreen = true
     )
 }
 

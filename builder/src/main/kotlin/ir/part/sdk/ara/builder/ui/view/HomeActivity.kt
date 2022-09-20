@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -18,7 +19,9 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -28,15 +31,24 @@ import ir.part.sdk.ara.base.di.MainScope
 import ir.part.sdk.ara.base.event.MeratEvent
 import ir.part.sdk.ara.base.event.MeratEventPublisher
 import ir.part.sdk.ara.base.util.TasksName
+import ir.part.sdk.ara.builder.R
 import ir.part.sdk.ara.builder.di.BuilderComponent
 import ir.part.sdk.ara.builder.ui.bottomnavigation.*
 import ir.part.sdk.ara.builder.util.addNamabarNavGraph
 import ir.part.sdk.ara.builder.util.localizedContext
+import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.collectOnActivity
 import ir.part.sdk.ara.common.ui.view.ids.UiUserSharedIds
+import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.AraTheme
+import ir.part.sdk.ara.common.ui.view.utils.dialog.DialogManager
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.home.utils.navigation.HomeRouter
 import ir.part.sdk.ara.home.utils.navigation.addHomeGraph
+import ir.part.sdk.ara.home.utils.navigation.navigateToUserHomeScreen
+import ir.part.sdk.ara.ui.document.utils.navigation.DocumentRouter
 import ir.part.sdk.ara.ui.document.utils.navigation.addDocumentGraph
 import ir.part.sdk.ara.ui.document.utils.navigation.navigateToFileListScreen
 import ir.part.sdk.ara.ui.menu.util.navigation.MenuRouter
@@ -44,6 +56,7 @@ import ir.part.sdk.ara.ui.menu.util.navigation.addMenuGraph
 import ir.part.sdk.ara.ui.shared.feature.screens.task.TasksManagerViewModel
 import ir.part.sdk.ara.ui.user.util.navigation.addUserGraph
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -54,20 +67,32 @@ class HomeActivity : ComponentProviderActivity() {
         var appId = ""
     }
 
+    private var mBackPressed: Long = 0
+    private val timeInterVal = 2000
+
     @Inject
     lateinit var homeActivityFactory: ViewModelProvider.Factory
 
     private val tasksManagerViewModel: TasksManagerViewModel by (this as ComponentActivity).viewModels { homeActivityFactory }
 
+    private val homeViewModel: HomeViewModel by (this as ComponentActivity).viewModels { homeActivityFactory }
+
     private var darkTheme = mutableStateOf(false)
     private lateinit var navController: NavHostController
     private var currentTask: TasksName? = null
+
+    private lateinit var exitDialog: DialogManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         provideComponent().inject(this)
 
         setContent {
+            val homeLoadingErrorState =
+                rememberFlowWithLifecycle(flow = homeViewModel.loadingAndMessageState).collectAsState(
+                    initial = PublicState.Empty
+                )
+            ProcessLoadingAndErrorState(input = homeLoadingErrorState.value)
 
             var userHasDoc: Boolean? by remember {
                 mutableStateOf(null)
@@ -139,6 +164,7 @@ class HomeActivity : ComponentProviderActivity() {
                     }
                 }
             })
+            initExitDialog()
 
         }
 
@@ -176,5 +202,84 @@ class HomeActivity : ComponentProviderActivity() {
     @Composable
     private fun HandleUserHasDocState(userHasDoc: Boolean?, onValueChange: (Boolean?) -> Unit) {
         onValueChange(userHasDoc)
+    }
+
+    override fun onBackPressed() {
+        if (navController.currentBackStackEntry?.destination?.route == UiUserSharedIds.UserHomeScreen.router) {
+            exit()
+        } else {
+            when (navController.currentBackStackEntry?.destination?.route) {
+                MenuRouter.MainMenuScreen.router,
+                DocumentRouter.DocumentSubmitScreen.router,
+                DocumentRouter.DocumentFileListScreen.router,
+                BottomNavigationItems.PersonalInfo.route -> {
+                    exitDialog.show()
+                }
+                else -> super.onBackPressed()
+            }
+        }
+    }
+
+    override fun onNavigateUp(): Boolean {
+        return if (navController.graph.route != MenuRouter.MainMenuScreen.router &&
+            navController.currentBackStackEntry?.destination?.route == UiUserSharedIds.UserChangePassword.router
+        ) {
+            exit()
+            false
+        } else {
+            navController.navigateUp() || super.onNavigateUp()
+        }
+    }
+
+    private fun exit() {
+        if (mBackPressed + timeInterVal > System.currentTimeMillis()) {
+            finish()
+            return
+        } else {
+            Toast.makeText(
+                applicationContext,
+                getString(R.string.press_once_again_back_button_to_exit),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        mBackPressed = System.currentTimeMillis()
+    }
+
+    @Composable
+    private fun ProcessLoadingAndErrorState(input: PublicState?) {
+        val loadingDialog = getLoadingDialog()
+        val errorDialog = getInfoDialog(
+            title = stringResource(id = ir.part.app.merat.ui.user.R.string.label_warning_title_dialog),
+            description = ""
+        )
+
+        if (input?.refreshing == true) {
+            loadingDialog.show()
+        } else {
+            loadingDialog.dismiss()
+            input?.message?.let { messageModel ->
+                errorDialog.setDialogDetailMessage(messageModel.message).show()
+            }
+        }
+    }
+
+    @Composable
+    private fun initExitDialog() {
+        exitDialog = getErrorDialog(
+            title = stringResource(id = R.string.btn_logout), description = stringResource(
+                id = R.string.msg_sign_out
+            ), submitAction = {
+                homeViewModel.logout {
+                    if (it) {
+                        lifecycleScope.launch {
+                            navController.navigateToUserHomeScreen()
+                        }
+                    }
+
+                }
+            }, cancelAction = {
+                exitDialog.dismiss()
+            }, cancelText = R.string.label_dissuasion
+        )
     }
 }
