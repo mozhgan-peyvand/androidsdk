@@ -137,37 +137,38 @@ fun SubmitDocumentScreen(
                         }
                     })
             },
-            content = {
-                Column(
-                    modifier = Modifier
-                        .verticalScroll(scrollState)
-                        .padding(it)
-                        .padding(
-                            start = dimensionResource(id = DimensionResource.spacing_4x),
-                            top = dimensionResource(id = DimensionResource.spacing_9x),
-                            bottom = dimensionResource(id = DimensionResource.spacing_8x),
-                            end = dimensionResource(id = DimensionResource.spacing_4x)
+            content = { paddingValues ->
+                Box(modifier = Modifier.padding(paddingValues)) {
+                    Column(
+                        modifier = Modifier
+                            .verticalScroll(scrollState)
+                            .padding(
+                                start = dimensionResource(id = DimensionResource.spacing_4x),
+                                top = dimensionResource(id = DimensionResource.spacing_9x),
+                                bottom = dimensionResource(id = DimensionResource.spacing_8x),
+                                end = dimensionResource(id = DimensionResource.spacing_4x)
+                            )
+                    ) {
+                        ScreenContent(
+                            onUserAgreementCheckBoxCheckChange = { isChecked ->
+                                userAgreementDrawBorder = false
+                                isUserAgreementCheckBoxChecked = isChecked
+                            },
+                            onUnionSelectionTextClicked = {
+                                unionSelectionDrawBorder = false
+                                scope.launch {
+                                    if (!bottomSheetState.isVisible) {
+                                        bottomSheetState.animateTo(ModalBottomSheetValue.Expanded)
+                                    } else bottomSheetState.hide()
+                                }
+                            },
+                            data = dataState.value.personalInfoSubmitDocumentView,
+                            selectedUnion = selectedUnion,
+                            userAgreementDrawBorder = userAgreementDrawBorder,
+                            isUserAgreementCheckBoxChecked = isUserAgreementCheckBoxChecked,
+                            drawBorder = unionSelectionDrawBorder
                         )
-                ) {
-                    ScreenContent(
-                        onUserAgreementCheckBoxCheckChange = { isChecked ->
-                            userAgreementDrawBorder = false
-                            isUserAgreementCheckBoxChecked = isChecked
-                        },
-                        onUnionSelectionTextClicked = {
-                            unionSelectionDrawBorder = false
-                            scope.launch {
-                                if (!bottomSheetState.isVisible) {
-                                    bottomSheetState.animateTo(ModalBottomSheetValue.Expanded)
-                                } else bottomSheetState.hide()
-                            }
-                        },
-                        data = dataState.value.personalInfoSubmitDocumentView,
-                        selectedUnion = selectedUnion,
-                        userAgreementDrawBorder = userAgreementDrawBorder,
-                        isUserAgreementCheckBoxChecked = isUserAgreementCheckBoxChecked,
-                        drawBorder = unionSelectionDrawBorder
-                    )
+                    }
                 }
             })
     }
@@ -503,7 +504,7 @@ private fun UserAgreementCheckbox(
         modifier = Modifier
             .padding(
                 top = dimensionResource(id = DimensionResource.spacing_8x),
-                bottom = dimensionResource(id = DimensionResource.spacing_11x)
+                bottom = dimensionResource(id = DimensionResource.spacing_4x)
             )
             .border(
                 width = borderWidth.dp,
@@ -522,7 +523,7 @@ private fun UserAgreementCheckbox(
                 onCheckChange(it)
             },
             enabled = true,
-            colors = CheckboxDefaults.colors(Color.Green)
+            colors = CheckboxDefaults.colors(MaterialTheme.colors.primary)
         )
         Text(
             text = stringResource(
