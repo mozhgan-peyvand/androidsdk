@@ -17,8 +17,8 @@ import ir.part.sdk.ara.common.ui.view.common.TextBody2Secondary
 import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.divider
 import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker2
-import ir.part.sdk.ara.common.ui.view.theme.body2Highlight
-import ir.part.sdk.ara.common.ui.view.theme.body2TextSecondaryBold
+import ir.part.sdk.ara.common.ui.view.theme.body2BoldTextSecondary
+import ir.part.sdk.ara.common.ui.view.theme.body2PrimaryVariant
 import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextPrimary
 import ir.part.sdk.merat.ui.menu.R
 
@@ -69,7 +69,7 @@ private fun TermsAndConditionContent() {
                         ),
                     textAlign = TextAlign.Start,
                     text = stringResource(id = R.string.label_dear_user),
-                    style = MaterialTheme.typography.body2TextSecondaryBold(),
+                    style = MaterialTheme.typography.body2BoldTextSecondary(),
                 )
                 Text(
                     modifier = Modifier.padding(dimensionResource(id = R.dimen.spacing_2x)),
@@ -106,14 +106,14 @@ private fun InfoTextHighlight(title: String, body: String? = null) {
             Text(
                 modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.spacing_2x)),
                 text = title,
-                style = MaterialTheme.typography.body2Highlight()
+                style = MaterialTheme.typography.body2PrimaryVariant()
             )
 
         }
 
         body?.let {
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
-            Text(text = body, style = MaterialTheme.typography.body2Highlight())
+            Text(text = body, style = MaterialTheme.typography.body2PrimaryVariant())
         }
     }
 }

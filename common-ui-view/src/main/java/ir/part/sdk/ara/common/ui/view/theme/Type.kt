@@ -55,48 +55,128 @@ val Typography = Typography(
 )
 
 @Composable
+fun Typography.h5PrimaryVariant(): TextStyle {
+    return h5.copy(
+        color = MaterialTheme.colors.primaryVariant()
+    )
+}
+
+@Composable
+fun Typography.h5BoldTextPrimary(): TextStyle {
+    return h5.copy(
+        color = MaterialTheme.colors.textPrimary(),
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
+fun Typography.h6OnPrimary(): TextStyle {
+    return h6.copy(
+        color = MaterialTheme.colors.onPrimary()
+    )
+}
+
+@Composable
+fun Typography.h6Bold(): TextStyle {
+    return h6.copy(
+        fontWeight = FontWeight.Bold,
+    )
+}
+
+@Composable
+fun Typography.h6BoldTextPrimary(): TextStyle {
+    return h6.copy(
+        color = MaterialTheme.colors.textPrimary(),
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
 fun Typography.subtitle1TextPrimary(): TextStyle {
-    return Typography.subtitle1.copy(
+    return subtitle1.copy(
         color = MaterialTheme.colors.textPrimary(),
         fontWeight = FontWeight.Normal
-
     )
 }
 
 @Composable
 fun Typography.subtitle1TextSecondary(): TextStyle {
-    return Typography.subtitle1.copy(
+    return subtitle1.copy(
         color = MaterialTheme.colors.textSecondary(),
         fontWeight = FontWeight.Normal
     )
 }
 
 @Composable
-fun Typography.subtitle1TextPrimaryBold(): TextStyle {
-    return Typography.subtitle1.copy(
+fun Typography.subtitle1BoldTextPrimary(): TextStyle {
+    return subtitle1.copy(
         color = MaterialTheme.colors.textPrimary(),
         fontWeight = FontWeight.Bold
     )
 }
 
 @Composable
-fun Typography.subtitle1TextHighlight(): TextStyle {
-    return Typography.subtitle1.copy(
-        color = MaterialTheme.colors.textPrimary(),
-        fontWeight = FontWeight.Bold
+fun Typography.subtitle2TextSecondary(): TextStyle {
+    return subtitle2.copy(
+        color = MaterialTheme.colors.textSecondary()
+    )
+}
+
+@Composable
+fun Typography.subtitle2PrimaryVariant(): TextStyle {
+    return subtitle2.copy(
+        color = MaterialTheme.colors.primaryVariant()
     )
 }
 
 @Composable
 fun Typography.subtitle2TextPrimary(): TextStyle {
-    return Typography.subtitle2.copy(
+    return subtitle2.copy(
         color = MaterialTheme.colors.textPrimary()
     )
 }
 
 @Composable
-fun Typography.body2TextPrimaryBold(): TextStyle {
-    return Typography.body2.copy(
+fun Typography.subtitle2BoldTextPrimary(): TextStyle {
+    return subtitle2.copy(
+        color = MaterialTheme.colors.textPrimary(),
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
+fun Typography.captionTextPrimary(): TextStyle {
+    return caption.copy(
+        color = MaterialTheme.colors.textPrimary()
+    )
+}
+
+@Composable
+fun Typography.captionBoldTextPrimary(): TextStyle {
+    return caption.copy(
+        color = MaterialTheme.colors.textPrimary(),
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
+fun Typography.captionBoldSuccess(): TextStyle {
+    return caption.copy(
+        color = MaterialTheme.colors.success(),
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
+fun Typography.captionTextSecondary(): TextStyle {
+    return caption.copy(
+        color = MaterialTheme.colors.textSecondary()
+    )
+}
+
+@Composable
+fun Typography.body2BoldTextPrimary(): TextStyle {
+    return body2.copy(
         color = MaterialTheme.colors.textPrimary(),
         fontWeight = FontWeight.Bold
     )
@@ -104,210 +184,50 @@ fun Typography.body2TextPrimaryBold(): TextStyle {
 
 @Composable
 fun Typography.body2TextSecondary(): TextStyle {
-    return Typography.body2.copy(
-        color = MaterialTheme.colors.textSecondary(),
+    return body2.copy(
+        color = MaterialTheme.colors.textSecondary()
     )
 }
 
 @Composable
-fun Typography.body2TextOnPrimary(): TextStyle {
-    return Typography.body2.copy(
-        color = MaterialTheme.colors.onPrimary,
+fun Typography.body2OnPrimary(): TextStyle {
+    return body2.copy(
+        color = MaterialTheme.colors.onPrimary(),
     )
 }
 
-
 @Composable
-fun Typography.body2TextSecondaryBold(): TextStyle {
-    return Typography.body2.copy(
+fun Typography.body2BoldTextSecondary(): TextStyle {
+    return body2.copy(
         color = MaterialTheme.colors.textSecondary(),
         fontWeight = FontWeight.Bold
     )
 }
 
 @Composable
-fun Typography.body2Highlight(): TextStyle {
-    return Typography.body2.copy(
-        color = ColorBlueDarker
-    )
-}
-
-@Composable
-fun Typography.subtitle2Error(): TextStyle {
-    return Typography.subtitle2.copy(
-        color = MaterialTheme.colors.error
-    )
-}
-
-@Composable
-fun Typography.subtitle2TextSecondary(): TextStyle {
-    return Typography.subtitle2.copy(
-        color = MaterialTheme.colors.textSecondary()
-    )
-}
-
-@Composable
-fun Typography.subtitle2Highlight(): TextStyle {
-    return Typography.subtitle2.copy(
+fun Typography.body2PrimaryVariant(): TextStyle {
+    return body2.copy(
         color = MaterialTheme.colors.primaryVariant()
     )
 }
 
 @Composable
-fun Typography.captionPrimary(): TextStyle {
-    return Typography.caption.copy(
+fun Typography.body2TextPrimary(): TextStyle {
+    return body2.copy(
         color = MaterialTheme.colors.textPrimary()
     )
 }
-
-@Composable
-fun Typography.captionPrimaryBold(): TextStyle {
-    return Typography.caption.copy(
-        color = MaterialTheme.colors.textPrimary(),
-        fontWeight = FontWeight.Bold
-    )
-}
-
-@Composable
-fun Typography.captionPrimaryBoldSuccess(): TextStyle {
-    return Typography.caption.copy(
-        color = MaterialTheme.colors.success(),
-        fontWeight = FontWeight.Bold
-    )
-}
-
-@Composable
-fun Typography.captionError(): TextStyle {
-    return Typography.caption.copy(
-        color = MaterialTheme.colors.error
-    )
-}
-
-@Composable
-fun Typography.h5Bold(): TextStyle {
-    return Typography.h5.copy(
-        fontWeight = FontWeight.Bold,
-        color = ColorBlueDarker
-    )
-}
-
-@Composable
-fun Typography.h5Highlight(): TextStyle {
-    return Typography.h5.copy(
-        color = ColorBlueDarker
-    )
-}
-
-@Composable
-fun Typography.h5BoldPrimary(): TextStyle {
-    return Typography.h5.copy(
-        color = MaterialTheme.colors.textPrimary(),
-        fontWeight = FontWeight.Bold
-    )
-}
-
-
-@Composable
-fun Typography.h6Bold(): TextStyle {
-    return Typography.h6.copy(
-        fontWeight = FontWeight.Bold,
-    )
-}
-
-@Composable
-fun Typography.h6BoldPrimary(): TextStyle {
-    return Typography.h6.copy(
-        fontWeight = FontWeight.Bold,
-        color = MaterialTheme.colors.textPrimary()
-    )
-}
-
-@Composable
-fun Typography.h6OnPrimary(): TextStyle {
-    return Typography.h6.copy(
-        color = MaterialTheme.colors.onPrimary
-    )
-}
-
-@Composable
-fun Typography.outlinedButtonPrimaryNormal(): TextStyle {
-    return Typography.body2.copy(
-        fontWeight = FontWeight.Bold,
-        color = ColorBlueDarker
-    )
-}
-
-@Composable
-fun Typography.body2Primary(): TextStyle {
-    return Typography.body2.copy(
-        color = MaterialTheme.colors.textPrimary()
-    )
-}
-
-@Composable
-fun Typography.subtitle2PrimaryBold(): TextStyle {
-    return Typography.subtitle2.copy(
-        fontWeight = FontWeight.Bold,
-        color = ColorGrayDarker
-    )
-}
-
-@Composable
-fun Typography.caption_Secondary(): TextStyle {
-    return Typography.caption.copy(
-        color = ColorGray
-    )
-}
-
-@Composable
-fun Typography.h5OnPrimary(): TextStyle {
-    return Typography.h5.copy(
-        color = MaterialTheme.colors.onPrimary
-    )
-}
-
-@Composable
-fun Typography.body2PrimaryBold(): TextStyle {
-    return Typography.body2.copy(
-        color = MaterialTheme.colors.textPrimary(), fontWeight = FontWeight.Bold
-    )
-}
-
-@Composable
-fun Typography.body2Secondary(): TextStyle {
-    return Typography.body2.copy(
-        color = MaterialTheme.colors.textSecondary()
-    )
-}
-
-@Composable
-fun Typography.body2SecondaryBold(): TextStyle {
-    return Typography.body2.copy(
-        color = MaterialTheme.colors.textSecondary(),
-        fontWeight = FontWeight.Bold
-    )
-}
-
-@Composable
-fun Typography.subtitle2TextPrimaryBold(): TextStyle {
-    return Typography.subtitle2.copy(
-        color = MaterialTheme.colors.textPrimary(),
-        fontWeight = FontWeight.Bold
-    )
-}
-
 
 @Composable
 fun Typography.buttonTextStyle(): TextStyle {
-    return Typography.button.copy(
-        color = MaterialTheme.colors.onPrimary
+    return button.copy(
+        color = MaterialTheme.colors.onPrimary()
     )
 }
 
 @Composable
 fun Typography.buttonTextPrimaryVariantStyle(): TextStyle {
-    return Typography.button.copy(
+    return button.copy(
         color = MaterialTheme.colors.primaryVariant()
     )
 }
-

@@ -210,7 +210,7 @@ private fun ScreenContent(
                     top = dimensionResource(id = R.dimen.spacing_7x)
                 ),
             textAlign = TextAlign.Start,
-            style = MaterialTheme.typography.h6BoldPrimary()
+            style = MaterialTheme.typography.h6BoldTextPrimary()
         )
 
         if (uiErrorMessage != null && !isRefreshing) {
@@ -502,7 +502,7 @@ private fun DocumentListItem(
                     id = R.string.label_file_number_title,
                     document.fileId.toString()
                 ),
-                style = MaterialTheme.typography.subtitle2PrimaryBold(),
+                style = MaterialTheme.typography.subtitle2BoldTextPrimary(),
                 textAlign = TextAlign.End
             )
 
@@ -514,7 +514,7 @@ private fun DocumentListItem(
                         top = dimensionResource(id = R.dimen.spacing_2x)
                     ),
                 text = document.requestDateView ?: "",
-                style = MaterialTheme.typography.caption_Secondary()
+                style = MaterialTheme.typography.captionTextSecondary()
             )
 
             Text(
@@ -522,7 +522,7 @@ private fun DocumentListItem(
                     .layoutId("status")
                     .padding(top = dimensionResource(id = R.dimen.spacing_2x)),
                 text = stringResource(id = R.string.label_status) + " ",
-                style = MaterialTheme.typography.captionPrimaryBold()
+                style = MaterialTheme.typography.captionBoldTextPrimary()
             )
 
             Text(
@@ -533,7 +533,7 @@ private fun DocumentListItem(
                         top = dimensionResource(id = R.dimen.spacing_2x)
                     ),
                 text = documentStatusConstants?.get(document.statusId?.value)?.name ?: "",
-                style = MaterialTheme.typography.captionPrimaryBoldSuccess(),
+                style = MaterialTheme.typography.captionBoldSuccess(),
                 color = document.statusId?.color ?: DocumentsStatusView.CODE_11.color
             )
 

@@ -166,7 +166,7 @@ class DialogUiHandler {
                 )
                 Text(
                     text = stringResource(id = StringResource.label_waiting_dialog),
-                    style = MaterialTheme.typography.subtitle1TextPrimaryBold(),
+                    style = MaterialTheme.typography.subtitle1BoldTextPrimary(),
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -240,7 +240,7 @@ class DialogUiHandler {
                     Text(
                         text = title,
                         modifier = Modifier.padding(start = dimensionResource(DimensionResource.spacing_3x)),
-                        style = MaterialTheme.typography.h6BoldPrimary()
+                        style = MaterialTheme.typography.h6BoldTextPrimary()
                     )
                 }
                 Text(
@@ -379,7 +379,7 @@ class DialogUiHandler {
                         top = dimensionResource(DimensionResource.spacing_5x),
                         start = dimensionResource(DimensionResource.spacing_5x),
                         end = dimensionResource(DimensionResource.spacing_5x)
-                    ), style = MaterialTheme.typography.subtitle1TextPrimaryBold()
+                    ), style = MaterialTheme.typography.subtitle1BoldTextPrimary()
                 )
                 Row(modifier = Modifier.padding(top = dimensionResource(DimensionResource.spacing_5x))) {
 

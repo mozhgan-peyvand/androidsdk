@@ -20,8 +20,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import ir.part.sdk.ara.common.ui.view.textPrimary
 import ir.part.sdk.ara.common.ui.view.textSecondary
-import ir.part.sdk.ara.common.ui.view.theme.body2Primary
-import ir.part.sdk.ara.common.ui.view.theme.body2PrimaryBold
+import ir.part.sdk.ara.common.ui.view.theme.body2BoldTextPrimary
+import ir.part.sdk.ara.common.ui.view.theme.body2TextPrimary
 import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextSecondary
 import ir.part.sdk.ara.common.ui.view.theme.subtitle2TextSecondary
 import ir.part.sdk.ara.ui.document.R
@@ -97,7 +97,7 @@ fun DocumentGenericLayout(
                     start = dimensionResource(id = R.dimen.spacing_4x),
                     top = dimensionResource(id = R.dimen.spacing_2x)
                 ),
-            style = MaterialTheme.typography.body2PrimaryBold(),
+            style = MaterialTheme.typography.body2BoldTextPrimary(),
             color = color ?: MaterialTheme.colors.textPrimary()
         )
         Spacer(
@@ -201,7 +201,7 @@ fun AraRetryLayout(
                 .fillMaxWidth()
                 .weight(4f),
             textAlign = TextAlign.Right,
-            style = MaterialTheme.typography.body2Primary()
+            style = MaterialTheme.typography.body2TextPrimary()
         )
     }
 }

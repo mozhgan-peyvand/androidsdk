@@ -24,9 +24,9 @@ import androidx.compose.ui.text.style.TextAlign
 import ir.part.sdk.ara.common.ui.view.common.HighlightedBulletWithTextBody2Secondary
 import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.divider
-import ir.part.sdk.ara.common.ui.view.theme.body2TextPrimaryBold
-import ir.part.sdk.ara.common.ui.view.theme.body2TextSecondaryBold
-import ir.part.sdk.ara.common.ui.view.theme.h5Highlight
+import ir.part.sdk.ara.common.ui.view.theme.body2BoldTextPrimary
+import ir.part.sdk.ara.common.ui.view.theme.body2BoldTextSecondary
+import ir.part.sdk.ara.common.ui.view.theme.h5PrimaryVariant
 import ir.part.sdk.merat.ui.menu.R
 
 @Composable
@@ -84,7 +84,7 @@ private fun GuideContent() {
                 Text(
                     modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.spacing_3x)),
                     text = stringResource(id = R.string.label_download_guide_file),
-                    style = MaterialTheme.typography.h5Highlight()
+                    style = MaterialTheme.typography.h5PrimaryVariant()
                 )
             }
 
@@ -159,7 +159,7 @@ private fun GuideItemExpandable(item: GuideView) {
                 Text(
                     textAlign = TextAlign.Start,
                     text = item.step,
-                    style = MaterialTheme.typography.body2TextSecondaryBold(),
+                    style = MaterialTheme.typography.body2BoldTextSecondary(),
                 )
 
                 if (item.description.isNotEmpty()) {
@@ -175,7 +175,7 @@ private fun GuideItemExpandable(item: GuideView) {
             Text(
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.spacing_2x)),
                 text = item.title,
-                style = MaterialTheme.typography.body2TextPrimaryBold(),
+                style = MaterialTheme.typography.body2BoldTextPrimary(),
             )
 
             AnimatedVisibility(visible = detailsVisibility) {

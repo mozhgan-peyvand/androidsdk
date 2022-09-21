@@ -18,9 +18,9 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import ir.part.sdk.ara.common.ui.view.divider
-import ir.part.sdk.ara.common.ui.view.theme.captionPrimaryBold
-import ir.part.sdk.ara.common.ui.view.theme.caption_Secondary
-import ir.part.sdk.ara.common.ui.view.theme.h6BoldPrimary
+import ir.part.sdk.ara.common.ui.view.theme.captionBoldTextPrimary
+import ir.part.sdk.ara.common.ui.view.theme.captionTextSecondary
+import ir.part.sdk.ara.common.ui.view.theme.h6BoldTextPrimary
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
 import ir.part.sdk.ara.ui.document.submitDocument.model.DocumentsStatusView
@@ -60,7 +60,7 @@ private fun DocumentStatus(
     ) {
         Text(
             text = stringResource(id = stringRec.label_files_messages_list_title),
-            style = MaterialTheme.typography.h6BoldPrimary(),
+            style = MaterialTheme.typography.h6BoldTextPrimary(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
@@ -206,7 +206,8 @@ private fun DocumentStatusItemList(
                         top = dimensionResource(id = dimensRec.spacing_3x),
                         bottom = dimensionResource(id = dimensRec.spacing_2x)
                     ),
-                style = MaterialTheme.typography.captionPrimaryBold(), textAlign = TextAlign.Start
+                style = MaterialTheme.typography.captionBoldTextPrimary(),
+                textAlign = TextAlign.Start
             )
         }
 
@@ -232,7 +233,7 @@ private fun DocumentStatusItemList(
                 text = fileItem.dateTime.toString(), modifier = Modifier
                     .layoutId("docDate")
                     .padding(dimensionResource(id = dimensRec.spacing_4x)),
-                style = MaterialTheme.typography.caption_Secondary()
+                style = MaterialTheme.typography.captionTextSecondary()
             )
         }
     }

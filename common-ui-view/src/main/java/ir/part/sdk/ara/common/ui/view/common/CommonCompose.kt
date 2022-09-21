@@ -40,7 +40,7 @@ fun TopAppBarContent(title: String, onNavigateUp: () -> Unit) {
         Text(
             modifier = Modifier.padding(dimensionResource(id = DimensionResource.spacing_2x)),
             text = title,
-            style = MaterialTheme.typography.h5BoldPrimary(),
+            style = MaterialTheme.typography.h5BoldTextPrimary(),
         )
     }
 }
