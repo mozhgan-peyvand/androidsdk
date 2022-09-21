@@ -41,7 +41,7 @@ fun Project.addSwipeRefreshLayout() {
 
 fun Project.addNamabar() {
     dependencies {
-        add("implementation", "ir.part.sdk.namabar:builder-dev-debug:1.0.0.3")
+        add("implementation", "ir.part.sdk.namabar:builder-dev-debug:0.0.0.7")
     }
 }
 

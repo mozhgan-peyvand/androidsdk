@@ -103,13 +103,20 @@ class HomeActivity : ComponentProviderActivity() {
             }
             navController = rememberNavController()
 
+            var isFullScreen: Boolean by remember {
+                mutableStateOf(true)
+            }
+
             // handle soft input mode
             when (navController.currentBackStackEntryAsState().value?.destination?.route) {
                 MenuRouter.SubmitCommentScreen.router, UiUserSharedIds.UserChangePassword.router -> {
                     window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                    if (isFullScreen) isFullScreen = false
                 }
+                BottomNavigationItems.PersonalInfo.route -> Unit
                 else -> {
                     window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+                    if (isFullScreen) isFullScreen = false
                 }
             }
 
@@ -122,11 +129,15 @@ class HomeActivity : ComponentProviderActivity() {
                             color = MaterialTheme.colors.background
                         ),
                     bottomBar = {
-                        BottomBarScreen(navController = navController, currentTask)
+                        if (!isFullScreen) {
+                            BottomBarScreen(navController = navController, currentTask)
+                        }
                     }
                 ) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
-                        AppNavigation()
+                        AppNavigation(onFullScreen = {
+                            isFullScreen = it
+                        })
                     }
                 }
             }
@@ -164,7 +175,7 @@ class HomeActivity : ComponentProviderActivity() {
                     }
                 }
             })
-            initExitDialog()
+            InitExitDialog()
 
         }
 
@@ -189,13 +200,13 @@ class HomeActivity : ComponentProviderActivity() {
     private fun provideComponent() = BuilderComponent.builder(this)
 
     @Composable
-    fun AppNavigation() {
+    fun AppNavigation(onFullScreen: (Boolean) -> Unit) {
         NavHost(navController, startDestination = HomeRouter.HomeGraph.router) {
             addHomeGraph(navController)
             addUserGraph(navController, tasksManagerViewModel)
             addMenuGraph(navController)
             addDocumentGraph(navController, tasksManagerViewModel)
-            addNamabarNavGraph(navController, tasksManagerViewModel)
+            addNamabarNavGraph(navController, tasksManagerViewModel, onFullScreen)
         }
     }
 
@@ -212,7 +223,8 @@ class HomeActivity : ComponentProviderActivity() {
                 MenuRouter.MainMenuScreen.router,
                 DocumentRouter.DocumentSubmitScreen.router,
                 DocumentRouter.DocumentFileListScreen.router,
-                BottomNavigationItems.PersonalInfo.route -> {
+                BottomNavigationItems.PersonalInfo.route,
+                -> {
                     exitDialog.show()
                 }
                 else -> super.onBackPressed()
@@ -264,7 +276,7 @@ class HomeActivity : ComponentProviderActivity() {
     }
 
     @Composable
-    private fun initExitDialog() {
+    private fun InitExitDialog() {
         exitDialog = getErrorDialog(
             title = stringResource(id = R.string.btn_logout), description = stringResource(
                 id = R.string.msg_sign_out
