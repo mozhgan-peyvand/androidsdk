@@ -26,9 +26,9 @@ class VersionViewModel @Inject constructor(
     var uiMessageManager = UiMessageManager()
     var loadingState = ObservableLoadingCounter()
 
-    private val filterList = mutableStateOf<List<VersionDetail>?>(null)
+    private val versionsList = mutableStateOf<List<VersionDetail>?>(null)
 
-    var listHasFilterOrNot = mutableStateOf<Boolean?>(null)
+    var hasForceVersion = mutableStateOf<Boolean?>(null)
 
     var loadingAndMessageState: StateFlow<PublicState> = combine(
         loadingState.observable,
@@ -58,7 +58,7 @@ class VersionViewModel @Inject constructor(
                     exceptionHandler,
                     uiMessageManager
                 ) { versionList ->
-                    filterList.value = versionList?.filter { version ->
+                    versionsList.value = versionList?.filter { version ->
                         version.versionNumber?.let { versionNumber ->
                             (versionNumber >= BuildConfig.VERSION_CODE)
                         } ?: false
@@ -67,7 +67,7 @@ class VersionViewModel @Inject constructor(
                             (isForce)
                         } ?: false
                     }
-                    listHasFilterOrNot.value = !filterList.value.isNullOrEmpty()
+                    hasForceVersion.value = !versionsList.value.isNullOrEmpty()
                 }
             }
         }
