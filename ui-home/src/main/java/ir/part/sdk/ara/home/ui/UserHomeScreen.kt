@@ -1,26 +1,33 @@
 package ir.part.sdk.ara.home.ui
 
+import android.app.Activity
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.primaryDark
+import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.buttonTextPrimaryVariantStyle
 import ir.part.sdk.ara.common.ui.view.theme.buttonTextStyle
-import ir.part.sdk.ara.home.version.ShowVersionDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getSdkUpdateDialog
 import ir.part.sdk.ara.home.version.VersionViewModel
 
 @Composable
@@ -29,8 +36,57 @@ fun UserHomeScreen(
     navigateToRegisterScreen: () -> Unit,
     versionViewModel: VersionViewModel
 ) {
-    ShowVersionDialog(versionViewModel = versionViewModel)
+    val context = LocalContext.current
+
+    val loadingErrorState =
+        rememberFlowWithLifecycle(flow = versionViewModel.loadingAndMessageState).collectAsState(
+            initial = PublicState.Empty
+        )
+
+    ProcessLoadingAndErrorState(input = loadingErrorState.value)
+
+    VersionDialogHandler(context, versionViewModel.hasForceVersion.value)
+
     UserHomeScreenElement(navigateToLoginScreen, navigateToRegisterScreen)
+}
+
+@Composable
+fun VersionDialogHandler(context: Context, hasForceVersion: Boolean?) {
+
+    var shouldShowVersionDialog by remember {
+        mutableStateOf(true)
+    }
+
+    val forceUpdateDialog = getSdkUpdateDialog(
+        title = stringResource(id = R.string.label_term_attention),
+        message = stringResource(id = R.string.msg_updateError_when_user_use_as_a_library_is_force),
+        submitText = R.string.btn_download_new_version,
+        cancelText = R.string.btn_exit_from_sdk,
+    )
+
+    val updateDialog = getSdkUpdateDialog(
+        title = stringResource(id = R.string.label_term_attention),
+        message = stringResource(id = R.string.msg_updateError_when_user_use_as_a_library_is_not_force),
+        submitText = R.string.btn_download_new_version,
+        cancelText = R.string.btn_exit_dialog
+    )
+
+    if (hasForceVersion == true && shouldShowVersionDialog) {
+        forceUpdateDialog.setSubmitAction {
+            shouldShowVersionDialog = false
+            forceUpdateDialog.dismiss()
+        }.setCancelAction {
+            (context as? Activity)?.finish()
+        }.show()
+    } else if (hasForceVersion == false) {
+        updateDialog.setSubmitAction {
+            shouldShowVersionDialog = false
+            updateDialog.dismiss()
+        }.setCancelAction {
+            shouldShowVersionDialog = false
+            updateDialog.dismiss()
+        }.show()
+    }
 }
 
 @Composable
@@ -122,6 +178,23 @@ private fun UserHomeScreenElement(
                     style = MaterialTheme.typography.buttonTextPrimaryVariantStyle()
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun ProcessLoadingAndErrorState(input: PublicState?) {
+    val loadingDialog = getLoadingDialog()
+    val errorDialog = getInfoDialog(
+        title = stringResource(id = R.string.msg_general_error_title),
+        description = ""
+    )
+    if (input?.refreshing == true) {
+        loadingDialog.show()
+    } else {
+        loadingDialog.dismiss()
+        input?.message?.let { messageModel ->
+            errorDialog.setDialogDetailMessage(messageModel.message).show()
         }
     }
 }
