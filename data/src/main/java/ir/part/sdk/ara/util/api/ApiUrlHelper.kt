@@ -109,7 +109,7 @@ class ApiUrlHelper @Inject constructor(
         lateinit var getBaseStateObject: String
 
         override fun update() {
-            getBaseStateObject = "$baseUrl/service/atlas@3/readByKey/test"
+            getBaseStateObject = "$baseUrl/service/atlas@3/readByKey/araMerat"
         }
     }
 }
