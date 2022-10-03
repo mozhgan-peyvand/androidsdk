@@ -1,5 +1,6 @@
 package ir.part.sdk.ara.ui.document.utils.navigation
 
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
@@ -24,14 +25,12 @@ fun NavGraphBuilder.addDocumentGraph(
         startDestination = DocumentRouter.DocumentFileListScreen.router
     ) {
 
-        var sharedViewModel: DocumentSharedViewModel? = null
-
         submitScreen {
+
             val submitDocumentViewModel: SubmitDocumentViewModel = viewModel(
                 factory = DocumentComponent.builder(LocalContext.current as ComponentProviderActivity)
                     .providerSubmitDocumentViewModel(),
-                viewModelStoreOwner = LocalContext.current as ComponentProviderActivity
-
+                viewModelStoreOwner = it
             )
 
             SubmitDocumentScreen(
@@ -42,15 +41,16 @@ fun NavGraphBuilder.addDocumentGraph(
         }
 
         fileListScreen {
-
-            if (sharedViewModel == null) {
-                sharedViewModel = viewModel(
-                    factory = DocumentComponent.builder(LocalContext.current as ComponentProviderActivity)
-                        .providerDocumentSharedViewModel(),
-                    viewModelStoreOwner = LocalContext.current as ComponentProviderActivity
-
-                )
+            val docBackStackEntry = remember {
+                navController.getBackStackEntry(DocumentRouter.DocumentGraph.router)
             }
+
+            val sharedViewModel: DocumentSharedViewModel = viewModel(
+                factory = DocumentComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .providerDocumentSharedViewModel(),
+                viewModelStoreOwner = docBackStackEntry
+
+            )
 
             FileListScreen(
                 viewModel = sharedViewModel,
@@ -65,6 +65,17 @@ fun NavGraphBuilder.addDocumentGraph(
 
         fileDetailScreenViewPager {
 
+            val docBackStackEntry = remember {
+                navController.getBackStackEntry(DocumentRouter.DocumentGraph.router)
+            }
+
+            val sharedViewModel: DocumentSharedViewModel = viewModel(
+                factory = DocumentComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .providerDocumentSharedViewModel(),
+                viewModelStoreOwner = docBackStackEntry
+
+            )
+
             DetailsScreenViewPager(
                 documentSharedViewModel = sharedViewModel,
                 onNavigateUp = {
@@ -76,6 +87,17 @@ fun NavGraphBuilder.addDocumentGraph(
 
         resultValidationScreen {
 
+            val docBackStackEntry = remember {
+                navController.getBackStackEntry(DocumentRouter.DocumentGraph.router)
+            }
+
+            val sharedViewModel: DocumentSharedViewModel = viewModel(
+                factory = DocumentComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .providerDocumentSharedViewModel(),
+                viewModelStoreOwner = docBackStackEntry
+
+            )
+
             DetailsScreenViewPager(
                 documentSharedViewModel = sharedViewModel,
                 showResultValidation = true,
@@ -83,7 +105,6 @@ fun NavGraphBuilder.addDocumentGraph(
                     navController.navigateUp()
                 }
             )
-
         }
     }
 }
