@@ -12,7 +12,7 @@ import ir.part.sdk.ara.domain.menu.di.DomainMenuComponent
 import ir.part.sdk.ara.domain.tasks.di.DomainTaskComponent
 import ir.part.sdk.ara.domain.user.di.DomainUserManagerComponent
 import ir.part.sdk.ara.domain.version.di.DomainHomeComponent
-import ir.part.sdk.ara.home.di.VersionScreenComponent
+import ir.part.sdk.ara.home.di.HomeComponent
 import ir.part.sdk.ara.ui.document.di.DocumentComponent
 import ir.part.sdk.ara.ui.menu.di.MenuScreenComponent
 import ir.part.sdk.ara.ui.menu.di.RahyarScreenComponent
@@ -39,7 +39,7 @@ import ir.part.sdk.ara.ui.user.di.UserComponent
         SubmitCommentScreenComponent::class,
         RahyarScreenComponent::class,
         MenuScreenComponent::class,
-        VersionScreenComponent::class,
+        HomeComponent::class,
     ],
     modules = [
         ViewModelModule::class
@@ -66,7 +66,7 @@ interface BuilderComponent : BasicComponent {
             menuComponent: SubmitCommentScreenComponent,
             rahyarComponent: RahyarScreenComponent,
             menuScreenComponent: MenuScreenComponent,
-            homeComponent: VersionScreenComponent,
+            homeComponent: HomeComponent,
         ): BuilderComponent
     }
 
@@ -95,7 +95,7 @@ interface BuilderComponent : BasicComponent {
                     menuComponent = SubmitCommentScreenComponent.builder(componentProvider),
                     rahyarComponent = RahyarScreenComponent.builder(componentProvider),
                     menuScreenComponent = MenuScreenComponent.builder(componentProvider),
-                    homeComponent = VersionScreenComponent.builder(componentProvider)
+                    homeComponent = HomeComponent.builder(componentProvider)
                 )
             )) as BuilderComponent
         }
