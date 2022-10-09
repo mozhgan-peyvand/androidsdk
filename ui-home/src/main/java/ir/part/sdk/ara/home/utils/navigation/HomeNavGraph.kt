@@ -1,12 +1,12 @@
 package ir.part.sdk.ara.home.utils.navigation
 
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.navigation
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
-import ir.part.sdk.ara.common.ui.view.di.daggerViewModel
-import ir.part.sdk.ara.home.di.VersionScreenComponent
+import ir.part.sdk.ara.home.di.HomeComponent
 import ir.part.sdk.ara.home.ui.SplashScreen
 import ir.part.sdk.ara.home.ui.UserHomeScreen
 import ir.part.sdk.ara.home.version.VersionViewModel
@@ -24,10 +24,11 @@ fun NavGraphBuilder.addHomeGraph(navController: NavHostController) {
             })
         }
         userHomeScreen {
-            val versionViewModel: VersionViewModel = daggerViewModel {
-                VersionScreenComponent.builder(LocalContext.current as ComponentProviderActivity)
-                    .getVersion()
-            }
+            val versionViewModel: VersionViewModel = viewModel(
+                factory = HomeComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .getVersion(),
+                viewModelStoreOwner = it
+            )
 
             UserHomeScreen(versionViewModel = versionViewModel,
                 navigateToLoginScreen = {
