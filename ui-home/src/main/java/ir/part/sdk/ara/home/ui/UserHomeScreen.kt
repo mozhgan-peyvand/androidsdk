@@ -10,7 +10,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -21,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import ir.part.sdk.ara.common.ui.view.api.PublicState
-import ir.part.sdk.ara.common.ui.view.primaryDark
+import ir.part.sdk.ara.common.ui.view.primaryVariant
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.buttonTextPrimaryVariantStyle
 import ir.part.sdk.ara.common.ui.view.theme.buttonTextStyle
@@ -94,92 +93,95 @@ private fun UserHomeScreenElement(
     navigateToLoginScreen: () -> Unit,
     navigateToRegisterScreen: () -> Unit
 ) {
-    ConstraintLayout {
-        val (userHomeBackground, homePageLogo) = createRefs()
-        Image(
-            painter = painterResource(id = R.drawable.merat_background),
-            contentDescription = "background",
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier
-                .constrainAs(userHomeBackground) {
-                    top.linkTo(parent.top)
-                    end.linkTo(parent.end)
-                    start.linkTo(parent.start)
-                    bottom.linkTo(parent.bottom)
-                    width = Dimension.matchParent
-                    height = Dimension.matchParent
-                }
-        )
-
-        Column(verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = dimensionResource(id = R.dimen.spacing_7x))
-                .constrainAs(homePageLogo) {
-                    bottom.linkTo(parent.bottom)
-                    end.linkTo(parent.end)
-                    start.linkTo(parent.start)
-                }) {
+    ConstraintLayout(modifier = Modifier.fillMaxSize()
+        , content = {
+            val (userHomeBackground, homePageLogo) = createRefs()
             Image(
-                painter = painterResource(id = R.drawable.merat_logo_credit),
+                painter = painterResource(id = R.drawable.merat_background),
                 contentDescription = "background",
-                Modifier.padding(bottom = dimensionResource(id = R.dimen.spacing_8x))
-            )
-            Image(
-                painter = painterResource(id = R.drawable.merat_ic_user_home_page_sentence),
-                contentDescription = "user_home_page_sentence",
-                Modifier.padding(
-                    bottom = dimensionResource(id = R.dimen.spacing_8x),
-                    start = dimensionResource(id = R.dimen.spacing_16x),
-                    end = dimensionResource(id = R.dimen.spacing_16x)
-                )
-            )
-            Button(
-                onClick = { navigateToRegisterScreen.invoke() },
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = MaterialTheme.colors.primaryDark(),
-                    contentColor = Color.White
-                ),
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .padding(
-                        start = dimensionResource(id = R.dimen.spacing_4x),
-                        end = dimensionResource(id = R.dimen.spacing_4x),
-                        bottom = dimensionResource(id = R.dimen.spacing_base)
-                    )
-                    .clip(RoundedCornerShape(10.dp))
+                    .constrainAs(userHomeBackground) {
+                        top.linkTo(parent.top)
+                        end.linkTo(parent.end)
+                        start.linkTo(parent.start)
+                        bottom.linkTo(parent.bottom)
+                        width = Dimension.matchParent
+                        height = Dimension.matchParent
+                    }
+            )
+
+            Column(verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
                     .fillMaxWidth()
-            ) {
-                Text(
-                    text = stringResource(id = R.string.btn_register),
-                    style = MaterialTheme.typography.buttonTextStyle()
+                    .padding(bottom = dimensionResource(id = R.dimen.spacing_8x))
+                    .constrainAs(homePageLogo) {
+                        bottom.linkTo(parent.bottom)
+                        end.linkTo(parent.end)
+                        start.linkTo(parent.start)
+                    }) {
+                Image(
+                    painter = painterResource(id = R.drawable.merat_logo_credit),
+                    contentDescription = "background",
+                    Modifier.padding(bottom = dimensionResource(id = R.dimen.spacing_8x))
                 )
-            }
-
-            OutlinedButton(
-                onClick = { navigateToLoginScreen.invoke() },
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.White,
-                    contentColor = MaterialTheme.colors.primaryDark()
-                ),
-                modifier = Modifier
-                    .padding(
-                        start = dimensionResource(id = R.dimen.spacing_4x),
-                        end = dimensionResource(id = R.dimen.spacing_4x)
+                Image(
+                    painter = painterResource(id = R.drawable.merat_ic_user_home_page_sentence),
+                    contentDescription = "user_home_page_sentence",
+                    Modifier.padding(
+                        bottom = dimensionResource(id = R.dimen.spacing_8x),
+                        start = dimensionResource(id = R.dimen.spacing_16x),
+                        end = dimensionResource(id = R.dimen.spacing_16x)
                     )
-                    .clip(RoundedCornerShape(10.dp))
-                    .fillMaxWidth(),
-                contentPadding = PaddingValues(10.dp),
-                border = BorderStroke(2.dp, MaterialTheme.colors.primaryDark()),
-
-                ) {
-                Text(
-                    text = stringResource(id = R.string.btn_login),
-                    style = MaterialTheme.typography.buttonTextPrimaryVariantStyle()
                 )
+                Button(
+                    onClick = { navigateToRegisterScreen.invoke() },
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = MaterialTheme.colors.primaryVariant(),
+                        contentColor = Color.White
+                    ),
+                    shape = RoundedCornerShape(dimensionResource(id = R.dimen.radius_normal)),
+                    modifier = Modifier
+                        .padding(
+                            start = dimensionResource(id = R.dimen.spacing_4x),
+                            end = dimensionResource(id = R.dimen.spacing_4x)
+                        )
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.btn_register),
+                        style = MaterialTheme.typography.buttonTextStyle()
+                    )
+                }
+
+                OutlinedButton(
+                    onClick = { navigateToLoginScreen.invoke() },
+                    modifier = Modifier
+                        .padding(
+                            start = dimensionResource(id = R.dimen.spacing_4x),
+                            end = dimensionResource(id = R.dimen.spacing_4x),
+                            top = dimensionResource(id = R.dimen.spacing_4x)
+
+                        )
+                        .fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color.White,
+                        contentColor = MaterialTheme.colors.primaryVariant()
+                    ),
+                    shape = RoundedCornerShape(dimensionResource(id = R.dimen.radius_normal)),
+                    border = BorderStroke(width = 2.dp, MaterialTheme.colors.primaryVariant()),
+
+                    ) {
+                    Text(
+                        text = stringResource(id = R.string.btn_login),
+                        style = MaterialTheme.typography.buttonTextPrimaryVariantStyle()
+                    )
+                }
             }
-        }
-    }
+
+    })
+
 }
 
 @Composable
