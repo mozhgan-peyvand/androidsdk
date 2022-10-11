@@ -171,7 +171,9 @@ private fun RowScope.AddItem(
         unselectedContentColor = MaterialTheme.colors.disabled(),
         selectedContentColor = ColorBlueDarker,
         onClick = {
-            itemNavigation()
+            if (currentDestination?.route != screen.route) {
+                itemNavigation()
+            }
         }
     )
 }
