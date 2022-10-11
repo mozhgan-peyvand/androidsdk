@@ -54,7 +54,8 @@ fun SubmitDocumentScreen(
     var userAgreementDrawBorder by remember { mutableStateOf(false) }
     var unionSelectionDrawBorder by remember { mutableStateOf(false) }
 
-    val bottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+    val bottomSheetState =
+        rememberModalBottomSheetState(ModalBottomSheetValue.Hidden, skipHalfExpanded = true)
     val scrollState = rememberScrollState()
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()

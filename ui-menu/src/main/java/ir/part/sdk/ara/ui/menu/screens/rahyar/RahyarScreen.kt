@@ -91,7 +91,8 @@ private fun RahyarScreenElement(
     val coroutineScope = rememberCoroutineScope()
     var selectedProvince: ProvincesAndCityView? by remember { mutableStateOf(null) }
 
-    val bottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+    val bottomSheetState =
+        rememberModalBottomSheetState(ModalBottomSheetValue.Hidden, skipHalfExpanded = true)
 
     ModalBottomSheetLayout(
         sheetState = bottomSheetState,
@@ -348,7 +349,7 @@ private fun RahyarToolbar(
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
-                Alignment.CenterVertically
+                CenterVertically
             ) {
                 TextField(
                     value = inputTextValue,
@@ -467,7 +468,7 @@ private fun ProvinceSelection(
                         modifier = Modifier
                             .fillMaxWidth()
                             .align(alignment = Alignment.Start),
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = CenterVertically
                     ) {
                         RadioButton(
                             selected = (item == selectedProvince),
