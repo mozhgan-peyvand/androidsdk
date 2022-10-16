@@ -11,7 +11,27 @@ class StateLocalDataSource @Inject constructor(
 
 ) {
 
+    fun saveProcessId(processId: String?) {
+        pref.edit().putString(
+            "processId",
+            AesEncryptor().encrypt(processId ?: "", sk)
+        )
+            .apply()
+    }
+
+    fun saveProcessInstanceId(processInstanceId: String?) {
+        pref.edit().putString(
+            "processInstanceId",
+            AesEncryptor().encrypt(processInstanceId ?: "", sk)
+        )
+            .apply()
+    }
+
     fun getProcessInstanceId(): String = pref.getString("processInstanceId", null)?.let {
+        AesEncryptor().decrypt(it, sk)
+    } ?: ""
+
+    fun getProcessId(): String = pref.getString("processId", null)?.let {
         AesEncryptor().decrypt(it, sk)
     } ?: ""
 }

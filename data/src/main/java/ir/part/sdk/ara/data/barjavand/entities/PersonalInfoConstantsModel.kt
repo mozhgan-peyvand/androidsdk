@@ -1,7 +1,6 @@
 package ir.part.sdk.ara.data.barjavand.entities
 
 
-import androidx.room.Entity
 import com.squareup.moshi.Json
 import ir.part.sdk.ara.domain.document.entities.Constant
 import ir.part.sdk.ara.domain.document.entities.PersonalInfoConstants
@@ -59,8 +58,6 @@ data class ConstantEntity(
         name = name
     )
 }
-
-@Entity(primaryKeys = ["pifii", "pifif", "pifiti"], tableName = TN.PersonalInfoFieldEntity)
 
 
 @JsonSerializable

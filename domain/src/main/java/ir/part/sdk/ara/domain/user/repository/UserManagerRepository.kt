@@ -16,12 +16,8 @@ interface UserManagerRepository {
     suspend fun registerUserRemote(registerParam: RegisterParam): InvokeStatus<Boolean>
     suspend fun getCaptchaRemote(): InvokeStatus<Captcha?>
 
-    suspend fun removeUser()
-
-    fun clearAllTables()
     fun getNationalCode(): String
     fun getPhoneNumber(): String
-    fun getCurrentUser(): User?
 
     suspend fun logout(): InvokeStatus<Boolean>
     fun getToken(): String

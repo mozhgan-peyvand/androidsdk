@@ -33,12 +33,6 @@ fun Project.addDagger2() {
     }
 }
 
-fun Project.addSwipeRefreshLayout() {
-    dependencies {
-        add("implementation", "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
-    }
-}
-
 fun Project.addNamabar() {
     dependencies {
         add("implementation", "ir.part.sdk.namabar:builder-dev-debug:0.0.0.7")
@@ -96,12 +90,6 @@ fun Project.addMoshi() {
 fun Project.addAppCompat() {
     dependencies {
         add("implementation", "androidx.appcompat:appcompat:1.4.0")
-    }
-}
-
-fun Project.addRecyclerView() {
-    dependencies {
-        add("implementation", "androidx.recyclerview:recyclerview:1.1.0")
     }
 }
 
@@ -173,16 +161,6 @@ fun Project.addLottie() {
 fun Project.addSqlLite() {
     dependencies {
         add("implementation", "androidx.sqlite:sqlite-ktx:2.1.0")
-    }
-}
-
-fun Project.addRoom() {
-    dependencies {
-        add("implementation", "androidx.room:room-runtime:2.2.5")
-        add("implementation", "androidx.room:room-ktx:2.2.5")
-        add("kapt", "androidx.room:room-compiler:2.2.5")
-        add("implementation", "com.commonsware.cwac:saferoom:1.2.1")
-        add("testImplementation", "androidx.room:room-testing:2.2.5")
     }
 }
 
