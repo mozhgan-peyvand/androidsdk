@@ -22,6 +22,5 @@ dependencies {
     addKotshi()
     addRetrofit()
     addCoroutine()
-    addRoom()
 }
 

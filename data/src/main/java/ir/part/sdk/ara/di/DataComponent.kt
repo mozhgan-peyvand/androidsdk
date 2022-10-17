@@ -3,7 +3,6 @@ package ir.part.sdk.ara.di
 import android.content.SharedPreferences
 import dagger.Component
 import ir.part.sdk.ara.base.di.*
-import ir.part.sdk.ara.db.AraDb
 import retrofit2.Retrofit
 
 @DataScope
@@ -29,7 +28,6 @@ interface DataComponent : BasicComponent {
     fun injectSK(): String
     fun injectSharedPref(): SharedPreferences
     fun injectRetrofit(): Retrofit
-    fun araDb(): AraDb
     @DK
     fun dK(): String
 

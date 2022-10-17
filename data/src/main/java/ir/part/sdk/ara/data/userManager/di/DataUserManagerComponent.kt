@@ -15,8 +15,7 @@ import ir.part.sdk.ara.domain.user.interacors.*
     ],
     modules = [
         RepositoryUserManagerModule::class,
-        ServiceUserManagerModule::class,
-        DaoModule::class
+        ServiceUserManagerModule::class
     ]
 )
 
@@ -31,9 +30,6 @@ interface DataUserManagerComponent : BasicComponent {
         ): DataUserManagerComponent
     }
 
-    fun injectClearAllTables(): ClearAllTables
-    fun injectGetCurrentUser(): GetCurrentUser
-    fun removeUser(): RemoveUser
     fun injectGetForgetPasswordRemote(): GetForgetPasswordRemote
     fun injectGetForgetPasswordVerificationRemote(): GetForgetPasswordVerificationRemote
     fun injectGetLoginRemote(): GetLoginRemote

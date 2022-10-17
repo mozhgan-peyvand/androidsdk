@@ -1,15 +1,14 @@
 package ir.part.sdk.ara.data.dashboard.repositories
 
-import android.content.SharedPreferences
 import ir.part.sdk.ara.base.di.FeatureDataScope
-import ir.part.sdk.ara.base.di.SK
 import ir.part.sdk.ara.base.model.InvokeStatus
-import ir.part.sdk.ara.base.util.AesEncryptor
 import ir.part.sdk.ara.data.dashboard.entites.DoingResponse
 import ir.part.sdk.ara.data.dashboard.entites.DoneResponse
 import ir.part.sdk.ara.data.dashboard.entites.SubmitResponseValidationEntity
 import ir.part.sdk.ara.data.dashboard.entites.TaskResponse
 import ir.part.sdk.ara.data.dashboard.mappers.toSubmitReqValidationParamModel
+import ir.part.sdk.ara.data.state.repositories.StateLocalDataSource
+import ir.part.sdk.ara.data.userManager.repositories.UserManagerLocalDataSource
 import ir.part.sdk.ara.domain.document.entities.SubmitReqValidationParam
 import ir.part.sdk.ara.domain.document.entities.SubmitResponseValidation
 import ir.part.sdk.ara.domain.document.repository.DashboardRepository
@@ -23,10 +22,10 @@ import javax.inject.Inject
 @FeatureDataScope
 class DashboardRepositoryImpl @Inject constructor(
     private val dashboardLocalDataSource: DashboardLocalDataSource,
+    private val stateLocalDataSource: StateLocalDataSource,
+    private val userManagerLocalDataSource: UserManagerLocalDataSource,
     private val remoteDataSource: DashboardRemoteDataSource,
-    private val pref: SharedPreferences,
     private val requestExecutor: RequestExecutor,
-    @SK private val sk: String
 ) : TaskRepository, DashboardRepository {
 
     override suspend fun requestGetDoingTasks(): InvokeStatus<TaskInfo?> =
@@ -35,9 +34,7 @@ class DashboardRepositoryImpl @Inject constructor(
             override suspend fun onRequestCall(): InvokeStatus<PublicResponse<List<TaskResponse>>> {
 
                 val processInstanceId =
-                    listOf(("\"" + (pref.getString("processInstanceId", null)?.let {
-                        AesEncryptor().decrypt(it, sk)
-                    } ?: "") + "\"")).toString()
+                    listOf(("\"" + (stateLocalDataSource.getProcessInstanceId()) + "\"")).toString()
 
                 return remoteDataSource.getDoingTasks(
                     processInstanceId = processInstanceId
@@ -45,23 +42,13 @@ class DashboardRepositoryImpl @Inject constructor(
             }
 
             override fun onConvertResult(data: PublicResponse<List<TaskResponse>>): TaskInfo? {
-                pref.edit().putString(
-                    "taskId",
-                    AesEncryptor().encrypt(data.item?.firstOrNull()?.taskId ?: "", sk)
-                )
-                    .apply()
 
-                pref.edit().putString(
-                    "taskInstanceId",
-                    AesEncryptor().encrypt(data.item?.firstOrNull()?.id ?: "", sk)
-                )
-                    .apply()
+                dashboardLocalDataSource.saveTaskId(data.item?.firstOrNull()?.taskId)
 
-                pref.edit().putString(
-                    "taskName",
-                    AesEncryptor().encrypt(data.item?.firstOrNull()?.name ?: "", sk)
-                )
-                    .apply()
+                dashboardLocalDataSource.saveTaskInstanceId(data.item?.firstOrNull()?.id)
+
+                dashboardLocalDataSource.saveTaskName(data.item?.firstOrNull()?.name)
+
                 return data.item?.firstOrNull()?.toTaskInfo()
             }
 
@@ -73,18 +60,10 @@ class DashboardRepositoryImpl @Inject constructor(
             InvokeStatus.ApiEventListener<PublicResponse<DoingResponse>, String?> {
             override suspend fun onRequestCall(): InvokeStatus<PublicResponse<DoingResponse>> =
                 remoteDataSource.doingTask(
-                    processInstanceId = pref.getString("processInstanceId", null)?.let {
-                        AesEncryptor().decrypt(it, sk)
-                    } ?: "",
-                    taskId = pref.getString("taskId", null)?.let {
-                        AesEncryptor().decrypt(it, sk)
-                    } ?: "",
-                    taskInstanceId = pref.getString("taskInstanceId", null)?.let {
-                        AesEncryptor().decrypt(it, sk)
-                    } ?: "",
-                    taskName = pref.getString("taskName", null)?.let {
-                        AesEncryptor().decrypt(it, sk)
-                    } ?: ""
+                    processInstanceId = stateLocalDataSource.getProcessInstanceId(),
+                    taskId = dashboardLocalDataSource.getTaskId(),
+                    taskInstanceId = dashboardLocalDataSource.getTaskInstanceId(),
+                    taskName = dashboardLocalDataSource.getTaskName()
                 )
 
             override fun onConvertResult(data: PublicResponse<DoingResponse>): String {
@@ -98,18 +77,10 @@ class DashboardRepositoryImpl @Inject constructor(
         InvokeStatus.ApiEventListener<PublicResponse<DoneResponse>, Done?> {
         override suspend fun onRequestCall(): InvokeStatus<PublicResponse<DoneResponse>> =
             remoteDataSource.doneTask(
-                processInstanceId = pref.getString("processInstanceId", null)?.let {
-                    AesEncryptor().decrypt(it, sk)
-                } ?: "",
-                taskId = pref.getString("taskId", null)?.let {
-                    AesEncryptor().decrypt(it, sk)
-                } ?: "",
-                taskInstanceId = pref.getString("taskInstanceId", null)?.let {
-                    AesEncryptor().decrypt(it, sk)
-                } ?: "",
-                taskName = pref.getString("taskName", null)?.let {
-                    AesEncryptor().decrypt(it, sk)
-                } ?: ""
+                processInstanceId = stateLocalDataSource.getProcessInstanceId(),
+                taskId = dashboardLocalDataSource.getTaskId(),
+                taskInstanceId = dashboardLocalDataSource.getTaskInstanceId(),
+                taskName = dashboardLocalDataSource.getTaskName()
             )
 
         override fun onConvertResult(data: PublicResponse<DoneResponse>): Done? =
@@ -122,18 +93,10 @@ class DashboardRepositoryImpl @Inject constructor(
             override suspend fun onRequestCall(): InvokeStatus<PublicResponse<SubmitResponseValidationEntity>> =
                 remoteDataSource.submitReqValidation(
                     submitReqValidationParam.toSubmitReqValidationParamModel(),
-                    processInstanceId = pref.getString("processInstanceId", null)?.let {
-                        AesEncryptor().decrypt(it, sk)
-                    } ?: "",
-                    taskInstanceId = pref.getString("taskInstanceId", null)?.let {
-                        AesEncryptor().decrypt(it, sk)
-                    } ?: "",
-                    nationalCode = pref.getString("CurrentUserNationalCode", null)?.let {
-                        AesEncryptor().decrypt(it, sk)
-                    } ?: "",
-                    processId = pref.getString("processId", null)?.let {
-                        AesEncryptor().decrypt(it, sk)
-                    } ?: ""
+                    processInstanceId = stateLocalDataSource.getProcessInstanceId(),
+                    taskInstanceId = dashboardLocalDataSource.getTaskInstanceId(),
+                    nationalCode = userManagerLocalDataSource.getNationalCode(),
+                    processId = stateLocalDataSource.getProcessId()
                 )
 
             override fun onConvertResult(data: PublicResponse<SubmitResponseValidationEntity>): SubmitResponseValidation? =
