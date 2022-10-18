@@ -11,6 +11,9 @@
     <string name="press_once_again_back_button_to_exit">برای خروج مجدداً دکمه بازگشت را بزنید!</string>
     <string name="msg_sign_out">آیا مایل به خروج از حساب کاربری خود هستید؟</string>
 
+    <string name="label_access_denied">محدودیت دسترسی</string>
+    <string name="msg_access_denied_for_personal_info_task">برای دسترسی به این بخش لطفا ابتدا مشخصات فردی خود را تکمیل نمایید!</string>
+    <string name="msg_access_denied_for_start_new_doc_task">برای دسترسی به این بخش لطفا ابتدا درخواست اعتبارسنجی خود را ثبت نمایید!</string>
 
 </resources>
 
