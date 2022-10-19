@@ -35,7 +35,7 @@ fun Project.addDagger2() {
 
 fun Project.addNamabar() {
     dependencies {
-        add("implementation", "ir.part.sdk.namabar:builder-dev-debug:0.0.0.7")
+        add("implementation", "ir.part.sdk.namabar:builder-dev-debug:0.0.0.8")
     }
 }
 
