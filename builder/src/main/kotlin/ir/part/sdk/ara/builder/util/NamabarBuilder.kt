@@ -43,7 +43,7 @@ fun namabarBuilder(
             SendRequestView(
                 serverInfo = serverInfo,
                 SchemaInfoView(
-                    "namabarmobileValue", "1.0.0"
+                    "applicantInformation", "1.0.1"
                 ),
                 id = "ea585dcc-082c-452a-84af-0237211e3dbb",
                 tags = mapOf(Pair("platform", "android"))
