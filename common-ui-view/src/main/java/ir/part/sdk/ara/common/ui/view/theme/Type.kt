@@ -197,6 +197,14 @@ fun Typography.body2OnPrimary(): TextStyle {
 }
 
 @Composable
+fun Typography.body2BoldOnPrimary(): TextStyle {
+    return body2.copy(
+        color = MaterialTheme.colors.onPrimary(),
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
 fun Typography.body2BoldTextSecondary(): TextStyle {
     return body2.copy(
         color = MaterialTheme.colors.textSecondary(),

@@ -73,7 +73,7 @@ open class DialogManager {
                     dismissOnBackPress = false
                 )
             ) {
-                DialogUiHandler().DeterminationDialogType(
+                DialogTypeHandler().DeterminationDialogType(
                     _dialogType,
                     submitAction = { dismiss(_submitAction) },
                     cancelAction = { dismiss(_cancelAction) },
