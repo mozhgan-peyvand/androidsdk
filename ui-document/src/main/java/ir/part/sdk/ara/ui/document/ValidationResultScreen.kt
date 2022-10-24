@@ -68,9 +68,10 @@ private fun ValidationResult(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(
-                    top = dimensionResource(id = dimensRec.spacing_7x),
+                    top = dimensionResource(id = dimensRec.spacing_6x),
                     end = dimensionResource(id = dimensRec.spacing_4x),
-                    start = dimensionResource(id = dimensRec.spacing_4x)
+                    start = dimensionResource(id = dimensRec.spacing_4x),
+                    bottom = dimensionResource(id = dimensRec.spacing_5x)
                 ),
             textAlign = TextAlign.Start
         )
