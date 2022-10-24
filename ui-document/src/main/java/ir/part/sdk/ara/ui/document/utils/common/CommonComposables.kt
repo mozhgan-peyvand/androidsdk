@@ -1,7 +1,6 @@
 package ir.part.sdk.ara.ui.document.utils.common
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -15,7 +14,6 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import ir.part.sdk.ara.common.ui.view.textPrimary
@@ -40,7 +38,6 @@ fun DocumentGenericLayout(
         val documentStatusIcon = createRefFor("documentStatusIcon")
         val documentStatusTitle = createRefFor("documentStatusTitle")
         val documentStatusDes = createRefFor("documentStatusDes")
-        val line = createRefFor("line")
 
         constrain(documentStatusIcon) {
             top.linkTo(parent.top)
@@ -58,11 +55,6 @@ fun DocumentGenericLayout(
             start.linkTo(documentStatusIcon.end)
         }
 
-        constrain(line) {
-            top.linkTo(documentStatusDes.bottom)
-            end.linkTo(parent.end)
-            start.linkTo(parent.start)
-        }
     }
 
     ConstraintLayout(
@@ -99,12 +91,6 @@ fun DocumentGenericLayout(
                 ),
             style = MaterialTheme.typography.body2BoldTextPrimary(),
             color = color ?: MaterialTheme.colors.textPrimary()
-        )
-        Spacer(
-            modifier = modifier
-                .layoutId("line")
-                .background(Color.Yellow)
-                .height(10.dp)
         )
     }
 }

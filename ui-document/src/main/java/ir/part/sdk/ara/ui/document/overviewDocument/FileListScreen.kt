@@ -20,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -27,7 +28,10 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import ir.part.sdk.ara.common.ui.view.*
 import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.api.UiMessage
-import ir.part.sdk.ara.common.ui.view.theme.*
+import ir.part.sdk.ara.common.ui.view.theme.captionBoldSuccess
+import ir.part.sdk.ara.common.ui.view.theme.captionBoldTextPrimary
+import ir.part.sdk.ara.common.ui.view.theme.captionTextSecondary
+import ir.part.sdk.ara.common.ui.view.theme.subtitle2BoldTextPrimary
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getDeleteDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
@@ -39,7 +43,6 @@ import ir.part.sdk.ara.ui.document.submitDocument.model.StatusParamView
 import ir.part.sdk.ara.ui.document.utils.common.AraFileDoesNotExist
 import ir.part.sdk.ara.ui.document.utils.common.AraFileNotFound
 import ir.part.sdk.ara.ui.document.utils.common.AraRetryLayout
-
 
 
 //todo : check merat dialog and stuff when clicked on payment icon
@@ -190,36 +193,32 @@ private fun ScreenContent(
             )
     ) {
 
-        SearchTextField(onInputChange = { searchText ->
-            inputTextValue = searchText
-            if (docList.isNullOrEmpty()) {
-                listHasFilter = false
-            } else {
-                filteredDocList = docList.filter {
-                    it.fileId.toString().contains(searchText)
+        SearchTextField(
+            onInputChange = { searchText ->
+                inputTextValue = searchText
+                if (docList.isNullOrEmpty()) {
+                    listHasFilter = false
+                } else {
+                    filteredDocList = docList.filter {
+                        it.fileId.toString().contains(searchText)
+                    }
+                    listHasFilter = true
                 }
-                listHasFilter = true
-            }
-        }, inputTextValue)
-
-        Text(
-            text = stringResource(id = R.string.label_documents_information),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    top = dimensionResource(id = R.dimen.spacing_7x)
-                ),
-            textAlign = TextAlign.Start,
-            style = MaterialTheme.typography.h6BoldTextPrimary()
-        )
+            },
+            inputTextValue = inputTextValue,
+            onRemoveIconClick = {
+                inputTextValue = ""
+                listHasFilter = false
+            })
 
         if (uiErrorMessage != null && !isRefreshing) {
             AraRetryLayout()
         }
 
-        SwipeRefresh(modifier = Modifier
-            .padding(top = dimensionResource(id = R.dimen.spacing_4x))
-            .fillMaxSize(),
+        SwipeRefresh(
+            modifier = Modifier
+                .padding(top = dimensionResource(id = R.dimen.spacing_2x))
+                .fillMaxSize(),
             state = swipeRefreshState,
             onRefresh = {
                 inputTextValue = ""
@@ -292,7 +291,11 @@ private fun ScreenContent(
 }
 
 @Composable
-private fun SearchTextField(onInputChange: (String) -> Unit, inputTextValue: String) {
+private fun SearchTextField(
+    onInputChange: (String) -> Unit,
+    inputTextValue: String,
+    onRemoveIconClick: () -> Unit
+) {
 
     val focusManager = LocalFocusManager.current
 
@@ -327,7 +330,21 @@ private fun SearchTextField(onInputChange: (String) -> Unit, inputTextValue: Str
                     painter = painterResource(id = R.drawable.ara_ic_search),
                     contentDescription = "ic_search"
                 )
-            }
+            },
+            trailingIcon = {
+                if (inputTextValue.isNotBlank()) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_remove),
+                        contentDescription = "icon_remove",
+                        modifier = Modifier.clickable {
+                            focusManager.clearFocus()
+                            onRemoveIconClick()
+                        },
+                        tint = MaterialTheme.colors.disabled()
+                    )
+                }
+            },
+            textStyle = LocalTextStyle.current.copy(textDecoration = TextDecoration.Underline)
         )
     }
 }

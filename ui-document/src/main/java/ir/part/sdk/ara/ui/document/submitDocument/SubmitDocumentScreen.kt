@@ -22,11 +22,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import ir.part.sdk.ara.base.util.TasksName
+import ir.part.sdk.ara.common.ui.view.*
 import ir.part.sdk.ara.common.ui.view.api.PublicState
-import ir.part.sdk.ara.common.ui.view.divider
-import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
-import ir.part.sdk.ara.common.ui.view.textPrimary
-import ir.part.sdk.ara.common.ui.view.textSecondary
 import ir.part.sdk.ara.common.ui.view.theme.*
 import ir.part.sdk.ara.common.ui.view.utils.dialog.*
 import ir.part.sdk.ara.ui.document.R
@@ -144,10 +141,8 @@ fun SubmitDocumentScreen(
                         modifier = Modifier
                             .verticalScroll(scrollState)
                             .padding(
-                                start = dimensionResource(id = DimensionResource.spacing_4x),
                                 top = dimensionResource(id = DimensionResource.spacing_9x),
-                                bottom = dimensionResource(id = DimensionResource.spacing_8x),
-                                end = dimensionResource(id = DimensionResource.spacing_4x)
+                                bottom = dimensionResource(id = DimensionResource.spacing_4x)
                             )
                     ) {
                         ScreenContent(
@@ -167,7 +162,12 @@ fun SubmitDocumentScreen(
                             selectedUnion = selectedUnion,
                             userAgreementDrawBorder = userAgreementDrawBorder,
                             isUserAgreementCheckBoxChecked = isUserAgreementCheckBoxChecked,
-                            drawBorder = unionSelectionDrawBorder
+                            drawBorder = unionSelectionDrawBorder,
+                            modifier = Modifier
+                                .padding(
+                                    start = dimensionResource(id = DimensionResource.spacing_4x),
+                                    end = dimensionResource(id = DimensionResource.spacing_4x)
+                                )
                         )
                     }
                 }
@@ -177,6 +177,7 @@ fun SubmitDocumentScreen(
 
 @Composable
 private fun ScreenContent(
+    modifier: Modifier = Modifier,
     onUserAgreementCheckBoxCheckChange: (Boolean) -> Unit,
     onUnionSelectionTextClicked: () -> Unit,
     userAgreementDrawBorder: Boolean,
@@ -192,18 +193,20 @@ private fun ScreenContent(
         text = stringResource(
             id = R.string.label_insert_request_validation
         ),
-        style = MaterialTheme.typography.h6Bold()
+        style = MaterialTheme.typography.h6Bold(),
+        modifier = modifier
     )
 
     Text(
         text = stringResource(
             id = R.string.msg_insert_request_validation
         ),
-        style = MaterialTheme.typography.subtitle2TextSecondary()
+        style = MaterialTheme.typography.subtitle2TextSecondary(),
+        modifier = modifier
     )
 
     Text(
-        modifier = Modifier.padding(top = dimensionResource(id = DimensionResource.spacing_8x)),
+        modifier = modifier.padding(top = dimensionResource(id = DimensionResource.spacing_8x)),
         text = stringResource(id = R.string.label_union),
         style = MaterialTheme.typography.captionBoldTextPrimary()
     )
@@ -215,9 +218,8 @@ private fun ScreenContent(
         textStyle = MaterialTheme.typography.subtitle2TextSecondary(),
         onValueChange = { },
         enabled = false,
-        modifier = Modifier
+        modifier = modifier
             .clickable {
-
                 onUnionSelectionTextClicked()
             }
             .fillMaxWidth()
@@ -230,19 +232,19 @@ private fun ScreenContent(
                 }
             ),
         colors = TextFieldDefaults.textFieldColors(
-            disabledTextColor = Color.Red,
             backgroundColor = MaterialTheme.colors.background,
-            unfocusedIndicatorColor = MaterialTheme.colors.onBackground
+            unfocusedIndicatorColor = MaterialTheme.colors.disabled()
 
         )
     )
 
-    Spacer(modifier = Modifier.padding(top = dimensionResource(id = DimensionResource.spacing_5x)))
+    Spacer(modifier = modifier.padding(top = dimensionResource(id = DimensionResource.spacing_5x)))
 
     UserProperties(
         name = data?.name,
         lastName = data?.lastname,
-        nationalCode = data?.nationalCode
+        nationalCode = data?.nationalCode,
+        unionId = selectedUnion?.id ?: " "
     )
 
     UserAgreementCheckbox(
@@ -345,7 +347,11 @@ private fun UnionSelection(
                             selected = (item == selectedUnion),
                             onClick = {
                                 selectedUnion = item
-                            }
+                            },
+                            colors = RadioButtonDefaults.colors(
+                                unselectedColor = MaterialTheme.colors.primary,
+                                selectedColor = MaterialTheme.colors.primary
+                            )
                         )
                         Text(
                             modifier = Modifier.weight(1f),
@@ -432,7 +438,8 @@ private fun BottomSheetTopBar(
 private fun UserProperties(
     name: String? = null,
     lastName: String? = null,
-    nationalCode: String? = null
+    nationalCode: String? = null,
+    unionId: String? = null
 ) {
     Box(
         modifier = Modifier
@@ -485,6 +492,21 @@ private fun UserProperties(
                         )
                     )
                 }
+                withStyle(
+                    style = SpanStyle(
+                        color = MaterialTheme.colors.textPrimary(),
+                        textDecoration = TextDecoration.Underline
+                    )
+                ) {
+                    append(" $unionId ")
+                }
+                withStyle(style = SpanStyle(color = MaterialTheme.colors.textSecondary())) {
+                    append(
+                        stringResource(
+                            id = R.string.msg_request_validation_agreement_part4
+                        )
+                    )
+                }
             }
         )
     }
@@ -505,7 +527,8 @@ private fun UserAgreementCheckbox(
         modifier = Modifier
             .padding(
                 top = dimensionResource(id = DimensionResource.spacing_8x),
-                bottom = dimensionResource(id = DimensionResource.spacing_4x)
+                start = dimensionResource(id = DimensionResource.spacing_base),
+                end = dimensionResource(id = DimensionResource.spacing_base)
             )
             .border(
                 width = borderWidth.dp,
@@ -517,21 +540,47 @@ private fun UserAgreementCheckbox(
             )
     ) {
         Checkbox(
-            modifier = Modifier
-                .padding(end = dimensionResource(id = DimensionResource.spacing_2x)),
             checked = isChecked,
             onCheckedChange = {
                 onCheckChange(it)
             },
             enabled = true,
-            colors = CheckboxDefaults.colors(MaterialTheme.colors.primary)
-        )
-        Text(
-            text = stringResource(
-                id = R.string.msg_request_validation_agreement_approve,
-                "$name $lastName"
+            colors = CheckboxDefaults.colors(
+                uncheckedColor = MaterialTheme.colors.primary,
+                checkedColor = MaterialTheme.colors.primary
             )
         )
+
+        Text(
+            modifier = Modifier
+                .padding(
+                    top = dimensionResource(id = DimensionResource.spacing_half_base),
+                    end = dimensionResource(id = DimensionResource.spacing_3x)
+                ),
+            text =
+            buildAnnotatedString {
+                append(
+                    stringResource(
+                        id = R.string.msg_request_validation_agreement_approve_part1
+                    )
+                )
+                withStyle(
+                    style = SpanStyle(
+                        textDecoration = TextDecoration.Underline
+                    )
+                ) {
+                    append(" $name $lastName ")
+                }
+
+                append(
+                    stringResource(
+                        id = R.string.msg_request_validation_agreement_approve_part2
+                    )
+                )
+            }
+        )
+
+
     }
 }
 

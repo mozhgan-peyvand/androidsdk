@@ -66,10 +66,11 @@ private fun DocumentStatus(
                 .padding(
                     top = dimensionResource(
                         id = dimensRec
-                            .spacing_7x
+                            .spacing_6x
                     ),
                     end = dimensionResource(id = dimensRec.spacing_4x),
-                    start = dimensionResource(id = dimensRec.spacing_4x)
+                    start = dimensionResource(id = dimensRec.spacing_4x),
+                    bottom = dimensionResource(id = dimensRec.spacing_5x)
                 ),
             textAlign = TextAlign.Start
         )
