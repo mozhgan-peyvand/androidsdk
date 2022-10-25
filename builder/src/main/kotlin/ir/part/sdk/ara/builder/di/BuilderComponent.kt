@@ -14,9 +14,7 @@ import ir.part.sdk.ara.domain.user.di.DomainUserManagerComponent
 import ir.part.sdk.ara.domain.version.di.DomainHomeComponent
 import ir.part.sdk.ara.home.di.HomeComponent
 import ir.part.sdk.ara.ui.document.di.DocumentComponent
-import ir.part.sdk.ara.ui.menu.di.MenuScreenComponent
-import ir.part.sdk.ara.ui.menu.di.RahyarScreenComponent
-import ir.part.sdk.ara.ui.menu.di.SubmitCommentScreenComponent
+import ir.part.sdk.ara.ui.menu.di.MenuComponent
 import ir.part.sdk.ara.ui.shared.feature.di.SharedFeatureComponent
 import ir.part.sdk.ara.ui.user.di.UserComponent
 
@@ -36,9 +34,7 @@ import ir.part.sdk.ara.ui.user.di.UserComponent
         DomainMenuComponent::class,
         DomainHomeComponent::class,
         SharedFeatureComponent::class,
-        SubmitCommentScreenComponent::class,
-        RahyarScreenComponent::class,
-        MenuScreenComponent::class,
+        MenuComponent::class,
         HomeComponent::class,
     ],
     modules = [
@@ -63,9 +59,7 @@ interface BuilderComponent : BasicComponent {
             domainMenuComponent: DomainMenuComponent,
             domainHomeComponent: DomainHomeComponent,
             sharedFeatureComponent: SharedFeatureComponent,
-            menuComponent: SubmitCommentScreenComponent,
-            rahyarComponent: RahyarScreenComponent,
-            menuScreenComponent: MenuScreenComponent,
+            menuScreenComponent: MenuComponent,
             homeComponent: HomeComponent,
         ): BuilderComponent
     }
@@ -92,9 +86,7 @@ interface BuilderComponent : BasicComponent {
                     domainMenuComponent = DomainMenuComponent.builder(componentProvider),
                     domainHomeComponent = DomainHomeComponent.builder(componentProvider),
                     sharedFeatureComponent = SharedFeatureComponent.builder(componentProvider),
-                    menuComponent = SubmitCommentScreenComponent.builder(componentProvider),
-                    rahyarComponent = RahyarScreenComponent.builder(componentProvider),
-                    menuScreenComponent = MenuScreenComponent.builder(componentProvider),
+                    menuScreenComponent = MenuComponent.builder(componentProvider),
                     homeComponent = HomeComponent.builder(componentProvider)
                 )
             )) as BuilderComponent

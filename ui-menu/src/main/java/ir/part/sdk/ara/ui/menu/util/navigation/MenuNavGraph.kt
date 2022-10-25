@@ -1,16 +1,12 @@
 package ir.part.sdk.ara.ui.menu.util.navigation
 
-import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.navigation
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
-import ir.part.sdk.ara.common.ui.view.di.daggerViewModel
-import ir.part.sdk.ara.ui.menu.di.MenuScreenComponent
-import ir.part.sdk.ara.ui.menu.di.RahyarScreenComponent
-import ir.part.sdk.ara.ui.menu.di.SubmitCommentScreenComponent
+import ir.part.sdk.ara.ui.menu.di.MenuComponent
 import ir.part.sdk.ara.ui.menu.screens.*
 import ir.part.sdk.ara.ui.menu.screens.comment.SubmitCommentScreen
 import ir.part.sdk.ara.ui.menu.screens.comment.SubmitCommentViewModel
@@ -26,10 +22,11 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
     ) {
 
         mainMenuScreen {
-            val menuViewModel: MenuViewModel = daggerViewModel {
-                MenuScreenComponent.builder(LocalContext.current as ComponentProviderActivity)
-                    .getMenuViewModel()
-            }
+            val menuViewModel: MenuViewModel = viewModel(
+                factory = MenuComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .getMenuViewModel(),
+                viewModelStoreOwner = it
+            )
 
             MenuScreen(
                 menuViewModel = menuViewModel,
@@ -85,20 +82,18 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
 
         submitScreenScreen {
 
-            val viewModelStoreOwnerCaptcha = remember {
-                navController.getBackStackEntry(MenuRouter.Graph.router)
-            }
-
             val captchaViewModel: CaptchaViewModel = viewModel(
                 factory = SharedFeatureComponent.builder(LocalContext.current as ComponentProviderActivity)
                     .getCaptchaViewModel(),
-                viewModelStoreOwner = viewModelStoreOwnerCaptcha
+                viewModelStoreOwner = it
 
             )
 
-            val commentViewModel: SubmitCommentViewModel =
-                SubmitCommentScreenComponent.builder(LocalContext.current as ComponentProviderActivity)
-                    .getViewModel()
+            val commentViewModel: SubmitCommentViewModel = viewModel(
+                factory = MenuComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .getSubmitCommentViewModel(),
+                viewModelStoreOwner = it
+            )
 
 
             SubmitCommentScreen(onNavigateUp = {
@@ -107,10 +102,11 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
         }
 
         rahyarScreen {
-            val rahyarViewModel: RahyarViewModel = daggerViewModel {
-                RahyarScreenComponent.builder(LocalContext.current as ComponentProviderActivity)
-                    .getRahyarViewModel()
-            }
+            val rahyarViewModel: RahyarViewModel = viewModel(
+                factory = MenuComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .getRahyarViewModel(),
+                viewModelStoreOwner = it
+            )
             RahyarScreen(rahyarViewModel = rahyarViewModel) {
                 navController.popBackStack()
             }
