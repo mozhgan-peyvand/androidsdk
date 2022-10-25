@@ -39,7 +39,7 @@ class EmailValidator : Validator {
 
 }
 
-class ReNewPasswordValidator(val newPassword: String) : Validator {
+class ReNewPasswordValidator(private val newPassword: String) : Validator {
 
     override fun validate(input: Any): ValidationResult? {
         if (!(input as? String).isNullOrEmpty() && newPassword.isNotEmpty()) {
@@ -59,11 +59,11 @@ class ReNewPasswordValidator(val newPassword: String) : Validator {
 
 }
 
-class NewPasswordValidator(val newPassword: String) : Validator {
+class NewPasswordValidator(private val reNewPassword: String) : Validator {
 
     override fun validate(input: Any): ValidationResult? {
-        if (!(input as? String).isNullOrEmpty() && newPassword.isNotEmpty()) {
-            return if ((input as? String) != newPassword) {
+        if (!(input as? String).isNullOrEmpty() && reNewPassword.isNotEmpty()) {
+            return if ((input as? String) != reNewPassword) {
                 null
             } else {
                 ValidationResult(this)

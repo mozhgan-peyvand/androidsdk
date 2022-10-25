@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.document
+package ir.part.sdk.ara.ui.document.detailDocument
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

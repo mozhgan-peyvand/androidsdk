@@ -1,38 +1,28 @@
 package ir.part.sdk.ara.ui.user.screens.register
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import ir.part.app.merat.ui.user.R
+import ir.part.sdk.ara.common.ui.view.*
 import ir.part.sdk.ara.common.ui.view.api.PublicState
-import ir.part.sdk.ara.common.ui.view.primaryVariant
-import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
-import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker
-import ir.part.sdk.ara.common.ui.view.theme.ErrorText
-import ir.part.sdk.ara.common.ui.view.theme.buttonTextStyle
-import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextSecondary
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
+import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationResult
 import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
 import ir.part.sdk.ara.ui.shared.feature.screens.captcha.Captcha
 import ir.part.sdk.ara.ui.shared.feature.screens.captcha.CaptchaViewModel
@@ -40,283 +30,221 @@ import ir.part.sdk.ara.ui.shared.feature.screens.captcha.CaptchaViewModel
 
 @Composable
 fun RegisterScreen(
-    registerViewModel: RegisterViewModel? = null,
-    captchaViewModel: CaptchaViewModel? = null,
+    onNavigateUp: () -> Unit,
+    registerViewModel: RegisterViewModel,
+    captchaViewModel: CaptchaViewModel,
     navigateToLogin: () -> Unit
 ) {
 
-    var isRegisteredSuccessfully: Boolean by remember {
+    var isRegister: Boolean by remember {
         mutableStateOf(false)
     }
-
-    RegisterSuccessHandler(isRegisteredSuccessfully) {
-        navigateToLogin.invoke()
-        isRegisteredSuccessfully = false
+    var nationalCode: String? by remember {
+        mutableStateOf(null)
+    }
+    var email: String? by remember {
+        mutableStateOf(null)
+    }
+    var phone: String? by remember {
+        mutableStateOf(null)
     }
 
-    Column {
+    val loadingErrorState =
+        rememberFlowWithLifecycle(registerViewModel.loadingAndMessageState).collectAsState(initial = PublicState.Empty)
 
+    isRegister = registerViewModel.registerDone.value
+    nationalCode = registerViewModel.userName.value
+    email = registerViewModel.email.value
+    phone = registerViewModel.phone.value
+
+    if (isRegister) {
+        navigateToLogin.invoke()
+        registerViewModel.registerDone.value = false
+    }
+
+    ProcessLoadingAndErrorState(loadingErrorState.value) {
+        registerViewModel.loadingAndMessageState.value.message = null
+    }
+
+    Register(
+        onNavigateUp = onNavigateUp,
+        nationalCode = nationalCode ?: "",
+        email = email ?: "",
+        phone = phone ?: "",
+        registerViewModel = registerViewModel,
+        captchaViewModel = captchaViewModel
+    )
+
+}
+
+@Composable
+fun Register(
+    nationalCode: String,
+    email: String,
+    phone: String,
+    captchaViewModel: CaptchaViewModel,
+    registerViewModel: RegisterViewModel,
+    onNavigateUp: () -> Unit
+) {
+    val scrollState = rememberScrollState()
+    Column(modifier = Modifier.verticalScroll(scrollState)) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colors.primaryVariant())
+        ) {
+
+            Icon(
+                modifier = Modifier
+                    .clickable {
+                        onNavigateUp()
+                    }
+                    .padding(dimensionResource(id = DimensionResource.spacing_3x)),
+                painter = painterResource(id = R.drawable.ic_back),
+                tint = MaterialTheme.colors.onPrimary(),
+                contentDescription = "back"
+            )
+        }
         Image(
             modifier = Modifier.fillMaxWidth(),
             contentScale = ContentScale.FillWidth,
-            painter = painterResource(id = R.drawable.merat_login_background),
+            painter = painterResource(id = R.drawable.ara_login_background),
             contentDescription = ""
         )
-        registerViewModel?.let {
-            ObserveLoadingState(registerViewModel = it)
-            ProcessLoadingAndErrorState(registerViewModel = it)
-            ShowNationalCode(registerViewModel = it)
-            ShowEmail(registerViewModel = it)
-            ShowPhone(registerViewModel = it)
-        }
+        ShowNationalCode(
+            nationalCode = nationalCode,
+            onchangeNationalCode = { nationalCodeText ->
+                registerViewModel.setNationalCode(
+                    nationalCodeText
+                )
+            },
+            errorNationalCode = registerViewModel.errorNationalCode
+        )
+
+        ShowEmail(
+            email = email,
+            onChangeEmail = { emailText -> registerViewModel.setEmail(emailText) },
+            errorEmailCode = registerViewModel.errorEmail
+        )
+        ShowPhone(
+            phone = phone,
+            onChangePhone = { phoneNumber -> registerViewModel.setPhone(phoneNumber) },
+            errorPhone = registerViewModel.errorPhone
+        )
+
 
         //Captcha
         Captcha(
             captchaViewModel = captchaViewModel
         )
 
-        Button(
-            onClick = {
-                captchaViewModel?.setError(
-                    validateWidget(
-                        ValidationField.CAPTCHA,
-                        captchaViewModel.captchaValue.value
-                    )
-                )
-                if (
-                    registerViewModel?.isValidationFields() == true &&
-                    captchaViewModel?.errorValue?.value?.second?.isEmpty() != false
-                ) {
-                    registerViewModel.setRegister(
-                        captchaToken = captchaViewModel?.captchaViewState?.value?.token ?: "",
-                        captchaValue = captchaViewModel?.captchaValue?.value ?: ""
-                    ) {
-                        isRegisteredSuccessfully = it
-                    }
-                }
 
-            },
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = ColorBlueDarker,
-                contentColor = Color.White
-            ),
-            modifier = Modifier
-                .padding(
-                    start = dimensionResource(id = R.dimen.spacing_4x),
-                    end = dimensionResource(id = R.dimen.spacing_4x),
-                    bottom = dimensionResource(id = R.dimen.spacing_base)
+        UserButton(textButton = stringResource(id = R.string.label_register), onClickButton = {
+            captchaViewModel.setError(
+                validateWidget(
+                    ValidationField.CAPTCHA,
+                    captchaViewModel.captchaValue.value
                 )
-                .clip(RoundedCornerShape(10.dp))
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = stringResource(id = R.string.label_register),
-                style = MaterialTheme.typography.buttonTextStyle()
             )
-        }
+            if (
+                registerViewModel.isValidationFields()
+            ) {
+                registerViewModel.setRegister(
+                    captchaToken = captchaViewModel.captchaViewState.value?.token ?: "",
+                    captchaValue = captchaViewModel.captchaValue.value
+                )
+
+            }
+        })
+
     }
 }
 
 @Composable
-private fun ShowNationalCode(registerViewModel: RegisterViewModel) {
-    val maxChar = 10
-    TextField(
-        value = registerViewModel.userName.value,
-        onValueChange = { inputValue ->
-            if (inputValue.length <= maxChar)
-                registerViewModel.userName.value = inputValue
-            registerViewModel.setErrorNationalCode(
-                validateWidget(
-                    ValidationField.NATIONAL_CODE,
-                    registerViewModel.userName.value
-                )
-            )
-        },
-        placeholder = {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = stringResource(id = R.string.label_national_code),
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle1TextSecondary()
-            )
-        },
-        leadingIcon = {
-            Icon(
-                painter = painterResource(R.drawable.merat_ic_single),
-                contentDescription = "",
-                tint = MaterialTheme.colors.primaryVariant()
-            )
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { }
-            .padding(
-                bottom = dimensionResource(id = DimensionResource.spacing_2x),
-                start = dimensionResource(id = DimensionResource.spacing_2x),
-                end = dimensionResource(id = DimensionResource.spacing_2x)
-            ),
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White,
-            unfocusedIndicatorColor = Color.LightGray
-        ),
-        textStyle = MaterialTheme.typography.subtitle1,
-        singleLine = true,
-        maxLines = 1,
-        keyboardActions = KeyboardActions {},
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        isError = registerViewModel.errorNationalCode.value.second.isNotEmpty()
-    )
-    ErrorText(
-        visible = !registerViewModel.errorNationalCode.value.second.isNullOrEmpty(),
-        errorMessage = if (!registerViewModel.errorNationalCode.value.second.isNullOrEmpty())
-            registerViewModel.errorNationalCode.value.second.last().validator.getErrorMessage(
-                LocalContext.current
-            )
-        else ""
-    )
-}
-
-@Composable
-private fun ShowEmail(registerViewModel: RegisterViewModel) {
-    TextField(
-        value = registerViewModel.email.value,
-        onValueChange = { inputValue ->
-            registerViewModel.email.value = inputValue
-            registerViewModel.setErrorEmail(validateWidget(ValidationField.EMAIL, inputValue))
-        },
-        placeholder = {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = stringResource(id = R.string.label_email),
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle1TextSecondary()
-            )
-        },
-        leadingIcon = {
-            Icon(
-                painter = painterResource(R.drawable.merat_ic_mail),
-                contentDescription = "",
-                tint = MaterialTheme.colors.primaryVariant()
-            )
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { }
-            .padding(
-                bottom = dimensionResource(id = DimensionResource.spacing_2x),
-                start = dimensionResource(id = DimensionResource.spacing_2x),
-                end = dimensionResource(id = DimensionResource.spacing_2x)
-            ),
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White,
-            unfocusedIndicatorColor = Color.LightGray
-        ),
-        textStyle = MaterialTheme.typography.subtitle1,
-        singleLine = true,
-        maxLines = 1,
-        keyboardActions = KeyboardActions {},
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-        isError = registerViewModel.errorEmail.value.second.isNotEmpty()
-
-    )
-    ErrorText(
-        visible =
-        !registerViewModel.errorEmail.value.second.isNullOrEmpty(),
-        errorMessage = if (!registerViewModel.errorEmail.value.second.isNullOrEmpty())
-            registerViewModel.errorEmail.value.second.last().validator.getErrorMessage(LocalContext.current)
-        else ""
-    )
-}
-
-@Composable
-private fun ShowPhone(registerViewModel: RegisterViewModel) {
-    val maxChar = 11
-    TextField(
-        value = registerViewModel.phone.value,
-        onValueChange = { inputValue ->
-            if (inputValue.length <= maxChar) registerViewModel.phone.value = inputValue
-            registerViewModel.setErrorPhone(
-                validateWidget(
-                    ValidationField.PHONE,
-                    registerViewModel.phone.value
-                )
-            )
-        },
-        placeholder = {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = stringResource(id = R.string.label_phone),
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.subtitle1TextSecondary()
-            )
-        },
-        leadingIcon = {
-            Icon(
-                painter = painterResource(R.drawable.merat_ic_phone_button),
-                contentDescription = "",
-                tint = MaterialTheme.colors.primaryVariant()
-            )
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { }
-            .padding(
-                bottom = dimensionResource(id = DimensionResource.spacing_2x),
-                start = dimensionResource(id = DimensionResource.spacing_2x),
-                end = dimensionResource(id = DimensionResource.spacing_2x)
-            ),
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White,
-            unfocusedIndicatorColor = Color.LightGray
-        ),
-        textStyle = MaterialTheme.typography.subtitle1,
-        singleLine = true,
-        maxLines = 1,
-        keyboardActions = KeyboardActions {},
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        isError = registerViewModel.errorPhone.value.second.isNotEmpty()
-
-    )
-    ErrorText(
-        visible =
-        !registerViewModel.errorPhone.value.second.isNullOrEmpty(),
-        errorMessage = if (!registerViewModel.errorPhone.value.second.isNullOrEmpty())
-            registerViewModel.errorPhone.value.second.last().validator.getErrorMessage(LocalContext.current)
-        else ""
-    )
-}
-
-@Composable
-private fun ObserveLoadingState(
-    registerViewModel: RegisterViewModel
+private fun ShowNationalCode(
+    nationalCode: String,
+    onchangeNationalCode: (String) -> Unit,
+    errorNationalCode: MutableState<Pair<ValidationField, List<ValidationResult>>>,
 ) {
-    registerViewModel.loadingErrorState.value =
-        rememberFlowWithLifecycle(registerViewModel.loadingAndMessageState).collectAsState(initial = PublicState.Empty).value
+    UserTextField(
+        title = null,
+        hint = stringResource(id = R.string.label_national_code),
+        value = nationalCode,
+        onValueChanged = { nationalCodeText ->
+            onchangeNationalCode(nationalCodeText)
+        },
+        errorMessage = if (errorNationalCode.value.second.isNotEmpty())
+            errorNationalCode.value.second.last().validator.getErrorMessage(LocalContext.current)
+        else "",
+        maxChar = 10,
+        keyboardType = KeyboardType.Number,
+        painter = painterResource(R.drawable.ara_ic_single)
+    )
+
 }
 
 @Composable
-private fun ProcessLoadingAndErrorState(
-    registerViewModel: RegisterViewModel
+private fun ShowEmail(
+    email: String,
+    onChangeEmail: (String) -> Unit,
+    errorEmailCode: MutableState<Pair<ValidationField, List<ValidationResult>>>,
 ) {
-    val dialog = getInfoDialog(
-        title = stringResource(id = R.string.label_warning_title_dialog),
-        description = ""
+
+    UserTextField(
+        title = null,
+        hint = stringResource(id = R.string.label_email),
+        value = email,
+        onValueChanged = { emailText ->
+            onChangeEmail(emailText)
+        },
+        errorMessage = if (errorEmailCode.value.second.isNotEmpty())
+            errorEmailCode.value.second.last().validator.getErrorMessage(LocalContext.current)
+        else "",
+        keyboardType = KeyboardType.Email,
+        painter = painterResource(R.drawable.ara_ic_mail)
     )
+}
+
+@Composable
+private fun ShowPhone(
+    phone: String,
+    onChangePhone: (String) -> Unit,
+    errorPhone: MutableState<Pair<ValidationField, List<ValidationResult>>>,
+) {
+    UserTextField(
+        title = null,
+        hint = stringResource(id = R.string.label_phone),
+        value = phone,
+        onValueChanged = { phoneNumber ->
+            onChangePhone(phoneNumber)
+        },
+        errorMessage = if (errorPhone.value.second.isNotEmpty())
+            errorPhone.value.second.last().validator.getErrorMessage(LocalContext.current)
+        else "",
+        maxChar = 11,
+        keyboardType = KeyboardType.Phone,
+        painter = painterResource(R.drawable.ara_ic_phone_button),
+    )
+}
+
+
+@Composable
+private fun ProcessLoadingAndErrorState(input: PublicState?, onErrorDialogDismissed: () -> Unit) {
     val loadingDialog = getLoadingDialog()
+    val errorDialog = getErrorDialog(
+        title = stringResource(id = R.string.label_warning_title_dialog),
+        description = "",
+        submitAction = {
+            onErrorDialogDismissed()
+        }
+    )
 
-    if (registerViewModel.loadingErrorState.value?.refreshing == true) {
+    if (input?.refreshing == true) {
         loadingDialog.show()
     } else {
         loadingDialog.dismiss()
-        registerViewModel.loadingErrorState.value?.message?.let { messageModel ->
-            dialog.setDialogDetailMessage(messageModel.message).show()
+        input?.message?.let { messageModel ->
+            errorDialog.setDialogDetailMessage(messageModel.message).show()
         }
-    }
-}
-
-@Composable
-private fun RegisterSuccessHandler(isRegisteredSuccessfully: Boolean, onSuccess: () -> Unit) {
-    if (isRegisteredSuccessfully) {
-        onSuccess()
     }
 }

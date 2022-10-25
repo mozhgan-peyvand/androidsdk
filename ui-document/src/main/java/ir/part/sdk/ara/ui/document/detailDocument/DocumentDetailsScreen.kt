@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.document
+package ir.part.sdk.ara.ui.document.detailDocument
 
 
 import androidx.compose.foundation.layout.Column
@@ -22,6 +22,7 @@ import ir.part.sdk.ara.common.ui.view.theme.h6BoldTextPrimary
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
+import ir.part.sdk.ara.ui.document.R
 import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
 import ir.part.sdk.ara.ui.document.submitDocument.model.PersonalDocumentsView
 import ir.part.sdk.ara.ui.document.submitDocument.model.PersonalInfoConstantsView

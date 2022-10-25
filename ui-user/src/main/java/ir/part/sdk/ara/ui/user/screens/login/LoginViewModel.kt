@@ -53,28 +53,28 @@ class LoginViewModel @Inject constructor(
 
     fun getLogin(captchaValue: String, captchaToken: String, onSuccess: (Boolean) -> Unit) {
         viewModelScope.launch {
-//            if (loadingState.count.toInt() == 0) {
-            clearAllMessage()
-            getLoginRemote.invoke(
-                GetLoginRemote.Param(
-                    LoginView(
-                        nationalCode = userName.value,
-                        password = password.value,
-                        captchaValue = captchaValue,
-                        captchaToken = captchaToken
-                    ).toLoginParam()
-                )
-            ).collectAndChangeLoadingAndMessageStatus(
-                viewModelScope,
-                loadingState,
-                exceptionHelper,
-                uiMassageManager
-            ) {
-                if (it) {
-                    onSuccess(it)
+            if (loadingState.count.toInt() == 0) {
+                clearAllMessage()
+                getLoginRemote.invoke(
+                    GetLoginRemote.Param(
+                        LoginView(
+                            nationalCode = userName.value,
+                            password = password.value,
+                            captchaValue = captchaValue,
+                            captchaToken = captchaToken
+                        ).toLoginParam()
+                    )
+                ).collectAndChangeLoadingAndMessageStatus(
+                    viewModelScope,
+                    loadingState,
+                    exceptionHelper,
+                    uiMassageManager
+                ) {
+                    if (it) {
+                        onSuccess(it)
+                    }
                 }
             }
-//            }
         }
     }
 
@@ -84,6 +84,26 @@ class LoginViewModel @Inject constructor(
 
     fun setErrorPassword(errorList: Pair<ValidationField, List<ValidationResult>>) {
         errorValuePassword.value = errorList
+    }
+
+    fun setNationalCode(nationalCode: String) {
+        userName.value = nationalCode
+        setErrorNationalCode(
+            validateWidget(
+                ValidationField.NATIONAL_CODE,
+                nationalCode
+            )
+        )
+    }
+
+    fun setPassword(passwordText: String) {
+        password.value = passwordText
+        setErrorPassword(
+            validateWidget(
+                ValidationField.LOGIN_PASSWORD,
+                passwordText
+            )
+        )
     }
 
     fun isValidationFields(): Boolean {
@@ -102,9 +122,7 @@ class LoginViewModel @Inject constructor(
 
     private fun clearAllMessage() {
         viewModelScope.launch {
-            if (loadingState.count.toInt() == 0) {
-                uiMassageManager.clearAllMessage()
-            }
+            uiMassageManager.clearAllMessage()
         }
     }
 }

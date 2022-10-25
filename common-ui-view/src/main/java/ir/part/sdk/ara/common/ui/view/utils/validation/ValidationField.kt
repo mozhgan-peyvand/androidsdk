@@ -41,8 +41,7 @@ fun validateWidget(
         ValidationField.EMAIL -> {
             validations.addAll(
                 listOf(
-                    Validation.EmailValidation,
-                    Validation.RequiredValidation
+                    Validation.EmailValidation
                 )
             )
         }

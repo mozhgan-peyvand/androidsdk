@@ -10,7 +10,7 @@ data class LoginEntity(
     var type: String,
     var uniqueKey: String,
     var cellphoneNumbers: List<CellPhone>,
-    var email: String
+    var email: String?
 )
 
 @JsonSerializable

@@ -1,6 +1,8 @@
 package ir.part.sdk.ara.ui.menu.util.navigation
 
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.navigation
@@ -82,15 +84,22 @@ fun NavGraphBuilder.addMenuGraph(navController: NavHostController) {
         }
 
         submitScreenScreen {
-            val captchaViewModel: CaptchaViewModel = daggerViewModel {
-                SharedFeatureComponent.builder(LocalContext.current as ComponentProviderActivity)
-                    .getCaptchaViewModel()
+
+            val viewModelStoreOwnerCaptcha = remember {
+                navController.getBackStackEntry(MenuRouter.Graph.router)
             }
 
-            val commentViewModel: SubmitCommentViewModel = daggerViewModel {
+            val captchaViewModel: CaptchaViewModel = viewModel(
+                factory = SharedFeatureComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .getCaptchaViewModel(),
+                viewModelStoreOwner = viewModelStoreOwnerCaptcha
+
+            )
+
+            val commentViewModel: SubmitCommentViewModel =
                 SubmitCommentScreenComponent.builder(LocalContext.current as ComponentProviderActivity)
                     .getViewModel()
-            }
+
 
             SubmitCommentScreen(onNavigateUp = {
                 navController.navigateUp()

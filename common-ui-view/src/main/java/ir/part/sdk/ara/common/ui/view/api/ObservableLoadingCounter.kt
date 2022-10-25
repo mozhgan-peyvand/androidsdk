@@ -38,7 +38,7 @@ fun <T> Flow<InvokeStatus<T>>.collectAndChangeLoadingAndMessageStatus(
     exceptionHelper: ExceptionHelper,
     uiMessageManager: UiMessageManager? = null,
     returnData: ((value: T) -> Unit)? = null
-) = coroutineScope.launchWithErrorHandler(Dispatchers.IO) {
+) = coroutineScope.launchWithErrorHandler {
     collect { status ->
         when (status) {
             is InvokeStarted -> counter.addLoader()

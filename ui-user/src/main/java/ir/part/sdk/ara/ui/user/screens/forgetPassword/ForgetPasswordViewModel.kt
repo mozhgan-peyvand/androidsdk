@@ -10,6 +10,7 @@ import ir.part.sdk.ara.common.ui.view.api.UiMessageManager
 import ir.part.sdk.ara.common.ui.view.api.collectAndChangeLoadingAndMessageStatus
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationResult
+import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
 import ir.part.sdk.ara.domain.user.entities.ForgetPasswordParam
 import ir.part.sdk.ara.domain.user.interacors.GetForgetPasswordRemote
 import kotlinx.coroutines.flow.SharingStarted
@@ -26,13 +27,12 @@ class ForgetPasswordViewModel @Inject constructor(
     var isRecoveredPassword = mutableStateOf(false)
     var uiMessageManager = UiMessageManager()
     var loadingState = ObservableLoadingCounter()
-    var loadingErrorState = mutableStateOf<PublicState?>(null)
 
     //errorField
     var errorValueNationalCode = mutableStateOf(Pair(ValidationField.CAPTCHA, listOf<ValidationResult>()))
 
     //field
-    var nationalCode = mutableStateOf("")
+    var userName = mutableStateOf("")
 
     val loadingAndMessageState: StateFlow<PublicState> = combine(
         loadingState.observable,
@@ -77,6 +77,16 @@ class ForgetPasswordViewModel @Inject constructor(
 
     fun setErrorNationalCode(errorList: Pair<ValidationField, List<ValidationResult>>) {
         errorValueNationalCode.value = errorList
+    }
+
+    fun setNationalCode(nationalCode: String) {
+        userName.value = nationalCode
+        setErrorNationalCode(
+            validateWidget(
+                ValidationField.NATIONAL_CODE,
+                nationalCode
+            )
+        )
     }
 
     private fun clearAllMessage() {

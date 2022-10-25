@@ -25,7 +25,8 @@ class CaptchaViewModel @Inject constructor(
 
     var uiMessageManager = UiMessageManager()
     var loadingState = ObservableLoadingCounter()
-    var errorValue = mutableStateOf(Pair(ValidationField.CAPTCHA, listOf<ValidationResult>()))
+    var errorCaptchaValue =
+        mutableStateOf(Pair(ValidationField.CAPTCHA, listOf<ValidationResult>()))
 
     //errorField
     var loadingErrorState = mutableStateOf<PublicState?>(null)
@@ -72,14 +73,12 @@ class CaptchaViewModel @Inject constructor(
     }
 
     fun setError(errorList: Pair<ValidationField, List<ValidationResult>>) {
-        errorValue.value = errorList
+        errorCaptchaValue.value = errorList
     }
 
     private fun clearAllMessage() {
         viewModelScope.launch {
-            if (loadingState.count.toInt() == 0) {
                 uiMessageManager.clearAllMessage()
-            }
         }
     }
 }

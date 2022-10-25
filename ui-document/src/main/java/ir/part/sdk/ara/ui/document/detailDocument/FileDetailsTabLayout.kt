@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.document
+package ir.part.sdk.ara.ui.document.detailDocument
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.*
 import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.textPrimary
+import ir.part.sdk.ara.ui.document.R
 import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
 import kotlinx.coroutines.launch
 
