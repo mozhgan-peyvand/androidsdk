@@ -26,7 +26,7 @@ class RegisterViewModel @Inject constructor(
 
     private val loadingState = ObservableLoadingCounter()
 
-    var loadingErrorState = mutableStateOf<PublicState?>(null)
+    var registerDone = mutableStateOf(false)
 
     private val uiMessageManager = UiMessageManager()
 
@@ -57,7 +57,7 @@ class RegisterViewModel @Inject constructor(
         initialValue = PublicState.Empty
     )
 
-    fun setRegister(captchaToken: String, captchaValue: String, onSuccess: (Boolean) -> Unit) {
+    fun setRegister(captchaToken: String, captchaValue: String) {
         viewModelScope.launch {
             if (loadingState.count.toInt() == 0) {
                 clearAllMessage()
@@ -65,7 +65,7 @@ class RegisterViewModel @Inject constructor(
                     GetRegisterRemote.Param(
                         RegisterView(
                             nationalCode = userName.value,
-                            email = email.value,
+                            email = email?.value,
                             phone = phone.value,
                             captchaToken = captchaToken,
                             captchaValue = captchaValue
@@ -77,7 +77,7 @@ class RegisterViewModel @Inject constructor(
                     exceptionHelper,
                     uiMessageManager
                 ) {
-                    onSuccess(it)
+                    registerDone.value = it
                 }
             }
         }
@@ -99,13 +99,9 @@ class RegisterViewModel @Inject constructor(
     fun isValidationFields(): Boolean {
 
         setErrorNationalCode(validateWidget(ValidationField.NATIONAL_CODE, userName.value))
-        setErrorEmail(validateWidget(ValidationField.EMAIL, email.value))
         setErrorPhone(validateWidget(ValidationField.PHONE, phone.value))
 
-        return validateWidget(
-            ValidationField.NATIONAL_CODE, userName.value
-        ).second.isEmpty() &&
-                validateWidget(ValidationField.EMAIL, email.value).second.isEmpty() &&
+        return validateWidget(ValidationField.NATIONAL_CODE, userName.value).second.isEmpty() &&
                 validateWidget(ValidationField.PHONE, phone.value).second.isEmpty()
     }
 
@@ -116,5 +112,37 @@ class RegisterViewModel @Inject constructor(
             }
         }
     }
+
+    fun setNationalCode(nationalCode: String) {
+        userName.value = nationalCode
+        setErrorNationalCode(
+            validateWidget(
+                ValidationField.NATIONAL_CODE,
+                nationalCode
+            )
+        )
+    }
+
+
+    fun setEmail(newEmail: String) {
+        email.value = newEmail
+        setErrorEmail(
+            validateWidget(
+                ValidationField.EMAIL,
+                newEmail
+            )
+        )
+    }
+
+    fun setPhone(newPhone: String) {
+        phone.value = newPhone
+        setErrorPhone(
+            validateWidget(
+                ValidationField.PHONE,
+                newPhone
+            )
+        )
+    }
+
 
 }

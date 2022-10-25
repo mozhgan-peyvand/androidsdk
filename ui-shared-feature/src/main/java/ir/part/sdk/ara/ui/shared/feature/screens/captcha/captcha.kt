@@ -25,19 +25,23 @@ import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.ErrorText
 import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextSecondary
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
 import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
 
 @Composable
 fun Captcha(
-    captchaViewModel: CaptchaViewModel? = null,
+    captchaViewModel: CaptchaViewModel,
 ) {
 
-    captchaViewModel?.let {
-        ProcessLoadingAndMessage(viewModel = captchaViewModel)
-        LoadingObserver(viewModel = captchaViewModel)
+    val captchaLoadingErrorState =
+        rememberFlowWithLifecycle(flow = captchaViewModel.loadingAndMessageState).collectAsState(
+            initial = PublicState.Empty
+        )
+
+    ProcessLoadingAndErrorState(captchaLoadingErrorState.value) {
+        captchaViewModel.loadingAndMessageState.value.message = null
     }
 
     Row {
@@ -46,7 +50,7 @@ fun Captcha(
         }
         Button(
             onClick = {
-                captchaViewModel?.refreshCaptcha()
+                captchaViewModel.refreshCaptcha()
             },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = MaterialTheme.colors.background
@@ -58,7 +62,7 @@ fun Captcha(
                 contentDescription = ""
             )
         }
-        captchaViewModel?.captchaViewState?.value?.img?.asImageBitmap()?.let {
+        captchaViewModel.captchaViewState.value?.img?.asImageBitmap()?.let {
             Image(
                 modifier = Modifier
                     .weight(1f)
@@ -112,14 +116,14 @@ fun ShowCaptcha(captchaViewModel: CaptchaViewModel?) {
         singleLine = true,
         maxLines = 1,
         keyboardActions = KeyboardActions {},
-        isError = if (captchaViewModel?.errorValue?.value?.first == ValidationField.CAPTCHA)
-            captchaViewModel.errorValue.value.second.isNotEmpty() else false
+        isError = if (captchaViewModel?.errorCaptchaValue?.value?.first == ValidationField.CAPTCHA)
+            captchaViewModel.errorCaptchaValue.value.second.isNotEmpty() else false
 
     )
     ErrorText(
-        visible = !captchaViewModel?.errorValue?.value?.second.isNullOrEmpty(),
-        errorMessage = if (!captchaViewModel?.errorValue?.value?.second.isNullOrEmpty())
-            captchaViewModel?.errorValue?.value?.second?.last()?.validator?.getErrorMessage(
+        visible = !captchaViewModel?.errorCaptchaValue?.value?.second.isNullOrEmpty(),
+        errorMessage = if (!captchaViewModel?.errorCaptchaValue?.value?.second.isNullOrEmpty())
+            captchaViewModel?.errorCaptchaValue?.value?.second?.last()?.validator?.getErrorMessage(
                 LocalContext.current
             )
         else ""
@@ -127,28 +131,21 @@ fun ShowCaptcha(captchaViewModel: CaptchaViewModel?) {
 }
 
 @Composable
-fun LoadingObserver(viewModel: CaptchaViewModel) {
-    viewModel.loadingErrorState.value =
-        rememberFlowWithLifecycle(flow = viewModel.loadingAndMessageState).collectAsState(
-            initial = PublicState.Empty
-        ).value
-}
-
-@Composable
-fun ProcessLoadingAndMessage(viewModel: CaptchaViewModel) {
-    val dialog = getInfoDialog(
-        title = stringResource(id = R.string.msg_general_error_title),
-        description = ""
-    )
+private fun ProcessLoadingAndErrorState(input: PublicState?, onErrorDialogDismissed: () -> Unit) {
     val loadingDialog = getLoadingDialog()
-
-    if (viewModel.loadingErrorState.value?.refreshing == true) {
+    val errorDialog = getErrorDialog(
+        title = stringResource(id = R.string.label_warning_title_dialog),
+        description = "",
+        submitAction = {
+            onErrorDialogDismissed()
+        }
+    )
+    if (input?.refreshing == true) {
         loadingDialog.show()
     } else {
         loadingDialog.dismiss()
-        viewModel.loadingErrorState.value?.message?.let { messageModel ->
-            dialog.setDialogDetailMessage(messageModel.message).show()
+        input?.message?.let { messageModel ->
+            errorDialog.setDialogDetailMessage(messageModel.message).show()
         }
     }
-
 }

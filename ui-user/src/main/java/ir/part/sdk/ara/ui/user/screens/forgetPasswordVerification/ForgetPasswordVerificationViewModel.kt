@@ -10,6 +10,7 @@ import ir.part.sdk.ara.common.ui.view.api.UiMessageManager
 import ir.part.sdk.ara.common.ui.view.api.collectAndChangeLoadingAndMessageStatus
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationResult
+import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
 import ir.part.sdk.ara.domain.user.interacors.GetForgetPasswordVerificationRemote
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -26,7 +27,6 @@ class ForgetPasswordVerificationViewModel @Inject constructor(
     var isSendCode = mutableStateOf(false)
     var loadingState = ObservableLoadingCounter()
     var uiMessageManager = UiMessageManager()
-    var loadingErrorState = mutableStateOf<PublicState?>(null)
 
     //errorField
     var errorValuePassword =
@@ -76,6 +76,16 @@ class ForgetPasswordVerificationViewModel @Inject constructor(
 
     fun setErrorPassword(errorList: Pair<ValidationField, List<ValidationResult>>) {
         errorValuePassword.value = errorList
+    }
+
+    fun setCode(nationalCode: String) {
+        codeValue.value = nationalCode
+        setErrorPassword(
+            validateWidget(
+                ValidationField.ACTIVITY_CODE,
+                nationalCode
+            )
+        )
     }
 
     private fun clearAllMessage() {

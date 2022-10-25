@@ -16,5 +16,6 @@
     <string name="label_re_new_password">"تکرار کلمه ی عبور جدید"</string>
     <string name="label_change_password">"تغییر کلمه ی عبور"</string>
     <string name="msg_resend_code">"ارسال مجدد کد فعالسازی"</string>
+    <string name="msg_change_Success_password">تغییر کلمه عبور با موفقیت انجام شد.</string>
 
 </resources>

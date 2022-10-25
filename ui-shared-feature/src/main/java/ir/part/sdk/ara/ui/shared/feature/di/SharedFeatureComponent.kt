@@ -2,6 +2,7 @@ package ir.part.sdk.ara.ui.shared.feature.di
 
 import dagger.Component
 import ir.part.sdk.ara.base.di.*
+import ir.part.sdk.ara.common.ui.view.AraViewModelFactory
 import ir.part.sdk.ara.data.userManager.di.DataUserManagerComponent
 import ir.part.sdk.ara.domain.user.di.DomainUserManagerComponent
 import ir.part.sdk.ara.ui.shared.feature.screens.captcha.CaptchaViewModel
@@ -12,7 +13,7 @@ import ir.part.sdk.ara.ui.shared.feature.screens.captcha.CaptchaViewModel
         BaseComponent::class,
         DomainUserManagerComponent::class,
         DataUserManagerComponent::class
-    ],
+    ]
 )
 interface SharedFeatureComponent : BasicComponent {
 
@@ -25,7 +26,7 @@ interface SharedFeatureComponent : BasicComponent {
         ): SharedFeatureComponent
     }
 
-    fun getCaptchaViewModel(): CaptchaViewModel
+    fun getCaptchaViewModel(): AraViewModelFactory<CaptchaViewModel>
 
     companion object {
         fun builder(componentProvider: ComponentProviderActivity): SharedFeatureComponent {

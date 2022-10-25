@@ -59,7 +59,7 @@ class ChangePasswordViewModel @Inject constructor(
     )
 
 
-    fun getChangePasswordRemote(onSuccess: () -> Unit) {
+    fun getChangePasswordRemote() {
         viewModelScope.launch {
             clearAllMessage()
             getChangePasswordRemote.invoke(
@@ -78,10 +78,36 @@ class ChangePasswordViewModel @Inject constructor(
             ) {
                 if (it) {
                     isChangePassword.value = true
-                    onSuccess()
                 }
             }
         }
+    }
+
+    fun setCurrentPassword(currentPasswordText: String) {
+        currentPassword.value = currentPasswordText
+        setErrorPassword(validateWidget(ValidationField.PASSWORD, currentPasswordText))
+    }
+
+    fun setNewPassword(newPasswordText: String, passwordText: String?) {
+        newPassword.value = newPasswordText
+        setErrorNewPassword(
+            validateWidget(
+                key = ValidationField.NEW_PASSWORD,
+                value = newPasswordText,
+                newValue = passwordText
+            )
+        )
+    }
+
+    fun setReNewPassword(reNewPasswordText: String, newPasswordText: String?) {
+        reNewPassword.value = reNewPasswordText
+        setErrorReNewPassword(
+            validateWidget(
+                key = ValidationField.RE_NEW_PASSWORD,
+                value = reNewPasswordText,
+                newValue = newPasswordText
+            )
+        )
     }
 
     fun setErrorPassword(errorList: Pair<ValidationField, List<ValidationResult>>) {

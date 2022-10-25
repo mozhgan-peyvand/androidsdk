@@ -72,7 +72,7 @@ fun SubmitCommentScreen(
                     )
 
                     submitCommentViewModel.sendComment(
-                        isCaptchaValid = captchaViewModel.errorValue.value.second.isEmpty(),
+                        isCaptchaValid = captchaViewModel.errorCaptchaValue.value.second.isEmpty(),
                         captchaToken = captchaViewModel.captchaViewState.value?.token ?: "",
                         captchaValue = captchaViewModel.captchaValue.value
                     )

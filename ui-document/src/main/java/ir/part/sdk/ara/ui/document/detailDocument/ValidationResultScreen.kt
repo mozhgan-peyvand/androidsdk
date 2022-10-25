@@ -1,4 +1,4 @@
-package ir.part.sdk.ara.ui.document
+package ir.part.sdk.ara.ui.document.detailDocument
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,6 +19,7 @@ import ir.part.sdk.ara.common.ui.view.primaryDark
 import ir.part.sdk.ara.common.ui.view.theme.body2BoldTextSecondary
 import ir.part.sdk.ara.common.ui.view.theme.body2TextSecondary
 import ir.part.sdk.ara.common.ui.view.theme.h6BoldTextPrimary
+import ir.part.sdk.ara.ui.document.R
 import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
 import ir.part.sdk.ara.ui.document.submitDocument.model.PersonalDocumentsView
 import ir.part.sdk.ara.ui.document.submitDocument.model.PersonalInfoSubmitDocumentView

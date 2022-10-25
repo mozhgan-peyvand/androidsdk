@@ -7,7 +7,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.navigation
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
-import ir.part.sdk.ara.ui.document.DetailsScreenViewPager
+import ir.part.sdk.ara.ui.document.detailDocument.DetailsScreenViewPager
 import ir.part.sdk.ara.ui.document.di.DocumentComponent
 import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
 import ir.part.sdk.ara.ui.document.overviewDocument.FileListScreen

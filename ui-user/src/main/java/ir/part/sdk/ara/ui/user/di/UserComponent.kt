@@ -2,6 +2,7 @@ package ir.part.sdk.ara.ui.user.di
 
 import dagger.Component
 import ir.part.sdk.ara.base.di.*
+import ir.part.sdk.ara.common.ui.view.AraViewModelFactory
 import ir.part.sdk.ara.data.dashboard.di.DataDashboardComponent
 import ir.part.sdk.ara.data.state.di.DataStateComponent
 import ir.part.sdk.ara.data.userManager.di.DataUserManagerComponent
@@ -38,11 +39,11 @@ interface UserComponent : BasicComponent {
         ): UserComponent
     }
 
-    fun getRegisterViewModel(): RegisterViewModel
-    fun getLoginViewModel(): LoginViewModel
-    fun getForgetPasswordViewModel(): ForgetPasswordViewModel
-    fun getForgetPasswordVerificationViewModel(): ForgetPasswordVerificationViewModel
-    fun getChangePasswordViewModel(): ChangePasswordViewModel
+    fun getRegisterViewModel(): AraViewModelFactory<RegisterViewModel>
+    fun getLoginViewModel(): AraViewModelFactory<LoginViewModel>
+    fun getForgetPasswordViewModel(): AraViewModelFactory<ForgetPasswordViewModel>
+    fun getForgetPasswordVerificationViewModel(): AraViewModelFactory<ForgetPasswordVerificationViewModel>
+    fun getChangePasswordViewModel(): AraViewModelFactory<ChangePasswordViewModel>
 
     companion object {
         fun builder(componentProvider: ComponentProviderActivity): UserComponent {

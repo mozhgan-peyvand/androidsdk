@@ -1,7 +1,8 @@
 package ir.part.sdk.ara.ui.user.util.navigation
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.navigation
@@ -11,10 +12,15 @@ import ir.part.sdk.ara.ui.shared.feature.screens.captcha.CaptchaViewModel
 import ir.part.sdk.ara.ui.shared.feature.screens.task.TasksManagerViewModel
 import ir.part.sdk.ara.ui.user.di.UserComponent
 import ir.part.sdk.ara.ui.user.screens.changePassword.ChangePasswordScreen
+import ir.part.sdk.ara.ui.user.screens.changePassword.ChangePasswordViewModel
 import ir.part.sdk.ara.ui.user.screens.forgetPassword.ForgetPasswordScreen
+import ir.part.sdk.ara.ui.user.screens.forgetPassword.ForgetPasswordViewModel
 import ir.part.sdk.ara.ui.user.screens.forgetPasswordVerification.ForgetPasswordVerificationScreen
+import ir.part.sdk.ara.ui.user.screens.forgetPasswordVerification.ForgetPasswordVerificationViewModel
 import ir.part.sdk.ara.ui.user.screens.login.LoginScreen
+import ir.part.sdk.ara.ui.user.screens.login.LoginViewModel
 import ir.part.sdk.ara.ui.user.screens.register.RegisterScreen
+import ir.part.sdk.ara.ui.user.screens.register.RegisterViewModel
 
 fun NavGraphBuilder.addUserGraph(
     navController: NavHostController,
@@ -25,25 +31,25 @@ fun NavGraphBuilder.addUserGraph(
         startDestination = UserRouter.UserRegisterScreen.router
     ) {
 
-        var captchaViewModel: CaptchaViewModel? = null
-
         registerScreen {
-            var showCaptcha by remember {
-                mutableStateOf(false)
+
+            val viewModelStoreOwnerCaptcha = remember {
+                navController.getBackStackEntry(UserRouter.UserRegisterScreen.router)
             }
 
-            LaunchedEffect(key1 = Unit) {
-                showCaptcha = true
-            }
-            if (showCaptcha) {
-                captchaViewModel =
-                    SharedFeatureComponent.builder(LocalContext.current as ComponentProviderActivity)
-                        .getCaptchaViewModel()
-                showCaptcha = false
-            }
-            val registerViewModel =
-                UserComponent.builder(LocalContext.current as ComponentProviderActivity)
-                    .getRegisterViewModel()
+            val captchaViewModel: CaptchaViewModel = viewModel(
+                factory = SharedFeatureComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .getCaptchaViewModel(),
+                viewModelStoreOwner = viewModelStoreOwnerCaptcha
+
+            )
+
+            val registerViewModel: RegisterViewModel = viewModel(
+                factory = UserComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .getRegisterViewModel(),
+                viewModelStoreOwner = it
+            )
+
             RegisterScreen(
                 captchaViewModel = captchaViewModel,
                 navigateToLogin = {
@@ -52,27 +58,33 @@ fun NavGraphBuilder.addUserGraph(
                         inclusive = true
                     )
                 },
-                registerViewModel = registerViewModel
+                registerViewModel = registerViewModel,
+                onNavigateUp = { navController.navigateUp() }
             )
         }
         loginScreen {
-            var showCaptcha by remember {
-                mutableStateOf(true)
+
+            val viewModelStoreOwnerCaptcha = remember {
+                navController.getBackStackEntry(UserRouter.UserLoginScreen.router)
             }
-            LaunchedEffect(key1 = Unit) {
-                showCaptcha = true
-            }
-            if (showCaptcha) {
-                captchaViewModel =
-                    SharedFeatureComponent.builder(LocalContext.current as ComponentProviderActivity)
-                        .getCaptchaViewModel()
-                showCaptcha = false
-            }
-            val loginViewModel =
-                UserComponent.builder(LocalContext.current as ComponentProviderActivity)
-                    .getLoginViewModel()
+
+            val captchaViewModel: CaptchaViewModel = viewModel(
+                factory = SharedFeatureComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .getCaptchaViewModel(),
+                viewModelStoreOwner = viewModelStoreOwnerCaptcha
+
+            )
+
+            val loginViewModel: LoginViewModel = viewModel(
+                factory = UserComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .getLoginViewModel(),
+                viewModelStoreOwner = it
+            )
 
             LoginScreen(
+                onNavigateUp = {
+                    navController.navigateUp()
+                },
                 captchaViewModel = captchaViewModel,
                 navigateToForgetPassword = { navController.navigateToForgetPasswordScreen() },
                 loginViewModel = loginViewModel,
@@ -81,22 +93,22 @@ fun NavGraphBuilder.addUserGraph(
         }
 
         forgetPasswordScreen {
-            var showCaptcha by remember {
-                mutableStateOf(false)
+            val viewModelStoreOwnerCaptcha = remember {
+                navController.getBackStackEntry(UserRouter.UserForgetPasswordScreen.router)
             }
-            LaunchedEffect(key1 = Unit) {
-                showCaptcha = true
-            }
-            if (showCaptcha) {
-                captchaViewModel =
-                    SharedFeatureComponent.builder(LocalContext.current as ComponentProviderActivity)
-                        .getCaptchaViewModel()
-                showCaptcha = false
 
-            }
-            val forgetPasswordViewModel =
-                UserComponent.builder(LocalContext.current as ComponentProviderActivity)
-                    .getForgetPasswordViewModel()
+            val captchaViewModel: CaptchaViewModel = viewModel(
+                factory = SharedFeatureComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .getCaptchaViewModel(),
+                viewModelStoreOwner = viewModelStoreOwnerCaptcha
+            )
+
+            val forgetPasswordViewModel: ForgetPasswordViewModel = viewModel(
+                factory = UserComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .getForgetPasswordViewModel(),
+                viewModelStoreOwner = it
+            )
+
             ForgetPasswordScreen(
                 captchaViewModel = captchaViewModel,
                 navigateToVerificationForgetPassword = { nationalCode ->
@@ -104,13 +116,17 @@ fun NavGraphBuilder.addUserGraph(
                         nationalCode
                     )
                 },
-                forgetPasswordViewModel = forgetPasswordViewModel
+                forgetPasswordViewModel = forgetPasswordViewModel,
+                onNavigateUp = { navController.navigateUp() }
             )
         }
         forgetPasswordVerificationScreen {
-            val forgetPasswordVerificationViewModel =
-                UserComponent.builder(LocalContext.current as ComponentProviderActivity)
-                    .getForgetPasswordVerificationViewModel()
+            val forgetPasswordVerificationViewModel: ForgetPasswordVerificationViewModel =
+                viewModel(
+                    factory = UserComponent.builder(LocalContext.current as ComponentProviderActivity)
+                        .getForgetPasswordVerificationViewModel(),
+                    viewModelStoreOwner = it
+                )
             ForgetPasswordVerificationScreen(
                 nationalCode = it.arguments?.get("nationalCode")?.toString(),
                 navigateToLogin = {
@@ -119,14 +135,19 @@ fun NavGraphBuilder.addUserGraph(
                         inclusive = true
                     )
                 },
-                navigateUp = { navController.navigateToForgetPasswordScreen() },
-                forgetPasswordVerificationViewModel = forgetPasswordVerificationViewModel
+                navigateToForgetPassword = { navController.navigateToForgetPasswordScreen() },
+                forgetPasswordVerificationViewModel = forgetPasswordVerificationViewModel,
+                onNavigateUp = { navController.navigateUp() }
             )
         }
         changePasswordScreen {
-            val changePasswordViewModel =
-                UserComponent.builder(LocalContext.current as ComponentProviderActivity)
-                    .getChangePasswordViewModel()
+
+            val changePasswordViewModel: ChangePasswordViewModel = viewModel(
+                factory = UserComponent.builder(LocalContext.current as ComponentProviderActivity)
+                    .getChangePasswordViewModel(),
+                viewModelStoreOwner = it
+            )
+
             ChangePasswordScreen(
                 changePasswordViewModel = changePasswordViewModel, onNavigateUp = {
                     navController.navigateUp()
