@@ -6,7 +6,6 @@ import ir.part.sdk.ara.base.di.SK
 import ir.part.sdk.ara.base.event.MeratEvent
 import ir.part.sdk.ara.base.event.MeratEventPublisher
 import ir.part.sdk.ara.base.util.AesEncryptor
-import ir.part.sdk.ara.util.api.ApiUrlHelper
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
@@ -16,9 +15,6 @@ import javax.inject.Inject
 class CustomInterceptor @Inject constructor(
     @SK private val sk: String,
 ) : Interceptor {
-
-    @Inject
-    lateinit var urls: ApiUrlHelper
 
     @Inject
     lateinit var pref: SharedPreferences
