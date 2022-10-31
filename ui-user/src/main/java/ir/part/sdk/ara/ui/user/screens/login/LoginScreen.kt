@@ -1,6 +1,9 @@
 package ir.part.sdk.ara.ui.user.screens.login
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import ir.part.app.merat.ui.user.R
 import ir.part.sdk.ara.common.ui.view.*
 import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.utils.clearFocusOnKeyboardDismiss
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
@@ -35,7 +39,7 @@ fun LoginScreen(
     captchaViewModel: CaptchaViewModel,
     navigateToForgetPassword: (() -> Unit),
     loginViewModel: LoginViewModel,
-    tasksManagerViewModel: TasksManagerViewModel
+    tasksManagerViewModel: TasksManagerViewModel,
 ) {
 
     var nationalCode: String? by remember {
@@ -88,8 +92,14 @@ fun Login(
     navigateToForgetPassword: (() -> Unit)?,
     captchaViewModel: CaptchaViewModel,
     password: String?,
-    onNavigateUp: () -> Unit
+    onNavigateUp: () -> Unit,
 ) {
+    val nationalCodeInteractionSource = remember { MutableInteractionSource() }
+    val nationalCodeFocusState = nationalCodeInteractionSource.collectIsFocusedAsState()
+    val passwordInteractionSource = remember { MutableInteractionSource() }
+    val passwordFocusState = passwordInteractionSource.collectIsFocusedAsState()
+    val captchaInteractionSource = remember { MutableInteractionSource() }
+    val captchaFocusState = captchaInteractionSource.collectIsFocusedAsState()
 
     val scrollState = rememberScrollState()
 
@@ -115,12 +125,14 @@ fun Login(
                 contentDescription = "back"
             )
         }
-        Image(
-            modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.FillWidth,
-            painter = painterResource(id = R.drawable.ara_login_background),
-            contentDescription = ""
-        )
+        AnimatedVisibility(visible = nationalCodeFocusState.value.not() && passwordFocusState.value.not() && captchaFocusState.value.not()) {
+            Image(
+                modifier = Modifier.fillMaxWidth(),
+                contentScale = ContentScale.FillWidth,
+                painter = painterResource(id = R.drawable.ara_login_background),
+                contentDescription = ""
+            )
+        }
 
         ShowNationalCode(
             nationalCode = nationalCode ?: "",
@@ -129,7 +141,8 @@ fun Login(
                     nationalCodeText
                 )
             },
-            errorNationalCode = loginViewModel.errorValueNationalCode
+            errorNationalCode = loginViewModel.errorValueNationalCode,
+            interactionSource = nationalCodeInteractionSource
         )
         ShowPassword(
             password = password ?: "",
@@ -138,11 +151,13 @@ fun Login(
                     passwordText
                 )
             },
-            errorPassword = loginViewModel.errorValuePassword
+            errorPassword = loginViewModel.errorValuePassword,
+            interactionSource = passwordInteractionSource
         )
 
         Captcha(
-            captchaViewModel = captchaViewModel
+            captchaViewModel = captchaViewModel,
+            interactionSource = captchaInteractionSource
         )
 
         UserButton(onClickButton = {
@@ -195,8 +210,10 @@ private fun ShowNationalCode(
     nationalCode: String,
     onchangeNationalCode: (String) -> Unit,
     errorNationalCode: MutableState<Pair<ValidationField, List<ValidationResult>>>,
+    interactionSource: MutableInteractionSource,
 ) {
     UserTextField(
+        modifier = Modifier.clearFocusOnKeyboardDismiss(),
         title = null,
         hint = stringResource(id = R.string.label_national_code),
         value = nationalCode,
@@ -208,7 +225,8 @@ private fun ShowNationalCode(
         else "",
         maxChar = 10,
         keyboardType = KeyboardType.Number,
-        painter = painterResource(R.drawable.ara_ic_single)
+        painter = painterResource(R.drawable.ara_ic_single),
+        interactionSource = interactionSource
     )
 
 }
@@ -217,9 +235,11 @@ private fun ShowNationalCode(
 private fun ShowPassword(
     password: String,
     onChangePassword: (String) -> Unit,
-    errorPassword: MutableState<Pair<ValidationField, List<ValidationResult>>>
+    errorPassword: MutableState<Pair<ValidationField, List<ValidationResult>>>,
+    interactionSource: MutableInteractionSource,
 ) {
     UserTextField(
+        modifier = Modifier.clearFocusOnKeyboardDismiss(),
         hint = stringResource(id = R.string.label_password),
         value = password,
         onValueChanged = { passwordText -> onChangePassword.invoke(passwordText) },
@@ -227,7 +247,8 @@ private fun ShowPassword(
             errorPassword.value.second.last().validator.getErrorMessage(LocalContext.current) else "",
         keyboardType = KeyboardType.Password,
         trailingPasswordIcon = true,
-        painter = painterResource(R.drawable.ic_lock)
+        painter = painterResource(R.drawable.ic_lock),
+        interactionSource = interactionSource
     )
 
 }

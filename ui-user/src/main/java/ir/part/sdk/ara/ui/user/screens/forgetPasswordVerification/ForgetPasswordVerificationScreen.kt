@@ -1,6 +1,9 @@
 package ir.part.sdk.ara.ui.user.screens.forgetPasswordVerification
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import ir.part.app.merat.ui.user.R
 import ir.part.sdk.ara.common.ui.view.*
 import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.utils.clearFocusOnKeyboardDismiss
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
@@ -77,6 +81,9 @@ fun ForgetPasswordVerification(
     navigateUp: (() -> Unit)?,
     nationalCode: String?
 ) {
+    val sendCodeInteractionSource = remember { MutableInteractionSource() }
+    val sendCodeFocusState = sendCodeInteractionSource.collectIsFocusedAsState()
+
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.verticalScroll(scrollState)) {
         Box(
@@ -96,12 +103,14 @@ fun ForgetPasswordVerification(
                 contentDescription = "back"
             )
         }
-        Image(
-            modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.FillWidth,
-            painter = painterResource(id = R.drawable.ara_login_background),
-            contentDescription = ""
-        )
+        AnimatedVisibility(visible = sendCodeFocusState.value.not()) {
+            Image(
+                modifier = Modifier.fillMaxWidth(),
+                contentScale = ContentScale.FillWidth,
+                painter = painterResource(id = R.drawable.ara_login_background),
+                contentDescription = ""
+            )
+        }
         Text(
             modifier = Modifier.padding(dimensionResource(id = DimensionResource.spacing_4x)),
             text = stringResource(id = R.string.label_recover_code),
@@ -117,7 +126,8 @@ fun ForgetPasswordVerification(
             onChangeCodeForgetPassword = { codeForgetPassword ->
                 forgetPasswordVerificationViewModel.setCode(codeForgetPassword)
             },
-            errorCodeForgetPassword = forgetPasswordVerificationViewModel.errorValuePassword
+            errorCodeForgetPassword = forgetPasswordVerificationViewModel.errorValuePassword,
+            interactionSource = sendCodeInteractionSource
         )
 
         StartTimer(navigateUp = navigateUp)
@@ -200,9 +210,11 @@ private fun StartTimer(
 private fun ShowSendCode(
     codeForgetPassword: String,
     onChangeCodeForgetPassword: (String) -> Unit,
-    errorCodeForgetPassword: MutableState<Pair<ValidationField, List<ValidationResult>>>
+    errorCodeForgetPassword: MutableState<Pair<ValidationField, List<ValidationResult>>>,
+    interactionSource: MutableInteractionSource,
 ) {
     UserTextField(
+        modifier = Modifier.clearFocusOnKeyboardDismiss(),
         title = null,
         hint = stringResource(id = R.string.label_activation_code),
         value = codeForgetPassword,
@@ -213,7 +225,8 @@ private fun ShowSendCode(
             errorCodeForgetPassword.value.second.last().validator.getErrorMessage(LocalContext.current)
         else "",
         maxChar = 8,
-        keyboardType = KeyboardType.Number
+        keyboardType = KeyboardType.Number,
+        interactionSource = interactionSource
     )
 }
 
