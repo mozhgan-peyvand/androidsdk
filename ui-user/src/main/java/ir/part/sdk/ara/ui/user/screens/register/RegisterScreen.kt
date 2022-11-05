@@ -1,6 +1,9 @@
 package ir.part.sdk.ara.ui.user.screens.register
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +21,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import ir.part.app.merat.ui.user.R
 import ir.part.sdk.ara.common.ui.view.*
 import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.utils.clearFocusOnKeyboardDismiss
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
@@ -33,7 +37,7 @@ fun RegisterScreen(
     onNavigateUp: () -> Unit,
     registerViewModel: RegisterViewModel,
     captchaViewModel: CaptchaViewModel,
-    navigateToLogin: () -> Unit
+    navigateToLogin: () -> Unit,
 ) {
 
     var isRegister: Boolean by remember {
@@ -84,8 +88,18 @@ fun Register(
     phone: String,
     captchaViewModel: CaptchaViewModel,
     registerViewModel: RegisterViewModel,
-    onNavigateUp: () -> Unit
+    onNavigateUp: () -> Unit,
 ) {
+
+    val nationalCodeInteractionSource = remember { MutableInteractionSource() }
+    val nationalCodeFocusState = nationalCodeInteractionSource.collectIsFocusedAsState()
+    val emailInteractionSource = remember { MutableInteractionSource() }
+    val emailFocusState = emailInteractionSource.collectIsFocusedAsState()
+    val phoneInteractionSource = remember { MutableInteractionSource() }
+    val phoneFocusState = phoneInteractionSource.collectIsFocusedAsState()
+    val captchaInteractionSource = remember { MutableInteractionSource() }
+    val captchaFocusState = captchaInteractionSource.collectIsFocusedAsState()
+
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.verticalScroll(scrollState)) {
         Box(
@@ -105,12 +119,15 @@ fun Register(
                 contentDescription = "back"
             )
         }
-        Image(
-            modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.FillWidth,
-            painter = painterResource(id = R.drawable.ara_login_background),
-            contentDescription = ""
-        )
+        AnimatedVisibility(visible = nationalCodeFocusState.value.not() && emailFocusState.value.not() && phoneFocusState.value.not() && captchaFocusState.value.not()) {
+            Image(
+                modifier = Modifier.fillMaxWidth(),
+                contentScale = ContentScale.FillWidth,
+                painter = painterResource(id = R.drawable.ara_login_background),
+                contentDescription = ""
+            )
+        }
+
         ShowNationalCode(
             nationalCode = nationalCode,
             onchangeNationalCode = { nationalCodeText ->
@@ -118,24 +135,28 @@ fun Register(
                     nationalCodeText
                 )
             },
-            errorNationalCode = registerViewModel.errorNationalCode
+            errorNationalCode = registerViewModel.errorNationalCode,
+            interactionSource = nationalCodeInteractionSource
         )
 
         ShowEmail(
             email = email,
             onChangeEmail = { emailText -> registerViewModel.setEmail(emailText) },
-            errorEmailCode = registerViewModel.errorEmail
+            errorEmailCode = registerViewModel.errorEmail,
+            interactionSource = emailInteractionSource
         )
         ShowPhone(
             phone = phone,
             onChangePhone = { phoneNumber -> registerViewModel.setPhone(phoneNumber) },
-            errorPhone = registerViewModel.errorPhone
+            errorPhone = registerViewModel.errorPhone,
+            interactionSource = phoneInteractionSource
         )
 
 
         //Captcha
         Captcha(
-            captchaViewModel = captchaViewModel
+            captchaViewModel = captchaViewModel,
+            interactionSource = captchaInteractionSource
         )
 
 
@@ -165,8 +186,10 @@ private fun ShowNationalCode(
     nationalCode: String,
     onchangeNationalCode: (String) -> Unit,
     errorNationalCode: MutableState<Pair<ValidationField, List<ValidationResult>>>,
+    interactionSource: MutableInteractionSource,
 ) {
     UserTextField(
+        modifier = Modifier.clearFocusOnKeyboardDismiss(),
         title = null,
         hint = stringResource(id = R.string.label_national_code),
         value = nationalCode,
@@ -178,7 +201,8 @@ private fun ShowNationalCode(
         else "",
         maxChar = 10,
         keyboardType = KeyboardType.Number,
-        painter = painterResource(R.drawable.ara_ic_single)
+        painter = painterResource(R.drawable.ara_ic_single),
+        interactionSource = interactionSource
     )
 
 }
@@ -188,9 +212,11 @@ private fun ShowEmail(
     email: String,
     onChangeEmail: (String) -> Unit,
     errorEmailCode: MutableState<Pair<ValidationField, List<ValidationResult>>>,
+    interactionSource: MutableInteractionSource,
 ) {
 
     UserTextField(
+        modifier = Modifier.clearFocusOnKeyboardDismiss(),
         title = null,
         hint = stringResource(id = R.string.label_email),
         value = email,
@@ -201,7 +227,8 @@ private fun ShowEmail(
             errorEmailCode.value.second.last().validator.getErrorMessage(LocalContext.current)
         else "",
         keyboardType = KeyboardType.Email,
-        painter = painterResource(R.drawable.ara_ic_mail)
+        painter = painterResource(R.drawable.ara_ic_mail),
+        interactionSource = interactionSource
     )
 }
 
@@ -210,8 +237,10 @@ private fun ShowPhone(
     phone: String,
     onChangePhone: (String) -> Unit,
     errorPhone: MutableState<Pair<ValidationField, List<ValidationResult>>>,
+    interactionSource: MutableInteractionSource,
 ) {
     UserTextField(
+        modifier = Modifier.clearFocusOnKeyboardDismiss(),
         title = null,
         hint = stringResource(id = R.string.label_phone),
         value = phone,
@@ -224,6 +253,7 @@ private fun ShowPhone(
         maxChar = 11,
         keyboardType = KeyboardType.Phone,
         painter = painterResource(R.drawable.ara_ic_phone_button),
+        interactionSource = interactionSource
     )
 }
 

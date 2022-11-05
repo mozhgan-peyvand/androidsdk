@@ -1,5 +1,6 @@
 package ir.part.sdk.ara.common.ui.view
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -35,17 +36,18 @@ import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextSecondary
 
 @Composable
 fun UserTextField(
+    modifier: Modifier = Modifier,
     title: String? = null,
     hint: String,
     value: String,
-    modifier: Modifier? = null,
     onValueChanged: (String) -> Unit,
     errorMessage: String,
     isLastField: Boolean = false,
     maxChar: Int? = null,
     keyboardType: KeyboardType = KeyboardType.Text,
     painter: Painter? = null,
-    trailingPasswordIcon: Boolean = false
+    trailingPasswordIcon: Boolean = false,
+    interactionSource: MutableInteractionSource = MutableInteractionSource(),
 ) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
@@ -66,7 +68,7 @@ fun UserTextField(
                 onValueChanged(newValue)
             }
         },
-        modifier = (modifier ?: Modifier)
+        modifier = (modifier)
             .fillMaxWidth()
             .padding(
                 start = dimensionResource(id = R.dimen.spacing_2x),
@@ -115,7 +117,8 @@ fun UserTextField(
                     Icon(imageVector = image, "")
                 }
             }
-        }
+        },
+        interactionSource = interactionSource
     )
 
     Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_base)))

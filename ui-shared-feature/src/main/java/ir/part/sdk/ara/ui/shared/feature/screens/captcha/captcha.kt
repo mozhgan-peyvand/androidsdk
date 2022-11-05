@@ -2,6 +2,7 @@ package ir.part.sdk.ara.ui.shared.feature.screens.captcha
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
@@ -24,6 +25,7 @@ import ir.part.sdk.ara.common.ui.view.primaryVariant
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.ErrorText
 import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextSecondary
+import ir.part.sdk.ara.common.ui.view.utils.clearFocusOnKeyboardDismiss
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
@@ -33,6 +35,7 @@ import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
 @Composable
 fun Captcha(
     captchaViewModel: CaptchaViewModel,
+    interactionSource: MutableInteractionSource? = null,
 ) {
 
     val captchaLoadingErrorState =
@@ -46,7 +49,7 @@ fun Captcha(
 
     Row {
         Column(modifier = Modifier.weight(2f)) {
-            ShowCaptcha(captchaViewModel)
+            ShowCaptcha(captchaViewModel, interactionSource)
         }
         Button(
             onClick = {
@@ -78,7 +81,10 @@ fun Captcha(
 
 
 @Composable
-fun ShowCaptcha(captchaViewModel: CaptchaViewModel?) {
+fun ShowCaptcha(
+    captchaViewModel: CaptchaViewModel?,
+    interactionSource: MutableInteractionSource? = null,
+) {
 
     TextField(
         value = captchaViewModel?.captchaValue?.value ?: "",
@@ -107,7 +113,8 @@ fun ShowCaptcha(captchaViewModel: CaptchaViewModel?) {
                 bottom = dimensionResource(id = DimensionResource.spacing_2x),
                 start = dimensionResource(id = DimensionResource.spacing_2x),
                 end = dimensionResource(id = DimensionResource.spacing_2x)
-            ),
+            )
+            .clearFocusOnKeyboardDismiss(),
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = Color.White,
             unfocusedIndicatorColor = Color.LightGray
@@ -117,7 +124,8 @@ fun ShowCaptcha(captchaViewModel: CaptchaViewModel?) {
         maxLines = 1,
         keyboardActions = KeyboardActions {},
         isError = if (captchaViewModel?.errorCaptchaValue?.value?.first == ValidationField.CAPTCHA)
-            captchaViewModel.errorCaptchaValue.value.second.isNotEmpty() else false
+            captchaViewModel.errorCaptchaValue.value.second.isNotEmpty() else false,
+        interactionSource = interactionSource ?: MutableInteractionSource()
 
     )
     ErrorText(
