@@ -112,7 +112,7 @@ fun AraFileNotFound() {
         )
 
         Text(
-            text = stringResource(id = R.string.msg_file_not_found),
+            text = stringResource(id = R.string.ara_msg_file_not_found),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = dimensionResource(id = R.dimen.spacing_4x)),
@@ -140,7 +140,7 @@ fun AraFileDoesNotExist() {
         )
 
         Text(
-            text = stringResource(id = R.string.msg_file_not_exist),
+            text = stringResource(id = R.string.ara_msg_file_not_exist),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = dimensionResource(id = R.dimen.spacing_4x)),
@@ -149,7 +149,7 @@ fun AraFileDoesNotExist() {
         )
 
         Text(
-            text = stringResource(id = R.string.label_file_not_exist),
+            text = stringResource(id = R.string.ara_msg_resend_validation_request),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = dimensionResource(id = R.dimen.spacing_base)),
@@ -162,7 +162,7 @@ fun AraFileDoesNotExist() {
 @Composable
 fun AraRetryLayout(
     painterDrawable: Int = R.drawable.ara_ic_general_error,
-    title: Int = R.string.msg_try_again
+    title: Int = R.string.msg_general_error
 ) {
 
     Row(

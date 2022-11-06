@@ -24,17 +24,17 @@ sealed class TabItem(
     val screenToLoad: @Composable (viewModel: DocumentSharedViewModel?) -> Unit
 ) {
     object DocumentStatus :
-        TabItem(title = stringRec.label_files_messages_list_title, screenToLoad = {
+        TabItem(title = stringRec.ara_label_files_messages_list_title, screenToLoad = {
             DocumentStatusScreen(it)
         })
 
     object DocumentDetails :
-        TabItem(title = stringRec.label_file_detail_request_title, screenToLoad = {
+        TabItem(title = stringRec.ara_label_file_detail_request_title, screenToLoad = {
             it?.let { it1 -> DocumentDetailsScreen(it1) }
         })
 
     object ValidationResult :
-        TabItem(title = stringRec.label_file_validation_result, screenToLoad = {
+        TabItem(title = stringRec.ara_label_file_validation_result, screenToLoad = {
             ValidationResultScreen(it)
         })
 }
@@ -74,7 +74,7 @@ fun DetailsScreenViewPager(
                 elevation = dimensionResource(id = R.dimen.spacing_half_base)
             ) {
                 TopAppBarContent(title = stringResource(
-                    id = stringRec.param_file_detail_title,
+                    id = stringRec.ara_param_file_detail_title,
                     documentSharedViewModel?.itemPersonalDocument?.value?.fileId.toString()
                 ),
                     onNavigateUp = {

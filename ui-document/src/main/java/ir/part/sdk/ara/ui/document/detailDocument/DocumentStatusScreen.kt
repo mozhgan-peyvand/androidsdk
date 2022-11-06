@@ -59,7 +59,7 @@ private fun DocumentStatus(
             .fillMaxSize(),
     ) {
         Text(
-            text = stringResource(id = stringRec.label_files_messages_list_title),
+            text = stringResource(id = stringRec.ara_label_files_messages_list_title),
             style = MaterialTheme.typography.h6BoldTextPrimary(),
             modifier = Modifier
                 .fillMaxWidth()
