@@ -2,18 +2,31 @@ package ir.part.sdk.ara.common.ui.view.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.ZeroCornerSize
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.TextFieldDefaults.indicatorLine
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import ir.part.sdk.ara.common.ui.view.R
 import ir.part.sdk.ara.common.ui.view.disabled
 import ir.part.sdk.ara.common.ui.view.theme.*
@@ -101,4 +114,136 @@ fun HighlightedBulletWithTextBody2Secondary(text: String) {
         Spacer(modifier = Modifier.width(dimensionResource(id = DimensionResource.spacing_2x)))
         TextBody2Secondary(text)
     }
+}
+
+@Composable
+fun CustomTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    readOnly: Boolean = false,
+    textStyle: TextStyle = LocalTextStyle.current,
+    label: @Composable (() -> Unit)? = null,
+    placeholder: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    isError: Boolean = false,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions(),
+    singleLine: Boolean = false,
+    maxLines: Int = Int.MAX_VALUE,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    shape: Shape =
+        MaterialTheme.shapes.small.copy(bottomEnd = ZeroCornerSize, bottomStart = ZeroCornerSize),
+    colors: TextFieldColors = TextFieldDefaults.textFieldColors(),
+    contentPadding: PaddingValues = PaddingValues(bottom = dimensionResource(R.dimen.spacing_base))
+) {
+    val textColor = textStyle.color.takeOrElse {
+        colors.textColor(enabled).value
+    }
+    val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
+
+    @OptIn(ExperimentalMaterialApi::class)
+    (BasicTextField(
+        value = value,
+        modifier = modifier
+            .background(colors.backgroundColor(enabled).value, shape)
+            .indicatorLine(enabled, isError, interactionSource, colors),
+        onValueChange = onValueChange,
+        enabled = enabled,
+        readOnly = readOnly,
+        textStyle = mergedTextStyle,
+        cursorBrush = SolidColor(colors.cursorColor(isError).value),
+        visualTransformation = visualTransformation,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
+        interactionSource = interactionSource,
+        singleLine = singleLine,
+        maxLines = maxLines,
+        decorationBox = @Composable { innerTextField ->
+            TextFieldDefaults.TextFieldDecorationBox(
+                value = value,
+                innerTextField = innerTextField,
+                enabled = enabled,
+                singleLine = singleLine,
+                visualTransformation = visualTransformation,
+                interactionSource = interactionSource,
+                contentPadding = contentPadding,
+                placeholder = placeholder,
+                leadingIcon = leadingIcon,
+                trailingIcon = trailingIcon,
+                isError = isError,
+                colors = colors,
+                label = label
+            )
+        }
+    ))
+}
+
+@Composable
+fun CustomTextField(
+    value: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    readOnly: Boolean = false,
+    textStyle: TextStyle = LocalTextStyle.current,
+    label: @Composable (() -> Unit)? = null,
+    placeholder: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    isError: Boolean = false,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions(),
+    singleLine: Boolean = false,
+    maxLines: Int = Int.MAX_VALUE,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    shape: Shape =
+        MaterialTheme.shapes.small.copy(bottomEnd = ZeroCornerSize, bottomStart = ZeroCornerSize),
+    colors: TextFieldColors = TextFieldDefaults.textFieldColors(),
+    contentPadding: PaddingValues = PaddingValues(bottom = dimensionResource(R.dimen.spacing_base))
+) {
+    val textColor = textStyle.color.takeOrElse {
+        colors.textColor(enabled).value
+    }
+    val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
+
+    @OptIn(ExperimentalMaterialApi::class)
+    (BasicTextField(
+        value = value,
+        modifier = modifier
+            .background(colors.backgroundColor(enabled).value, shape)
+            .indicatorLine(enabled, isError, interactionSource, colors),
+        onValueChange = onValueChange,
+        enabled = enabled,
+        readOnly = readOnly,
+        textStyle = mergedTextStyle,
+        cursorBrush = SolidColor(colors.cursorColor(isError).value),
+        visualTransformation = visualTransformation,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
+        interactionSource = interactionSource,
+        singleLine = singleLine,
+        maxLines = maxLines,
+        decorationBox = @Composable { innerTextField ->
+            TextFieldDefaults.TextFieldDecorationBox(
+                value = value.text,
+                innerTextField = innerTextField,
+                enabled = enabled,
+                singleLine = singleLine,
+                visualTransformation = visualTransformation,
+                interactionSource = interactionSource,
+                contentPadding = contentPadding,
+                placeholder = placeholder,
+                leadingIcon = leadingIcon,
+                trailingIcon = trailingIcon,
+                isError = isError,
+                colors = colors,
+                label = label
+            )
+        }
+    ))
 }
