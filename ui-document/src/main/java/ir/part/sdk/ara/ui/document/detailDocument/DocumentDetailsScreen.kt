@@ -83,7 +83,7 @@ private fun DocumentDetail(
             .verticalScroll(rememberScrollState())
     ) {
         Text(
-            text = stringResource(id = stringRec.label_file_detail_request_title),
+            text = stringResource(id = stringRec.ara_label_file_detail_request_title),
             style = MaterialTheme.typography.h6BoldTextPrimary(),
             modifier = Modifier
                 .fillMaxWidth()
@@ -96,7 +96,7 @@ private fun DocumentDetail(
             textAlign = TextAlign.Start
         )
         DocumentGenericLayout(
-            title = stringRec.label_file_number,
+            title = stringRec.ara_label_file_number,
             selectedDocument?.fileId.toString(),
             drawableRec.merat_ic_folder_simple, Modifier
         )
@@ -112,7 +112,7 @@ private fun DocumentDetail(
                 )
         )
         DocumentGenericLayout(
-            title = stringRec.label_customer_name,
+            title = stringRec.ara_label_customer_name,
             personalInfoSubmitDocumentView?.name + " " + personalInfoSubmitDocumentView?.lastname,
             drawableRec.merat_ic_single, Modifier
                 .padding(top = dimensionResource(id = DimensionResource.spacing_base))
@@ -129,7 +129,7 @@ private fun DocumentDetail(
                 )
         )
         DocumentGenericLayout(
-            title = stringRec.label_club_id,
+            title = stringRec.ara_label_club_id,
             selectedDocument?.unionId.toString(),
             drawableRec.merat_ic_multiple, Modifier
                 .padding(top = dimensionResource(id = DimensionResource.spacing_base))
@@ -146,7 +146,7 @@ private fun DocumentDetail(
                 )
         )
         DocumentGenericLayout(
-            title = stringRec.label_files_messages_list_title,
+            title = stringRec.ara_label_files_messages_list_title,
             personalInfoConstantsItem?.documentStatusNameEntity?.get(
                 selectedDocument?.statusId?.value
             )?.title ?: "-",
@@ -166,7 +166,7 @@ private fun DocumentDetail(
                 )
         )
         DocumentGenericLayout(
-            title = stringRec.label_file_date_request,
+            title = stringRec.ara_label_file_date_request,
             selectedDocument?.requestDateView.toString(),
             drawableRec.merat_ic_calendar_event, Modifier
                 .padding(top = dimensionResource(id = DimensionResource.spacing_base))
@@ -183,7 +183,7 @@ private fun DocumentDetail(
                 )
         )
         DocumentGenericLayout(
-            title = stringRec.label_file_date_completion,
+            title = stringRec.ara_label_file_date_completion,
             selectedDocument?.completionDateView.toString(),
             drawableRec.merat_ic_calendar_date, Modifier
                 .padding(top = dimensionResource(id = DimensionResource.spacing_base))

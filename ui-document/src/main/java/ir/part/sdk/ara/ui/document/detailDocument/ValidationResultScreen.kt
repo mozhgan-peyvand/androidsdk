@@ -64,7 +64,7 @@ private fun ValidationResult(
             .verticalScroll(rememberScrollState()),
     ) {
         Text(
-            text = stringResource(id = StringRes.label_file_validation_result),
+            text = stringResource(id = StringRes.ara_label_file_validation_result),
             style = MaterialTheme.typography.h6BoldTextPrimary(),
             modifier = modifier
                 .fillMaxWidth()
@@ -77,24 +77,24 @@ private fun ValidationResult(
             textAlign = TextAlign.Start
         )
         DocumentGenericLayout(
-            title = stringRec.label_customer_name,
+            title = stringRec.ara_label_customer_name,
             personalInfoSubmitDocumentView?.name + " " + personalInfoSubmitDocumentView?.lastname,
             drawableRec
                 .merat_ic_single,
             modifier
         )
         DocumentGenericLayout(
-            title = stringRec.label_personal_national_code,
+            title = stringRec.ara_label_personal_national_code,
             personalInfoSubmitDocumentView?.nationalCode.toString(),
             drawableRec.merat_ic_focus, modifier
         )
         DocumentGenericLayout(
-            title = stringRec.label_file_number,
+            title = stringRec.ara_label_file_number,
             selectedDocument?.fileId.toString(),
             drawableRec.merat_ic_folder_simple, modifier
         )
         Text(
-            text = stringResource(id = stringRec.msg_result_validation_info),
+            text = stringResource(id = stringRec.ara_msg_result_validation_info),
             textAlign = TextAlign.Start,
             style = MaterialTheme.typography.body2BoldTextSecondary(),
             modifier = Modifier
@@ -102,44 +102,44 @@ private fun ValidationResult(
                 .padding(dimensionResource(id = dimensRec.spacing_4x))
         )
         DocumentGenericLayout(
-            title = stringRec.label_refund_capability_momtaz,
+            title = stringRec.ara_label_refund_capability_momtaz,
             selectedDocument?.validationResult?.perfectProportionate.toString(),
             drawableRec.merat_ic_money, modifier
         )
         DocumentGenericLayout(
-            title = stringRec.label_refund_capability_perfect_proportionate,
+            title = stringRec.ara_label_refund_capability_perfect_proportionate,
             selectedDocument?.validationResult?.proportionate.toString(),
             drawableRec.merat_ic_money, modifier
         )
         DocumentGenericLayout(
-            title = stringRec.label_refund_capability_proportionate,
+            title = stringRec.ara_label_refund_capability_proportionate,
             selectedDocument?.validationResult?.deptCeiling.toString(),
             drawableRec.merat_ic_money_11, modifier
         )
         DocumentGenericLayout(
-            title = stringRec.label_refund_capability_debt_ceiling,
+            title = stringRec.ara_label_refund_capability_debt_ceiling,
             selectedDocument?.validationResult?.commitmentCeiling.toString(),
             drawableRec.merat_ic_money_12, modifier
         )
         DocumentGenericLayout(
-            title = stringRec.label_refund_capability_commitment_ceiling,
+            title = stringRec.ara_label_refund_capability_commitment_ceiling,
             selectedDocument?.validationResult?.commitmentCeilingRemain.toString(),
             drawableRec.merat_ic_money_12, modifier
         )
         DocumentGenericLayout(
-            title = stringRec.label_expire_date,
+            title = stringRec.ara_label_expire_date,
             selectedDocument?.validationResult?.expireDateView.toString(),
             drawableRec.ara_ic_calendar,
             modifier
         )
         if (selectedDocument?.validationResult?.perfectProportionate != 0L && selectedDocument?.validationResult?.proportionate != 0L) {
-            TextWithDot(des = stringRec.msg_result_validation_info_1)
-            TextWithDot(des = stringRec.msg_result_validation_info_1)
-            TextWithDot(des = stringRec.msg_result_validation_info_2)
-            TextWithDot(des = stringRec.msg_result_validation_info_2)
+            TextWithDot(des = stringRec.ara_msg_result_validation_info_1)
+            TextWithDot(des = stringRec.ara_msg_result_validation_info_1)
+            TextWithDot(des = stringRec.ara_msg_result_validation_info_2)
+            TextWithDot(des = stringRec.ara_msg_result_validation_info_2)
         }
-        TextWithDot(des = stringRec.msg_result_validation_info_3)
-        TextWithDot(des = stringRec.msg_result_validation_info_4)
+        TextWithDot(des = stringRec.ara_msg_result_validation_info_3)
+        TextWithDot(des = stringRec.ara_msg_result_validation_info_4)
         Text(
             text = stringResource(
                 id = stringRec.msg_result_validation_info_date,

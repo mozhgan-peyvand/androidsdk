@@ -60,15 +60,15 @@ fun FileListScreen(
     }
 
     val validationResultErrorDialog = getErrorDialog(
-        title = stringResource(id = R.string.label_file_validation_result),
+        title = stringResource(id = R.string.ara_label_file_validation_result),
         description = stringResource(
             id = R.string.msg_file_validation_result
         ), submitAction = {}
     )
 
     val removeDocumentDeleteDialog = getDeleteDialog(
-        title = stringResource(id = R.string.label_dialog_file_remove_title),
-        description = stringResource(id = R.string.msg_dialog_file_remove_message)
+        title = stringResource(id = R.string.ara_label_dialog_file_remove_title),
+        description = stringResource(id = R.string.ara_msg_dialog_file_remove_message)
     )
 
     var docList: List<PersonalDocumentsView>? by remember {
@@ -318,7 +318,7 @@ private fun SearchTextField(
             ),
             placeholder = {
                 Text(
-                    text = stringResource(id = R.string.label_files_search_hint),
+                    text = stringResource(id = R.string.ara_label_files_search_hint),
                     color = MaterialTheme.colors.textSecondary(),
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Start
@@ -515,7 +515,7 @@ private fun DocumentListItem(
                     .layoutId("documentName")
                     .padding(start = dimensionResource(id = R.dimen.spacing_2x)),
                 text = stringResource(
-                    id = R.string.label_file_number_title,
+                    id = R.string.ara_label_file_number_title,
                     document.fileId.toString()
                 ),
                 style = MaterialTheme.typography.subtitle2BoldTextPrimary(),
@@ -537,7 +537,7 @@ private fun DocumentListItem(
                 modifier = Modifier
                     .layoutId("status")
                     .padding(top = dimensionResource(id = R.dimen.spacing_2x)),
-                text = stringResource(id = R.string.label_status) + " ",
+                text = stringResource(id = R.string.ara_label_status) + " ",
                 style = MaterialTheme.typography.captionBoldTextPrimary()
             )
 

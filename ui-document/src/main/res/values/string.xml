@@ -1,57 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="msg_try_again">خطا در عملیات مورد نظر، لطفا بعد از بررسی اطلاعات ورودی دوباره تلاش نمایید</string>
-    <string name="msg_file_not_found">متاسفانه پرونده ای یافت نشد!</string>
-    <string name="msg_file_not_exist">پرونده ای وجود ندارد!</string>
-    <string name="label_file_not_exist">عضو محترم، در صورتی که اطلاعات فردی خود را وارد کرده‌اید، از قسمت اعتبارسنجی درخواست خود را ارسال نمایید</string>
-
-    <string name="label_files_search_hint">شماره پرونده برای مثال \"10001\"</string>
-    <string name="label_file_number_title">پرونده شماره %s</string>
-    <string name="label_status">وضعیت:</string>
-    <string name="label_documents_information">اطلاعات پرونده‌ها</string>
-
-
-    <string name="msg_result_validation_info">
+    <string name="ara_msg_file_not_found">متاسفانه پرونده ای یافت نشد!</string>
+    <string name="ara_msg_file_not_exist">پرونده ای وجود ندارد!</string>
+    <string name="ara_msg_resend_validation_request">عضو محترم، در صورتی که اطلاعات فردی خود را وارد کرده‌اید، از قسمت اعتبارسنجی درخواست خود را ارسال نمایید</string>
+    <string name="ara_label_files_search_hint">شماره پرونده برای مثال \"10001\"</string>
+    <string name="ara_label_file_number_title">پرونده شماره %s</string>
+    <string name="ara_label_status">وضعیت:</string>
+    <string name="ara_msg_result_validation_info">
         بر اساس اطلاعاتی که در اختیار مرآت قرارداده‌اید، توان بازپرداخت اقساط ماهیانه، ظرفیت بدهی و سقف تعهد شما به این شرح محاسبه شده است.
     </string>
-    <string name="label_file_detail_request_title">جزئیات پرونده</string>
-
-    <string name="msg_result_validation_info_1">
+    <string name="ara_label_file_detail_request_title">جزئیات پرونده</string>
+    <string name="ara_msg_result_validation_info_1">
         در صورتی که می‌‌خواهید ماهیانه تا سقف مشخص شده در سطح کاملا متناسب، قسط پرداخت کنید، ارائه سفته توسط شما ضروری می‌باشد.
     </string>
-
-    <string name="msg_result_validation_info_2">
+    <string name="ara_msg_result_validation_info_2">
         در صورتی که می‌‌خواهید ماهیانه تا سقف مشخص شده در سطح متناسب، قسط پرداخت کنید، ارائه سفته توسط شما و متعهد ضروری می‌باشد.
     </string>
-
-    <string name="msg_result_validation_info_3">
+    <string name="ara_msg_result_validation_info_3">
         جهت تکمیل پرونده اعتبارسنجی، با در دست داشتن کارت ملی به مکانی که توسط راهنمای کانون شما تعیین شده است، مراجعه کنید.
     </string>
-
-    <string name="msg_result_validation_info_4">
+    <string name="ara_msg_result_validation_info_4">
         نتیجه اعتبارسنجی هیچ تعهدی برای بانک قرض الحسنه رسالت جهت پرداخت وام ایجاد نمی‌کند و پرداخت وام تابع شرایط و ضوابط داخلی بانک است.
     </string>
-
-    <string name="param_file_detail_title">اطلاعات پرونده %s</string>
-    <string name="label_file_validation_result">نتیجه اعتبارسنجی</string>
-    <string name="label_dialog_file_remove_title">حذف پرونده</string>
-    <string name="msg_dialog_file_remove_message">آیا از حذف این پرونده مطمئن هستید؟</string>
-
-
-    <string name="label_file_number">شماره پرونده</string>
-    <string name="label_customer_name">نام متقاضی</string>
-    <string name="label_file_date_request">تاریخ درخواست اعتبارسنجی</string>
-    <string name="label_file_date_completion">تاریخ تکمیل پرونده</string>
-    <string name="label_club_id">شناسه کانون</string>
-    <string name="label_files_messages_list_title">وضعیت پرونده</string>
-    <string name="label_refund_capability_momtaz">توان بازپرداخت ممتاز (ریال)</string>
-    <string name="label_refund_capability_perfect_proportionate">توان بازپرداخت کاملا متناسب (ریال)</string>
-    <string name="label_refund_capability_proportionate">توان بازپرداخت متناسب (ریال)</string>
-    <string name="label_refund_capability_debt_ceiling">ظرفیت بدهی (ریال)</string>
-    <string name="label_refund_capability_commitment_ceiling">سقف تعهد (ریال)</string>
-    <string name="label_refund_capability_commitment_ceiling_remain">باقی مانده سقف تعهد (ریال)</string>
-    <string name="label_expire_date">تاریخ اعتبار</string>
-    <string name="label_personal_national_code">کد ملی</string>
-
+    <string name="ara_param_file_detail_title">اطلاعات پرونده %s</string>
+    <string name="ara_label_file_validation_result">نتیجه اعتبارسنجی</string>
+    <string name="ara_label_dialog_file_remove_title">حذف پرونده</string>
+    <string name="ara_msg_dialog_file_remove_message">آیا از حذف این پرونده مطمئن هستید؟</string>
+    <string name="ara_label_file_number">شماره پرونده</string>
+    <string name="ara_label_customer_name">نام متقاضی</string>
+    <string name="ara_label_file_date_request">تاریخ درخواست اعتبارسنجی</string>
+    <string name="ara_label_file_date_completion">تاریخ تکمیل پرونده</string>
+    <string name="ara_label_club_id">شناسه کانون</string>
+    <string name="ara_label_files_messages_list_title">وضعیت پرونده</string>
+    <string name="ara_label_refund_capability_momtaz">توان بازپرداخت ممتاز (ریال)</string>
+    <string name="ara_label_refund_capability_perfect_proportionate">توان بازپرداخت کاملا متناسب (ریال)</string>
+    <string name="ara_label_refund_capability_proportionate">توان بازپرداخت متناسب (ریال)</string>
+    <string name="ara_label_refund_capability_debt_ceiling">ظرفیت بدهی (ریال)</string>
+    <string name="ara_label_refund_capability_commitment_ceiling">سقف تعهد (ریال)</string>
+    <string name="ara_label_refund_capability_commitment_ceiling_remain">باقی مانده سقف تعهد (ریال)</string>
+    <string name="ara_label_expire_date">تاریخ اعتبار</string>
+    <string name="ara_label_personal_national_code">کد ملی</string>
 </resources>
