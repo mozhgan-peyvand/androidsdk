@@ -587,9 +587,10 @@ private fun UserAgreementCheckbox(
 @Composable
 private fun ProcessLoadingAndErrorState(input: PublicState?) {
     val loadingDialog = getLoadingDialog()
-    val errorDialog = getInfoDialog(
+    val errorDialog = getErrorDialog(
         title = stringResource(id = R.string.label_warning_title_dialog),
-        description = ""
+        description = "",
+        submitAction = {}
     )
 
     if (input?.refreshing == true) {

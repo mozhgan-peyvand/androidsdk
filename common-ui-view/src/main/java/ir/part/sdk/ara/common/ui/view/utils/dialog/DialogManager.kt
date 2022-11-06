@@ -4,21 +4,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 
 open class DialogManager {
-    private lateinit var _dialogType: String
+    private lateinit var _dialogType: DialogType
     private var _titleDialog: String? = null
     private var _descriptionDialog: String? = null
     private var _submitText: Int? = null
     private var _cancelText: Int? = null
     private var _submitAction: (() -> Unit)? = null
     private var _cancelAction: (() -> Unit)? = null
+    private var _icon: Int? = null
+    private var _iconTintColor: Color? = null
+    private var _boxBackgroundColor: Color? = null
 
     private lateinit var isOpenDialog: MutableState<Boolean>
 
-    fun setDialogType(dialogType: String): DialogManager {
+    fun setDialogType(dialogType: DialogType): DialogManager {
         _dialogType = dialogType
         return this
     }
@@ -43,6 +48,13 @@ open class DialogManager {
         return this
     }
 
+    fun setConfigUi(icon: Int, iconTintColor: Color, boxBackgroundColor: Color): DialogManager {
+        _icon = icon
+        _iconTintColor = iconTintColor
+        _boxBackgroundColor = boxBackgroundColor
+        return this
+    }
+
     fun setSubmitAction(submitAction: () -> Unit): DialogManager {
         _submitAction = submitAction
         return this
@@ -60,6 +72,7 @@ open class DialogManager {
         }
     }
 
+    @OptIn(ExperimentalComposeUiApi::class)
     @Composable
     fun Build() {
         isOpenDialog = remember {
@@ -70,7 +83,8 @@ open class DialogManager {
                 onDismissRequest = {},
                 properties = DialogProperties(
                     dismissOnClickOutside = false,
-                    dismissOnBackPress = false
+                    dismissOnBackPress = false,
+                    usePlatformDefaultWidth = false
                 )
             ) {
                 DialogTypeHandler().DeterminationDialogType(
@@ -81,6 +95,9 @@ open class DialogManager {
                     description = _descriptionDialog,
                     cancelText = _cancelText,
                     submitText = _submitText,
+                    icon = _icon ?: 0,
+                    iconTintColor = _iconTintColor ?: Color.Transparent,
+                    boxBackgroundColor = _boxBackgroundColor ?: Color.Transparent
                 )
             }
         }

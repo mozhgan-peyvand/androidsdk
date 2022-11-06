@@ -22,6 +22,7 @@ import ir.part.sdk.ara.common.ui.view.divider
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.*
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getExitAppDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.merat.ui.menu.R
 
@@ -149,10 +150,9 @@ private fun ShowExitDialogIfNeeded(
     onConfirmedLogout: () -> Unit,
     onCancelDialog: () -> Unit,
 ) {
-    val exitDialog = getErrorDialog(
+    val exitDialog = getExitAppDialog(
         title = stringResource(id = R.string.label_exit),
         description = stringResource(id = R.string.label_would_you_like_to_logout_from_your_account),
-        cancelText = R.string.label_dissuasion,
         submitAction = {
             onConfirmedLogout()
         },

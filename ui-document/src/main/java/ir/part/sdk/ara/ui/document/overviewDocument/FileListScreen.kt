@@ -34,7 +34,6 @@ import ir.part.sdk.ara.common.ui.view.theme.captionTextSecondary
 import ir.part.sdk.ara.common.ui.view.theme.subtitle2BoldTextPrimary
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getDeleteDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.ui.document.R
 import ir.part.sdk.ara.ui.document.submitDocument.model.DocumentsStatusView
@@ -624,9 +623,10 @@ private fun DocumentListItem(
 @Composable
 private fun ProcessLoadingAndErrorState(input: PublicState?) {
     val loadingDialog = getLoadingDialog()
-    val errorDialog = getInfoDialog(
+    val errorDialog = getErrorDialog(
         title = stringResource(id = R.string.label_warning_title_dialog),
-        description = ""
+        description = "",
+        submitAction = {}
     )
 
     if (input?.refreshing == true) {

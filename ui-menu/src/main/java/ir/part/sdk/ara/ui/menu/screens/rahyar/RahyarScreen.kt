@@ -31,7 +31,7 @@ import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.*
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DrawableResource
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.merat.ui.menu.R
 import kotlinx.coroutines.launch
@@ -532,9 +532,10 @@ private fun ProvinceSelection(
 @Composable
 private fun ProcessLoadingAndErrorState(input: PublicState?) {
     val loadingDialog = getLoadingDialog()
-    val errorDialog = getInfoDialog(
+    val errorDialog = getErrorDialog(
         title = stringResource(id = R.string.label_warning_title_dialog),
-        description = ""
+        description = "",
+        submitAction = {}
     )
     if (input?.refreshing == true) {
         loadingDialog.show()

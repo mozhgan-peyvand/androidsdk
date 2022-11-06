@@ -24,9 +24,9 @@ import ir.part.sdk.ara.common.ui.view.primaryVariant
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.buttonTextPrimaryVariantStyle
 import ir.part.sdk.ara.common.ui.view.theme.buttonTextStyle
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getSdkUpdateDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getUpdateSdkDialog
 import ir.part.sdk.ara.home.version.VersionViewModel
 
 @Composable
@@ -56,16 +56,16 @@ fun VersionDialogHandler(context: Context, hasForceVersion: Boolean?) {
         mutableStateOf(true)
     }
 
-    val forceUpdateDialog = getSdkUpdateDialog(
+    val forceUpdateDialog = getUpdateSdkDialog(
         title = stringResource(id = R.string.label_term_attention),
-        message = stringResource(id = R.string.msg_updateError_when_user_use_as_a_library_is_force),
+        description = stringResource(id = R.string.msg_updateError_when_user_use_as_a_library_is_force),
         submitText = R.string.btn_download_new_version,
         cancelText = R.string.btn_exit_from_sdk,
     )
 
-    val updateDialog = getSdkUpdateDialog(
+    val updateDialog = getUpdateSdkDialog(
         title = stringResource(id = R.string.label_term_attention),
-        message = stringResource(id = R.string.msg_updateError_when_user_use_as_a_library_is_not_force),
+        description = stringResource(id = R.string.msg_updateError_when_user_use_as_a_library_is_not_force),
         submitText = R.string.btn_download_new_version,
         cancelText = R.string.btn_exit_dialog
     )
@@ -187,9 +187,10 @@ private fun UserHomeScreenElement(
 @Composable
 private fun ProcessLoadingAndErrorState(input: PublicState?) {
     val loadingDialog = getLoadingDialog()
-    val errorDialog = getInfoDialog(
+    val errorDialog = getErrorDialog(
         title = stringResource(id = R.string.msg_general_error_title),
-        description = ""
+        description = "",
+        submitAction = { }
     )
     if (input?.refreshing == true) {
         loadingDialog.show()

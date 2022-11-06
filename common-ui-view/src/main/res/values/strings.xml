@@ -79,6 +79,10 @@
     <string name="msg_updateError_when_user_use_as_a_library">کاربر گرامی برای استفاده از این سرویس لطفا نسخه جدید اپلیکیشن را نصب نمایید.</string>
     <string name="btn_exit_from_sdk">بازگشت</string>
     <string name="btn_exit_dialog">فعلا خیر</string>
+    <string name="label_dialog_submit">تائید</string>
+    <string name="label_info">هشدار</string>
+    <string name="label_dialog_cancel">انصراف</string>
+    <string name="label_payment">پرداخت</string>
 </resources>
 
 
