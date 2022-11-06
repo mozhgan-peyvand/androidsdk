@@ -45,7 +45,7 @@ fun LoadingDialog() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                dimensionResource(DimensionResource.spacing_base)
+                dimensionResource(DimensionResource.spacing_4x)
             ),
         shape = RoundedCornerShape(dimensionResource(DimensionResource.radius_normal)),
         elevation = dimensionResource(id = R.dimen.card_elevation_normal)
@@ -78,7 +78,7 @@ fun LoadingDialog() {
 }
 
 @Composable
-fun PromptDialog(
+fun DialogManagerPrompt(
     title: String,
     description: String,
     submitAction: (() -> Unit)? = null,
@@ -92,7 +92,7 @@ fun PromptDialog(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(dimensionResource(id = DimensionResource.spacing_2x)),
+            .padding(dimensionResource(id = DimensionResource.spacing_4x)),
         shape = RoundedCornerShape(dimensionResource(DimensionResource.radius_normal)),
         elevation = dimensionResource(id = DimensionResource.radius_small)
     ) {
@@ -158,7 +158,7 @@ fun PromptDialog(
             }
             Text(
                 text = description,
-                textAlign = TextAlign.Justify,
+                textAlign = TextAlign.Start,
                 modifier = Modifier.padding(
                     top = dimensionResource(DimensionResource.spacing_5x),
                     start = dimensionResource(DimensionResource.spacing_5x),
@@ -218,13 +218,11 @@ fun PromptDialog(
 }
 
 @Composable
-fun InformationDialog(
+fun DialogManagerAlert(
     title: String,
     description: String,
     submitAction: (() -> Unit)? = null,
-    cancelAction: (() -> Unit)? = null,
     submitText: Int,
-    cancelLabel: Int? = null,
     iconId: Int,
     iconTintColor: Color,
     boxBackgroundColor: Color,
@@ -233,7 +231,7 @@ fun InformationDialog(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(dimensionResource(id = DimensionResource.spacing_2x)),
+            .padding(dimensionResource(id = DimensionResource.spacing_4x)),
         shape = RoundedCornerShape(dimensionResource(DimensionResource.radius_normal)),
         elevation = dimensionResource(id = DimensionResource.radius_small)
     ) {
@@ -301,7 +299,7 @@ fun InformationDialog(
             }
             Text(
                 text = description,
-                textAlign = TextAlign.Justify,
+                textAlign = TextAlign.Start,
                 modifier = Modifier.padding(
                     top = dimensionResource(DimensionResource.spacing_5x),
                     start = dimensionResource(DimensionResource.spacing_5x),
@@ -331,35 +329,7 @@ fun InformationDialog(
                         style = MaterialTheme.typography.body2BoldOnPrimary()
                     )
                 }
-                if (cancelLabel == null) {
-                    Spacer(modifier = Modifier.weight(1f))
-                } else {
-                    Spacer(modifier = Modifier.weight(0.1f))
-                    OutlinedButton(
-                        onClick = {
-                            cancelAction?.invoke()
-                        },
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(
-                                end = dimensionResource(DimensionResource.spacing_5x),
-                                start = dimensionResource(DimensionResource.spacing_2x)
-                            ),
-                        border = BorderStroke(
-                            width = dimensionResource(id = DimensionResource.spacing_quarter_base),
-                            color = MaterialTheme.colors.primaryVariant()
-                        ),
-                        shape = MaterialTheme.shapes.medium
-                    ) {
-                        Text(
-                            text = stringResource(id = cancelLabel),
-                            style = MaterialTheme.typography.subtitle2.copy(
-                                textAlign = TextAlign.Center,
-                                color = MaterialTheme.colors.primaryVariant()
-                            )
-                        )
-                    }
-                }
+                Spacer(modifier = Modifier.weight(1f))
             }
         }
     }

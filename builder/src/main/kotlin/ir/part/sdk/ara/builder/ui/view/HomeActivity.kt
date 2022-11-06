@@ -43,7 +43,7 @@ import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.AraTheme
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DialogManager
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getInfoDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getExitAppDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.home.utils.navigation.HomeRouter
 import ir.part.sdk.ara.home.utils.navigation.addHomeGraph
@@ -260,9 +260,10 @@ class HomeActivity : ComponentProviderActivity() {
     @Composable
     private fun ProcessLoadingAndErrorState(input: PublicState?) {
         val loadingDialog = getLoadingDialog()
-        val errorDialog = getInfoDialog(
+        val errorDialog = getErrorDialog(
             title = stringResource(id = ir.part.app.merat.ui.user.R.string.label_warning_title_dialog),
-            description = ""
+            description = "",
+            submitAction = {}
         )
 
         if (input?.refreshing == true) {
@@ -277,7 +278,7 @@ class HomeActivity : ComponentProviderActivity() {
 
     @Composable
     private fun InitExitDialog() {
-        exitDialog = getErrorDialog(
+        exitDialog = getExitAppDialog(
             title = stringResource(id = R.string.btn_logout), description = stringResource(
                 id = R.string.msg_sign_out
             ), submitAction = {
@@ -291,7 +292,7 @@ class HomeActivity : ComponentProviderActivity() {
                 }
             }, cancelAction = {
                 exitDialog.dismiss()
-            }, cancelText = R.string.label_dissuasion
+            }
         )
     }
 }
