@@ -303,7 +303,7 @@ private fun RahyarToolbar(
                 val (
                     backButton, labelText, icSearch) = createRefs()
                 Image(
-                    painter = painterResource(id = R.drawable.common_view_ic_arrow_right),
+                    painter = painterResource(id = R.drawable.ara_ic_arrow_right),
                     contentDescription = "ic_back", modifier = Modifier
                         .padding(
                             start = dimensionResource(
@@ -392,7 +392,7 @@ private fun BottomSheetTopBar(
 ) {
     Card(elevation = dimensionResource(id = R.dimen.card_elevation_normal)) {
         Image(
-            painterResource(DrawableResource.ic_remove),
+            painterResource(DrawableResource.ara_ic_remove),
             contentDescription = "",
             modifier = Modifier
                 .padding(dimensionResource(id = DimensionResource.spacing_4x))
@@ -523,7 +523,7 @@ private fun ProvinceSelection(
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colors.onPrimary
                 ),
-                text = stringResource(id = R.string.label_save),
+                text = stringResource(id = R.string.ara_label_save),
             )
         }
     }
@@ -533,7 +533,7 @@ private fun ProvinceSelection(
 private fun ProcessLoadingAndErrorState(input: PublicState?) {
     val loadingDialog = getLoadingDialog()
     val errorDialog = getErrorDialog(
-        title = stringResource(id = R.string.label_warning_title_dialog),
+        title = stringResource(id = R.string.ara_label_warning_title_dialog),
         description = "",
         submitAction = {}
     )

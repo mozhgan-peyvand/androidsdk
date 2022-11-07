@@ -91,53 +91,53 @@ fun MenuScreen(
 
         // list items
         MenuItem(
-            R.drawable.ic_lock,
-            R.string.label_change_password,
+            R.drawable.ara_ic_lock,
+            R.string.ara_label_change_password,
             onClick = onChangePasswordClick
         )
 
         MenuItem(
-            icon = R.drawable.ic_question,
-            title = R.string.label_guide,
+            icon = R.drawable.ara_ic_question,
+            title = R.string.ara_label_guide,
             onClick = onGuideClick
         )
 
         MenuItem(
-            icon = R.drawable.ic_info,
-            title = R.string.label_about_us,
+            icon = R.drawable.ara_ic_info,
+            title = R.string.ara_label_about_us,
             onClick = onAboutUsClick
         )
 
         MenuItem(
-            icon = R.drawable.ic_paper,
-            title = R.string.label_terms_and_conditions,
+            icon = R.drawable.ara_ic_paper,
+            title = R.string.ara_label_terms_and_conditions,
             onClick = onTermsAndConditionClick
         )
 
         MenuItem(
-            icon = R.drawable.ic_award,
-            title = R.string.label_disclaimer,
+            icon = R.drawable.ara_ic_award,
+            title = R.string.ara_label_disclaimer,
             onClick = onDisclaimerClick
         )
 
         MenuItem(
-            icon = R.drawable.ic_location,
-            title = R.string.label_rahyar_address,
+            icon = R.drawable.ara_ic_location,
+            title = R.string.ara_label_rahyar_address,
             onClick = { onRahyarClick() })
 
         MenuItem(
-            icon = R.drawable.ic_comment,
-            title = R.string.label_submit_comment,
+            icon = R.drawable.ara_ic_comment,
+            title = R.string.ara_label_submit_comment,
             onClick = onSubmitCommentClick
         )
 
         MenuItem(
-            icon = R.drawable.ic_headphones_mic,
-            title = R.string.label_call_center,
+            icon = R.drawable.ara_ic_headphones_mic,
+            title = R.string.ara_label_call_center,
             onClick = onCallCenterClick
         )
 
-        MenuItem(icon = R.drawable.ic_exit, title = R.string.label_exit, onClick = {
+        MenuItem(icon = R.drawable.ara_ic_exit, title = R.string.ara_label_exit, onClick = {
             showLogoutQuestionDialog.value = true
         })
     }
@@ -151,7 +151,7 @@ private fun ShowExitDialogIfNeeded(
     onCancelDialog: () -> Unit,
 ) {
     val exitDialog = getExitAppDialog(
-        title = stringResource(id = R.string.label_exit),
+        title = stringResource(id = R.string.ara_label_exit),
         description = stringResource(id = R.string.label_would_you_like_to_logout_from_your_account),
         submitAction = {
             onConfirmedLogout()
@@ -190,9 +190,11 @@ private fun MainMenuHeader(phone: String, nationalCode: String) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column() {
-            Text(text = nationalCode,
+            Text(
+                text = nationalCode,
                 style = MaterialTheme.typography.h6OnPrimary(),
-                color = ColorWhite)
+                color = ColorWhite
+            )
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_2x)))
             Text(
                 text = phone,
@@ -200,8 +202,10 @@ private fun MainMenuHeader(phone: String, nationalCode: String) {
                 color = ColorWhite
             )
         }
-        Image(painter = painterResource(id = R.drawable.ic_user_profile),
-            contentDescription = "user profile")
+        Image(
+            painter = painterResource(id = R.drawable.ara_ic_user_profile),
+            contentDescription = "user profile"
+        )
 
     }
 }
@@ -237,7 +241,7 @@ private fun ProcessLoadingAndErrorState(
     onLoadingDialogStarted: () -> Unit,
 ) {
     val dialog = getErrorDialog(
-        title = stringResource(id = R.string.msg_general_error_title),
+        title = stringResource(id = R.string.ara_msg_general_error_title),
         description = "",
         submitAction = {
             onErrorDialogDismissed()

@@ -57,17 +57,17 @@ fun VersionDialogHandler(context: Context, hasForceVersion: Boolean?) {
     }
 
     val forceUpdateDialog = getUpdateSdkDialog(
-        title = stringResource(id = R.string.label_term_attention),
-        description = stringResource(id = R.string.msg_updateError_when_user_use_as_a_library_is_force),
-        submitText = R.string.btn_download_new_version,
-        cancelText = R.string.btn_exit_from_sdk,
+        title = stringResource(id = R.string.ara_label_term_attention),
+        description = stringResource(id = R.string.ara_msg_updateError_when_user_use_as_a_library_is_force),
+        submitText = R.string.ara_btn_download_new_version,
+        cancelText = R.string.ara_btn_exit_from_sdk,
     )
 
     val updateDialog = getUpdateSdkDialog(
-        title = stringResource(id = R.string.label_term_attention),
-        description = stringResource(id = R.string.msg_updateError_when_user_use_as_a_library_is_not_force),
-        submitText = R.string.btn_download_new_version,
-        cancelText = R.string.btn_exit_dialog
+        title = stringResource(id = R.string.ara_label_term_attention),
+        description = stringResource(id = R.string.ara_msg_updateError_when_user_use_as_a_library_is_not_force),
+        submitText = R.string.ara_btn_download_new_version,
+        cancelText = R.string.ara_btn_exit_dialog
     )
 
     if (hasForceVersion == true && shouldShowVersionDialog) {
@@ -97,7 +97,7 @@ private fun UserHomeScreenElement(
         , content = {
             val (userHomeBackground, homePageLogo) = createRefs()
             Image(
-                painter = painterResource(id = R.drawable.merat_background),
+                painter = painterResource(id = R.drawable.ara_background),
                 contentDescription = "background",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -122,12 +122,12 @@ private fun UserHomeScreenElement(
                         start.linkTo(parent.start)
                     }) {
                 Image(
-                    painter = painterResource(id = R.drawable.merat_logo_credit),
+                    painter = painterResource(id = R.drawable.ara_logo_credit),
                     contentDescription = "background",
                     Modifier.padding(bottom = dimensionResource(id = R.dimen.spacing_8x))
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.merat_ic_user_home_page_sentence),
+                    painter = painterResource(id = R.drawable.ara_ic_user_home_page_sentence),
                     contentDescription = "user_home_page_sentence",
                     Modifier.padding(
                         bottom = dimensionResource(id = R.dimen.spacing_8x),
@@ -150,7 +150,7 @@ private fun UserHomeScreenElement(
                         .fillMaxWidth()
                 ) {
                     Text(
-                        text = stringResource(id = R.string.btn_register),
+                        text = stringResource(id = R.string.ara_btn_register),
                         style = MaterialTheme.typography.buttonTextStyle()
                     )
                 }
@@ -174,7 +174,7 @@ private fun UserHomeScreenElement(
 
                     ) {
                     Text(
-                        text = stringResource(id = R.string.btn_login),
+                        text = stringResource(id = R.string.ara_btn_login),
                         style = MaterialTheme.typography.buttonTextPrimaryVariantStyle()
                     )
                 }
@@ -188,7 +188,7 @@ private fun UserHomeScreenElement(
 private fun ProcessLoadingAndErrorState(input: PublicState?) {
     val loadingDialog = getLoadingDialog()
     val errorDialog = getErrorDialog(
-        title = stringResource(id = R.string.msg_general_error_title),
+        title = stringResource(id = R.string.ara_msg_general_error_title),
         description = "",
         submitAction = { }
     )

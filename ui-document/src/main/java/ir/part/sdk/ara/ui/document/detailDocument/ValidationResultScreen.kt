@@ -142,7 +142,7 @@ private fun ValidationResult(
         TextWithDot(des = stringRec.ara_msg_result_validation_info_4)
         Text(
             text = stringResource(
-                id = stringRec.msg_result_validation_info_date,
+                id = stringRec.ara_msg_result_validation_info_date,
                 selectedDocument?.fileId.toString(),
                 selectedDocument?.requestDateView.toString()
             ),

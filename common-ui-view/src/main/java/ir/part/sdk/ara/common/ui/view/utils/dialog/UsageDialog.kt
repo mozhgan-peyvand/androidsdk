@@ -14,7 +14,7 @@ typealias DimensionResource = R.dimen
 fun getLoadingDialog(): DialogManager {
     val builder = DialogManager.builder()
         .setDialogType(DialogType.LOADING)
-        .setDialogTitleMessage(stringResource(id = StringResource.label_waiting_dialog))
+        .setDialogTitleMessage(stringResource(id = StringResource.ara_label_waiting_dialog))
     builder.Build()
 
     return builder
@@ -27,12 +27,12 @@ fun getDeleteDialog(title: String, description: String): DialogManager {
         .setDialogTitleMessage(title)
         .setDialogDetailMessage(description)
         .setConfigUi(
-            icon = R.drawable.common_view_ic_bin,
+            icon = R.drawable.ara_ic_bin,
             iconTintColor = MaterialTheme.colors.error,
             boxBackgroundColor = MaterialTheme.colors.errorBackground()
         )
-        .setSubmitText(StringResource.label_yes)
-        .setCancelText(StringResource.label_no)
+        .setSubmitText(StringResource.ara_label_yes)
+        .setCancelText(StringResource.ara_label_no)
     builder.Build()
 
     return builder
@@ -45,12 +45,12 @@ fun getErrorDialog(title: String, description: String, submitAction: () -> Unit)
         .setDialogTitleMessage(title)
         .setDialogDetailMessage(description)
         .setConfigUi(
-            icon = R.drawable.merat_ic_c_warning,
+            icon = R.drawable.ara_ic_c_warning,
             iconTintColor = MaterialTheme.colors.error,
             boxBackgroundColor = MaterialTheme.colors.errorBackground()
         )
         .setSubmitAction { submitAction() }
-        .setSubmitText(R.string.label_dialog_submit)
+        .setSubmitText(R.string.ara_label_dialog_submit)
     builder.Build()
 
     return builder
@@ -66,12 +66,12 @@ fun getErrorWithExitDialog(
         .setDialogTitleMessage(title)
         .setDialogDetailMessage(description)
         .setConfigUi(
-            icon = R.drawable.merat_ic_c_warning,
+            icon = R.drawable.ara_ic_c_warning,
             iconTintColor = MaterialTheme.colors.error,
             boxBackgroundColor = MaterialTheme.colors.errorBackground()
         )
-        .setSubmitText(R.string.label_dialog_submit)
-        .setCancelText(R.string.btn_logout)
+        .setSubmitText(R.string.ara_label_dialog_submit)
+        .setCancelText(R.string.ara_btn_logout)
     builder.Build()
 
     return builder
@@ -92,7 +92,7 @@ fun getUpdateSdkDialog(
         .setDialogTitleMessage(title)
         .setDialogDetailMessage(description)
         .setConfigUi(
-            icon = R.drawable.merat_ic_c_warning,
+            icon = R.drawable.ara_ic_c_warning,
             iconTintColor = MaterialTheme.colors.error,
             boxBackgroundColor = MaterialTheme.colors.errorBackground()
         )
@@ -108,16 +108,16 @@ fun getUpdateSdkDialog(
 fun getConnectionErrorDialog(): DialogManager {
     val builder = DialogManager.builder()
         .setDialogType(DialogType.PROMPT_WARNING)
-        .setDialogTitleMessage(stringResource(id = StringResource.label_info))
-        .setDialogDetailMessage(stringResource(id = StringResource.msg_connection_error_description))
+        .setDialogTitleMessage(stringResource(id = StringResource.ara_label_info))
+        .setDialogDetailMessage(stringResource(id = StringResource.ara_msg_connection_error_description))
         .setConfigUi(
-            icon = R.drawable.common_view_ic_wifi_off,
+            icon = R.drawable.ara_ic_wifi_off,
             iconTintColor = MaterialTheme.colors.error,
             boxBackgroundColor = MaterialTheme.colors.errorBackground()
         )
         .setSubmitAction { }
-        .setSubmitText(StringResource.btn_retry)
-        .setCancelText(StringResource.btn_logout)
+        .setSubmitText(StringResource.ara_btn_retry)
+        .setCancelText(StringResource.ara_btn_logout)
         .setCancelAction { }
     builder.Build()
 
@@ -136,12 +136,12 @@ fun getSuccessDialog(
         .setDialogTitleMessage(title)
         .setDialogDetailMessage(description)
         .setConfigUi(
-            icon = R.drawable.common_view_ic_c_check,
+            icon = R.drawable.ara_ic_c_check,
             iconTintColor = MaterialTheme.colors.success(),
             boxBackgroundColor = MaterialTheme.colors.successBackground()
         )
         .setSubmitAction { submitAction() }
-        .setSubmitText(StringResource.label_dialog_submit)
+        .setSubmitText(StringResource.ara_label_dialog_submit)
     builder.Build()
 
     return builder
@@ -159,13 +159,13 @@ fun getExitAppDialog(
         .setDialogTitleMessage(title)
         .setDialogDetailMessage(description)
         .setConfigUi(
-            icon = R.drawable.merat_ic_c_warning,
+            icon = R.drawable.ara_ic_c_warning,
             iconTintColor = MaterialTheme.colors.error,
             boxBackgroundColor = MaterialTheme.colors.errorBackground()
         )
         .setSubmitAction { submitAction() }
-        .setSubmitText(StringResource.label_dialog_submit)
-        .setCancelText(StringResource.label_dialog_cancel)
+        .setSubmitText(StringResource.ara_label_dialog_submit)
+        .setCancelText(StringResource.ara_label_dialog_cancel)
         .setCancelAction { cancelAction() }
     builder.Build()
 
@@ -184,13 +184,13 @@ fun getFileValidationPaymentDialog(
         .setDialogTitleMessage(title)
         .setDialogDetailMessage(description)
         .setConfigUi(
-            icon = R.drawable.merat_ic_c_info,
+            icon = R.drawable.ara_ic_c_info,
             iconTintColor = MaterialTheme.colors.primaryVariant,
             boxBackgroundColor = MaterialTheme.colors.highlightBackground()
         )
         .setSubmitAction { submitAction() }
-        .setSubmitText(StringResource.label_payment)
-        .setCancelText(StringResource.label_dialog_cancel)
+        .setSubmitText(StringResource.ara_label_payment)
+        .setCancelText(StringResource.ara_label_dialog_cancel)
         .setCancelAction { cancelAction() }
     builder.Build()
 

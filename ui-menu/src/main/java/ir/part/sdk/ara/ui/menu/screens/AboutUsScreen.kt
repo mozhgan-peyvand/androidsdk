@@ -24,7 +24,7 @@ fun AboutUsScreen(onNavigateUp: () -> Unit) {
         topBar = {
             TopAppBar(backgroundColor = MaterialTheme.colors.surface,
                 elevation = dimensionResource(id = R.dimen.spacing_half_base)) {
-                TopAppBarContent(title = stringResource(id = R.string.label_about_us),
+                TopAppBarContent(title = stringResource(id = R.string.ara_label_about_us),
                     onNavigateUp = {
                         onNavigateUp()
                     })

@@ -24,7 +24,7 @@ private fun SplashScreenElement(navigateToUserHomeScreen: () -> Unit) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.merat_splash))
+        val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.ara_splash))
         val logoAnimationState =
             animateLottieCompositionAsState(composition = composition)
         LottieAnimation(

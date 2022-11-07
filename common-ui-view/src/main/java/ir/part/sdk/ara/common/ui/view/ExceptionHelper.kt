@@ -26,38 +26,38 @@ class ExceptionHelper @Inject constructor(val context: Context) {
             is Exceptions.IOException -> {
 
                 errorMessage = if (BuildConfig.DEBUG)
-                    "${context.resources.getString(R.string.msg_server_error)}\n$exceptionString"
+                    "${context.resources.getString(R.string.ara_msg_server_error)}\n$exceptionString"
                 else
-                    context.resources.getString(R.string.msg_server_error)
+                    context.resources.getString(R.string.ara_msg_server_error)
 
-                icon = R.drawable.common_view_ic_connection_error
+                icon = R.drawable.ara_ic_connection_error
                 id = exception.id
             }
             is Exceptions.NetworkConnectionException -> {
 
                 errorMessage = if (BuildConfig.DEBUG)
-                    "${context.resources.getString(R.string.msg_connection_error)}\n$exceptionString"
+                    "${context.resources.getString(R.string.ara_msg_connection_error)}\n$exceptionString"
                 else
-                    context.resources.getString(R.string.msg_connection_error)
+                    context.resources.getString(R.string.ara_msg_connection_error)
 
-                icon = R.drawable.common_view_ic_connection_error
+                icon = R.drawable.ara_ic_connection_error
                 code = ErrorCodes.NoInternetConnection.name
                 id = exception.id
             }
             is Exceptions.LocalDataSourceException -> {
 
                 errorMessage = if (BuildConfig.DEBUG)
-                    "${context.resources.getString(R.string.msg_general_error)}\n$exceptionString"
+                    "${context.resources.getString(R.string.ara_msg_general_error)}\n$exceptionString"
                 else
-                    context.resources.getString(R.string.msg_general_error)
+                    context.resources.getString(R.string.ara_msg_general_error)
 
-                icon = R.drawable.common_view_ic_general_error
+                icon = R.drawable.ara_ic_general_error
                 id = exception.id
             }
             is Exceptions.RemoteDataSourceException -> {
 
                 errorMessage = (if (exception.message == null && exception.code.isNullOrEmpty()) {
-                    context.resources.getString(R.string.msg_server_error_not_thing)
+                    context.resources.getString(R.string.ara_msg_server_error_not_thing)
                 } else {
                     exception.message?.fa
                 })?.let {
@@ -66,7 +66,7 @@ class ExceptionHelper @Inject constructor(val context: Context) {
                     else
                         it
                 }
-                icon = R.drawable.common_view_ic_connection_error
+                icon = R.drawable.ara_ic_connection_error
                 code = exception.code ?: UUID.randomUUID().mostSignificantBits.toString()
                 id = exception.id
             }
@@ -76,21 +76,21 @@ class ExceptionHelper @Inject constructor(val context: Context) {
                 else
                     "${exception.message?.fa}"
 
-                icon = R.drawable.common_view_ic_connection_error
+                icon = R.drawable.ara_ic_connection_error
                 id = exception.id
             }
             else -> {
                 errorMessage = if (BuildConfig.DEBUG)
-                    "${context.resources.getString(R.string.msg_general_error)}\n$exceptionString"
+                    "${context.resources.getString(R.string.ara_msg_general_error)}\n$exceptionString"
                 else
-                    context.resources.getString(R.string.msg_general_error)
+                    context.resources.getString(R.string.ara_msg_general_error)
 
-                icon = R.drawable.common_view_ic_general_error
+                icon = R.drawable.ara_ic_general_error
             }
         }
         errorMessage = errorMessage
-            ?: if (BuildConfig.DEBUG) "${context.resources.getString(R.string.msg_general_error)}\n$exceptionString" else context.resources.getString(
-                R.string.msg_general_error
+            ?: if (BuildConfig.DEBUG) "${context.resources.getString(R.string.ara_msg_general_error)}\n$exceptionString" else context.resources.getString(
+                R.string.ara_msg_general_error
             )
 
         return UiMessage(id = id, message = errorMessage, icon = icon, code = code)

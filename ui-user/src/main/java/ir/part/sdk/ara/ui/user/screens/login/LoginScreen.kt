@@ -120,7 +120,7 @@ fun Login(
                         onNavigateUp()
                     }
                     .padding(dimensionResource(id = DimensionResource.spacing_3x)),
-                painter = painterResource(id = R.drawable.ic_back),
+                painter = painterResource(id = R.drawable.ara_ic_back),
                 tint = MaterialTheme.colors.onPrimary(),
                 contentDescription = "back"
             )
@@ -247,7 +247,7 @@ private fun ShowPassword(
             errorPassword.value.second.last().validator.getErrorMessage(LocalContext.current) else "",
         keyboardType = KeyboardType.Password,
         trailingPasswordIcon = true,
-        painter = painterResource(R.drawable.ic_lock),
+        painter = painterResource(R.drawable.ara_ic_lock),
         interactionSource = interactionSource
     )
 
@@ -257,7 +257,7 @@ private fun ShowPassword(
 private fun ProcessLoadingAndErrorState(input: PublicState?, onErrorDialogDismissed: () -> Unit) {
     val loadingDialog = getLoadingDialog()
     val errorDialog = getErrorDialog(
-        title = stringResource(id = R.string.msg_general_error_title),
+        title = stringResource(id = R.string.ara_msg_general_error_title),
         description = "",
         submitAction = {
             onErrorDialogDismissed()

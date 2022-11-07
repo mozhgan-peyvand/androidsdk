@@ -22,7 +22,7 @@ fun DisclaimerScreen(onNavigateUp: () -> Unit) {
     Column() {
         TopAppBar(backgroundColor = Color.White,
             elevation = dimensionResource(id = R.dimen.spacing_half_base)) {
-            TopAppBarContent(title = stringResource(id = R.string.label_disclaimer),
+            TopAppBarContent(title = stringResource(id = R.string.ara_label_disclaimer),
                 onNavigateUp = {
                     onNavigateUp()
                 })
@@ -40,7 +40,7 @@ private fun DisclaimerContent() {
             .padding(horizontal = dimensionResource(id = R.dimen.spacing_4x))
     ) {
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_6x)))
-        TextHeadline6PrimaryBold(text = stringResource(id = R.string.label_disclaimer))
+        TextHeadline6PrimaryBold(text = stringResource(id = R.string.ara_label_disclaimer))
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_5x)))
 

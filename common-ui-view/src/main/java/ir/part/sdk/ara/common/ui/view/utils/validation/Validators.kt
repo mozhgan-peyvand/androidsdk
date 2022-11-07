@@ -20,7 +20,7 @@ class RequiredValidator : Validator {
     override fun getErrorMessage(context: Context) =
         String.format(context.getString(getMessageStringId()))
 
-    override fun getMessageStringId() = R.string.msg_empty_not_allow
+    override fun getMessageStringId() = R.string.ara_msg_empty_not_allow
 }
 
 class EmailValidator : Validator {
@@ -35,7 +35,7 @@ class EmailValidator : Validator {
     override fun getErrorMessage(context: Context) =
         String.format(context.getString(getMessageStringId()))
 
-    override fun getMessageStringId() = R.string.msg_invalid_email
+    override fun getMessageStringId() = R.string.ara_msg_invalid_email
 
 }
 
@@ -55,7 +55,7 @@ class ReNewPasswordValidator(private val newPassword: String) : Validator {
     override fun getErrorMessage(context: Context) =
         String.format(context.getString(getMessageStringId()))
 
-    override fun getMessageStringId() = R.string.msg_invalid_new_password_by_renew_password
+    override fun getMessageStringId() = R.string.ara_msg_invalid_new_password_by_renew_password
 
 }
 
@@ -75,7 +75,7 @@ class NewPasswordValidator(private val reNewPassword: String) : Validator {
     override fun getErrorMessage(context: Context) =
         String.format(context.getString(getMessageStringId()))
 
-    override fun getMessageStringId() = R.string.msg_different_password
+    override fun getMessageStringId() = R.string.ara_msg_different_password
 }
 
 class IsValidatePasswordWithRegularExpression : Validator {
@@ -94,7 +94,7 @@ class IsValidatePasswordWithRegularExpression : Validator {
         String.format(context.getString(getMessageStringId()))
 
 
-    override fun getMessageStringId(): Int = R.string.msg_invalid_not_persian
+    override fun getMessageStringId(): Int = R.string.ara_msg_invalid_not_persian
 
 }
 
@@ -149,7 +149,7 @@ class NationalCodeValidator : Validator {
     override fun getErrorMessage(context: Context) =
         String.format(context.getString(getMessageStringId()))
 
-    override fun getMessageStringId() = R.string.msg_invalid_national_code
+    override fun getMessageStringId() = R.string.ara_msg_invalid_national_code
 
 }
 
@@ -164,7 +164,7 @@ class MobilePhone : Validator {
     override fun getErrorMessage(context: Context) =
         String.format(context.getString(getMessageStringId()))
 
-    override fun getMessageStringId() = R.string.msg_invalid_mobil
+    override fun getMessageStringId() = R.string.ara_msg_invalid_mobil
 }
 
 class MaxSizeString : Validator {
@@ -179,7 +179,7 @@ class MaxSizeString : Validator {
     override fun getErrorMessage(context: Context) =
         String.format(context.getString(getMessageStringId()))
 
-    override fun getMessageStringId() = R.string.msg_invalid_password_length
+    override fun getMessageStringId() = R.string.ara_msg_invalid_password_length
 
 }
 
@@ -198,5 +198,5 @@ class PersianText : Validator {
     override fun getErrorMessage(context: Context) =
         String.format(context.getString(getMessageStringId()))
 
-    override fun getMessageStringId() = R.string.msg_invalid_persian
+    override fun getMessageStringId() = R.string.ara_msg_invalid_persian
 }

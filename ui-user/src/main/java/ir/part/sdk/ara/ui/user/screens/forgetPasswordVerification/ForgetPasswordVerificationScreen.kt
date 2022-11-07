@@ -98,7 +98,7 @@ fun ForgetPasswordVerification(
                         onNavigateUp()
                     }
                     .padding(dimensionResource(id = DimensionResource.spacing_3x)),
-                painter = painterResource(id = R.drawable.ic_back),
+                painter = painterResource(id = R.drawable.ara_ic_back),
                 tint = MaterialTheme.colors.onPrimary(),
                 contentDescription = "back"
             )
@@ -237,7 +237,7 @@ private fun ProcessLoadingAndErrorState(
 ) {
     val loadingDialog = getLoadingDialog()
     val errorDialog = getErrorDialog(
-        title = stringResource(id = R.string.label_warning_title_dialog),
+        title = stringResource(id = R.string.ara_label_warning_title_dialog),
         description = "",
         submitAction = {
             onErrorDialogDismissed()

@@ -162,7 +162,7 @@ fun AraFileDoesNotExist() {
 @Composable
 fun AraRetryLayout(
     painterDrawable: Int = R.drawable.ara_ic_general_error,
-    title: Int = R.string.msg_general_error
+    title: Int = R.string.ara_msg_general_error
 ) {
 
     Row(

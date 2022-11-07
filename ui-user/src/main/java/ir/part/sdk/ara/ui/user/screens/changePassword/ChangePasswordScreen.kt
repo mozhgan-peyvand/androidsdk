@@ -211,7 +211,7 @@ private fun ShowCurrentPassword(
         errorMessage = if (errorCurrentPassword.value.second.isNotEmpty())
             errorCurrentPassword.value.second.last().validator.getErrorMessage(LocalContext.current) else "",
         trailingPasswordIcon = true,
-        painter = painterResource(id = R.drawable.ic_lock),
+        painter = painterResource(id = R.drawable.ara_ic_lock),
         keyboardType = KeyboardType.Password
     )
 }
@@ -236,7 +236,7 @@ private fun ShowNewPassword(
         errorMessage = if (errorNewPassword.value.second.isNotEmpty())
             errorNewPassword.value.second.last().validator.getErrorMessage(LocalContext.current) else "",
         trailingPasswordIcon = true,
-        painter = painterResource(id = R.drawable.ic_lock),
+        painter = painterResource(id = R.drawable.ara_ic_lock),
         keyboardType = KeyboardType.Password
     )
 }
@@ -256,7 +256,7 @@ private fun ShowReNewPassword(
         errorMessage = if (errorReNewPassword.value.second.isNotEmpty())
             errorReNewPassword.value.second.last().validator.getErrorMessage(LocalContext.current) else "",
         trailingPasswordIcon = true,
-        painter = painterResource(id = R.drawable.ic_lock),
+        painter = painterResource(id = R.drawable.ara_ic_lock),
         keyboardType = KeyboardType.Password
     )
 }
@@ -266,7 +266,7 @@ private fun ShowReNewPassword(
 private fun ProcessLoadingAndErrorState(input: PublicState?, onErrorDialogDismissed: () -> Unit) {
     val loadingDialog = getLoadingDialog()
     val errorDialog = getErrorDialog(
-        title = stringResource(id = R.string.label_warning_title_dialog),
+        title = stringResource(id = R.string.ara_label_warning_title_dialog),
         description = "",
         submitAction = {
             onErrorDialogDismissed()

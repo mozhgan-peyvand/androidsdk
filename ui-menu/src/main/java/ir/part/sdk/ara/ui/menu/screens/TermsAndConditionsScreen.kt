@@ -27,7 +27,7 @@ fun TermsAndConditionScreen(onNavigateUp: () -> Unit) {
     Column() {
         TopAppBar(backgroundColor = Color.White,
             elevation = dimensionResource(id = R.dimen.spacing_half_base)) {
-            TopAppBarContent(title = stringResource(id = R.string.label_terms_and_conditions),
+            TopAppBarContent(title = stringResource(id = R.string.ara_label_terms_and_conditions),
                 onNavigateUp = {
                     onNavigateUp()
                 })
@@ -68,7 +68,7 @@ private fun TermsAndConditionContent() {
                             horizontal = dimensionResource(id = R.dimen.spacing_2x)
                         ),
                     textAlign = TextAlign.Start,
-                    text = stringResource(id = R.string.label_dear_user),
+                    text = stringResource(id = R.string.ara_label_dear_user),
                     style = MaterialTheme.typography.body2BoldTextSecondary(),
                 )
                 Text(
@@ -82,11 +82,15 @@ private fun TermsAndConditionContent() {
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_5x)))
         TextBody2Secondary(text = stringResource(id = R.string.label_terms_and_conditions_body))
 
-        InfoTextHighlight(title = stringResource(id = R.string.label_attention),
-            body = stringResource(id = R.string.label_term_attention_one))
+        InfoTextHighlight(
+            title = stringResource(id = R.string.ara_label_attention),
+            body = stringResource(id = R.string.label_term_attention_one)
+        )
 
-        InfoTextHighlight(title = stringResource(id = R.string.label_attention),
-            body = stringResource(id = R.string.label_term_attention_two))
+        InfoTextHighlight(
+            title = stringResource(id = R.string.ara_label_attention),
+            body = stringResource(id = R.string.label_term_attention_two)
+        )
     }
 }
 
@@ -99,7 +103,7 @@ private fun InfoTextHighlight(title: String, body: String? = null) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 modifier = Modifier.size(dimensionResource(id = R.dimen.spacing_4x)),
-                painter = painterResource(id = R.drawable.ic_info),
+                painter = painterResource(id = R.drawable.ara_ic_info),
                 contentDescription = "Info",
                 tint = ColorBlueDarker2
             )

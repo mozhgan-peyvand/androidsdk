@@ -261,7 +261,7 @@ class HomeActivity : ComponentProviderActivity() {
     private fun ProcessLoadingAndErrorState(input: PublicState?) {
         val loadingDialog = getLoadingDialog()
         val errorDialog = getErrorDialog(
-            title = stringResource(id = ir.part.app.merat.ui.user.R.string.label_warning_title_dialog),
+            title = stringResource(id = ir.part.app.merat.ui.user.R.string.ara_label_warning_title_dialog),
             description = "",
             submitAction = {}
         )
@@ -279,7 +279,7 @@ class HomeActivity : ComponentProviderActivity() {
     @Composable
     private fun InitExitDialog() {
         exitDialog = getExitAppDialog(
-            title = stringResource(id = R.string.btn_logout), description = stringResource(
+            title = stringResource(id = R.string.ara_btn_logout), description = stringResource(
                 id = R.string.msg_sign_out
             ), submitAction = {
                 homeViewModel.logout {
