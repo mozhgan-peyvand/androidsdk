@@ -41,14 +41,14 @@ fun NavGraphBuilder.addDocumentGraph(
         }
 
         fileListScreen {
-            val docBackStackEntry = remember {
-                navController.getBackStackEntry(DocumentRouter.DocumentGraph.router)
+            val fileListScreenBackStackEntry = remember {
+                navController.getBackStackEntry(DocumentRouter.DocumentFileListScreen.router)
             }
 
             val sharedViewModel: DocumentSharedViewModel = viewModel(
                 factory = DocumentComponent.builder(LocalContext.current as ComponentProviderActivity)
                     .providerDocumentSharedViewModel(),
-                viewModelStoreOwner = docBackStackEntry
+                viewModelStoreOwner = fileListScreenBackStackEntry
 
             )
 
@@ -65,14 +65,14 @@ fun NavGraphBuilder.addDocumentGraph(
 
         fileDetailScreenViewPager {
 
-            val docBackStackEntry = remember {
-                navController.getBackStackEntry(DocumentRouter.DocumentGraph.router)
+            val fileListScreenBackStackEntry = remember {
+                navController.getBackStackEntry(DocumentRouter.DocumentFileListScreen.router)
             }
 
             val sharedViewModel: DocumentSharedViewModel = viewModel(
                 factory = DocumentComponent.builder(LocalContext.current as ComponentProviderActivity)
                     .providerDocumentSharedViewModel(),
-                viewModelStoreOwner = docBackStackEntry
+                viewModelStoreOwner = fileListScreenBackStackEntry
 
             )
 
