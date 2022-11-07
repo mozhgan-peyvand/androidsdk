@@ -1,7 +1,6 @@
 package ir.part.sdk.ara.common.ui.view.common
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -40,16 +39,18 @@ fun TopAppBarContent(title: String, onNavigateUp: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Icon(
-            modifier = Modifier
-                .padding(horizontal = dimensionResource(id = DimensionResource.spacing_2x))
-                .clickable {
-                    onNavigateUp()
-                },
-            painter = painterResource(id = R.drawable.ara_ic_back),
-            tint = MaterialTheme.colors.disabled(),
-            contentDescription = "back"
-        )
+
+        IconButton(onClick = {
+            onNavigateUp()
+        }) {
+            Icon(
+                modifier = Modifier
+                    .padding(horizontal = dimensionResource(id = DimensionResource.spacing_2x)),
+                painter = painterResource(id = R.drawable.ara_ic_back),
+                tint = MaterialTheme.colors.disabled(),
+                contentDescription = "back"
+            )
+        }
         Text(
             modifier = Modifier.padding(dimensionResource(id = DimensionResource.spacing_2x)),
             text = title,
@@ -111,7 +112,7 @@ fun HighlightedBulletWithTextBody2Secondary(text: String) {
                     .background(ColorBlueDarker2)
             )
         }
-        Spacer(modifier = Modifier.width(dimensionResource(id = DimensionResource.spacing_2x)))
+        Spacer(modifier = Modifier.width(dimensionResource(id = DimensionResource.spacing_3x)))
         TextBody2Secondary(text)
     }
 }

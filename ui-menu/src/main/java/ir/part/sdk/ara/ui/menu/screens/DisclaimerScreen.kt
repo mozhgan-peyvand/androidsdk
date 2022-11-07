@@ -44,6 +44,6 @@ private fun DisclaimerContent() {
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_5x)))
 
-        TextBody2Secondary(text = stringResource(id = R.string.text_disclaimer))
+        TextBody2Secondary(text = stringResource(id = R.string.ara_msg_disclaimer))
     }
 }

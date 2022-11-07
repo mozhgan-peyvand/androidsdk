@@ -52,10 +52,10 @@ private fun CallCenterContent() {
     ) {
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_6x)))
-        TextHeadline6PrimaryBold(text = stringResource(id = R.string.label_contacting_ways))
+        TextHeadline6PrimaryBold(text = stringResource(id = R.string.ara_label_contacting_ways))
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_5x)))
-        TextBody2Secondary(text = stringResource(id = R.string.label_call_center_description))
+        TextBody2Secondary(text = stringResource(id = R.string.ara_msg_call_center_description))
 
         CallInfoBoard()
     }
@@ -84,7 +84,7 @@ private fun CallInfoBoard() {
                         dimensionResource(id = R.dimen.spacing_4x),
                     ),
                 textAlign = TextAlign.Start,
-                text = stringResource(id = R.string.label_call_info),
+                text = stringResource(id = R.string.ara_label_call_info),
                 style = MaterialTheme.typography.body2BoldTextSecondary(),
             )
 
@@ -95,7 +95,7 @@ private fun CallInfoBoard() {
                         vertical = dimensionResource(id = R.dimen.spacing_4x),
                         horizontal = dimensionResource(id = R.dimen.spacing_2x)
                     ),
-                text = stringResource(id = R.string.label_everyday_of_week_24h),
+                text = stringResource(id = R.string.ara_label_everyday_of_week_24h),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.body2BoldTextPrimary(),
             )
@@ -115,13 +115,13 @@ private fun CallInfoBoard() {
 
                 Text(
                     modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.spacing_2x)),
-                    text = stringResource(id = R.string.label_phone_number_with_colon),
+                    text = stringResource(id = R.string.ara_label_phone_number_with_colon),
                     style = MaterialTheme.typography.body2BoldTextPrimary(),
                 )
 
                 Text(
                     modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.spacing_2x)),
-                    text = stringResource(id = R.string.label_call_center_phone),
+                    text = stringResource(id = R.string.ara_label_call_center_phone),
                     style = MaterialTheme.typography.body2BoldTextPrimary(),
                 )
             }
@@ -130,7 +130,7 @@ private fun CallInfoBoard() {
 }
 
 private fun openCallCenterDial(context: Context) {
-    val number = context.getString(R.string.call_center_number)
+    val number = context.getString(R.string.ara_call_center_number)
     val callIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$number"))
     context.startActivity(callIntent)
 }

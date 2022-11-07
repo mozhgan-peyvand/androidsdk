@@ -73,23 +73,23 @@ private fun TermsAndConditionContent() {
                 )
                 Text(
                     modifier = Modifier.padding(dimensionResource(id = R.dimen.spacing_2x)),
-                    text = stringResource(id = R.string.label_terms_and_conditions_board),
+                    text = stringResource(id = R.string.ara_msg_terms_and_conditions_board),
                     style = MaterialTheme.typography.subtitle1TextPrimary(),
                 )
             }
         }
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_5x)))
-        TextBody2Secondary(text = stringResource(id = R.string.label_terms_and_conditions_body))
+        TextBody2Secondary(text = stringResource(id = R.string.ara_msg_terms_and_conditions_body))
 
         InfoTextHighlight(
             title = stringResource(id = R.string.ara_label_attention),
-            body = stringResource(id = R.string.label_term_attention_one)
+            body = stringResource(id = R.string.ara_msg_term_attention_one)
         )
 
         InfoTextHighlight(
             title = stringResource(id = R.string.ara_label_attention),
-            body = stringResource(id = R.string.label_term_attention_two)
+            body = stringResource(id = R.string.ara_msg_term_attention_two)
         )
     }
 }
