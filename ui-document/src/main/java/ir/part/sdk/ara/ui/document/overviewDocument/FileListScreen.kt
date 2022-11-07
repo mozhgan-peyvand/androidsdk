@@ -62,7 +62,7 @@ fun FileListScreen(
     val validationResultErrorDialog = getErrorDialog(
         title = stringResource(id = R.string.ara_label_file_validation_result),
         description = stringResource(
-            id = R.string.msg_file_validation_result
+            id = R.string.ara_msg_file_validation_result
         ), submitAction = {}
     )
 
@@ -333,7 +333,7 @@ private fun SearchTextField(
             trailingIcon = {
                 if (inputTextValue.isNotBlank()) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_remove),
+                        painter = painterResource(id = R.drawable.ara_ic_remove),
                         contentDescription = "icon_remove",
                         modifier = Modifier.clickable {
                             focusManager.clearFocus()
@@ -624,7 +624,7 @@ private fun DocumentListItem(
 private fun ProcessLoadingAndErrorState(input: PublicState?) {
     val loadingDialog = getLoadingDialog()
     val errorDialog = getErrorDialog(
-        title = stringResource(id = R.string.label_warning_title_dialog),
+        title = stringResource(id = R.string.ara_label_warning_title_dialog),
         description = "",
         submitAction = {}
     )

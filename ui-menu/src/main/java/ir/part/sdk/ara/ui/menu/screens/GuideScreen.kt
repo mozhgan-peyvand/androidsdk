@@ -36,7 +36,7 @@ fun GuideScreen(onNavigateUp: () -> Unit) {
             backgroundColor = Color.White,
             elevation = dimensionResource(id = R.dimen.spacing_half_base)
         ) {
-            TopAppBarContent(title = stringResource(id = R.string.label_guide),
+            TopAppBarContent(title = stringResource(id = R.string.ara_label_guide),
                 onNavigateUp = {
                     onNavigateUp()
                 })
@@ -76,7 +76,7 @@ private fun GuideContent() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_download),
+                    painter = painterResource(id = R.drawable.ara_ic_download),
                     tint = Color.Unspecified,
                     contentDescription = "download"
                 )
@@ -164,7 +164,7 @@ private fun GuideItemExpandable(item: GuideView) {
 
                 if (item.description.isNotEmpty()) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_arrow_down),
+                        painter = painterResource(id = R.drawable.ara_ic_arrow_down),
                         contentDescription = "expand", modifier = Modifier
                             .rotate(rotateAngle)
                     )

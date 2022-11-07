@@ -30,7 +30,7 @@ import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextPrimary
 
 @Composable
 fun LoadingDialog() {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading_animation))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.ara_loading_animation))
     val isPlaying by remember {
         mutableStateOf(true)
     }
@@ -60,7 +60,7 @@ fun LoadingDialog() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = stringResource(id = StringResource.label_waiting_dialog),
+                text = stringResource(id = StringResource.ara_label_waiting_dialog),
                 style = MaterialTheme.typography.subtitle1BoldTextPrimary(),
                 textAlign = TextAlign.Start,
                 modifier = Modifier.weight(3f)

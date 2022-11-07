@@ -33,7 +33,7 @@ fun CallCenterScreen(onNavigateUp: () -> Unit) {
     Column() {
         TopAppBar(backgroundColor = Color.White,
             elevation = dimensionResource(id = R.dimen.spacing_half_base)) {
-            TopAppBarContent(title = stringResource(id = R.string.label_call_center),
+            TopAppBarContent(title = stringResource(id = R.string.ara_label_call_center),
                 onNavigateUp = {
                     onNavigateUp()
                 })

@@ -1,88 +1,88 @@
 <resources>
 
     <!-- START BindingAdapter-->
-    <string name="param_rials">%s ریال</string>
-    <string name="label_location_tell_static_replace">%s-</string>
+    <string name="ara_param_rials">%s ریال</string>
+    <string name="ara_label_location_tell_static_replace">%s-</string>
 
     <!-- END BindingAdapter-->
 
     <!-- START ExceptionHelper-->
-    <string name="msg_server_error">خطا در عملیات مورد نظر، لطفا بعد از بررسی اطلاعات ورودی دوباره تلاش نمایید.</string>
-    <string name="msg_server_error_not_thing">ارتباط با سرور برقرار نمی‌باشد. در صورت استفاده از هر گونه فیلتر شکن آن را غیر فعال نمایید.</string>
-    <string name="msg_general_error">خطا در عملیات مورد نظر، لطفا بعد از بررسی اطلاعات ورودی دوباره تلاش نمایید.</string>
-    <string name="msg_connection_error">به اینترنت متصل شوید!</string>
+    <string name="ara_msg_server_error">خطا در عملیات مورد نظر، لطفا بعد از بررسی اطلاعات ورودی دوباره تلاش نمایید.</string>
+    <string name="ara_msg_server_error_not_thing">ارتباط با سرور برقرار نمی‌باشد. در صورت استفاده از هر گونه فیلتر شکن آن را غیر فعال نمایید.</string>
+    <string name="ara_msg_general_error">خطا در عملیات مورد نظر، لطفا بعد از بررسی اطلاعات ورودی دوباره تلاش نمایید.</string>
+    <string name="ara_msg_connection_error">به اینترنت متصل شوید!</string>
     <!-- END ExceptionHelper-->
 
     <!-- START BaseFragment-->
-    <string name="msg_general_error_title">خطا!</string>
+    <string name="ara_msg_general_error_title">خطا!</string>
 
     <!-- END BaseFragment-->
 
-    <string name="label_confirm">تایید</string>
-    <string name="label_cancel">لغو</string>
-    <string name="label_waiting_dialog">لطفا شکیبا باشید …</string>
-    <string name="label_warning_title_dialog">هشدار</string>
-    <string name="label_no">خیر</string>
-    <string name="label_yes">بله</string>
-    <string name="label_confirmation_dialog">تایید</string>
-    <string name="btn_logout">خروج</string>
-    <string name="btn_retry">تلاش مجدد</string>
-    <string name="msg_connection_error_description">برای ادامه کار با نرم افزار می‌بایست به اینترنت متصل شوید.</string>
+    <string name="ara_label_confirm">تایید</string>
+    <string name="ara_label_cancel">لغو</string>
+    <string name="ara_label_waiting_dialog">لطفا شکیبا باشید …</string>
+    <string name="ara_label_warning_title_dialog">هشدار</string>
+    <string name="ara_label_no">خیر</string>
+    <string name="ara_label_yes">بله</string>
+    <string name="ara_label_confirmation_dialog">تایید</string>
+    <string name="ara_btn_logout">خروج</string>
+    <string name="ara_btn_retry">تلاش مجدد</string>
+    <string name="ara_msg_connection_error_description">برای ادامه کار با نرم افزار می‌بایست به اینترنت متصل شوید.</string>
 
-    <string name="msg_request_validation_agreement_approve_part1">با اطلاع کامل از کلیه شرایط اعتبارسنجی اقرار مینمایم کلیه موارد مندرج در این فرم مورد قبول اینجانب </string>
-    <string name="msg_request_validation_agreement_approve_part2"> واقع گردید و مندرجات فرم و مشخصات مشتری و همچنین مدارک پیوست آن کاملا صحیح میباشند</string>
-    <string name="msg_result_validation_info_date">اعتبار نتیجه اعتبارسنجی پرونده %1$s تا تاریخ %2$s می باشد. بعد از این تاریخ در صورت نیاز دوباره درخواست اعتبارسنجی دهید.</string>
-    <string name="label_request_validation">درخواست اعتبارسنجی</string>
-    <string name="label_insert_request_validation">ثبت درخواست اعتبارسنجی</string>
-    <string name="msg_insert_request_validation">کاربر گرامی برای ارسال درخواست اعتبارسنجی، ابتدا کانون موردنظر
+    <string name="ara_msg_request_validation_agreement_approve_part1">با اطلاع کامل از کلیه شرایط اعتبارسنجی اقرار مینمایم کلیه موارد مندرج در این فرم مورد قبول اینجانب </string>
+    <string name="ara_msg_request_validation_agreement_approve_part2"> واقع گردید و مندرجات فرم و مشخصات مشتری و همچنین مدارک پیوست آن کاملا صحیح میباشند</string>
+    <string name="ara_msg_result_validation_info_date">اعتبار نتیجه اعتبارسنجی پرونده %1$s تا تاریخ %2$s می باشد. بعد از این تاریخ در صورت نیاز دوباره درخواست اعتبارسنجی دهید.</string>
+    <string name="ara_label_request_validation">درخواست اعتبارسنجی</string>
+    <string name="ara_label_insert_request_validation">ثبت درخواست اعتبارسنجی</string>
+    <string name="ara_msg_insert_request_validation">کاربر گرامی برای ارسال درخواست اعتبارسنجی، ابتدا کانون موردنظر
 خود را انتخاب کرده و پس از خواندن متن اعتبارسنجی، نسبت به
 ارسال آن اقدام نمایید
     </string>
-    <string name="label_union">کانون</string>
-    <string name="label_choose_union">کانون موردنظر خود را انتخاب نمایید</string>
-    <string name="msg_request_validation_agreement_part1"> احتراما اینجانب </string>
-    <string name="msg_request_validation_agreement_part2"> با کد ملی </string>
-    <string name="msg_request_validation_agreement_part3"> عضو کانون با شناسه </string>
-    <string name="msg_request_validation_agreement_part4"> متقاضی اعتبارسنجی میباشم, لذا خواهشمند است اقدامات لازم در خصوص فرآیند اعتبارسنجی صورت پذیرد. در این راستا مرکز اعتبارسنجی شرکت پردازش اطلاعات مالی پارت مجاز است از اطلاعات مندرج در فرم مشخصات مشتری، اسناد، مدارک و سایر اطلاعات اینجانب جهت اعتبارسنجی استفاده نماید. ضمنا متعهد میگردم هرگونه تغییر در اطلاعات و مدارک یاد شده را در اسرع وقت با مراجعه به کارتابل خود در سامانه مرات ویرایش نمایم. لذا چنانچه در هر زمانی هر گونه مغایرتی میان هر یک از اطلاعات، اسناد و مدارک ارائه شده با واقعیت مشخص شود با مسئولیت جبران هرگونه زیان وارد شده به استفاده کنندگان از نتیجه اعتبارسنجی منحصرا بر عهده اینجانب خواهد بود. تکمیل و ارائه این فرم هیچ گونه تعهدی برای بانک قرض الحسنه رسالت در خصوص پرداخت تسهیلات ایجاد نخواهد کرد و در هر حال دریافت تسهیلات از بانک مستلزم رعایت ضوابط و مقررات بانک میباشد متقاضی محترم، بهرهمندی از خدمات اعتبارسنجی نیازمند پرداخت هزینه میباشد که پس از مشخص شدن نتیجه اعتبارسنجی از شما دریافت خواهد شد</string>
-    <string name="msg_request_validation_success">عضو محترم شماره پرونده شما %s میباشد.\n\n لطفا شماره پرونده خود را که برای شما پیامک خواهد شد جهت پیگیری‌های بعدی نگهداری نمایید.\n\n اعتبارسنجی پرونده شما حداقل یک هفته کاری زمان می‌برد.</string>
+    <string name="ara_label_union">کانون</string>
+    <string name="ara_label_choose_union">کانون موردنظر خود را انتخاب نمایید</string>
+    <string name="ara_msg_request_validation_agreement_part1"> احتراما اینجانب </string>
+    <string name="ara_msg_request_validation_agreement_part2"> با کد ملی </string>
+    <string name="ara_msg_request_validation_agreement_part3"> عضو کانون با شناسه </string>
+    <string name="ara_msg_request_validation_agreement_part4"> متقاضی اعتبارسنجی میباشم, لذا خواهشمند است اقدامات لازم در خصوص فرآیند اعتبارسنجی صورت پذیرد. در این راستا مرکز اعتبارسنجی شرکت پردازش اطلاعات مالی پارت مجاز است از اطلاعات مندرج در فرم مشخصات مشتری، اسناد، مدارک و سایر اطلاعات اینجانب جهت اعتبارسنجی استفاده نماید. ضمنا متعهد میگردم هرگونه تغییر در اطلاعات و مدارک یاد شده را در اسرع وقت با مراجعه به کارتابل خود در سامانه مرات ویرایش نمایم. لذا چنانچه در هر زمانی هر گونه مغایرتی میان هر یک از اطلاعات، اسناد و مدارک ارائه شده با واقعیت مشخص شود با مسئولیت جبران هرگونه زیان وارد شده به استفاده کنندگان از نتیجه اعتبارسنجی منحصرا بر عهده اینجانب خواهد بود. تکمیل و ارائه این فرم هیچ گونه تعهدی برای بانک قرض الحسنه رسالت در خصوص پرداخت تسهیلات ایجاد نخواهد کرد و در هر حال دریافت تسهیلات از بانک مستلزم رعایت ضوابط و مقررات بانک میباشد متقاضی محترم، بهرهمندی از خدمات اعتبارسنجی نیازمند پرداخت هزینه میباشد که پس از مشخص شدن نتیجه اعتبارسنجی از شما دریافت خواهد شد</string>
+    <string name="ara_msg_request_validation_success">عضو محترم شماره پرونده شما %s میباشد.\n\n لطفا شماره پرونده خود را که برای شما پیامک خواهد شد جهت پیگیری‌های بعدی نگهداری نمایید.\n\n اعتبارسنجی پرونده شما حداقل یک هفته کاری زمان می‌برد.</string>
     <!--START Validation String-->
-    <string name="label_save">ذخیره</string>
-    <string name="msg_invalid_mobile">تلفن نامعتبر است!</string>
-    <string name="msg_invalid_email">ایمیل نامعتبر است!</string>
-    <string name="msg_invalid_new_password_by_renew_password">مقدار وارد شده با کلمه عبور جدید یکسان نیست!</string>
-    <string name="msg_invalid_value">مقدار وارد شده نامعتبر میباشد.</string>
-    <string name="msg_invalid_persian_with_special_character">فقط حروف فارسی ،عدد و کاراکترهای ( -, (), /) مجاز است!</string>
-    <string name="msg_invalid_english_and_persian_with_special_character">فقط حروف فارسی ،عدد و کاراکترهای ( -, (), / , . , *) مجاز است!</string>
-    <string name="msg_invalid_not_persian">کلمه عبور باید ترکیبی از حروف و عدد انگلیسی و کاراکترهای خاص باشد</string>
-    <string name="msg_invalid_string_min_length">عبارت وارد شده کوتاه است.</string>
-    <string name="msg_empty_not_allow">این مورد نمی‌تواند خالی باشد!</string>
-    <string name="msg_invalid_inputs">ورودی‌ها نامعتبر است!</string>
-    <string name="msg_invalid_password_length">کلمه عبور نباید کمتر از 8 کاراکتر باشد.</string>
-    <string name="msg_invalid_national_code">کد ملی نامعتبر است!</string>
-    <string name="msg_different_password">رمز عبور جدید با رمز عبور فعلی باید متفاوت باشد</string>
-    <string name="msg_notMatchWithRegex">کلمه عبور باید ترکیبی از حروف و عدد و کاراکترهای خاص باشد</string>
-    <string name="msg_only_english_and_number_and_special_character">کلمه عبور باید ترکیبی از حروف و عدد انگلیسی و کاراکترهای خاص باشد</string>
-    <string name="label_select_union">انتخاب کانون</string>
-    <string name="msg_file_validation_result">عضو محترم به دلیل رفتار اعتباری نامناسب ناشی از وام‌­های قبلی شما، امکان استفاده از خدمات اعتبارسنجی برای شما میسر نمی‌­باشد. </string>
+    <string name="ara_label_save">ذخیره</string>
+    <string name="ara_msg_invalid_mobile">تلفن نامعتبر است!</string>
+    <string name="ara_msg_invalid_email">ایمیل نامعتبر است!</string>
+    <string name="ara_msg_invalid_new_password_by_renew_password">مقدار وارد شده با کلمه عبور جدید یکسان نیست!</string>
+    <string name="ara_msg_invalid_value">مقدار وارد شده نامعتبر میباشد.</string>
+    <string name="ara_msg_invalid_persian_with_special_character">فقط حروف فارسی ،عدد و کاراکترهای ( -, (), /) مجاز است!</string>
+    <string name="ara_msg_invalid_english_and_persian_with_special_character">فقط حروف فارسی ،عدد و کاراکترهای ( -, (), / , . , *) مجاز است!</string>
+    <string name="ara_msg_invalid_not_persian">کلمه عبور باید ترکیبی از حروف و عدد انگلیسی و کاراکترهای خاص باشد</string>
+    <string name="ara_msg_invalid_string_min_length">عبارت وارد شده کوتاه است.</string>
+    <string name="ara_msg_empty_not_allow">این مورد نمی‌تواند خالی باشد!</string>
+    <string name="ara_msg_invalid_inputs">ورودی‌ها نامعتبر است!</string>
+    <string name="ara_msg_invalid_password_length">کلمه عبور نباید کمتر از 8 کاراکتر باشد.</string>
+    <string name="ara_msg_invalid_national_code">کد ملی نامعتبر است!</string>
+    <string name="ara_msg_different_password">رمز عبور جدید با رمز عبور فعلی باید متفاوت باشد</string>
+    <string name="ara_msg_notMatchWithRegex">کلمه عبور باید ترکیبی از حروف و عدد و کاراکترهای خاص باشد</string>
+    <string name="ara_msg_only_english_and_number_and_special_character">کلمه عبور باید ترکیبی از حروف و عدد انگلیسی و کاراکترهای خاص باشد</string>
+    <string name="ara_label_select_union">انتخاب کانون</string>
+    <string name="ara_msg_file_validation_result">عضو محترم به دلیل رفتار اعتباری نامناسب ناشی از وام‌­های قبلی شما، امکان استفاده از خدمات اعتبارسنجی برای شما میسر نمی‌­باشد. </string>
 
 
     <!--END Validation String-->
-    <string name="msg_invalid_mobil">شماره تلفن معتبر نیست</string>
-    <string name="msg_invalid_length_character_between_2_and_5">عدد باید در بازه ی %d تا %d کاراکتر باشد</string>
-    <string name="msg_invalid_length_text_between_2_and_5">حروف باید در بازه ی %d تا %d کاراکتر باشد</string>
-    <string name="msg_invalid_size_list">تعداد آیتم ها باید بین %d تا %d باشد</string>
+    <string name="ara_msg_invalid_mobil">شماره تلفن معتبر نیست</string>
+    <string name="ara_msg_invalid_length_character_between_2_and_5">عدد باید در بازه ی %d تا %d کاراکتر باشد</string>
+    <string name="ara_msg_invalid_length_text_between_2_and_5">حروف باید در بازه ی %d تا %d کاراکتر باشد</string>
+    <string name="ara_msg_invalid_size_list">تعداد آیتم ها باید بین %d تا %d باشد</string>
 
-    <string name="msg_updateError_when_user_use_as_a_library_is_force">کاربرگرامی نسخه جدید سامانه اعتبار سنجی منتشر شده است در صورت نیاز به استفاده از این سرویس دکمه اپدیت را کلیک نمایید در غیر اینصورت با زدن دکمه بازگشت به منوی اصلی بر خواهید گشت.</string>
-    <string name="msg_updateError_when_user_use_as_a_library_is_not_force">کاربر گرامی نسخه جدید مرآت منتشر شده است لطفا نسبت به اپدیت کردن نسخه خود اقدام فرمایید.</string>
-    <string name="label_term_attention">توجه</string>
-    <string name="btn_download_new_version">دانلود نسخه جدید</string>
-    <string name="msg_updateError_when_user_use_as_a_library">کاربر گرامی برای استفاده از این سرویس لطفا نسخه جدید اپلیکیشن را نصب نمایید.</string>
-    <string name="btn_exit_from_sdk">بازگشت</string>
-    <string name="btn_exit_dialog">فعلا خیر</string>
-    <string name="label_dialog_submit">تائید</string>
-    <string name="label_info">هشدار</string>
-    <string name="label_dialog_cancel">انصراف</string>
-    <string name="label_payment">پرداخت</string>
+    <string name="ara_msg_updateError_when_user_use_as_a_library_is_force">کاربرگرامی نسخه جدید سامانه اعتبار سنجی منتشر شده است در صورت نیاز به استفاده از این سرویس دکمه اپدیت را کلیک نمایید در غیر اینصورت با زدن دکمه بازگشت به منوی اصلی بر خواهید گشت.</string>
+    <string name="ara_msg_updateError_when_user_use_as_a_library_is_not_force">کاربر گرامی نسخه جدید مرآت منتشر شده است لطفا نسبت به اپدیت کردن نسخه خود اقدام فرمایید.</string>
+    <string name="ara_label_term_attention">توجه</string>
+    <string name="ara_btn_download_new_version">دانلود نسخه جدید</string>
+    <string name="ara_msg_updateError_when_user_use_as_a_library">کاربر گرامی برای استفاده از این سرویس لطفا نسخه جدید اپلیکیشن را نصب نمایید.</string>
+    <string name="ara_btn_exit_from_sdk">بازگشت</string>
+    <string name="ara_btn_exit_dialog">فعلا خیر</string>
+    <string name="ara_label_dialog_submit">تائید</string>
+    <string name="ara_label_info">هشدار</string>
+    <string name="ara_label_dialog_cancel">انصراف</string>
+    <string name="ara_label_payment">پرداخت</string>
 </resources>
 
 

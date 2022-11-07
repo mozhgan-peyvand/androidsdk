@@ -46,7 +46,7 @@ fun TopAppBarContent(title: String, onNavigateUp: () -> Unit) {
                 .clickable {
                     onNavigateUp()
                 },
-            painter = painterResource(id = R.drawable.ic_back),
+            painter = painterResource(id = R.drawable.ara_ic_back),
             tint = MaterialTheme.colors.disabled(),
             contentDescription = "back"
         )

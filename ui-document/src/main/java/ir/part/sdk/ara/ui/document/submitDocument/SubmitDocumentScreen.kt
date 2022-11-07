@@ -191,7 +191,7 @@ private fun ScreenContent(
 
     Text(
         text = stringResource(
-            id = R.string.label_insert_request_validation
+            id = R.string.ara_label_insert_request_validation
         ),
         style = MaterialTheme.typography.h6Bold(),
         modifier = modifier
@@ -199,7 +199,7 @@ private fun ScreenContent(
 
     Text(
         text = stringResource(
-            id = R.string.msg_insert_request_validation
+            id = R.string.ara_msg_insert_request_validation
         ),
         style = MaterialTheme.typography.subtitle2TextSecondary(),
         modifier = modifier
@@ -207,14 +207,14 @@ private fun ScreenContent(
 
     Text(
         modifier = modifier.padding(top = dimensionResource(id = DimensionResource.spacing_8x)),
-        text = stringResource(id = R.string.label_union),
+        text = stringResource(id = R.string.ara_label_union),
         style = MaterialTheme.typography.captionBoldTextPrimary()
     )
 
     TextField(
         value = selectedUnion?.clubName
             ?: selectedUnion?.id
-            ?: stringResource(R.string.label_choose_union),
+            ?: stringResource(R.string.ara_label_choose_union),
         textStyle = MaterialTheme.typography.subtitle2TextSecondary(),
         onValueChange = { },
         enabled = false,
@@ -265,7 +265,7 @@ private fun ScreenBottomBar(onSubmitButtonClicked: () -> Unit) {
         onClick = {
             onSubmitButtonClicked()
         }, text = stringResource(
-            id = R.string.label_request_validation
+            id = R.string.ara_label_request_validation
         )
     )
 }
@@ -308,7 +308,7 @@ private fun UnionSelection(
                 top = dimensionResource(id = DimensionResource.spacing_8x),
                 start = dimensionResource(id = DimensionResource.spacing_4x)
             ),
-            text = stringResource(id = R.string.label_select_union),
+            text = stringResource(id = R.string.ara_label_select_union),
             style = MaterialTheme.typography.h6Bold(),
             textAlign = TextAlign.End
         )
@@ -399,7 +399,7 @@ private fun UnionSelection(
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colors.onPrimary
                 ),
-                text = stringResource(id = R.string.label_save),
+                text = stringResource(id = R.string.ara_label_save),
             )
         }
     }
@@ -411,7 +411,7 @@ private fun BottomSheetTopBar(
 ) {
     Card(elevation = dimensionResource(id = R.dimen.card_elevation_normal)) {
         Image(
-            painterResource(DrawableResource.ic_remove),
+            painterResource(DrawableResource.ara_ic_remove),
             contentDescription = "",
             modifier = Modifier
                 .padding(dimensionResource(id = DimensionResource.spacing_4x))
@@ -458,7 +458,7 @@ private fun UserProperties(
                 withStyle(style = SpanStyle(color = MaterialTheme.colors.textSecondary())) {
                     append(
                         stringResource(
-                            id = R.string.msg_request_validation_agreement_part1
+                            id = R.string.ara_msg_request_validation_agreement_part1
                         )
                     )
                 }
@@ -473,7 +473,7 @@ private fun UserProperties(
                 withStyle(style = SpanStyle(color = MaterialTheme.colors.textSecondary())) {
                     append(
                         stringResource(
-                            id = R.string.msg_request_validation_agreement_part2
+                            id = R.string.ara_msg_request_validation_agreement_part2
                         )
                     )
                 }
@@ -488,7 +488,7 @@ private fun UserProperties(
                 withStyle(style = SpanStyle(color = MaterialTheme.colors.textSecondary())) {
                     append(
                         stringResource(
-                            id = R.string.msg_request_validation_agreement_part3
+                            id = R.string.ara_msg_request_validation_agreement_part3
                         )
                     )
                 }
@@ -503,7 +503,7 @@ private fun UserProperties(
                 withStyle(style = SpanStyle(color = MaterialTheme.colors.textSecondary())) {
                     append(
                         stringResource(
-                            id = R.string.msg_request_validation_agreement_part4
+                            id = R.string.ara_msg_request_validation_agreement_part4
                         )
                     )
                 }
@@ -561,7 +561,7 @@ private fun UserAgreementCheckbox(
             buildAnnotatedString {
                 append(
                     stringResource(
-                        id = R.string.msg_request_validation_agreement_approve_part1
+                        id = R.string.ara_msg_request_validation_agreement_approve_part1
                     )
                 )
                 withStyle(
@@ -574,7 +574,7 @@ private fun UserAgreementCheckbox(
 
                 append(
                     stringResource(
-                        id = R.string.msg_request_validation_agreement_approve_part2
+                        id = R.string.ara_msg_request_validation_agreement_approve_part2
                     )
                 )
             }
@@ -588,7 +588,7 @@ private fun UserAgreementCheckbox(
 private fun ProcessLoadingAndErrorState(input: PublicState?) {
     val loadingDialog = getLoadingDialog()
     val errorDialog = getErrorDialog(
-        title = stringResource(id = R.string.label_warning_title_dialog),
+        title = stringResource(id = R.string.ara_label_warning_title_dialog),
         description = "",
         submitAction = {}
     )
@@ -610,7 +610,7 @@ private fun SubmitDocumentRequestSuccessHandler(
 ) {
     val dialog = getSuccessDialog(
         title = stringResource(
-            id = R.string.label_request_validation
+            id = R.string.ara_label_request_validation
         ),
         description = ""
     ) {}
@@ -618,7 +618,7 @@ private fun SubmitDocumentRequestSuccessHandler(
     if (response != null) {
         dialog.setDialogDetailMessage(
             stringResource(
-                id = R.string.msg_request_validation_success,
+                id = R.string.ara_msg_request_validation_success,
                 response.documentSerialNumber
             )
         ).setSubmitAction {

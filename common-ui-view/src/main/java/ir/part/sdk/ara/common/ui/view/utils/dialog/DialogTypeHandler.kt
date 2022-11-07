@@ -27,7 +27,7 @@ class DialogTypeHandler {
                     title = title ?: "",
                     description = description ?: "",
                     submitAction = submitAction,
-                    submitText = StringResource.label_confirmation_dialog,
+                    submitText = StringResource.ara_label_confirmation_dialog,
                     iconId = icon,
                     iconTintColor = iconTintColor,
                     boxBackgroundColor = boxBackgroundColor

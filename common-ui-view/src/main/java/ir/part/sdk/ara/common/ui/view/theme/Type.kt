@@ -13,8 +13,8 @@ import ir.part.sdk.ara.common.ui.view.*
 
 val Typography = Typography(
     defaultFontFamily = FontFamily(
-        Font(R.font.iran_yekan_bold, weight = FontWeight.Bold),
-        Font(R.font.iran_yekan_regular, weight = FontWeight.Normal)
+        Font(R.font.ara_iran_yekan_bold, weight = FontWeight.Bold),
+        Font(R.font.ara_iran_yekan_regular, weight = FontWeight.Normal)
     ),
     h4 = TextStyle(
         fontSize = 28.sp,

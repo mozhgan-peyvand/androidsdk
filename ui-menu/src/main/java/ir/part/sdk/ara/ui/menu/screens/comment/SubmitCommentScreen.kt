@@ -247,7 +247,7 @@ private fun ProcessLoadingAndErrorState(
     onErrorDialogDismissed: () -> Unit,
 ) {
     val dialog = getErrorDialog(
-        title = stringResource(id = R.string.msg_general_error_title),
+        title = stringResource(id = R.string.ara_msg_general_error_title),
         description = "",
         submitAction = {
             onErrorDialogDismissed()

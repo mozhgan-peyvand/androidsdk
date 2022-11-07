@@ -196,7 +196,7 @@ private fun DocumentDetail(
 private fun ProcessLoadingAndErrorState(input: PublicState?) {
     val loadingDialog = getLoadingDialog()
     val errorDialog = getErrorDialog(
-        title = stringResource(id = R.string.label_warning_title_dialog),
+        title = stringResource(id = R.string.ara_label_warning_title_dialog),
         description = "",
         submitAction = {}
     )

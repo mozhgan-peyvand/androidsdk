@@ -30,10 +30,10 @@
         <item name="android:windowBackground">@color/commonResourceColorBackground</item>
     </style>
     <style name="Button" parent="Widget.MaterialComponents.Button">
-        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_bold</item>
         <item name="android:textSize">25sp</item>
-        <item name="android:textColor">@drawable/common_resource_selector_widget_text</item>
-        <item name="backgroundTint">@drawable/common_resource_selector_button</item>
+        <item name="android:textColor">@drawable/ara_selector_widget_text</item>
+        <item name="backgroundTint">@drawable/ara_selector_button</item>
         <item name="cornerRadius">@dimen/radius_normal</item>
         <item name="android:height">@dimen/spacing_17x</item>
     </style>
@@ -44,15 +44,15 @@
 
     </style>
     <style name="OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_bold</item>
         <item name="android:textSize">25sp</item>
         <item name="cornerRadius">@dimen/radius_normal</item>
         <item name="android:height">@dimen/spacing_15x</item>
     </style>
 
     <style name="OutlinedButton.Primary">
-        <item name="android:textColor">@drawable/common_resource_selector_widget_text_blue</item>
-        <item name="strokeColor">@drawable/common_resource_selector_button</item>
+        <item name="android:textColor">@drawable/ara_selector_widget_text_blue</item>
+        <item name="strokeColor">@drawable/ara_selector_button</item>
     </style>
 
     <style name="OutlinedButton.Primary.Normal">
@@ -61,9 +61,9 @@
     </style>
 
     <style name="IconButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
-        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_bold</item>
         <item name="android:textSize">17sp</item>
-        <item name="android:textColor">@drawable/common_resource_selector_widget_text_gray</item>
+        <item name="android:textColor">@drawable/ara_selector_widget_text_gray</item>
         <item name="rippleColor">@color/commonResourceColorDivider</item>
     </style>
 
@@ -77,7 +77,7 @@
     //custom style for textAppearance
 
     <style name="Headline4">
-        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_bold</item>
         <item name="android:textSize">28sp</item>
     </style>
 
@@ -90,7 +90,7 @@
     </style>
 
     <style name="Headline5">
-        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_bold</item>
         <item name="android:textSize">23sp</item>
     </style>
 
@@ -103,7 +103,7 @@
     </style>
 
     <style name="Headline6">
-        <item name="android:fontFamily">@font/iran_yekan_regular</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_regular</item>
         <item name="android:textSize">20sp</item>
     </style>
 
@@ -116,11 +116,11 @@
     </style>
 
     <style name="Headline6.Primary.Bold">
-        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_bold</item>
     </style>
 
     <style name="Subtitle1">
-        <item name="android:fontFamily">@font/iran_yekan_regular</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_regular</item>
         <item name="android:textSize">17sp</item>
     </style>
 
@@ -137,11 +137,11 @@
     </style>
 
     <style name="Subtitle1.Primary.Bold">
-        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_bold</item>
     </style>
 
     <style name="Subtitle2">
-        <item name="android:fontFamily">@font/iran_yekan_regular</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_regular</item>
         <item name="android:textSize">14sp</item>
     </style>
 
@@ -154,7 +154,7 @@
     </style>
 
     <style name="Subtitle2.Primary.Bold">
-        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_bold</item>
     </style>
 
     <style name="Subtitle2.Highlight">
@@ -162,7 +162,7 @@
     </style>
 
     <style name="Subtitle2.Highlight.Bold">
-        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_bold</item>
     </style>
 
     <style name="Subtitle2.Error">
@@ -170,7 +170,7 @@
     </style>
 
     <style name="Caption">
-        <item name="android:fontFamily">@font/iran_yekan_regular</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_regular</item>
         <item name="android:textSize">12sp</item>
     </style>
 
@@ -179,7 +179,7 @@
     </style>
 
     <style name="Caption.Primary.Bold">
-        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_bold</item>
     </style>
 
     <style name="Caption.Secondary">
@@ -187,7 +187,7 @@
     </style>
 
     <style name="Body1">
-        <item name="android:fontFamily">@font/iran_yekan_regular</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_regular</item>
         <item name="android:textSize">17sp</item>
     </style>
 
@@ -196,7 +196,7 @@
     </style>
 
     <style name="Body2">
-        <item name="android:fontFamily">@font/iran_yekan_regular</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_regular</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -209,11 +209,11 @@
     </style>
 
     <style name="Body2.Primary.Bold">
-        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_bold</item>
     </style>
 
     <style name="Body2.Secondary.Bold">
-        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_bold</item>
     </style>
 
     <style name="Body2.Highlight">
@@ -221,7 +221,7 @@
     </style>
 
     <style name="Body2.Highlight.Bold">
-        <item name="android:fontFamily">@font/iran_yekan_bold</item>
+        <item name="android:fontFamily">@font/ara_iran_yekan_bold</item>
     </style>
 
     <style name="Body2.White">
