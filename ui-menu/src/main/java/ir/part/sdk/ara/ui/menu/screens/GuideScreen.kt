@@ -83,7 +83,7 @@ private fun GuideContent() {
 
                 Text(
                     modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.spacing_3x)),
-                    text = stringResource(id = R.string.label_download_guide_file),
+                    text = stringResource(id = R.string.ara_label_download_guide_file),
                     style = MaterialTheme.typography.h5PrimaryVariant()
                 )
             }
@@ -97,22 +97,22 @@ private fun GuideContent() {
 
         item {
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
-            HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.description_array_guide_one))
+            HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.ara_description_array_guide_one))
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
-            HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.description_array_guide_two))
+            HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.ara_description_array_guide_two))
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
-            HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.description_array_guide_three))
+            HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.ara_description_array_guide_three))
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
-            HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.description_array_guide_four))
+            HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.ara_description_array_guide_four))
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
-            HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.description_array_guide_five))
+            HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.ara_description_array_guide_five))
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
-            HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.description_array_guide_six))
+            HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.ara_description_array_guide_six))
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
 
         }
@@ -191,23 +191,23 @@ private fun GuideItemExpandable(item: GuideView) {
 }
 
 private fun getListOfGuideView(context: Context): List<GuideView> {
-    val steps = context.resources.getStringArray(R.array.step_array)
-    val titles = context.resources.getStringArray(R.array.title_array_guide)
+    val steps = context.resources.getStringArray(R.array.ara_step_array)
+    val titles = context.resources.getStringArray(R.array.ara_title_array_guide)
 
-    val one = context.resources.getStringArray(R.array.details_array_guide_one)
-    val two = context.resources.getStringArray(R.array.details_array_guide_two)
-    val three = context.resources.getStringArray(R.array.details_array_guide_three)
-    val four = context.resources.getStringArray(R.array.details_array_guide_four)
-    val five = context.resources.getStringArray(R.array.details_array_guide_five)
-    val six = context.resources.getStringArray(R.array.details_array_guide_six)
-    val seven = context.resources.getStringArray(R.array.details_array_guide_seven)
-    val eight = context.resources.getStringArray(R.array.details_array_guide_eight)
-    val nine = context.resources.getStringArray(R.array.details_array_guide_nine)
-    val ten = context.resources.getStringArray(R.array.details_array_guide_ten)
-    val eleven = context.resources.getStringArray(R.array.details_array_guide_eleven)
-    val twelve = context.resources.getStringArray(R.array.details_array_guide_twelve)
-    val thirteen = context.resources.getStringArray(R.array.details_array_guide_thirteen)
-    val fourteen = context.resources.getStringArray(R.array.details_array_guide_fourteen)
+    val one = context.resources.getStringArray(R.array.ara_details_array_guide_one)
+    val two = context.resources.getStringArray(R.array.ara_details_array_guide_two)
+    val three = context.resources.getStringArray(R.array.ara_details_array_guide_three)
+    val four = context.resources.getStringArray(R.array.ara_details_array_guide_four)
+    val five = context.resources.getStringArray(R.array.ara_details_array_guide_five)
+    val six = context.resources.getStringArray(R.array.ara_details_array_guide_six)
+    val seven = context.resources.getStringArray(R.array.ara_details_array_guide_seven)
+    val eight = context.resources.getStringArray(R.array.ara_details_array_guide_eight)
+    val nine = context.resources.getStringArray(R.array.ara_details_array_guide_nine)
+    val ten = context.resources.getStringArray(R.array.ara_details_array_guide_ten)
+    val eleven = context.resources.getStringArray(R.array.ara_details_array_guide_eleven)
+    val twelve = context.resources.getStringArray(R.array.ara_details_array_guide_twelve)
+    val thirteen = context.resources.getStringArray(R.array.ara_details_array_guide_thirteen)
+    val fourteen = context.resources.getStringArray(R.array.ara_details_array_guide_fourteen)
 
     return listOf(
         GuideView(title = titles[0], step = steps[0], one.toList()),
@@ -230,7 +230,7 @@ private fun getListOfGuideView(context: Context): List<GuideView> {
 private fun downloadGuideFile(context: Context) {
     val intent = Intent(
         Intent.ACTION_VIEW,
-        Uri.parse(context.getString(R.string.label_download_guide_file_url))
+        Uri.parse(context.getString(R.string.ara_label_download_guide_file_url))
     )
     intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
     context.startActivity(intent)

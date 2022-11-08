@@ -47,42 +47,42 @@ private fun AboutUsContent() {
             .padding(horizontal = dimensionResource(id = R.dimen.spacing_4x))
     ) {
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_6x)))
-        TextHeadline6PrimaryBold(text = stringResource(id = R.string.label_introduce_merat_validation_system_body))
+        TextHeadline6PrimaryBold(text = stringResource(id = R.string.ara_label_introduce_merat_validation_system_body))
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_5x)))
-        TextBody2Secondary(text = stringResource(id = R.string.label_about_us_header))
+        TextBody2Secondary(text = stringResource(id = R.string.ara_label_about_us_header))
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_5x)))
-        TextBody2Secondary(text = stringResource(id = R.string.label_about_us_body_introduce))
+        TextBody2Secondary(text = stringResource(id = R.string.ara_label_about_us_body_introduce))
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_6x)))
-        TextHeadline6PrimaryBold(text = stringResource(id = R.string.label_center_merat_validation))
+        TextHeadline6PrimaryBold(text = stringResource(id = R.string.ara_label_center_merat_validation))
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_5x)))
-        TextBody2Secondary(text = stringResource(id = R.string.label_merat_validation_center_body))
+        TextBody2Secondary(text = stringResource(id = R.string.ara_label_merat_validation_center_body))
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_9x)))
 
-        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.label_about_us_two))
+        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.ara_label_about_us_two))
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
 
-        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.label_about_us_three))
+        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.ara_label_about_us_three))
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
 
-        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.label_about_us_four))
+        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.ara_label_about_us_four))
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
 
-        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.label_about_us_five))
+        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.ara_label_about_us_five))
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
 
-        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.label_about_us_six))
+        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.ara_label_about_us_six))
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
 
-        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.label_about_us_seven))
+        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.ara_label_about_us_seven))
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
 
-        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.label_about_us_eight))
+        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.ara_label_about_us_eight))
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
 
-        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.label_about_us_nine))
+        HighlightedBulletWithTextBody2Secondary(text = stringResource(id = R.string.ara_label_about_us_nine))
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_3x)))
 
     }
@@ -98,7 +98,7 @@ private fun VersionBottomBar() {
             .padding(dimensionResource(id = R.dimen.spacing_2x)),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically) {
-            Text(text = stringResource(id = R.string.label_about_us_app_version,
+            Text(text = stringResource(id = R.string.ara_label_about_us_app_version,
                 BuildConfig.VERSION_NAME),
                 style = MaterialTheme.typography.subtitle1,
                 color = ColorBlueDarker)

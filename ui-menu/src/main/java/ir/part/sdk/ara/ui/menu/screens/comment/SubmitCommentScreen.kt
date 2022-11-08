@@ -55,7 +55,7 @@ fun SubmitCommentScreen(
         topBar = {
             TopAppBar(backgroundColor = MaterialTheme.colors.surface,
                 elevation = dimensionResource(id = R.dimen.spacing_half_base)) {
-                TopAppBarContent(title = stringResource(id = R.string.label_submit_comments),
+                TopAppBarContent(title = stringResource(id = R.string.ara_label_submit_comments),
                     onNavigateUp = {
                         onNavigateUp()
                     })
@@ -78,7 +78,7 @@ fun SubmitCommentScreen(
                     )
 
                 },
-                buttonText = R.string.label_send_comment)
+                buttonText = R.string.ara_label_send_comment)
 
         }) { innerPadding ->
         Box(Modifier.padding(innerPadding)) {
@@ -102,8 +102,8 @@ private fun CommentContent(
 ) {
     if (showSuccessDialog) {
         getSuccessDialog(
-            title = stringResource(id = R.string.label_send_comment),
-            description = stringResource(id = R.string.msg_submit_comment_success)) {
+            title = stringResource(id = R.string.ara_label_send_comment),
+            description = stringResource(id = R.string.ara_msg_submit_comment_success)) {
             onSuccessDialogConfirmed()
 
         }.show()
@@ -116,18 +116,18 @@ private fun CommentContent(
         .padding(horizontal = dimensionResource(id = R.dimen.spacing_4x))) {
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_6x)))
-        Text(text = stringResource(id = R.string.label_submit_comments),
+        Text(text = stringResource(id = R.string.ara_label_submit_comments),
             style = MaterialTheme.typography.h6Bold())
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_5x)))
-        Text(text = stringResource(id = R.string.label_description_comment),
+        Text(text = stringResource(id = R.string.ara_label_description_comment),
             style = MaterialTheme.typography.subtitle2TextSecondary())
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_8x)))
 
-        CommentTextFieldItem(title = stringResource(id = R.string.label_name),
+        CommentTextFieldItem(title = stringResource(id = R.string.ara_label_name),
             value = viewModel.name.value,
-            hint = stringResource(id = R.string.label_enter_your_name),
+            hint = stringResource(id = R.string.ara_label_enter_your_name),
             onValueChanged = {
                 viewModel.setName(it)
             }, errorMessage = if (viewModel.errorName.value.second.isNotEmpty())
@@ -135,9 +135,9 @@ private fun CommentContent(
             else "")
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_4x)))
 
-        CommentTextFieldItem(title = stringResource(id = R.string.label_last_name),
+        CommentTextFieldItem(title = stringResource(id = R.string.ara_label_last_name),
             value = viewModel.lastName.value,
-            hint = stringResource(id = R.string.label_enter_your_last_name),
+            hint = stringResource(id = R.string.ara_label_enter_your_last_name),
             onValueChanged = {
                 viewModel.setLastName(it)
             }, errorMessage = if (viewModel.errorLastName.value.second.isNotEmpty())
@@ -146,9 +146,9 @@ private fun CommentContent(
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_4x)))
 
 
-        CommentTextFieldItem(title = stringResource(id = R.string.label_email_persian),
+        CommentTextFieldItem(title = stringResource(id = R.string.ara_label_email_persian),
             value = viewModel.email.value,
-            hint = stringResource(id = R.string.label_enter_your_email),
+            hint = stringResource(id = R.string.ara_label_enter_your_email),
             onValueChanged = {
                 viewModel.setEmail(it)
             }, errorMessage = if (viewModel.errorEmail.value.second.isNotEmpty())
@@ -158,9 +158,9 @@ private fun CommentContent(
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_4x)))
 
 
-        CommentTextFieldItem(title = stringResource(id = R.string.label_phone_number_with_colon),
+        CommentTextFieldItem(title = stringResource(id = R.string.ara_label_phone_number_with_colon),
             value = viewModel.phone.value,
-            hint = stringResource(id = R.string.label_enter_your_phone_number),
+            hint = stringResource(id = R.string.ara_label_enter_your_phone_number),
             onValueChanged = {
                 viewModel.setPhone(it)
             }, errorMessage = if (viewModel.errorPhone.value.second.isNotEmpty())
@@ -169,9 +169,9 @@ private fun CommentContent(
             keyboardType = KeyboardType.Number)
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_4x)))
 
-        CommentTextFieldItem(title = stringResource(id = R.string.label_title_comment),
+        CommentTextFieldItem(title = stringResource(id = R.string.ara_label_title_comment),
             value = viewModel.commentText.value,
-            hint = stringResource(id = R.string.label_enter_your_comment_content),
+            hint = stringResource(id = R.string.ara_label_enter_your_comment_content),
             onValueChanged = {
                 viewModel.setCommentText(it)
             }, errorMessage = if (viewModel.errorCommentText.value.second.isNotEmpty())
@@ -182,7 +182,7 @@ private fun CommentContent(
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_6x)))
 
         Text(
-            text = stringResource(id = R.string.label_enter_captcha),
+            text = stringResource(id = R.string.ara_label_enter_captcha),
             style = MaterialTheme.typography.subtitle1BoldTextPrimary()
         )
         Captcha(

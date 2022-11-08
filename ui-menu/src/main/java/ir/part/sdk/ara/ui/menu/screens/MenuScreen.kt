@@ -152,7 +152,7 @@ private fun ShowExitDialogIfNeeded(
 ) {
     val exitDialog = getExitAppDialog(
         title = stringResource(id = R.string.ara_label_exit),
-        description = stringResource(id = R.string.label_would_you_like_to_logout_from_your_account),
+        description = stringResource(id = R.string.ara_label_would_you_like_to_logout_from_your_account),
         submitAction = {
             onConfirmedLogout()
         },
@@ -199,7 +199,6 @@ private fun MainMenuHeader(phone: String, nationalCode: String) {
             Text(
                 text = phone,
                 style = MaterialTheme.typography.body2OnPrimary(),
-                color = ColorWhite
             )
         }
         Image(

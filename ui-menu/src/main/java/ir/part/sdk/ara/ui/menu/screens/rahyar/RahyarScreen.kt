@@ -102,7 +102,7 @@ private fun RahyarScreenElement(
                     add(
                         0, ProvincesAndCityView(
                             listOf(), "-1", "", itemLabel = stringResource(
-                                id = R.string.label_choose_all_city
+                                id = R.string.ara_label_choose_all_city
                             )
                         )
                     )
@@ -140,7 +140,7 @@ private fun RahyarScreenElement(
         }) { padding ->
             Column(modifier = Modifier.fillMaxSize()) {
                 Text(
-                    text = stringResource(id = R.string.label_choose_city),
+                    text = stringResource(id = R.string.ara_label_choose_city),
                     style = MaterialTheme.typography.captionTextPrimary(),
                     modifier = Modifier.padding(
                         end = dimensionResource(id = R.dimen.spacing_4x),
@@ -151,7 +151,7 @@ private fun RahyarScreenElement(
                 )
                 TextField(
                     value = selectedProvince?.itemLabel
-                        ?: stringResource(R.string.label_choose_your_city),
+                        ?: stringResource(R.string.ara_label_choose_your_city),
                     textStyle = MaterialTheme.typography.subtitle2TextSecondary(),
                     onValueChange = { },
                     enabled = false,
@@ -176,7 +176,7 @@ private fun RahyarScreenElement(
                     )
                 )
                 Text(
-                    text = stringResource(id = R.string.label_address),
+                    text = stringResource(id = R.string.ara_label_address),
                     style = MaterialTheme.typography.h6BoldTextPrimary(),
                     modifier = Modifier.padding(
                         end = dimensionResource(id = R.dimen.spacing_4x),
@@ -241,7 +241,7 @@ private fun RahyarListElement(rahyarItems: RahyarView, doingIntent: (String) -> 
             rahyarItems.telephone.split("\n").forEach {
                 Row(verticalAlignment = CenterVertically) {
                     Image(
-                        painter = painterResource(id = R.drawable.merat_ic_telephone),
+                        painter = painterResource(id = R.drawable.ara_ic_telephone),
                         contentDescription = "ic_telephone",
                         modifier =
                         Modifier.padding(
@@ -303,7 +303,7 @@ private fun RahyarToolbar(
                 val (
                     backButton, labelText, icSearch) = createRefs()
                 Image(
-                    painter = painterResource(id = R.drawable.ara_ic_arrow_right),
+                    painter = painterResource(id = R.drawable.ara_ic_back),
                     contentDescription = "ic_back", modifier = Modifier
                         .padding(
                             start = dimensionResource(
@@ -320,7 +320,7 @@ private fun RahyarToolbar(
                         }
                 )
                 Text(
-                    text = stringResource(id = R.string.label_rahyar_menu),
+                    text = stringResource(id = R.string.ara_label_rahyar_menu),
                     modifier = Modifier
                         .constrainAs(labelText) {
                             end.linkTo(icSearch.start)
@@ -331,7 +331,7 @@ private fun RahyarToolbar(
                     style = MaterialTheme.typography.h6BoldTextPrimary()
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.merat_ic_zoom_out),
+                    painter = painterResource(id = R.drawable.ara_ic_zoom_out),
                     contentDescription = "ic_search",
                     modifier = Modifier
                         .padding(end = dimensionResource(id = R.dimen.spacing_4x))
@@ -364,14 +364,14 @@ private fun RahyarToolbar(
                         unfocusedIndicatorColor = Color.Transparent,
                     ), placeholder = {
                         Text(
-                            text = stringResource(id = R.string.label_search_word),
+                            text = stringResource(id = R.string.ara_label_search_word),
                             style = MaterialTheme.typography.subtitle2TextSecondary()
                         )
                     },
                     maxLines = 1
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.merat_ic_close),
+                    painter = painterResource(id = R.drawable.ara_ic_close),
                     contentDescription = "",
                     modifier = Modifier
                         .weight(1f)
@@ -441,7 +441,7 @@ private fun ProvinceSelection(
                 top = dimensionResource(id = DimensionResource.spacing_8x),
                 start = dimensionResource(id = DimensionResource.spacing_4x)
             ),
-            text = stringResource(id = R.string.label_choose_city),
+            text = stringResource(id = R.string.ara_label_choose_city),
             style = MaterialTheme.typography.h6Bold(),
             textAlign = TextAlign.End
         )
