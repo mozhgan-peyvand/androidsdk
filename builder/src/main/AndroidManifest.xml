@@ -30,7 +30,20 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
-            android:theme="@style/Theme.AraLib" />
+            android:theme="@style/Theme.AraLib">
+
+            <intent-filter android:label="filePayReturn">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="returnarasdk"
+                    android:scheme="arasdkpayment" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

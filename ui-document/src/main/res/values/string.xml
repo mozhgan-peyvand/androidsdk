@@ -41,4 +41,9 @@
     <string name="ara_label_refund_capability_commitment_ceiling_remain">باقی مانده سقف تعهد (ریال)</string>
     <string name="ara_label_expire_date">تاریخ اعتبار</string>
     <string name="ara_label_personal_national_code">کد ملی</string>
+    <string name="ara_msg_file_validation_payment"><![CDATA[
+        <p>عضو محترم جهت مشاهده نتیجه اعتبارسنجی و تکمیل پرونده، لازم است هزینه اعتبارسنجی پرداخت شود. لازم به ذکر است براساس مقررات، ۹ درصد مالیات بر ارزش افزوده دریافت می‌شود. جهت پرداخت هزینه اعتبارسنجی لطفا روی دکمه پرداخت کلیک کنید. هزینه اعتبارسنجی شما %s تومان می‌باشد.</p>
+        <a><b>تذکر:</b> در صورت عدم پرداخت هزینه اعتبارسنجی، پرونده شما وارد مرحله بعد نخواهد شد و در همین مرحله متوقف خواهد ماند.</a>
+        ]]>
+    </string>
 </resources>

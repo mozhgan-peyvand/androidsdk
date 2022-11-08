@@ -22,7 +22,8 @@ data class Constant(
 data class ProvincesAndCity(
     val cities: List<Constant>?,
     val provinceId: String,
-    val provinceName: String
+    val provinceName: String,
+    val paymentAmount: Long? = null
 )
 
 data class StatusParam(

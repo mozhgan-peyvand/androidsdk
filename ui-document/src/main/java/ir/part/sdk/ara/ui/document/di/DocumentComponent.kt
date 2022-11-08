@@ -5,6 +5,7 @@ import ir.part.sdk.ara.base.di.*
 import ir.part.sdk.ara.common.ui.view.AraViewModelFactory
 import ir.part.sdk.ara.common.ui.view.di.CommonUiComponent
 import ir.part.sdk.ara.data.barjavand.di.BarjavandComponent
+import ir.part.sdk.ara.data.payment.di.PaymentComponent
 import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
 import ir.part.sdk.ara.ui.document.submitDocument.SubmitDocumentViewModel
 
@@ -14,7 +15,8 @@ import ir.part.sdk.ara.ui.document.submitDocument.SubmitDocumentViewModel
     dependencies = [
         BaseComponent::class,
         BarjavandComponent::class,
-        CommonUiComponent::class
+        CommonUiComponent::class,
+        PaymentComponent::class
     ]
 )
 interface DocumentComponent : BasicComponent {
@@ -24,7 +26,8 @@ interface DocumentComponent : BasicComponent {
         fun create(
             baseComponent: BaseComponent,
             barjavandComponent: BarjavandComponent,
-            commonUiComponent: CommonUiComponent
+            commonUiComponent: CommonUiComponent,
+            paymentComponent: PaymentComponent
         ): DocumentComponent
     }
 
@@ -38,7 +41,8 @@ interface DocumentComponent : BasicComponent {
                 DaggerDocumentComponent.factory().create(
                     baseComponent = BaseComponent.builder(componentProvider),
                     barjavandComponent = BarjavandComponent.builder(componentProvider),
-                    commonUiComponent = CommonUiComponent.builder(componentProvider)
+                    commonUiComponent = CommonUiComponent.builder(componentProvider),
+                    paymentComponent = PaymentComponent.builder(componentProvider)
                 )
             )) as DocumentComponent
         }

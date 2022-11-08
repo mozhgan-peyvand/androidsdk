@@ -1,6 +1,8 @@
 package ir.part.sdk.ara.builder.ui.view
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
@@ -294,5 +296,26 @@ class HomeActivity : ComponentProviderActivity() {
                 exitDialog.dismiss()
             }
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if ((this as? Activity)?.intent?.action == Intent.ACTION_VIEW && (this as? Activity)?.intent?.data?.getQueryParameters(
+                "status"
+            ) != null
+        ) {
+            val status = (this as? Activity)?.intent?.data?.getQueryParameters("status")
+
+            if (status?.first() == "1") {
+                navController.navigateToFileListScreen()
+            } else {
+                navController.navigateToFileListScreen()
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
     }
 }

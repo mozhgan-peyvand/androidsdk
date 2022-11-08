@@ -17,4 +17,5 @@ fun ProvincesAndCity.toProvincesAndCityView() = ProvincesAndCityView(
     cities = cities?.map { it.toConstantView() },
     provinceId = provinceId,
     provinceName = provinceName,
+    paymentAmount = paymentAmount
 )

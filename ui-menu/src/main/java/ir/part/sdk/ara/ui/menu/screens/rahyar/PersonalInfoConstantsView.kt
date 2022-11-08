@@ -13,6 +13,7 @@ data class ProvincesAndCityView(
     val cities: List<ConstantView>?,
     val provinceId: String,
     var provinceName: String,
+    val paymentAmount: Long? = null,
     var itemLabel: String = provinceName
 )
 

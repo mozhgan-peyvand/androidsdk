@@ -1,5 +1,9 @@
 package ir.part.sdk.ara.ui.document.overviewDocument
 
+import android.content.Intent
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -28,16 +32,15 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import ir.part.sdk.ara.common.ui.view.*
 import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.api.UiMessage
-import ir.part.sdk.ara.common.ui.view.theme.captionBoldSuccess
-import ir.part.sdk.ara.common.ui.view.theme.captionBoldTextPrimary
-import ir.part.sdk.ara.common.ui.view.theme.captionTextSecondary
-import ir.part.sdk.ara.common.ui.view.theme.subtitle2BoldTextPrimary
+import ir.part.sdk.ara.common.ui.view.theme.*
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getDeleteDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getFileValidationPaymentDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.ui.document.R
 import ir.part.sdk.ara.ui.document.submitDocument.model.DocumentsStatusView
 import ir.part.sdk.ara.ui.document.submitDocument.model.PersonalDocumentsView
+import ir.part.sdk.ara.ui.document.submitDocument.model.ProvincesAndCityView
 import ir.part.sdk.ara.ui.document.submitDocument.model.StatusParamView
 import ir.part.sdk.ara.ui.document.utils.common.AraFileDoesNotExist
 import ir.part.sdk.ara.ui.document.utils.common.AraFileNotFound
@@ -85,18 +88,52 @@ fun FileListScreen(
         )
     }
 
+    val loadingErrorStatePayment = viewModel?.let {
+        rememberFlowWithLifecycle(flow = viewModel.loadingAndMessageStatePayment).collectAsState(
+            initial = PublicState.Empty
+        )
+    }
+
 
     docList = viewModel?.documents?.collectAsState()?.value
 
     documentStatusConstants =
         viewModel?.overviewDocumentState?.collectAsState(initial = null)?.value?.personalInfoConstantsItem?.documentStatusNameEntity
 
+    var personalProvince: Int? by remember {
+        mutableStateOf(0)
+    }
+    personalProvince =
+        viewModel?.overviewDocumentState?.collectAsState(initial = null)?.value?.personalInfoSubmitDocumentView?.province
+
+    var provinceMoney: ProvincesAndCityView? by remember {
+        mutableStateOf(null)
+    }
+
+    provinceMoney =
+        viewModel?.overviewDocumentState?.collectAsState(initial = null)?.value?.personalInfoConstantsItem?.provincesAndCities?.first {
+            it.provinceId.toInt() == personalProvince
+        }
+
+    val launcherPayment =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
+
     SetHasUnreadMessageRequestSuccessHandler(response = setHasUnreadMessageResponse) {
         setHasUnreadMessageResponse = null
         navigateToValidationResult.invoke()
     }
 
+    val fileValidationPaymentDialog = getFileValidationPaymentDialog(
+        title = stringResource(id = R.string.ara_label_payment),
+
+        stringResource(
+            R.string.ara_msg_file_validation_payment,
+            (provinceMoney?.paymentAmount?.div(10)).toString()
+        )
+    )
+
     ProcessLoadingAndErrorState(input = loadingErrorState?.value)
+    ProcessLoadingAndErrorState(input = loadingErrorStatePayment?.value)
 
     if (loadingErrorState != null) {
         ScreenContent(
@@ -150,8 +187,19 @@ fun FileListScreen(
 
                 }
             },
-            onDocumentPaymentIconClick = {
-                //todo : add this when payment api is ready
+            onDocumentPaymentIconClick = { documentProcessInstanceId ->
+                fileValidationPaymentDialog.setSubmitAction {
+                    documentProcessInstanceId?.let { docPid ->
+                        viewModel.getPaymentUrl(documentProcessInstanceId = docPid) { paymentUrl ->
+                            val openBrowser = Intent(Intent.ACTION_VIEW)
+                            openBrowser.data = Uri.parse(paymentUrl)
+                            launcherPayment.launch(openBrowser)
+                        }
+                    }
+                }.setCancelAction {
+                    fileValidationPaymentDialog.dismiss()
+                }.show()
+
             }
         )
     }
@@ -167,7 +215,7 @@ private fun ScreenContent(
     uiErrorMessage: UiMessage?,
     onDocumentValidationIconClick: (DocumentsStatusView?, Long?, PersonalDocumentsView?) -> Unit,
     onDocumentRemoveIconClick: (Long?) -> Unit,
-    onDocumentPaymentIconClick: () -> Unit
+    onDocumentPaymentIconClick: (String?) -> Unit
 ) {
 
     var filteredDocList: List<PersonalDocumentsView>? by remember {
@@ -238,7 +286,9 @@ private fun ScreenContent(
                             onDocumentRemoveIconClick = {
                                 onDocumentRemoveIconClick(it)
                             },
-                            onDocumentPaymentIconClick = { onDocumentPaymentIconClick() })
+                            onDocumentPaymentIconClick = { documentProcessInstanceId ->
+                                onDocumentPaymentIconClick(documentProcessInstanceId)
+                            })
                     } else {
                         Column(
                             modifier = Modifier
@@ -267,7 +317,9 @@ private fun ScreenContent(
                             onDocumentRemoveIconClick = {
                                 onDocumentRemoveIconClick(it)
                             },
-                            onDocumentPaymentIconClick = { onDocumentPaymentIconClick() })
+                            onDocumentPaymentIconClick = { documentProcessInstanceId ->
+                                onDocumentPaymentIconClick(documentProcessInstanceId)
+                            })
                     } else {
                         Column(
                             modifier = Modifier
@@ -355,7 +407,7 @@ private fun DocumentsList(
     onItemClick: (PersonalDocumentsView) -> Unit,
     onDocumentValidationIconClick: (DocumentsStatusView?, Long?, PersonalDocumentsView?) -> Unit,
     onDocumentRemoveIconClick: (Long?) -> Unit,
-    onDocumentPaymentIconClick: () -> Unit
+    onDocumentPaymentIconClick: (String?) -> Unit
 ) {
 
     LazyColumn(
@@ -377,7 +429,9 @@ private fun DocumentsList(
                 onDocumentRemoveIconClick = {
                     onDocumentRemoveIconClick(it)
                 },
-                onDocumentPaymentIconClick = { onDocumentPaymentIconClick() },
+                onDocumentPaymentIconClick = { documentProcessInstanceId ->
+                    onDocumentPaymentIconClick(documentProcessInstanceId)
+                },
                 onDocumentValidationIconClick = { statusCode, id, selectedDocument ->
                     onDocumentValidationIconClick(statusCode, id, selectedDocument)
                 })
@@ -393,7 +447,7 @@ private fun DocumentListItem(
     onItemClick: (PersonalDocumentsView) -> Unit,
     onDocumentValidationIconClick: (DocumentsStatusView?, Long?, PersonalDocumentsView?) -> Unit,
     onDocumentRemoveIconClick: (Long?) -> Unit,
-    onDocumentPaymentIconClick: () -> Unit
+    onDocumentPaymentIconClick: (String?) -> Unit
 ) {
 
     val constraints = ConstraintSet {
@@ -582,17 +636,26 @@ private fun DocumentListItem(
             )
 
             if (document.statusId == DocumentsStatusView.CODE_18) {
-                Icon(
+                Button(
+                    onClick = { onDocumentPaymentIconClick(document.processInstanceId) },
                     modifier = Modifier
                         .layoutId("creditCardDrawable")
-                        .width(dimensionResource(id = R.dimen.spacing_8x))
-                        .clickable {
-                            onDocumentPaymentIconClick()
-                        },
-                    painter = painterResource(id = R.drawable.ara_ic_credit_card),
-                    contentDescription = "ara_ic_credit_card",
-                    tint = MaterialTheme.colors.success()
-                )
+                        .padding(
+                            end = dimensionResource(
+                                id = R.dimen.spacing_base
+                            )
+                        ),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = MaterialTheme.colors.primaryVariant(),
+                        contentColor = MaterialTheme.colors.onPrimary()
+                    ), shape = RoundedCornerShape(dimensionResource(id = R.dimen.radius_normal))
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.ara_label_payment),
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.body2BoldOnPrimary()
+                    )
+                }
             }
 
             // todo : use status code when it is ready
