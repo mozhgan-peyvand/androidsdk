@@ -16,6 +16,7 @@ class ApiUrlHelper @Inject constructor(
     lateinit var barjavand: Barjavand
     lateinit var dashboard: Dashboard
     lateinit var stateService: StateService
+    lateinit var payment: Payment
 
     init {
         update()
@@ -27,11 +28,13 @@ class ApiUrlHelper @Inject constructor(
         barjavand = Barjavand(context.getString(R.string.API_URL_Barjavand))
         dashboard = Dashboard(context.getString(R.string.API_URL_Dashboard))
         stateService = StateService(context.getString(R.string.API_URL_STATE_SERVICE))
+        payment = Payment(context.getString(R.string.API_URL_PAYMENT))
 
         userManager.update()
         barjavand.update()
         dashboard.update()
         stateService.update()
+        payment.update()
 
     }
 
@@ -110,6 +113,13 @@ class ApiUrlHelper @Inject constructor(
 
         override fun update() {
             getBaseStateObject = "$baseUrl/service/atlas@3/readByKey/araMerat"
+        }
+    }
+
+    class Payment(override val baseUrl: String = "") : ApiUrl {
+        lateinit var getPayment: String
+        override fun update() {
+            getPayment = "$baseUrl/araMeratPayment@1/payment"
         }
     }
 }

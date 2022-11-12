@@ -176,8 +176,6 @@ fun getExitAppDialog(
 fun getFileValidationPaymentDialog(
     title: String,
     description: String,
-    submitAction: () -> Unit,
-    cancelAction: () -> Unit
 ): DialogManager {
     val builder = DialogManager.builder()
         .setDialogType(DialogType.PROMPT_INFO)
@@ -188,10 +186,8 @@ fun getFileValidationPaymentDialog(
             iconTintColor = MaterialTheme.colors.primaryVariant,
             boxBackgroundColor = MaterialTheme.colors.highlightBackground()
         )
-        .setSubmitAction { submitAction() }
         .setSubmitText(StringResource.ara_label_payment)
         .setCancelText(StringResource.ara_label_dialog_cancel)
-        .setCancelAction { cancelAction() }
     builder.Build()
 
     return builder

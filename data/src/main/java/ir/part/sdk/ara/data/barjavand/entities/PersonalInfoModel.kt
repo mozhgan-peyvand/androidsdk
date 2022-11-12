@@ -10,13 +10,15 @@ import se.ansman.kotshi.JsonSerializable
 data class PersonalInfoModel(
     @field:Json(name = "identity")
     var identity: IdentityEntity? = null,
+    @field:Json(name = "personal")
+    var personal: PersonalEntity? = null
 ) {
     fun toPersonalInfoSubmitDocument() = identity?.let {
         PersonalInfoSubmitDocument(
             name = it.firstName,
             lastName = it.lastName,
-            nationalCode = it.nationalCode
-
+            nationalCode = it.nationalCode,
+            province = personal?.province
         )
     }
 
@@ -34,6 +36,12 @@ data class PersonalInfoModel(
         val lastName: String?,
         @field:Json(name = "nationalCode")
         val nationalCode: String
+    )
+
+    @JsonSerializable
+    data class PersonalEntity(
+        @field:Json(name = "province")
+        val province: Int?,
     )
 }
 

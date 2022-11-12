@@ -8,6 +8,7 @@ import ir.part.sdk.ara.common.ui.view.ExceptionHelper
 import ir.part.sdk.ara.common.ui.view.api.*
 import ir.part.sdk.ara.domain.document.entities.RemoveDocumentParam
 import ir.part.sdk.ara.domain.document.interacors.*
+import ir.part.sdk.ara.domain.payment.interactors.GetPaymentRemote
 import ir.part.sdk.ara.ui.document.overviewDocument.model.OverviewDocumentView
 import ir.part.sdk.ara.ui.document.submitDocument.mapper.toPersonalDocumentsView
 import ir.part.sdk.ara.ui.document.submitDocument.mapper.toPersonalInfoConstantsView
@@ -23,6 +24,7 @@ class DocumentSharedViewModel @Inject constructor(
     private val setRemoveDocumentRemote: SetRemoveDocumentRemote,
     private val getPersonalInfoConstantsRemote: GetPersonalInfoConstantsRemote,
     private val setHasUnreadMessageRemote: SetHasUnreadMessageRemote,
+    private val getPaymentUrl: GetPaymentRemote,
     private val exceptionHelper: ExceptionHelper
 ) : ViewModel() {
 
@@ -30,12 +32,28 @@ class DocumentSharedViewModel @Inject constructor(
 
     var itemPersonalDocument = mutableStateOf<PersonalDocumentsView?>(null)
     private val loadingState = ObservableLoadingCounter()
+    private val paymentLoadingState = ObservableLoadingCounter()
     private val uiMessageManager = UiMessageManager()
     private val dateUtil = DateUtil()
 
 
     val loadingAndMessageState: StateFlow<PublicState> = combine(
         loadingState.observable,
+        uiMessageManager.message
+    ) { refreshing, message ->
+        PublicState(
+            refreshing = refreshing,
+            message = message
+        )
+
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = PublicState.Empty
+    )
+
+    val loadingAndMessageStatePayment: StateFlow<PublicState> = combine(
+        paymentLoadingState.observable,
         uiMessageManager.message
     ) { refreshing, message ->
         PublicState(
@@ -156,6 +174,24 @@ class DocumentSharedViewModel @Inject constructor(
 
     fun refreshFileListScreenRequest() {
         getPersonalDocument()
+    }
+
+    fun getPaymentUrl(documentProcessInstanceId: String, paymentUrlResponse: (String) -> Unit) {
+        viewModelScope.launch {
+            if (paymentLoadingState.count.toInt() == 0) {
+                clearAllMessage()
+                getPaymentUrl.invoke(
+                    documentProcessInstanceId
+                ).collectAndChangeLoadingAndMessageStatus(
+                    viewModelScope,
+                    paymentLoadingState,
+                    exceptionHelper,
+                    uiMessageManager
+                ) {
+                    paymentUrlResponse.invoke(it?.url.toString())
+                }
+            }
+        }
     }
 
     private fun clearAllMessage() {

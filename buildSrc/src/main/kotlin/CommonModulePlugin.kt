@@ -103,6 +103,12 @@ class CommonModulePlugin : Plugin<Project> {
                             "API_URL_STATE_SERVICE",
                             "\"http://atlas-v3-dev.apipart.ir\""
                         )
+
+                        resValue(
+                            "string",
+                            "API_URL_PAYMENT",
+                            "\"http://meratPayment-v1-dev.ara.apipart.ir\""
+                        )
                     }
                     create("prodtest") {
                         dimension("mode")

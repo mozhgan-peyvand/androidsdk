@@ -67,11 +67,13 @@ data class ProvincesAndCityEntity(
     @field:Json(name = "provinceId")
     val provinceId: String,
     @field:Json(name = "provinceName")
-    val provinceName: String
+    val provinceName: String,
+    val paymentAmount: Long? = null
 ) {
     fun toProvincesAndCity() = ProvincesAndCity(
         cities = cities?.map { it.toConstant() },
         provinceId = provinceId,
-        provinceName = provinceName
+        provinceName = provinceName,
+        paymentAmount = paymentAmount
     )
 }

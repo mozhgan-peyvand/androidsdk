@@ -23,7 +23,8 @@ data class ConstantView(
 data class ProvincesAndCityView(
     val cities: List<ConstantView>?,
     val provinceId: String,
-    val provinceName: String
+    val provinceName: String,
+    val paymentAmount: Long? = null
 )
 
 data class StatusParamView(
