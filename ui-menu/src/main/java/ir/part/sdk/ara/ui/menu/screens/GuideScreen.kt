@@ -91,7 +91,11 @@ private fun GuideContent() {
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_4x)))
         }
 
-        itemsIndexed(guideViewList) { _, item ->
+        itemsIndexed(guideViewList,
+            key = { _, item ->
+                item.step
+            }
+        ) { _, item ->
             GuideItemExpandable(item)
         }
 

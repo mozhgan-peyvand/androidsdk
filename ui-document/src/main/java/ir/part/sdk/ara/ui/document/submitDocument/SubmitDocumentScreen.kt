@@ -324,7 +324,10 @@ private fun UnionSelection(
                 )
         ) {
             itemsIndexed(
-                userUnions ?: listOf()
+                userUnions ?: listOf(),
+                key = { _, item ->
+                    item.id
+                }
             ) { _, item ->
                 Column(modifier = Modifier
                     .fillMaxSize()

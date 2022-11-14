@@ -419,7 +419,11 @@ private fun DocumentsList(
     )
     {
 
-        items(items = documents) { document ->
+        items(items = documents,
+            key = { item ->
+                item.processInstanceId.toString()
+            }
+        ) { document ->
             DocumentListItem(
                 documentStatusConstants = documentStatusConstants,
                 document = document,

@@ -193,6 +193,9 @@ private fun RahyarScreenElement(
                 ) {
                     items(
                         items = if (!listHasFilter) rahyarList else filteredRahyarList,
+                        key = { item ->
+                            item.name
+                        },
                         itemContent = { items ->
                             RahyarListElement(items) {
                                 val intent = Intent(Intent.ACTION_DIAL)
@@ -457,7 +460,10 @@ private fun ProvinceSelection(
                 )
         ) {
             itemsIndexed(
-                province ?: listOf()
+                province ?: listOf(),
+                key = { _, item ->
+                    item.provinceId
+                }
             ) { _, item ->
                 Column(modifier = Modifier
                     .fillMaxSize()
