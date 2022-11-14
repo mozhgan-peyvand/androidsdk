@@ -16,6 +16,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.common.CustomTextField
 import ir.part.sdk.ara.common.ui.view.common.SubmitActionContent
 import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.divider
@@ -208,7 +209,7 @@ private fun CommentTextFieldItem(
         style = MaterialTheme.typography.captionTextPrimary()
     )
 
-    TextField(
+    CustomTextField(
         value = value,
         onValueChange = { newValue -> onValueChanged(newValue) },
         modifier = Modifier
