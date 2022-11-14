@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.constraintlayout.compose.ConstraintLayout
 import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.common.CustomTextField
 import ir.part.sdk.ara.common.ui.view.divider
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.*
@@ -149,7 +150,7 @@ private fun RahyarScreenElement(
                         )
                     )
                 )
-                TextField(
+                CustomTextField(
                     value = selectedProvince?.itemLabel
                         ?: stringResource(R.string.ara_label_choose_your_city),
                     textStyle = MaterialTheme.typography.subtitle2TextSecondary(),
