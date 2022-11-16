@@ -1,14 +1,13 @@
 package ir.part.sdk.ara.domain.tasks.interacors
 
-import ir.part.sdk.ara.base.di.FeatureDataScope
+//import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.domain.tasks.entities.BaseStateInfo
 import ir.part.sdk.ara.domain.tasks.repository.BaseStateRepository
 import ir.part.sdk.ara.util.ResultInteractor
-import ir.part.sdk.ara.util.SuspendingWorkInteractor
 import javax.inject.Inject
 
-@FeatureDataScope
+//@FeatureDataScope
 class GetBaseStateRemote @Inject constructor(private val repository: BaseStateRepository) :
     ResultInteractor<Unit, BaseStateInfo?>() {
 

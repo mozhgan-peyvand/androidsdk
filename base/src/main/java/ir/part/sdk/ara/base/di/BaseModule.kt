@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 @Module
 class BaseModule {
 
-    @BaseScope
+//    @BaseScope
     @Provides
     fun provideCoroutinesDispatcherProvider(): CoroutinesDispatcherProvider =
         CoroutinesDispatcherProvider(

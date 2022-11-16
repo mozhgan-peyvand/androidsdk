@@ -5,7 +5,7 @@ import dagger.Component
 import ir.part.sdk.ara.base.di.*
 import retrofit2.Retrofit
 
-@DataScope
+//@DataScope
 @Component(
     dependencies = [
         BaseComponent::class

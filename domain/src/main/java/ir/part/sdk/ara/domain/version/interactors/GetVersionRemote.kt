@@ -1,13 +1,13 @@
 package ir.part.sdk.ara.domain.version.interactors
 
-import ir.part.sdk.ara.base.di.FeatureDataScope
+//import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.domain.document.repository.BarjavandRepository
 import ir.part.sdk.ara.domain.version.entities.VersionDetail
 import ir.part.sdk.ara.util.ResultInteractor
 import javax.inject.Inject
 
-@FeatureDataScope
+//@FeatureDataScope
 class GetVersionRemote @Inject constructor(
     private val repository: BarjavandRepository
 ) : ResultInteractor<Unit, List<VersionDetail>?>() {

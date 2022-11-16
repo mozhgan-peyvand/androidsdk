@@ -13,8 +13,8 @@ dependencies {
         listOf(
             BuildModules.Libraries.COMMON_UI_VIEW,
             BuildModules.Libraries.DOMAIN,
-            BuildModules.Libraries.DATA,
-            BuildModules.Libraries.BASE
+            BuildModules.Libraries.BASE,
+            BuildModules.Libraries.DOMAIN_PROVIDER
         )
     )
     addLottie()

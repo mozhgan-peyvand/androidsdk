@@ -1,22 +1,25 @@
 package ir.part.sdk.ara.ui.document.di
 
 import dagger.Component
-import ir.part.sdk.ara.base.di.*
+import ir.part.sdk.ara.base.di.BaseComponent
+import ir.part.sdk.ara.base.di.BasicComponent
+import ir.part.sdk.ara.base.di.ComponentProviderActivity
+import ir.part.sdk.ara.base.di.ComponentsKey
 import ir.part.sdk.ara.common.ui.view.AraViewModelFactory
 import ir.part.sdk.ara.common.ui.view.di.CommonUiComponent
-import ir.part.sdk.ara.data.barjavand.di.BarjavandComponent
-import ir.part.sdk.ara.data.payment.di.PaymentComponent
+import ir.part.sdk.ara.domain.provider.components.barjavand.DomainProviderBarjavandComponent
+import ir.part.sdk.ara.domain.provider.components.payment.DomainProviderPaymentComponent
 import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
 import ir.part.sdk.ara.ui.document.submitDocument.SubmitDocumentViewModel
 
 
-@FeatureScope
+//@FeatureScope
 @Component(
     dependencies = [
         BaseComponent::class,
-        BarjavandComponent::class,
         CommonUiComponent::class,
-        PaymentComponent::class
+        DomainProviderPaymentComponent::class,
+        DomainProviderBarjavandComponent::class
     ]
 )
 interface DocumentComponent : BasicComponent {
@@ -25,9 +28,9 @@ interface DocumentComponent : BasicComponent {
     interface Factory {
         fun create(
             baseComponent: BaseComponent,
-            barjavandComponent: BarjavandComponent,
             commonUiComponent: CommonUiComponent,
-            paymentComponent: PaymentComponent
+            domainProviderPaymentComponent: DomainProviderPaymentComponent,
+            domainProviderBarjavandComponent: DomainProviderBarjavandComponent
         ): DocumentComponent
     }
 
@@ -40,9 +43,13 @@ interface DocumentComponent : BasicComponent {
                 ComponentsKey.UI_DOCUMENT,
                 DaggerDocumentComponent.factory().create(
                     baseComponent = BaseComponent.builder(componentProvider),
-                    barjavandComponent = BarjavandComponent.builder(componentProvider),
                     commonUiComponent = CommonUiComponent.builder(componentProvider),
-                    paymentComponent = PaymentComponent.builder(componentProvider)
+                    domainProviderPaymentComponent = DomainProviderPaymentComponent.builder(
+                        componentProvider
+                    ),
+                    domainProviderBarjavandComponent = DomainProviderBarjavandComponent.builder(
+                        componentProvider
+                    )
                 )
             )) as DocumentComponent
         }

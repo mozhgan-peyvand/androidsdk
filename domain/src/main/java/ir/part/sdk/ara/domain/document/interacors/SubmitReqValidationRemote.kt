@@ -1,7 +1,7 @@
 package ir.part.sdk.ara.domain.document.interacors
 
 
-import ir.part.sdk.ara.base.di.FeatureDataScope
+//import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.domain.document.entities.SubmitReqValidationParam
 import ir.part.sdk.ara.domain.document.entities.SubmitResponseValidation
@@ -10,7 +10,7 @@ import ir.part.sdk.ara.util.ResultInteractor
 import javax.inject.Inject
 
 
-@FeatureDataScope
+//@FeatureDataScope
 class SubmitReqValidationRemote @Inject constructor(
     private val repository: DashboardRepository
 

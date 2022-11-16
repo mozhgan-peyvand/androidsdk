@@ -29,7 +29,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
-import ir.part.sdk.ara.base.di.MainScope
+//import ir.part.sdk.ara.base.di.MainScope
 import ir.part.sdk.ara.base.event.MeratEvent
 import ir.part.sdk.ara.base.event.MeratEventPublisher
 import ir.part.sdk.ara.base.util.TasksName
@@ -62,7 +62,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-@MainScope
+//@MainScope
 class HomeActivity : ComponentProviderActivity() {
 
     companion object {
