@@ -1,6 +1,6 @@
 package ir.part.sdk.ara.domain.menu.interactors
 
-import ir.part.sdk.ara.base.di.FeatureDataScope
+//import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.domain.menu.entities.BodyComment
 import ir.part.sdk.ara.domain.menu.repository.MenuBarjavandRepository
@@ -8,7 +8,7 @@ import ir.part.sdk.ara.util.ResultInteractor
 import javax.inject.Inject
 
 
-@FeatureDataScope
+//@FeatureDataScope
 class SubmitCommentRemote @Inject constructor(private val commentBarjavandRepository: MenuBarjavandRepository) :
     ResultInteractor<SubmitCommentRemote.Param, Boolean>() {
 

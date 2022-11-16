@@ -6,7 +6,7 @@ import dagger.BindsInstance
 import dagger.Component
 import ir.part.sdk.ara.base.util.CoroutinesDispatcherProvider
 
-@BaseScope
+//@BaseScope
 @Component(
     modules = [
         BaseModule::class

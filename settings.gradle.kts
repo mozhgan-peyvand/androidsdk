@@ -9,6 +9,7 @@ include(":ui-document")
 include(":ui-user")
 include(":ui-menu")
 include(":ui-shared-feature")
+include(":domain-provider")
 pluginManagement {
     plugins {
         id("org.jetbrains.kotlin.android") version ("1.6.10")

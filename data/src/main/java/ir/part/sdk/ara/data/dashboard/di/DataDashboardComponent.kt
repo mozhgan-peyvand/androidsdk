@@ -1,21 +1,20 @@
 package ir.part.sdk.ara.data.dashboard.di
 
 import dagger.Component
-import ir.part.sdk.ara.base.di.*
+import ir.part.sdk.ara.base.di.BaseComponent
+import ir.part.sdk.ara.base.di.BasicComponent
+import ir.part.sdk.ara.base.di.ComponentProviderActivity
+import ir.part.sdk.ara.base.di.ComponentsKey
 import ir.part.sdk.ara.di.DataComponent
-import ir.part.sdk.ara.domain.tasks.di.DomainTaskComponent
-import ir.part.sdk.ara.domain.tasks.interacors.DoingRemote
-import ir.part.sdk.ara.domain.tasks.interacors.DoneRemote
-import ir.part.sdk.ara.domain.tasks.interacors.GetDoingTasksRemote
-import ir.part.sdk.ara.domain.tasks.interacors.GetTaskInstanceId
+import ir.part.sdk.ara.domain.document.repository.DashboardRepository
+import ir.part.sdk.ara.domain.tasks.repository.TaskRepository
 
 
-@FeatureDataScope
+//@FeatureDataScope
 @Component(
     dependencies = [
         BaseComponent::class,
-        DataComponent::class,
-        DomainTaskComponent::class,
+        DataComponent::class
     ],
     modules = [
         RepositoryTaskModule::class,
@@ -29,15 +28,12 @@ interface DataDashboardComponent : BasicComponent {
     interface Factory {
         fun create(
             baseComponent: BaseComponent,
-            dataComponent: DataComponent,
-            domainTaskComponent: DomainTaskComponent
+            dataComponent: DataComponent
         ): DataDashboardComponent
     }
 
-    fun injectGetTaskRemote(): GetDoingTasksRemote
-    fun injectDoingTaskRemote(): DoingRemote
-    fun injectDoneTaskRemote(): DoneRemote
-    fun injectGetTaskInstanceId(): GetTaskInstanceId
+    fun injectTaskRepository(): TaskRepository
+    fun injectDashboardRepository(): DashboardRepository
 
     companion object {
         fun builder(componentProvider: ComponentProviderActivity): DataDashboardComponent {
@@ -45,8 +41,7 @@ interface DataDashboardComponent : BasicComponent {
                 ComponentsKey.DATA_DASHBOARD,
                 DaggerDataDashboardComponent.factory().create(
                     baseComponent = BaseComponent.builder(componentProvider),
-                    dataComponent = DataComponent.builder(componentProvider),
-                    domainTaskComponent = DomainTaskComponent.builder(componentProvider)
+                    dataComponent = DataComponent.builder(componentProvider)
                 )
             )) as DataDashboardComponent
         }

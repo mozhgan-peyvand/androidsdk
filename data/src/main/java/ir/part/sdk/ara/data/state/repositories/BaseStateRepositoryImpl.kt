@@ -1,6 +1,6 @@
 package ir.part.sdk.ara.data.state.repositories
 
-import ir.part.sdk.ara.base.di.FeatureDataScope
+//import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.data.state.entites.BaseStateResponse
 import ir.part.sdk.ara.data.state.mappers.toBaseState
@@ -11,7 +11,7 @@ import ir.part.sdk.ara.model.PublicResponse
 import ir.part.sdk.ara.util.api.RequestExecutor
 import javax.inject.Inject
 
-@FeatureDataScope
+//@FeatureDataScope
 class BaseStateRepositoryImpl @Inject constructor(
     private val stateLocalDataSource: StateLocalDataSource,
     private val userManagerLocalDataSource: UserManagerLocalDataSource,

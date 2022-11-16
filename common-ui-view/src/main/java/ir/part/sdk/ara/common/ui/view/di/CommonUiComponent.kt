@@ -1,10 +1,13 @@
 package ir.part.sdk.ara.common.ui.view.di
 
 import dagger.Component
-import ir.part.sdk.ara.base.di.*
+import ir.part.sdk.ara.base.di.BaseComponent
+import ir.part.sdk.ara.base.di.BasicComponent
+import ir.part.sdk.ara.base.di.ComponentProviderActivity
+import ir.part.sdk.ara.base.di.ComponentsKey
 import ir.part.sdk.ara.di.DataComponent
 
-@CommonUiScope
+//@CommonUiScope
 @Component(
     dependencies = [
         BaseComponent::class,

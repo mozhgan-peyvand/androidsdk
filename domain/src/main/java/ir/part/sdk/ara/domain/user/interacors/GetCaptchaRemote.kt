@@ -1,13 +1,13 @@
 package ir.part.sdk.ara.domain.user.interacors
 
-import ir.part.sdk.ara.base.di.FeatureDataScope
+//import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.domain.user.entities.Captcha
 import ir.part.sdk.ara.domain.user.repository.UserManagerRepository
 import ir.part.sdk.ara.util.ResultInteractor
 import javax.inject.Inject
 
-@FeatureDataScope
+//@FeatureDataScope
 class GetCaptchaRemote @Inject constructor(
     private val repository: UserManagerRepository
 ) : ResultInteractor<Unit, Captcha?>() {

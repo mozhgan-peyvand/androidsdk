@@ -9,10 +9,9 @@ dependencies {
         listOf(
             BuildModules.Libraries.BASE,
             BuildModules.Libraries.DOMAIN,
-            BuildModules.Libraries.DATA,
             BuildModules.Libraries.COMMON_UI_VIEW,
-            BuildModules.Libraries.UI_SHARED_FEATURE
-
+            BuildModules.Libraries.UI_SHARED_FEATURE,
+            BuildModules.Libraries.DOMAIN_PROVIDER
         )
     )
 

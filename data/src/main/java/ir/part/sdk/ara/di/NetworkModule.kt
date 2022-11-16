@@ -6,7 +6,6 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import ir.part.sdk.ara.base.di.DK
-import ir.part.sdk.ara.base.di.DataScope
 import ir.part.sdk.ara.base.di.SK
 import ir.part.sdk.ara.base.util.AesEncryptor
 import ir.part.sdk.ara.data.BuildConfig
@@ -44,7 +43,7 @@ class NetworkModule {
      * @param pref, an instance of SharedPreferences
      * @return a String as password
      */
-    @DataScope
+//    @DataScope
     @SK
     @Provides
     fun getSK(pref: SharedPreferences): String {
@@ -59,7 +58,7 @@ class NetworkModule {
      * @param pref, an instance of SharedPreferences
      * @return a String as password
      */
-    @DataScope
+//    @DataScope
     @DK
     @Provides
     fun getDK(pref: SharedPreferences): String {
@@ -68,7 +67,7 @@ class NetworkModule {
 //       return AesEncryptor().encrypt(getNP(pref, skc), skc) ?: ""
     }
 
-    @DataScope
+    //    @DataScope
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = if (BuildConfig.DEBUG) {
@@ -78,7 +77,7 @@ class NetworkModule {
         }
     }
 
-    @DataScope
+    //    @DataScope
     @Provides
     fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
@@ -104,7 +103,7 @@ class NetworkModule {
         return okHttpClientBuilder.build()
     }
 
-    @DataScope
+    //    @DataScope
     @Provides
     fun provideRetrofit(
         httpClient: OkHttpClient,
@@ -115,7 +114,7 @@ class NetworkModule {
         .baseUrl("http://barjavand-v3-dev.partdp.ir")
         .build()
 
-    @DataScope
+    //    @DataScope
     @Provides
     fun provideMoshi(): Moshi = Moshi.Builder()
         .add(ApplicationJsonAdapterFactory)

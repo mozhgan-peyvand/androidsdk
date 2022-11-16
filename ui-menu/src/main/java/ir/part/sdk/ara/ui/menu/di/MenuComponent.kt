@@ -1,24 +1,23 @@
 package ir.part.sdk.ara.ui.menu.di
 
 import dagger.Component
-import ir.part.sdk.ara.base.di.*
+import ir.part.sdk.ara.base.di.BaseComponent
+import ir.part.sdk.ara.base.di.BasicComponent
+import ir.part.sdk.ara.base.di.ComponentProviderActivity
+import ir.part.sdk.ara.base.di.ComponentsKey
 import ir.part.sdk.ara.common.ui.view.AraViewModelFactory
-import ir.part.sdk.ara.data.barjavand.di.BarjavandComponent
-import ir.part.sdk.ara.data.userManager.di.DataUserManagerComponent
-import ir.part.sdk.ara.domain.menu.di.DomainMenuComponent
-import ir.part.sdk.ara.domain.user.di.DomainUserManagerComponent
+import ir.part.sdk.ara.domain.provider.components.barjavand.DomainProviderBarjavandComponent
+import ir.part.sdk.ara.domain.provider.components.userManager.DomainProviderUserManagerComponent
 import ir.part.sdk.ara.ui.menu.screens.MenuViewModel
 import ir.part.sdk.ara.ui.menu.screens.comment.SubmitCommentViewModel
 import ir.part.sdk.ara.ui.menu.screens.rahyar.RahyarViewModel
 
-@FeatureScope
+//@FeatureScope
 @Component(
     dependencies = [
         BaseComponent::class,
-        DomainUserManagerComponent::class,
-        DataUserManagerComponent::class,
-        DomainMenuComponent::class,
-        BarjavandComponent::class,
+        DomainProviderUserManagerComponent::class,
+        DomainProviderBarjavandComponent::class
     ]
 )
 interface MenuComponent : BasicComponent {
@@ -27,10 +26,8 @@ interface MenuComponent : BasicComponent {
     interface Factory {
         fun create(
             baseComponent: BaseComponent,
-            domainUserManagerComponent: DomainUserManagerComponent,
-            dataUserManagerComponent: DataUserManagerComponent,
-            domainMenuComponent: DomainMenuComponent,
-            barjavandComponent: BarjavandComponent,
+            domainProviderBarjavandComponent: DomainProviderBarjavandComponent,
+            domainProviderUserManagerComponent: DomainProviderUserManagerComponent
         ): MenuComponent
     }
 
@@ -45,13 +42,15 @@ interface MenuComponent : BasicComponent {
                 ComponentsKey.UI_MENU,
                 DaggerMenuComponent.factory().create(
                     baseComponent = BaseComponent.builder(componentProvider),
-                    domainUserManagerComponent = DomainUserManagerComponent.builder(
-                        componentProvider),
-                    dataUserManagerComponent = DataUserManagerComponent.builder(componentProvider),
-                    domainMenuComponent = DomainMenuComponent.builder(componentProvider),
-                    barjavandComponent = BarjavandComponent.builder(componentProvider)
+                    domainProviderBarjavandComponent = DomainProviderBarjavandComponent.builder(
+                        componentProvider
+                    ),
+                    domainProviderUserManagerComponent = DomainProviderUserManagerComponent.builder(
+                        componentProvider
+                    )
                 )
-            )) as MenuComponent
+            )
+                    ) as MenuComponent
         }
     }
 }
