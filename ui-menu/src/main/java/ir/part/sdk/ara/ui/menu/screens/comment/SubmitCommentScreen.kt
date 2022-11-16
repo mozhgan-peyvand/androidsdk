@@ -2,14 +2,12 @@ package ir.part.sdk.ara.ui.menu.screens.comment
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -27,9 +25,9 @@ import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getSuccessDialog
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
 import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
+import ir.part.sdk.ara.ui.menu.R
 import ir.part.sdk.ara.ui.shared.feature.screens.captcha.Captcha
 import ir.part.sdk.ara.ui.shared.feature.screens.captcha.CaptchaViewModel
-import ir.part.sdk.merat.ui.menu.R
 
 @Composable
 fun SubmitCommentScreen(
@@ -178,8 +176,7 @@ private fun CommentContent(
             }, errorMessage = if (viewModel.errorCommentText.value.second.isNotEmpty())
                 viewModel.errorCommentText.value.second.last().validator.getErrorMessage(
                     LocalContext.current)
-            else "",
-            isLastField = true)
+            else "")
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_6x)))
 
         Text(
@@ -199,11 +196,8 @@ private fun CommentTextFieldItem(
     value: String,
     onValueChanged: (String) -> Unit,
     errorMessage: String,
-    isLastField: Boolean = false,
     keyboardType: KeyboardType = KeyboardType.Text,
 ) {
-    val focusManager = LocalFocusManager.current
-
     Text(
         text = title,
         style = MaterialTheme.typography.captionTextPrimary()
@@ -226,9 +220,8 @@ private fun CommentTextFieldItem(
             backgroundColor = MaterialTheme.colors.background,
             unfocusedIndicatorColor = MaterialTheme.colors.divider()
         ),
-        keyboardOptions = KeyboardOptions(imeAction = if (isLastField) ImeAction.Done else ImeAction.Next,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next,
             keyboardType = keyboardType),
-        keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
         isError = errorMessage.isNotEmpty(),
         singleLine = true
     )
@@ -236,8 +229,7 @@ private fun CommentTextFieldItem(
     Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_base)))
 
     ErrorText(
-        visible =
-        errorMessage.isNotEmpty(),
+        visible = errorMessage.isNotEmpty(),
         errorMessage = errorMessage
     )
 }

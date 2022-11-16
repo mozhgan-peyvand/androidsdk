@@ -24,7 +24,7 @@ import ir.part.sdk.ara.common.ui.view.theme.*
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getExitAppDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
-import ir.part.sdk.merat.ui.menu.R
+import ir.part.sdk.ara.ui.menu.R
 
 @Composable
 fun MenuScreen(
@@ -91,7 +91,7 @@ fun MenuScreen(
 
         // list items
         MenuItem(
-            R.drawable.ara_ic_lock,
+            R.drawable.ara_ic_change_password,
             R.string.ara_label_change_password,
             onClick = onChangePasswordClick
         )

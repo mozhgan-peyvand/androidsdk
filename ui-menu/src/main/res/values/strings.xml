@@ -170,7 +170,7 @@
     <string name="ara_label_enter_your_phone_number">شماره تماس خود وارد نمایید</string>
     <string name="ara_label_enter_captcha">عبارت امنیتی را وارد نمایید</string>
     <string name="ara_label_send_comment">ارسال نظر</string>
-    <string name="ara_msg_submit_comment_success">نظر شما با موفقیت ارسال شد.</string>
+    <string name="ara_msg_submit_comment_success">نظر شما با موفقیت ثبت شد</string>
     <string name="ara_label_rahyar_menu">آدرس رهیاری‌های اجتماعی</string>
     <string name="ara_label_choose_city">انتخاب استان </string>
     <string name="ara_label_choose_all_city">همه ی استان ها</string>

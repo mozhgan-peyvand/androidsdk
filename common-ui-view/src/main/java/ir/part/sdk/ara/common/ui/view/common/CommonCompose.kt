@@ -139,7 +139,10 @@ fun CustomTextField(
     shape: Shape =
         MaterialTheme.shapes.small.copy(bottomEnd = ZeroCornerSize, bottomStart = ZeroCornerSize),
     colors: TextFieldColors = TextFieldDefaults.textFieldColors(),
-    contentPadding: PaddingValues = PaddingValues(bottom = dimensionResource(R.dimen.spacing_base))
+    contentPadding: PaddingValues = PaddingValues(
+        bottom = dimensionResource(R.dimen.spacing_base),
+        top = dimensionResource(R.dimen.spacing_base)
+    ),
 ) {
     val textColor = textStyle.color.takeOrElse {
         colors.textColor(enabled).value

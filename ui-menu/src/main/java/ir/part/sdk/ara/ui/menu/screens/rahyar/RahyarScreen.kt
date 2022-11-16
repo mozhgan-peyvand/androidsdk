@@ -34,7 +34,7 @@ import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DrawableResource
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
-import ir.part.sdk.merat.ui.menu.R
+import ir.part.sdk.ara.ui.menu.R
 import kotlinx.coroutines.launch
 
 @Composable

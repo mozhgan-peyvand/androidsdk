@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -12,10 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
@@ -85,6 +88,8 @@ fun ShowCaptcha(
     captchaViewModel: CaptchaViewModel?,
     interactionSource: MutableInteractionSource? = null,
 ) {
+    val focusManager = LocalFocusManager.current
+
 
     TextField(
         value = captchaViewModel?.captchaValue?.value ?: "",
@@ -122,11 +127,13 @@ fun ShowCaptcha(
         textStyle = TextStyle(color = Color.Black, textDirection = TextDirection.Content),
         singleLine = true,
         maxLines = 1,
-        keyboardActions = KeyboardActions {},
+        keyboardActions = KeyboardActions {
+            focusManager.clearFocus()
+        },
         isError = if (captchaViewModel?.errorCaptchaValue?.value?.first == ValidationField.CAPTCHA)
             captchaViewModel.errorCaptchaValue.value.second.isNotEmpty() else false,
-        interactionSource = interactionSource ?: MutableInteractionSource()
-
+        interactionSource = interactionSource ?: MutableInteractionSource(),
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
     )
     ErrorText(
         visible = !captchaViewModel?.errorCaptchaValue?.value?.second.isNullOrEmpty(),
