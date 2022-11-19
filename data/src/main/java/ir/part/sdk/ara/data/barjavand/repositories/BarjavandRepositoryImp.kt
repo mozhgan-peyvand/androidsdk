@@ -21,6 +21,7 @@ import javax.inject.Inject
 
 //@FeatureDataScope
 class BarjavandRepositoryImp @Inject constructor(
+    private val barjavandLocalDataSource: BarjavandLocalDataSource,
     private val remoteDataSource: BarjavandRemoteDataSource,
     private val requestExecutor: RequestExecutor,
     @SK private val sk: String,
@@ -166,5 +167,13 @@ class BarjavandRepositoryImp @Inject constructor(
                     it.data.toVersionDetail()
                 }
         })
+
+    override fun getLastShownUpdateVersion(): Int? =
+        barjavandLocalDataSource.getLastShownUpdateVersion()
+
+    override fun saveLastShownUpdateVersion(version: Int?) {
+        barjavandLocalDataSource.saveLastShownUpdateVersion(version)
+    }
+
 
 }

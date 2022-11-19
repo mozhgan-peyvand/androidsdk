@@ -16,5 +16,7 @@ interface BarjavandRepository {
     suspend fun getPersonalInfoClub(): InvokeStatus<List<PersonalInfoClub>?>
     suspend fun getApplicantInformationRemote(): InvokeStatus<PersonalInfoSubmitDocument?>
     suspend fun getVersion(): InvokeStatus<List<VersionDetail>?>
+    fun getLastShownUpdateVersion(): Int?
+    fun saveLastShownUpdateVersion(version: Int?)
 
 }

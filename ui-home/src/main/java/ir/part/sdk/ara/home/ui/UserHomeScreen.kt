@@ -7,7 +7,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -44,17 +45,31 @@ fun UserHomeScreen(
 
     ProcessLoadingAndErrorState(input = loadingErrorState.value)
 
-    VersionDialogHandler(context, versionViewModel.hasForceVersion.value)
+    VersionDialogHandler(
+        context = context,
+        hasForceVersion = versionViewModel.hasForceVersion.value,
+        shouldShowVersionDialog = versionViewModel.shouldShowVersionDialog.value,
+        onIsForceDialogShow = {
+            versionViewModel.shouldShowVersionDialog.value = false
+        },
+        onNotForceDialogShow = {
+            versionViewModel.onNotForceUpdateDialogShow()
+            versionViewModel.shouldShowVersionDialog.value = false
+        }
+    )
 
     UserHomeScreenElement(navigateToLoginScreen, navigateToRegisterScreen)
 }
 
 @Composable
-fun VersionDialogHandler(context: Context, hasForceVersion: Boolean?) {
+fun VersionDialogHandler(
+    context: Context,
+    hasForceVersion: Boolean?,
+    shouldShowVersionDialog: Boolean,
+    onIsForceDialogShow: () -> Unit,
+    onNotForceDialogShow: () -> Unit
+) {
 
-    var shouldShowVersionDialog by remember {
-        mutableStateOf(true)
-    }
 
     val forceUpdateDialog = getUpdateSdkDialog(
         title = stringResource(id = R.string.ara_label_term_attention),
@@ -72,17 +87,17 @@ fun VersionDialogHandler(context: Context, hasForceVersion: Boolean?) {
 
     if (hasForceVersion == true && shouldShowVersionDialog) {
         forceUpdateDialog.setSubmitAction {
-            shouldShowVersionDialog = false
+            onIsForceDialogShow()
             forceUpdateDialog.dismiss()
         }.setCancelAction {
             (context as? Activity)?.finish()
         }.show()
-    } else if (hasForceVersion == false) {
+    } else if (hasForceVersion == false && shouldShowVersionDialog) {
         updateDialog.setSubmitAction {
-            shouldShowVersionDialog = false
+            onNotForceDialogShow()
             updateDialog.dismiss()
         }.setCancelAction {
-            shouldShowVersionDialog = false
+            onNotForceDialogShow()
             updateDialog.dismiss()
         }.show()
     }
