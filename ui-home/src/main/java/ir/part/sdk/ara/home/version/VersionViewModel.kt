@@ -9,7 +9,9 @@ import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.api.UiMessageManager
 import ir.part.sdk.ara.common.ui.view.api.collectAndChangeLoadingAndMessageStatus
 import ir.part.sdk.ara.domain.version.entities.VersionDetail
+import ir.part.sdk.ara.domain.version.interactors.GetLastShownUpdateVersion
 import ir.part.sdk.ara.domain.version.interactors.GetVersionRemote
+import ir.part.sdk.ara.domain.version.interactors.SaveLastShownUpdateVersion
 import ir.part.sdk.ara.home.ui.BuildConfig
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -19,6 +21,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class VersionViewModel @Inject constructor(
+    private val getLastShownUpdateVersion: GetLastShownUpdateVersion,
+    private val saveLastShownUpdateVersion: SaveLastShownUpdateVersion,
     private val getVersion: GetVersionRemote,
     private val exceptionHandler: ExceptionHelper
 ) : ViewModel() {
@@ -29,6 +33,8 @@ class VersionViewModel @Inject constructor(
     private val versionsList = mutableStateOf<List<VersionDetail>?>(null)
 
     var hasForceVersion = mutableStateOf<Boolean?>(null)
+
+    var shouldShowVersionDialog = mutableStateOf(true)
 
     var loadingAndMessageState: StateFlow<PublicState> = combine(
         loadingState.observable,
@@ -58,19 +64,29 @@ class VersionViewModel @Inject constructor(
                     exceptionHandler,
                     uiMessageManager
                 ) { versionList ->
+
                     versionsList.value = versionList?.filter { version ->
                         version.versionNumber?.let { versionNumber ->
                             (versionNumber >= BuildConfig.VERSION_CODE)
                         } ?: false
-                    }?.filter {
-                        it.isForce?.let { isForce ->
-                            (isForce)
-                        } ?: false
                     }
-                    hasForceVersion.value = !versionsList.value.isNullOrEmpty()
+
+                    hasForceVersion.value = versionsList.value?.any {
+                        it.isForce == true
+                    }
+
+                    if (hasForceVersion.value == false) {
+                        if (versionsList.value?.lastOrNull()?.versionNumber == getLastShownUpdateVersion()) {
+                            shouldShowVersionDialog.value = false
+                        }
+                    }
                 }
             }
         }
+    }
+
+    fun onNotForceUpdateDialogShow() {
+        saveLastShownUpdateVersion(versionsList.value?.lastOrNull()?.versionNumber)
     }
 
     private fun clearAllMessage() {

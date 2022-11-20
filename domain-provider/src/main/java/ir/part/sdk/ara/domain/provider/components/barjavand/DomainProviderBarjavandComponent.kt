@@ -10,7 +10,9 @@ import ir.part.sdk.ara.di.DataComponent
 import ir.part.sdk.ara.domain.document.interacors.*
 import ir.part.sdk.ara.domain.menu.interactors.GetRahyarRemote
 import ir.part.sdk.ara.domain.menu.interactors.SubmitCommentRemote
+import ir.part.sdk.ara.domain.version.interactors.GetLastShownUpdateVersion
 import ir.part.sdk.ara.domain.version.interactors.GetVersionRemote
+import ir.part.sdk.ara.domain.version.interactors.SaveLastShownUpdateVersion
 
 
 //@FeatureDataScope
@@ -42,6 +44,8 @@ interface DomainProviderBarjavandComponent : BasicComponent {
     fun injectSubmitCommentRemote(): SubmitCommentRemote
     fun injectRahyarRemote(): GetRahyarRemote
     fun injectGetVersionRemote(): GetVersionRemote
+    fun injectGetLastShownUpdateVersion(): GetLastShownUpdateVersion
+    fun injectSaveLastShownUpdateVersion(): SaveLastShownUpdateVersion
 
 
     companion object {
