@@ -257,7 +257,8 @@ private fun ShowReNewPassword(
             errorReNewPassword.value.second.last().validator.getErrorMessage(LocalContext.current) else "",
         trailingPasswordIcon = true,
         painter = painterResource(id = R.drawable.ara_ic_lock),
-        keyboardType = KeyboardType.Password
+        keyboardType = KeyboardType.Password,
+        isLastField = true
     )
 }
 

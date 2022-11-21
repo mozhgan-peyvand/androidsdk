@@ -26,7 +26,7 @@ import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.divider
 import ir.part.sdk.ara.common.ui.view.theme.body2BoldTextPrimary
 import ir.part.sdk.ara.common.ui.view.theme.body2BoldTextSecondary
-import ir.part.sdk.merat.ui.menu.R
+import ir.part.sdk.ara.ui.menu.R
 
 @Composable
 fun CallCenterScreen(onNavigateUp: () -> Unit) {

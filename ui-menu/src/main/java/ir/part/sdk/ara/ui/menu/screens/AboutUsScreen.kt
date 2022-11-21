@@ -14,8 +14,8 @@ import ir.part.sdk.ara.common.ui.view.common.TextBody2Secondary
 import ir.part.sdk.ara.common.ui.view.common.TextHeadline6PrimaryBold
 import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker
-import ir.part.sdk.merat.ui.menu.BuildConfig
-import ir.part.sdk.merat.ui.menu.R
+import ir.part.sdk.ara.ui.menu.BuildConfig
+import ir.part.sdk.ara.ui.menu.R
 
 
 @Composable

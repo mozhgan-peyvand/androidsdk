@@ -86,30 +86,33 @@ fun ForgetPasswordVerification(
 
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.verticalScroll(scrollState)) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colors.primaryVariant())
-        ) {
 
-            Icon(
-                modifier = Modifier
-                    .clickable {
-                        onNavigateUp()
-                    }
-                    .padding(dimensionResource(id = DimensionResource.spacing_3x)),
-                painter = painterResource(id = R.drawable.ara_ic_back),
-                tint = MaterialTheme.colors.onPrimary(),
-                contentDescription = "back"
-            )
-        }
         AnimatedVisibility(visible = sendCodeFocusState.value.not()) {
-            Image(
-                modifier = Modifier.fillMaxWidth(),
-                contentScale = ContentScale.FillWidth,
-                painter = painterResource(id = R.drawable.ara_login_background),
-                contentDescription = ""
-            )
+            Column {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colors.primaryVariant())
+                ) {
+
+                    Icon(
+                        modifier = Modifier
+                            .clickable {
+                                onNavigateUp()
+                            }
+                            .padding(dimensionResource(id = DimensionResource.spacing_3x)),
+                        painter = painterResource(id = R.drawable.ara_ic_back),
+                        tint = MaterialTheme.colors.onPrimary(),
+                        contentDescription = "back"
+                    )
+                }
+                Image(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentScale = ContentScale.FillWidth,
+                    painter = painterResource(id = R.drawable.ara_login_background),
+                    contentDescription = ""
+                )
+            }
         }
         Text(
             modifier = Modifier.padding(dimensionResource(id = DimensionResource.spacing_4x)),

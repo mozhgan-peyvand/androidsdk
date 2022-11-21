@@ -15,8 +15,8 @@ import ir.part.sdk.ara.common.ui.view.navigationHelper.safeScreenInitial
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
+import ir.part.sdk.ara.ui.menu.R
 import ir.part.sdk.ara.ui.shared.feature.screens.task.TasksManagerViewModel
-import ir.part.sdk.merat.ui.menu.R
 
 fun NavGraphBuilder.addNamabarNavGraph(
     navController: NavHostController,

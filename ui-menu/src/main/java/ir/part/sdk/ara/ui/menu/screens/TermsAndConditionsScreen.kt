@@ -20,7 +20,7 @@ import ir.part.sdk.ara.common.ui.view.theme.ColorBlueDarker2
 import ir.part.sdk.ara.common.ui.view.theme.body2BoldTextSecondary
 import ir.part.sdk.ara.common.ui.view.theme.body2PrimaryVariant
 import ir.part.sdk.ara.common.ui.view.theme.subtitle1TextPrimary
-import ir.part.sdk.merat.ui.menu.R
+import ir.part.sdk.ara.ui.menu.R
 
 @Composable
 fun TermsAndConditionScreen(onNavigateUp: () -> Unit) {

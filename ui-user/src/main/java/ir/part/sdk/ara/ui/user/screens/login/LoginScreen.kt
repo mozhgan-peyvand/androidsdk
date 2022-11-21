@@ -108,30 +108,33 @@ fun Login(
             .fillMaxWidth()
             .verticalScroll(scrollState)
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colors.primaryVariant())
-        ) {
 
-            Icon(
-                modifier = Modifier
-                    .clickable {
-                        onNavigateUp()
-                    }
-                    .padding(dimensionResource(id = DimensionResource.spacing_3x)),
-                painter = painterResource(id = R.drawable.ara_ic_back),
-                tint = MaterialTheme.colors.onPrimary(),
-                contentDescription = "back"
-            )
-        }
         AnimatedVisibility(visible = nationalCodeFocusState.value.not() && passwordFocusState.value.not() && captchaFocusState.value.not()) {
-            Image(
-                modifier = Modifier.fillMaxWidth(),
-                contentScale = ContentScale.FillWidth,
-                painter = painterResource(id = R.drawable.ara_login_background),
-                contentDescription = ""
-            )
+            Column {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colors.primaryVariant())
+                ) {
+
+                    Icon(
+                        modifier = Modifier
+                            .clickable {
+                                onNavigateUp()
+                            }
+                            .padding(dimensionResource(id = DimensionResource.spacing_3x)),
+                        painter = painterResource(id = R.drawable.ara_ic_back),
+                        tint = MaterialTheme.colors.onPrimary(),
+                        contentDescription = "back"
+                    )
+                }
+                Image(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentScale = ContentScale.FillWidth,
+                    painter = painterResource(id = R.drawable.ara_login_background),
+                    contentDescription = ""
+                )
+            }
         }
 
         ShowNationalCode(
