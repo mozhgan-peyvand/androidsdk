@@ -5,21 +5,24 @@ import ir.part.sdk.ara.base.di.BaseComponent
 import ir.part.sdk.ara.base.di.BasicComponent
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
 import ir.part.sdk.ara.base.di.ComponentsKey
+import ir.part.sdk.ara.base.di.scopes.featureScopes.UiDocumentScope
 import ir.part.sdk.ara.common.ui.view.AraViewModelFactory
 import ir.part.sdk.ara.common.ui.view.di.CommonUiComponent
 import ir.part.sdk.ara.domain.provider.components.barjavand.DomainProviderBarjavandComponent
+import ir.part.sdk.ara.domain.provider.components.dashboard.DomainProviderDashboardComponent
 import ir.part.sdk.ara.domain.provider.components.payment.DomainProviderPaymentComponent
 import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
 import ir.part.sdk.ara.ui.document.submitDocument.SubmitDocumentViewModel
 
 
-//@FeatureScope
+@UiDocumentScope
 @Component(
     dependencies = [
         BaseComponent::class,
         CommonUiComponent::class,
         DomainProviderPaymentComponent::class,
-        DomainProviderBarjavandComponent::class
+        DomainProviderBarjavandComponent::class,
+        DomainProviderDashboardComponent::class
     ]
 )
 interface DocumentComponent : BasicComponent {
@@ -30,7 +33,8 @@ interface DocumentComponent : BasicComponent {
             baseComponent: BaseComponent,
             commonUiComponent: CommonUiComponent,
             domainProviderPaymentComponent: DomainProviderPaymentComponent,
-            domainProviderBarjavandComponent: DomainProviderBarjavandComponent
+            domainProviderBarjavandComponent: DomainProviderBarjavandComponent,
+            domainProviderDashboardComponent: DomainProviderDashboardComponent
         ): DocumentComponent
     }
 
@@ -48,6 +52,9 @@ interface DocumentComponent : BasicComponent {
                         componentProvider
                     ),
                     domainProviderBarjavandComponent = DomainProviderBarjavandComponent.builder(
+                        componentProvider
+                    ),
+                    domainProviderDashboardComponent = DomainProviderDashboardComponent.builder(
                         componentProvider
                     )
                 )

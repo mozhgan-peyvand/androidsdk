@@ -1,8 +1,8 @@
 package ir.part.sdk.ara.data.barjavand.repositories
 
 import android.content.SharedPreferences
-//import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.di.SK
+import ir.part.sdk.ara.base.di.scopes.FeatureDataScope
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.base.util.AesEncryptor
 import ir.part.sdk.ara.data.barjavand.entities.*
@@ -19,7 +19,7 @@ import ir.part.sdk.ara.model.PublicResponseData
 import ir.part.sdk.ara.util.api.RequestExecutor
 import javax.inject.Inject
 
-//@FeatureDataScope
+@FeatureDataScope
 class BarjavandRepositoryImp @Inject constructor(
     private val barjavandLocalDataSource: BarjavandLocalDataSource,
     private val remoteDataSource: BarjavandRemoteDataSource,

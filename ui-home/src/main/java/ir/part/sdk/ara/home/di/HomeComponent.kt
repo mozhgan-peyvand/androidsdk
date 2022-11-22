@@ -5,11 +5,12 @@ import ir.part.sdk.ara.base.di.BaseComponent
 import ir.part.sdk.ara.base.di.BasicComponent
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
 import ir.part.sdk.ara.base.di.ComponentsKey
+import ir.part.sdk.ara.base.di.scopes.featureScopes.UiHomeScope
 import ir.part.sdk.ara.common.ui.view.AraViewModelFactory
 import ir.part.sdk.ara.domain.provider.components.barjavand.DomainProviderBarjavandComponent
 import ir.part.sdk.ara.home.version.VersionViewModel
 
-//@FeatureScope
+@UiHomeScope
 @Component(
     dependencies = [
         BaseComponent::class,

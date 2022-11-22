@@ -1,6 +1,5 @@
 package ir.part.sdk.ara.data.payment.repositories
 
-//import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.data.dashboard.repositories.DashboardLocalDataSource
 import ir.part.sdk.ara.data.payment.entities.PaymentBodyRequest
@@ -11,7 +10,6 @@ import ir.part.sdk.ara.model.PublicResponse
 import ir.part.sdk.ara.util.api.RequestExecutor
 import javax.inject.Inject
 
-//@FeatureDataScope
 class PaymentRepositoryImp @Inject constructor(
     private val remoteDataSource: PaymentRemoteDataSource,
     private val dashboardLocalDataSource: DashboardLocalDataSource,

@@ -1,6 +1,5 @@
 package ir.part.sdk.ara.data.dashboard.repositories
 
-//import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.data.dashboard.entites.DoingResponse
 import ir.part.sdk.ara.data.dashboard.entites.DoneResponse
@@ -19,7 +18,6 @@ import ir.part.sdk.ara.model.PublicResponse
 import ir.part.sdk.ara.util.api.RequestExecutor
 import javax.inject.Inject
 
-//@FeatureDataScope
 class DashboardRepositoryImpl @Inject constructor(
     private val dashboardLocalDataSource: DashboardLocalDataSource,
     private val stateLocalDataSource: StateLocalDataSource,

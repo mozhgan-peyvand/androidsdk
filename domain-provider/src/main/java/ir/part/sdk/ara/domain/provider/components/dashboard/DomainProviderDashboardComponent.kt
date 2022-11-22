@@ -5,15 +5,17 @@ import ir.part.sdk.ara.base.di.BaseComponent
 import ir.part.sdk.ara.base.di.BasicComponent
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
 import ir.part.sdk.ara.base.di.ComponentsKey
+import ir.part.sdk.ara.base.di.scopes.DomainScope
 import ir.part.sdk.ara.data.dashboard.di.DataDashboardComponent
 import ir.part.sdk.ara.di.DataComponent
+import ir.part.sdk.ara.domain.document.interacors.SubmitReqValidationRemote
 import ir.part.sdk.ara.domain.tasks.interacors.DoingRemote
 import ir.part.sdk.ara.domain.tasks.interacors.DoneRemote
 import ir.part.sdk.ara.domain.tasks.interacors.GetDoingTasksRemote
 import ir.part.sdk.ara.domain.tasks.interacors.GetTaskInstanceId
 
 
-//@FeatureDataScope
+@DomainScope
 @Component(
     dependencies = [
         BaseComponent::class,
@@ -32,6 +34,7 @@ interface DomainProviderDashboardComponent : BasicComponent {
         ): DomainProviderDashboardComponent
     }
 
+    fun injectSubmitReqValidationRemote(): SubmitReqValidationRemote
     fun injectGetTaskRemote(): GetDoingTasksRemote
     fun injectDoingTaskRemote(): DoingRemote
     fun injectDoneTaskRemote(): DoneRemote

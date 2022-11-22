@@ -5,6 +5,7 @@ import ir.part.sdk.ara.base.di.BaseComponent
 import ir.part.sdk.ara.base.di.BasicComponent
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
 import ir.part.sdk.ara.base.di.ComponentsKey
+import ir.part.sdk.ara.base.di.scopes.MainScope
 import ir.part.sdk.ara.builder.ui.view.HomeActivity
 import ir.part.sdk.ara.common.ui.view.di.CommonUiComponent
 import ir.part.sdk.ara.data.barjavand.di.DataBarjavandComponent
@@ -22,7 +23,7 @@ import ir.part.sdk.ara.ui.menu.di.MenuComponent
 import ir.part.sdk.ara.ui.shared.feature.di.SharedFeatureComponent
 import ir.part.sdk.ara.ui.user.di.UserComponent
 
-//@MainScope
+@MainScope
 @Component(
     dependencies = [
         BaseComponent::class,

@@ -1,6 +1,5 @@
 package ir.part.sdk.ara.data.userManager.repositories
 
-//import ir.part.sdk.ara.base.di.FeatureDataScope
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.data.dashboard.repositories.DashboardLocalDataSource
 import ir.part.sdk.ara.data.state.repositories.StateLocalDataSource
@@ -18,7 +17,6 @@ import ir.part.sdk.ara.model.PublicResponse
 import ir.part.sdk.ara.util.api.RequestExecutor
 import javax.inject.Inject
 
-//@FeatureDataScope
 class UserManagerRepositoryImp @Inject constructor(
     private val localDataSource: UserManagerLocalDataSource,
     private val stateLocalDataSource: StateLocalDataSource,

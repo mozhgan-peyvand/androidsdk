@@ -3,9 +3,10 @@ package ir.part.sdk.ara.di
 import android.content.SharedPreferences
 import dagger.Component
 import ir.part.sdk.ara.base.di.*
+import ir.part.sdk.ara.base.di.scopes.DataScope
 import retrofit2.Retrofit
 
-//@DataScope
+@DataScope
 @Component(
     dependencies = [
         BaseComponent::class

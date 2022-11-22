@@ -1,16 +1,16 @@
 package ir.part.sdk.ara.domain.menu.interactors
 
-//import ir.part.sdk.ara.base.di.FeatureDataScope
+import dagger.Reusable
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.domain.menu.entities.BodyComment
 import ir.part.sdk.ara.domain.menu.repository.MenuBarjavandRepository
 import ir.part.sdk.ara.util.ResultInteractor
 import javax.inject.Inject
 
-
-//@FeatureDataScope
-class SubmitCommentRemote @Inject constructor(private val commentBarjavandRepository: MenuBarjavandRepository) :
-    ResultInteractor<SubmitCommentRemote.Param, Boolean>() {
+@Reusable
+class SubmitCommentRemote @Inject constructor(
+    private val commentBarjavandRepository: MenuBarjavandRepository
+) : ResultInteractor<SubmitCommentRemote.Param, Boolean>() {
 
     //    private external fun detect()
 

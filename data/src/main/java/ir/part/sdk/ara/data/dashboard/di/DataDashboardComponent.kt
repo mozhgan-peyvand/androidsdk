@@ -5,12 +5,13 @@ import ir.part.sdk.ara.base.di.BaseComponent
 import ir.part.sdk.ara.base.di.BasicComponent
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
 import ir.part.sdk.ara.base.di.ComponentsKey
+import ir.part.sdk.ara.base.di.scopes.FeatureDataScope
 import ir.part.sdk.ara.di.DataComponent
 import ir.part.sdk.ara.domain.document.repository.DashboardRepository
 import ir.part.sdk.ara.domain.tasks.repository.TaskRepository
 
 
-//@FeatureDataScope
+@FeatureDataScope
 @Component(
     dependencies = [
         BaseComponent::class,
