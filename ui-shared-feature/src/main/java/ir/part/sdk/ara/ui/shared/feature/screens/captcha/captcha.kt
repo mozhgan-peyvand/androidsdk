@@ -55,6 +55,7 @@ fun Captcha(
             ShowCaptcha(captchaViewModel, interactionSource)
         }
         Button(
+            modifier = Modifier.padding(top = dimensionResource(id = DimensionResource.spacing_3x)),
             onClick = {
                 captchaViewModel.refreshCaptcha()
             },
@@ -73,8 +74,11 @@ fun Captcha(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
-                    .padding(top = dimensionResource(id = DimensionResource.spacing_2x))
-                    .height(32.dp),
+                    .padding(
+                        top = dimensionResource(id = DimensionResource.spacing_4x),
+                        end = dimensionResource(id = DimensionResource.spacing_2x)
+                    )
+                    .height(40.dp),
                 bitmap = it,
                 contentDescription = "",
             )
