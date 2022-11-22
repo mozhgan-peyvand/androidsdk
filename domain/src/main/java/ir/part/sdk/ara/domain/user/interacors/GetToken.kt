@@ -1,10 +1,10 @@
 package ir.part.sdk.ara.domain.user.interacors
 
-//import ir.part.sdk.ara.base.di.FeatureDataScope
+import dagger.Reusable
 import ir.part.sdk.ara.domain.user.repository.UserManagerRepository
 import javax.inject.Inject
 
-//@FeatureDataScope
+@Reusable
 class GetToken @Inject constructor(
     private val repository: UserManagerRepository
 ) {

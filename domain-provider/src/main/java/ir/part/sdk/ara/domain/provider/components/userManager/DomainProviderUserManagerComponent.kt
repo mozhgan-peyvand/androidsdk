@@ -5,11 +5,12 @@ import ir.part.sdk.ara.base.di.BaseComponent
 import ir.part.sdk.ara.base.di.BasicComponent
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
 import ir.part.sdk.ara.base.di.ComponentsKey
+import ir.part.sdk.ara.base.di.scopes.DomainScope
 import ir.part.sdk.ara.data.userManager.di.DataUserManagerComponent
 import ir.part.sdk.ara.di.DataComponent
 import ir.part.sdk.ara.domain.user.interacors.*
 
-//@FeatureDataScope
+@DomainScope
 @Component(
     dependencies = [
         BaseComponent::class,

@@ -5,6 +5,7 @@ import ir.part.sdk.ara.base.di.BaseComponent
 import ir.part.sdk.ara.base.di.BasicComponent
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
 import ir.part.sdk.ara.base.di.ComponentsKey
+import ir.part.sdk.ara.base.di.scopes.DomainScope
 import ir.part.sdk.ara.data.barjavand.di.DataBarjavandComponent
 import ir.part.sdk.ara.di.DataComponent
 import ir.part.sdk.ara.domain.document.interacors.*
@@ -15,12 +16,12 @@ import ir.part.sdk.ara.domain.version.interactors.GetVersionRemote
 import ir.part.sdk.ara.domain.version.interactors.SaveLastShownUpdateVersion
 
 
-//@FeatureDataScope
+@DomainScope
 @Component(
     dependencies = [
         BaseComponent::class,
         DataComponent::class,
-        DataBarjavandComponent::class
+        DataBarjavandComponent::class,
     ]
 )
 interface DomainProviderBarjavandComponent : BasicComponent {
@@ -38,7 +39,6 @@ interface DomainProviderBarjavandComponent : BasicComponent {
     fun injectGetPersonalInfoConstantsRemote(): GetPersonalInfoConstantsRemote
     fun injectGetRejectRequestByUserRemote(): SetRemoveDocumentRemote
     fun injectSetHasUnreadMessageRemote(): SetHasUnreadMessageRemote
-    fun injectSubmitReqValidationRemote(): SubmitReqValidationRemote
     fun injectGetPersonalInfoClubRemote(): GetPersonalInfoClubRemote
     fun injectGetApplicantInformationRemote(): GetApplicantInformationRemote
     fun injectSubmitCommentRemote(): SubmitCommentRemote

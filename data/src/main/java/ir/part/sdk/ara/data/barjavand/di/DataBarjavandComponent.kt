@@ -5,15 +5,15 @@ import ir.part.sdk.ara.base.di.BaseComponent
 import ir.part.sdk.ara.base.di.BasicComponent
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
 import ir.part.sdk.ara.base.di.ComponentsKey
+import ir.part.sdk.ara.base.di.scopes.FeatureDataScope
 import ir.part.sdk.ara.data.dashboard.di.RepositoryDashboardModule
 import ir.part.sdk.ara.data.dashboard.di.ServiceDashboardModule
 import ir.part.sdk.ara.di.DataComponent
 import ir.part.sdk.ara.domain.document.repository.BarjavandRepository
-import ir.part.sdk.ara.domain.document.repository.DashboardRepository
 import ir.part.sdk.ara.domain.menu.repository.MenuBarjavandRepository
 
 
-//@FeatureDataScope
+@FeatureDataScope
 @Component(
     dependencies = [
         BaseComponent::class,
@@ -38,7 +38,6 @@ interface DataBarjavandComponent : BasicComponent {
     }
 
     fun injectMenuBarjavandRepository(): MenuBarjavandRepository
-    fun injectDashboardRepository(): DashboardRepository
     fun injectBarjavandRepository(): BarjavandRepository
 
     companion object {

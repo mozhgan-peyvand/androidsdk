@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-//import ir.part.sdk.ara.base.di.MainScope
+import ir.part.sdk.ara.base.di.scopes.MainScope
 import ir.part.sdk.ara.builder.ui.view.HomeViewModel
 import ir.part.sdk.ara.common.ui.view.utils.validation.ViewModelKey
 import ir.part.sdk.ara.ui.shared.feature.screens.task.TasksManagerViewModel
@@ -13,15 +13,17 @@ import ir.part.sdk.ara.ui.shared.feature.screens.task.TasksManagerViewModel
 @Module
 abstract class ViewModelModule {
 
-    //    @MainScope
+    @MainScope
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelProviderFactory): ViewModelProvider.Factory
 
+    @MainScope
     @Binds
     @IntoMap
     @ViewModelKey(TasksManagerViewModel::class)
     abstract fun bindTaskManagerViewModel(homeActivityViewModel: TasksManagerViewModel): ViewModel
 
+    @MainScope
     @Binds
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
