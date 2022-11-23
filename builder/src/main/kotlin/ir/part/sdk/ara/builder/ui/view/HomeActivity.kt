@@ -224,8 +224,7 @@ class HomeActivity : ComponentProviderActivity() {
             when (navController.currentBackStackEntry?.destination?.route) {
                 MenuRouter.MainMenuScreen.router,
                 DocumentRouter.DocumentSubmitScreen.router,
-                DocumentRouter.DocumentFileListScreen.router,
-                BottomNavigationItems.PersonalInfo.route,
+                DocumentRouter.DocumentFileListScreen.router
                 -> {
                     exitDialog.show()
                 }
