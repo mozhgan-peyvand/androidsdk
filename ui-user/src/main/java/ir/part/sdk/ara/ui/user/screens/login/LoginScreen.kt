@@ -32,6 +32,7 @@ import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
 import ir.part.sdk.ara.ui.shared.feature.screens.captcha.Captcha
 import ir.part.sdk.ara.ui.shared.feature.screens.captcha.CaptchaViewModel
 import ir.part.sdk.ara.ui.shared.feature.screens.task.TasksManagerViewModel
+import ir.part.sdk.ara.ui.user.util.common.VisibilityStatusBar
 
 @Composable
 fun LoginScreen(
@@ -110,6 +111,7 @@ fun Login(
     ) {
 
         AnimatedVisibility(visible = nationalCodeFocusState.value.not() && passwordFocusState.value.not() && captchaFocusState.value.not()) {
+            VisibilityStatusBar(nationalCodeFocusState.value.not() && passwordFocusState.value.not() && captchaFocusState.value.not())
             Column {
                 Box(
                     modifier = Modifier
@@ -122,7 +124,12 @@ fun Login(
                             .clickable {
                                 onNavigateUp()
                             }
-                            .padding(dimensionResource(id = DimensionResource.spacing_3x)),
+                            .padding(
+                                top = dimensionResource(id = DimensionResource.spacing_8x),
+                                start = dimensionResource(id = DimensionResource.spacing_3x),
+                                end = dimensionResource(id = DimensionResource.spacing_3x),
+                                bottom = dimensionResource(id = DimensionResource.spacing_3x)
+                            ),
                         painter = painterResource(id = R.drawable.ara_ic_back),
                         tint = MaterialTheme.colors.onPrimary(),
                         contentDescription = "back"
