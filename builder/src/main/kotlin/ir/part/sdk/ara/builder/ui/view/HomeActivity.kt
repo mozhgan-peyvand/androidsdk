@@ -3,6 +3,7 @@ package ir.part.sdk.ara.builder.ui.view
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -21,7 +23,10 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHostController
@@ -29,7 +34,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ir.part.sdk.ara.base.di.ComponentProviderActivity
-//import ir.part.sdk.ara.base.di.MainScope
 import ir.part.sdk.ara.base.event.MeratEvent
 import ir.part.sdk.ara.base.event.MeratEventPublisher
 import ir.part.sdk.ara.base.util.TasksName
@@ -85,9 +89,11 @@ class HomeActivity : ComponentProviderActivity() {
 
     private lateinit var exitDialog: DialogManager
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         provideComponent().inject(this)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
             val homeLoadingErrorState =
@@ -136,6 +142,8 @@ class HomeActivity : ComponentProviderActivity() {
                         }
                     }
                 ) { innerPadding ->
+                    window.statusBarColor = Color.Transparent.toArgb()
+
                     Box(modifier = Modifier.padding(innerPadding)) {
                         AppNavigation(onFullScreen = {
                             isFullScreen = it
