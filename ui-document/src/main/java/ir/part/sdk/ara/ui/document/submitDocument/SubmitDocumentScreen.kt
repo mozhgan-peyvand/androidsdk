@@ -24,8 +24,11 @@ import androidx.compose.ui.unit.dp
 import ir.part.sdk.ara.base.util.TasksName
 import ir.part.sdk.ara.common.ui.view.*
 import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.common.ProcessLoadingAndErrorState
 import ir.part.sdk.ara.common.ui.view.theme.*
-import ir.part.sdk.ara.common.ui.view.utils.dialog.*
+import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
+import ir.part.sdk.ara.common.ui.view.utils.dialog.DrawableResource
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getSuccessDialog
 import ir.part.sdk.ara.ui.document.R
 import ir.part.sdk.ara.ui.document.submitDocument.model.PersonalInfoClubView
 import ir.part.sdk.ara.ui.document.submitDocument.model.PersonalInfoSubmitDocumentView
@@ -70,8 +73,10 @@ fun SubmitDocumentScreen(
             initial = PublicState.Empty
         )
 
-    ProcessLoadingAndErrorState(input = taskLoadingErrorState.value)
-    ProcessLoadingAndErrorState(input = submitDocumentLoadingErrorState.value)
+    ProcessLoadingAndErrorState(
+        taskLoadingErrorState.value,
+        submitDocumentLoadingErrorState.value
+    )
 
     SubmitDocumentRequestSuccessHandler(response = submitDocumentResponseState) {
         if (tasksManagerViewModel.getDoingTaskName == TasksName.START_NEW_DOCUMENT) {
@@ -587,24 +592,6 @@ private fun UserAgreementCheckbox(
     }
 }
 
-@Composable
-private fun ProcessLoadingAndErrorState(input: PublicState?) {
-    val loadingDialog = getLoadingDialog()
-    val errorDialog = getErrorDialog(
-        title = stringResource(id = R.string.ara_label_warning_title_dialog),
-        description = "",
-        submitAction = {}
-    )
-
-    if (input?.refreshing == true) {
-        loadingDialog.show()
-    } else {
-        loadingDialog.dismiss()
-        input?.message?.let { messageModel ->
-            errorDialog.setDialogDetailMessage(messageModel.message).show()
-        }
-    }
-}
 
 @Composable
 private fun SubmitDocumentRequestSuccessHandler(

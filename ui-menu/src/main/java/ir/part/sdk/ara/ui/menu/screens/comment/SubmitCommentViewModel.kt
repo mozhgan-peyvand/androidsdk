@@ -136,16 +136,21 @@ class SubmitCommentViewModel @Inject constructor(
                 clearAllMessage()
 
                 // send
-                submitCommentRemote(SubmitCommentRemote.Param(BodyComment(
-                    captchaValue = captchaValue,
-                    captchaToken = captchaToken,
-                    data = DataComment(
-                        description = commentText.value,
-                        email = email.value,
-                        family = lastName.value,
-                        mobile = phone.value,
-                        name = name.value)
-                ))).collectAndChangeLoadingAndMessageStatus(
+                submitCommentRemote(
+                    SubmitCommentRemote.Param(
+                        BodyComment(
+                            captchaValue = captchaValue,
+                            captchaToken = captchaToken,
+                            data = DataComment(
+                                description = commentText.value,
+                                email = email.value,
+                                family = lastName.value,
+                                mobile = phone.value,
+                                name = name.value
+                            )
+                        )
+                    )
+                ).collectAndChangeLoadingAndMessageStatus(
                     coroutineScope = viewModelScope,
                     counter = loadingState,
                     exceptionHelper = exceptionHelper,
@@ -166,7 +171,7 @@ class SubmitCommentViewModel @Inject constructor(
         commentText.value = ""
     }
 
-    private fun clearAllMessage() {
+    fun clearAllMessage() {
         viewModelScope.launch {
             if (loadingState.count.toInt() == 0) {
                 uiMessageManager.clearAllMessage()

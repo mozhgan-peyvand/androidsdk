@@ -29,7 +29,8 @@ class ForgetPasswordViewModel @Inject constructor(
     var loadingState = ObservableLoadingCounter()
 
     //errorField
-    var errorValueNationalCode = mutableStateOf(Pair(ValidationField.CAPTCHA, listOf<ValidationResult>()))
+    var errorValueNationalCode =
+        mutableStateOf(Pair(ValidationField.CAPTCHA, listOf<ValidationResult>()))
 
     //field
     var userName = mutableStateOf("")
@@ -89,7 +90,7 @@ class ForgetPasswordViewModel @Inject constructor(
         )
     }
 
-    private fun clearAllMessage() {
+    fun clearAllMessage() {
         viewModelScope.launch {
             if (loadingState.count.toInt() == 0) {
                 uiMessageManager.clearAllMessage()

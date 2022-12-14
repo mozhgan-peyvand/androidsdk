@@ -105,7 +105,7 @@ class RegisterViewModel @Inject constructor(
                 validateWidget(ValidationField.PHONE, phone.value).second.isEmpty()
     }
 
-    private fun clearAllMessage() {
+    fun clearAllMessage() {
         viewModelScope.launch {
             if (loadingState.count.toInt() == 0) {
                 uiMessageManager.clearAllMessage()

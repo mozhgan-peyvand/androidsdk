@@ -16,12 +16,11 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.common.ProcessLoadingAndErrorState
 import ir.part.sdk.ara.common.ui.view.divider
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.h6BoldTextPrimary
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.ui.document.R
 import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
 import ir.part.sdk.ara.ui.document.submitDocument.model.PersonalDocumentsView
@@ -60,7 +59,9 @@ fun DocumentDetailsScreen(viewModel: DocumentSharedViewModel) {
         viewModel.overviewDocumentState.collectAsState().value.personalInfoSubmitDocumentView
     selectedDocument = viewModel.itemPersonalDocument.value
 
-    ProcessLoadingAndErrorState(input = loadingErrorState.value)
+    ProcessLoadingAndErrorState(loadingErrorState.value, removeErrorsFromStates = {
+        viewModel.clearAllMessage()
+    })
 
     DocumentDetail(
         personalInfoConstantsItem,
@@ -192,21 +193,3 @@ private fun DocumentDetail(
 
 }
 
-@Composable
-private fun ProcessLoadingAndErrorState(input: PublicState?) {
-    val loadingDialog = getLoadingDialog()
-    val errorDialog = getErrorDialog(
-        title = stringResource(id = R.string.ara_label_warning_title_dialog),
-        description = "",
-        submitAction = {}
-    )
-
-    if (input?.refreshing == true) {
-        loadingDialog.show()
-    } else {
-        loadingDialog.dismiss()
-        input?.message?.let { messageModel ->
-            errorDialog.setDialogDetailMessage(messageModel.message).show()
-        }
-    }
-}

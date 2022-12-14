@@ -1,5 +1,6 @@
 package ir.part.sdk.ara.common.ui.view.common
 
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -20,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.takeOrElse
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -27,9 +29,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import ir.part.sdk.ara.common.ui.view.R
+import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.disabled
 import ir.part.sdk.ara.common.ui.view.theme.*
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getConnectionErrorDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
+import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 
 @Composable
 fun TopAppBarContent(title: String, onNavigateUp: () -> Unit) {
@@ -251,3 +257,76 @@ fun CustomTextField(
         }
     ))
 }
+
+@Composable
+fun ProcessLoadingAndErrorState(
+    vararg loadingAndErrorStates: PublicState?,
+    removeErrorsFromStates: (() -> Unit)? = null
+) {
+    val activity = (LocalContext.current as? Activity)
+    val loadingDialog = getLoadingDialog()
+    val errorDialog = getErrorDialog(
+        title = stringResource(id = R.string.ara_msg_general_error_title),
+        description = ""
+    ) {}
+    val connectionDialog = getConnectionErrorDialog().setCancelAction {
+        activity?.finish()
+    }
+
+    // loading
+    if (
+        loadingAndErrorStates.any() {
+            it?.refreshing == true
+        }
+    ) {
+        loadingDialog.show()
+    } else {
+        loadingDialog.dismiss()
+    }
+
+    // error
+    val errors = loadingAndErrorStates.filter {
+        it?.message?.code?.isNotBlank() == true
+    }
+
+    if (errors.isNotEmpty()) {
+        loadingDialog.dismiss()
+
+        when (errors.firstOrNull()?.message?.code) {
+
+            "NoInternetConnection" -> {
+                connectionDialog.setSubmitAction {
+                    if (errors.any { it?.message?.onRetry != null }) {
+                        errors.forEach {
+                            if (it?.message?.onRetry != null) {
+                                it.message?.onRetry?.invoke()
+                            }
+                        }
+                    } else {
+                        removeErrorsFromStates?.invoke()
+                    }
+
+                }
+                connectionDialog.show()
+            }
+
+            else -> {
+                errors.firstOrNull()?.message?.let { messageModel ->
+                    errorDialog.setSubmitAction {
+                        if (errors.any { it?.message?.onRetry != null }) {
+                            errors.forEach {
+                                if (it?.message?.onRetry != null) {
+                                    it.message?.onRetry?.invoke()
+                                }
+                            }
+                        } else {
+                            removeErrorsFromStates?.invoke()
+                        }
+                    }
+                    errorDialog.setDialogDetailMessage(messageModel.message).show()
+                }
+            }
+        }
+    }
+}
+

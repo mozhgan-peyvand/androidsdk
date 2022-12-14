@@ -27,7 +27,8 @@ data class UiMessage(
     val id: String,
     val message: String,
     val code: String,
-    val icon: Int
+    val icon: Int,
+    val onRetry: (() -> Unit)? = null
 )
 
 class UiMessageManager {
@@ -54,7 +55,8 @@ class UiMessageManager {
                         id = message.id,
                         message = message.message,
                         code = message.code,
-                        icon = message.icon
+                        icon = message.icon,
+                        onRetry = message.onRetry
                     )
             }
         }
