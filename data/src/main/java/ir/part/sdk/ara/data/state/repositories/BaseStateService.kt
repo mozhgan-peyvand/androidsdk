@@ -2,7 +2,7 @@ package ir.part.sdk.ara.data.state.repositories
 
 import ir.part.sdk.ara.data.state.entites.BaseStateEntity
 import ir.part.sdk.ara.data.state.entites.BaseStateResponse
-import ir.part.sdk.ara.model.PublicResponse
+import ir.part.sdk.ara.model.StateResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header
@@ -16,5 +16,5 @@ interface BaseStateService {
         @Url url: String,
         @Header("username") username: String,
         @Body baseStateEntity: BaseStateEntity
-    ): Response<PublicResponse<BaseStateResponse>>
+    ): Response<StateResponse<BaseStateResponse>>
 }
