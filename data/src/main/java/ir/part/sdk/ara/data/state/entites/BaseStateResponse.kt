@@ -7,11 +7,11 @@ import com.squareup.moshi.JsonClass
 data class BaseStateResponse(
     @field:Json(name = "processType")
     val processType: String? = null,
-    @field:Json(name = "pid")
+    @field:Json(name = "processId")
     val pid: String? = null,
     @field:Json(name = "piid")
     val processInstanceId: String? = null,
-    @field:Json(name = "relatedPIIDs")
+    @field:Json(name = "relatedPiids")
     val relatedProcessInstanceIds: List<String?> = listOf(),
     @field:Json(name = "tasks")
     val tasks: Map<String, Status>? = null
