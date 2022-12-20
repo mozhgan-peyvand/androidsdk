@@ -23,10 +23,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
-import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHostController
@@ -92,7 +89,6 @@ class HomeActivity : ComponentProviderActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         provideComponent().inject(this)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
             val homeLoadingErrorState =
@@ -145,7 +141,6 @@ class HomeActivity : ComponentProviderActivity() {
                         }
                     }
                 ) { innerPadding ->
-                    window.statusBarColor = Color.Transparent.toArgb()
 
                     Box(modifier = Modifier.padding(innerPadding)) {
                         AppNavigation(onFullScreen = {
