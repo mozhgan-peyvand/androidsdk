@@ -18,13 +18,12 @@ import ir.part.app.merat.ui.user.R
 import ir.part.sdk.ara.base.util.TasksName
 import ir.part.sdk.ara.common.ui.view.UserTextField
 import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.common.ProcessLoadingAndErrorState
 import ir.part.sdk.ara.common.ui.view.common.SubmitActionContent
 import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.h6BoldTextPrimary
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getSuccessDialog
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationResult
@@ -68,12 +67,14 @@ fun ChangePasswordScreen(
         rememberFlowWithLifecycle(flow = it.loadingAndMessageState).collectAsState(initial = PublicState.Empty)
     }
 
-    ProcessLoadingAndErrorState(input = changePassLoadingErrorState.value) {
-        changePasswordViewModel.loadingAndMessageState.value.message = null
-    }
-    ProcessLoadingAndErrorState(input = taskLoadingErrorState.value) {
-        tasksManagerViewModel.loadingAndMessageState.value.message = null
-    }
+    ProcessLoadingAndErrorState(
+        changePassLoadingErrorState.value,
+        taskLoadingErrorState.value,
+        removeErrorsFromStates = {
+            changePasswordViewModel.clearAllMessage()
+            tasksManagerViewModel.clearAllMessage()
+        })
+
     val scrollState = rememberScrollState()
 
     Scaffold(
@@ -263,22 +264,3 @@ private fun ShowReNewPassword(
 }
 
 
-@Composable
-private fun ProcessLoadingAndErrorState(input: PublicState?, onErrorDialogDismissed: () -> Unit) {
-    val loadingDialog = getLoadingDialog()
-    val errorDialog = getErrorDialog(
-        title = stringResource(id = R.string.ara_label_warning_title_dialog),
-        description = "",
-        submitAction = {
-            onErrorDialogDismissed()
-        }
-    )
-    if (input?.refreshing == true) {
-        loadingDialog.show()
-    } else {
-        loadingDialog.dismiss()
-        input?.message?.let { messageModel ->
-            errorDialog.setDialogDetailMessage(messageModel.message).show()
-        }
-    }
-}

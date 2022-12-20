@@ -15,13 +15,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.common.CustomTextField
+import ir.part.sdk.ara.common.ui.view.common.ProcessLoadingAndErrorState
 import ir.part.sdk.ara.common.ui.view.common.SubmitActionContent
 import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.divider
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.*
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getSuccessDialog
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
 import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
@@ -46,14 +45,16 @@ fun SubmitCommentScreen(
         )
     ProcessLoadingAndErrorState(
         loadingErrorState.value,
-        onErrorDialogDismissed = {
-            submitCommentViewModel.loadingAndMessageState.value.message = null
+        removeErrorsFromStates = {
+            submitCommentViewModel.clearAllMessage()
         })
 
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(backgroundColor = MaterialTheme.colors.surface,
-                elevation = dimensionResource(id = R.dimen.spacing_half_base)) {
+            TopAppBar(
+                backgroundColor = MaterialTheme.colors.surface,
+                elevation = dimensionResource(id = R.dimen.spacing_half_base)
+            ) {
                 TopAppBarContent(title = stringResource(id = R.string.ara_label_submit_comments),
                     onNavigateUp = {
                         onNavigateUp()
@@ -77,7 +78,8 @@ fun SubmitCommentScreen(
                     )
 
                 },
-                buttonText = R.string.ara_label_send_comment)
+                buttonText = R.string.ara_label_send_comment
+            )
 
         }) { innerPadding ->
         Box(Modifier.padding(innerPadding)) {
@@ -102,7 +104,8 @@ private fun CommentContent(
     if (showSuccessDialog) {
         getSuccessDialog(
             title = stringResource(id = R.string.ara_label_send_comment),
-            description = stringResource(id = R.string.ara_msg_submit_comment_success)) {
+            description = stringResource(id = R.string.ara_msg_submit_comment_success)
+        ) {
             onSuccessDialogConfirmed()
 
         }.show()
@@ -110,42 +113,53 @@ private fun CommentContent(
 
     val scrollState = rememberScrollState()
 
-    Column(modifier = Modifier
-        .verticalScroll(scrollState)
-        .padding(horizontal = dimensionResource(id = R.dimen.spacing_4x))) {
+    Column(
+        modifier = Modifier
+            .verticalScroll(scrollState)
+            .padding(horizontal = dimensionResource(id = R.dimen.spacing_4x))
+    ) {
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_6x)))
-        Text(text = stringResource(id = R.string.ara_label_submit_comments),
-            style = MaterialTheme.typography.h6Bold())
+        Text(
+            text = stringResource(id = R.string.ara_label_submit_comments),
+            style = MaterialTheme.typography.h6Bold()
+        )
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_5x)))
-        Text(text = stringResource(id = R.string.ara_label_description_comment),
-            style = MaterialTheme.typography.subtitle2TextSecondary())
+        Text(
+            text = stringResource(id = R.string.ara_label_description_comment),
+            style = MaterialTheme.typography.subtitle2TextSecondary()
+        )
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_8x)))
 
-        CommentTextFieldItem(title = stringResource(id = R.string.ara_label_name),
+        CommentTextFieldItem(
+            title = stringResource(id = R.string.ara_label_name),
             value = viewModel.name.value,
             hint = stringResource(id = R.string.ara_label_enter_your_name),
             onValueChanged = {
                 viewModel.setName(it)
             }, errorMessage = if (viewModel.errorName.value.second.isNotEmpty())
                 viewModel.errorName.value.second.last().validator.getErrorMessage(LocalContext.current)
-            else "")
+            else ""
+        )
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_4x)))
 
-        CommentTextFieldItem(title = stringResource(id = R.string.ara_label_last_name),
+        CommentTextFieldItem(
+            title = stringResource(id = R.string.ara_label_last_name),
             value = viewModel.lastName.value,
             hint = stringResource(id = R.string.ara_label_enter_your_last_name),
             onValueChanged = {
                 viewModel.setLastName(it)
             }, errorMessage = if (viewModel.errorLastName.value.second.isNotEmpty())
                 viewModel.errorLastName.value.second.last().validator.getErrorMessage(LocalContext.current)
-            else "")
+            else ""
+        )
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_4x)))
 
 
-        CommentTextFieldItem(title = stringResource(id = R.string.ara_label_email_persian),
+        CommentTextFieldItem(
+            title = stringResource(id = R.string.ara_label_email_persian),
             value = viewModel.email.value,
             hint = stringResource(id = R.string.ara_label_enter_your_email),
             onValueChanged = {
@@ -153,11 +167,13 @@ private fun CommentContent(
             }, errorMessage = if (viewModel.errorEmail.value.second.isNotEmpty())
                 viewModel.errorEmail.value.second.last().validator.getErrorMessage(LocalContext.current)
             else "",
-            keyboardType = KeyboardType.Email)
+            keyboardType = KeyboardType.Email
+        )
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_4x)))
 
 
-        CommentTextFieldItem(title = stringResource(id = R.string.ara_label_phone_number_with_colon),
+        CommentTextFieldItem(
+            title = stringResource(id = R.string.ara_label_phone_number_with_colon),
             value = viewModel.phone.value,
             hint = stringResource(id = R.string.ara_label_enter_your_phone_number),
             onValueChanged = {
@@ -165,18 +181,22 @@ private fun CommentContent(
             }, errorMessage = if (viewModel.errorPhone.value.second.isNotEmpty())
                 viewModel.errorPhone.value.second.last().validator.getErrorMessage(LocalContext.current)
             else "",
-            keyboardType = KeyboardType.Number)
+            keyboardType = KeyboardType.Number
+        )
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_4x)))
 
-        CommentTextFieldItem(title = stringResource(id = R.string.ara_label_title_comment),
+        CommentTextFieldItem(
+            title = stringResource(id = R.string.ara_label_title_comment),
             value = viewModel.commentText.value,
             hint = stringResource(id = R.string.ara_label_enter_your_comment_content),
             onValueChanged = {
                 viewModel.setCommentText(it)
             }, errorMessage = if (viewModel.errorCommentText.value.second.isNotEmpty())
                 viewModel.errorCommentText.value.second.last().validator.getErrorMessage(
-                    LocalContext.current)
-            else "")
+                    LocalContext.current
+                )
+            else ""
+        )
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_6x)))
 
         Text(
@@ -220,8 +240,10 @@ private fun CommentTextFieldItem(
             backgroundColor = MaterialTheme.colors.background,
             unfocusedIndicatorColor = MaterialTheme.colors.divider()
         ),
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next,
-            keyboardType = keyboardType),
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Next,
+            keyboardType = keyboardType
+        ),
         isError = errorMessage.isNotEmpty(),
         singleLine = true
     )
@@ -234,26 +256,3 @@ private fun CommentTextFieldItem(
     )
 }
 
-@Composable
-private fun ProcessLoadingAndErrorState(
-    input: PublicState?,
-    onErrorDialogDismissed: () -> Unit,
-) {
-    val dialog = getErrorDialog(
-        title = stringResource(id = R.string.ara_msg_general_error_title),
-        description = "",
-        submitAction = {
-            onErrorDialogDismissed()
-        }
-    )
-    val loadingDialog = getLoadingDialog()
-
-    if (input?.refreshing == true) {
-        loadingDialog.show()
-    } else {
-        loadingDialog.dismiss()
-        input?.message?.let { messageModel ->
-            dialog.setDialogDetailMessage(messageModel.message).show()
-        }
-    }
-}

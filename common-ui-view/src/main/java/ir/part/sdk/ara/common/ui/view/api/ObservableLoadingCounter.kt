@@ -37,6 +37,7 @@ fun <T> Flow<InvokeStatus<T>>.collectAndChangeLoadingAndMessageStatus(
     counter: ObservableLoadingCounter,
     exceptionHelper: ExceptionHelper,
     uiMessageManager: UiMessageManager? = null,
+    onRetry: (() -> Unit)? = null,
     returnData: ((value: T) -> Unit)? = null
 ) = coroutineScope.launchWithErrorHandler {
     collect { status ->
@@ -53,7 +54,8 @@ fun <T> Flow<InvokeStatus<T>>.collectAndChangeLoadingAndMessageStatus(
                     counter,
                     exceptionHelper,
                     uiMessageManager,
-                    status.exception
+                    status.exception,
+                    onRetry
                 )
             }
         }
@@ -66,6 +68,7 @@ fun changeLoadingAndMessageStatus(
     exceptionHelper: ExceptionHelper,
     uiMessageManager: UiMessageManager? = null,
     vararg statuses: InvokeStatus<*>,
+    onRetry: () -> Unit = {}
 ) = coroutineScope.launchWithErrorHandler(Dispatchers.IO) {
     var emitFirstMessage = false
     statuses.forEach { status ->
@@ -80,7 +83,8 @@ fun changeLoadingAndMessageStatus(
                             counter,
                             exceptionHelper,
                             uiMessageManager,
-                            status.exception
+                            status.exception,
+                            onRetry
                         )
                     } else {
                         emitFirstMessage = true
@@ -95,7 +99,8 @@ private suspend fun changeLoadingAndMessageOnInvokeError(
     counter: ObservableLoadingCounter,
     exceptionHelper: ExceptionHelper,
     uiMessageManager: UiMessageManager? = null,
-    exception: Exceptions
+    exception: Exceptions,
+    onRetry: (() -> Unit)? = null
 ) {
     if (counter.count.get() <= 0) {
         val uiMessage = exceptionHelper.getError(exception)
@@ -104,7 +109,8 @@ private suspend fun changeLoadingAndMessageOnInvokeError(
                 id = uiMessage.id,
                 message = uiMessage.message,
                 code = uiMessage.code,
-                icon = uiMessage.icon
+                icon = uiMessage.icon,
+                onRetry = onRetry
             )
         )
     }

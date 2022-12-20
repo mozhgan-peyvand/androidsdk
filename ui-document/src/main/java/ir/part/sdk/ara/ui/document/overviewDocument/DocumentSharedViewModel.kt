@@ -76,7 +76,11 @@ class DocumentSharedViewModel @Inject constructor(
             loadingState,
             exceptionHelper,
             uiMessageManager,
-            personalInfoConstants, personalInfoSubmitDocument
+            personalInfoConstants, personalInfoSubmitDocument,
+            onRetry = {
+                getPersonalInfoConstants()
+                getPersonalInfo()
+            }
         )
         OverviewDocumentView(
             personalInfoConstantsItem = personalInfoConstants.data?.toPersonalInfoConstantsView(),
@@ -111,7 +115,10 @@ class DocumentSharedViewModel @Inject constructor(
                     viewModelScope,
                     loadingState,
                     exceptionHelper,
-                    uiMessageManager
+                    uiMessageManager,
+                    onRetry = {
+                        getPersonalDocument()
+                    }
                 ) { list ->
                     documents.value = list?.map {
                         it.toPersonalDocumentsView(dateUtil)
@@ -164,7 +171,14 @@ class DocumentSharedViewModel @Inject constructor(
                     viewModelScope,
                     loadingState,
                     exceptionHelper,
-                    uiMessageManager
+                    uiMessageManager,
+                    onRetry = {
+                        setHasUnreadMessage(
+                            hasUnreadMessage,
+                            documentId,
+                            onResponse
+                        )
+                    }
                 ) {
                     onResponse(it)
                 }
@@ -194,7 +208,7 @@ class DocumentSharedViewModel @Inject constructor(
         }
     }
 
-    private fun clearAllMessage() {
+    fun clearAllMessage() {
         viewModelScope.launch {
             if (loadingState.count.toInt() == 0) {
                 uiMessageManager.clearAllMessage()

@@ -44,13 +44,12 @@ import ir.part.sdk.ara.builder.util.addNamabarNavGraph
 import ir.part.sdk.ara.builder.util.localizedContext
 import ir.part.sdk.ara.common.ui.view.api.PublicState
 import ir.part.sdk.ara.common.ui.view.collectOnActivity
+import ir.part.sdk.ara.common.ui.view.common.ProcessLoadingAndErrorState
 import ir.part.sdk.ara.common.ui.view.ids.UiUserSharedIds
 import ir.part.sdk.ara.common.ui.view.rememberFlowWithLifecycle
 import ir.part.sdk.ara.common.ui.view.theme.AraTheme
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DialogManager
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
 import ir.part.sdk.ara.common.ui.view.utils.dialog.getExitAppDialog
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.home.utils.navigation.HomeRouter
 import ir.part.sdk.ara.home.utils.navigation.addHomeGraph
 import ir.part.sdk.ara.home.utils.navigation.navigateToUserHomeScreen
@@ -100,7 +99,11 @@ class HomeActivity : ComponentProviderActivity() {
                 rememberFlowWithLifecycle(flow = homeViewModel.loadingAndMessageState).collectAsState(
                     initial = PublicState.Empty
                 )
-            ProcessLoadingAndErrorState(input = homeLoadingErrorState.value)
+            ProcessLoadingAndErrorState(
+                homeLoadingErrorState.value,
+                removeErrorsFromStates = {
+                    homeViewModel.clearAllMessage()
+                })
 
             var userHasDoc: Boolean? by remember {
                 mutableStateOf(null)
@@ -264,25 +267,6 @@ class HomeActivity : ComponentProviderActivity() {
             ).show()
         }
         mBackPressed = System.currentTimeMillis()
-    }
-
-    @Composable
-    private fun ProcessLoadingAndErrorState(input: PublicState?) {
-        val loadingDialog = getLoadingDialog()
-        val errorDialog = getErrorDialog(
-            title = stringResource(id = ir.part.app.merat.ui.user.R.string.ara_label_warning_title_dialog),
-            description = "",
-            submitAction = {}
-        )
-
-        if (input?.refreshing == true) {
-            loadingDialog.show()
-        } else {
-            loadingDialog.dismiss()
-            input?.message?.let { messageModel ->
-                errorDialog.setDialogDetailMessage(messageModel.message).show()
-            }
-        }
     }
 
     @Composable

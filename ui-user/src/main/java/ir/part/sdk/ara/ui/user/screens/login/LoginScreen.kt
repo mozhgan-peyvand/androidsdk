@@ -22,10 +22,9 @@ import androidx.compose.ui.text.style.TextAlign
 import ir.part.app.merat.ui.user.R
 import ir.part.sdk.ara.common.ui.view.*
 import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.common.ProcessLoadingAndErrorState
 import ir.part.sdk.ara.common.ui.view.utils.clearFocusOnKeyboardDismiss
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationResult
 import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
@@ -43,57 +42,81 @@ fun LoginScreen(
     tasksManagerViewModel: TasksManagerViewModel,
 ) {
 
-    var nationalCode: String? by remember {
-        mutableStateOf(null)
-    }
-    var password: String? by remember {
-        mutableStateOf(null)
-    }
-
     val loginLoadingErrorState =
         rememberFlowWithLifecycle(flow = loginViewModel.loadingAndMessageState).collectAsState(
             initial = PublicState.Empty
         )
-
-    nationalCode = loginViewModel.userName.value
-    password = loginViewModel.password.value
 
     val taskLoadingErrorState =
         rememberFlowWithLifecycle(flow = tasksManagerViewModel.loadingAndMessageState).collectAsState(
             initial = PublicState.Empty
         )
 
-    ProcessLoadingAndErrorState(
-        input = loginLoadingErrorState.value
-    ) {
-        loginViewModel.loadingAndMessageState.value.message = null
-    }
+    val errorValueNationalCode =
+        rememberFlowWithLifecycle(flow = loginViewModel.errorValueNationalCode).collectAsState(
+            initial = Pair(ValidationField.CAPTCHA, listOf())
+        )
 
-    ProcessLoadingAndErrorState(input = taskLoadingErrorState.value) {
-        tasksManagerViewModel.loadingAndMessageState.value.message = null
-    }
+    val errorValuePassword =
+        rememberFlowWithLifecycle(flow = loginViewModel.errorValuePassword).collectAsState(
+            initial = Pair(ValidationField.CAPTCHA, listOf())
+        )
+
+    ProcessLoadingAndErrorState(
+        loginLoadingErrorState.value,
+        taskLoadingErrorState.value,
+        removeErrorsFromStates = {
+            loginViewModel.clearAllMessage()
+            tasksManagerViewModel.clearAllMessage()
+        }
+    )
 
     Login(
         onNavigateUp = onNavigateUp,
-        loginViewModel = loginViewModel,
-        nationalCode = nationalCode,
-        password = password,
-        tasksManagerViewModel = tasksManagerViewModel,
         navigateToForgetPassword = navigateToForgetPassword,
-        captchaViewModel = captchaViewModel
+        errorValueNationalCode = errorValueNationalCode.value,
+        onNationalCodeChange = {
+            loginViewModel.setNationalCode(it)
+        },
+        errorValuePassword = errorValuePassword.value,
+        onPasswordChange = {
+            loginViewModel.setPassword(
+                it
+            )
+        },
+        captchaViewModel = captchaViewModel,
+        onLoginButtonClick = {
+            captchaViewModel.setError(
+                validateWidget(
+                    ValidationField.CAPTCHA,
+                    captchaViewModel.captchaValue.value
+                )
+            )
+            if (
+                loginViewModel.isValidationFields() && captchaViewModel.errorCaptchaValue.value.second.isEmpty()
+            ) {
+                loginViewModel.getLogin(
+                    captchaValue = captchaViewModel.captchaValue.value,
+                    captchaToken = captchaViewModel.captchaViewState.value?.token ?: "",
+                    onSuccess = {
+                        tasksManagerViewModel.getBaseState(it)
+                    }
+                )
+            }
+        }
     )
-
 }
 
 @Composable
 fun Login(
-    loginViewModel: LoginViewModel,
-    nationalCode: String?,
-    tasksManagerViewModel: TasksManagerViewModel,
     navigateToForgetPassword: (() -> Unit)?,
-    captchaViewModel: CaptchaViewModel,
-    password: String?,
     onNavigateUp: () -> Unit,
+    errorValueNationalCode: Pair<ValidationField, List<ValidationResult>>,
+    onNationalCodeChange: (String) -> Unit,
+    errorValuePassword: Pair<ValidationField, List<ValidationResult>>,
+    onPasswordChange: (String) -> Unit,
+    captchaViewModel: CaptchaViewModel,
+    onLoginButtonClick: () -> Unit
 ) {
     val nationalCodeInteractionSource = remember { MutableInteractionSource() }
     val nationalCodeFocusState = nationalCodeInteractionSource.collectIsFocusedAsState()
@@ -145,23 +168,19 @@ fun Login(
         }
 
         ShowNationalCode(
-            nationalCode = nationalCode ?: "",
             onchangeNationalCode = { nationalCodeText ->
-                loginViewModel.setNationalCode(
-                    nationalCodeText
-                )
+                onNationalCodeChange(nationalCodeText)
+
             },
-            errorNationalCode = loginViewModel.errorValueNationalCode,
+            errorNationalCode = errorValueNationalCode,
             interactionSource = nationalCodeInteractionSource
         )
+
         ShowPassword(
-            password = password ?: "",
             onChangePassword = { passwordText ->
-                loginViewModel.setPassword(
-                    passwordText
-                )
+                onPasswordChange(passwordText)
             },
-            errorPassword = loginViewModel.errorValuePassword,
+            errorPassword = errorValuePassword,
             interactionSource = passwordInteractionSource
         )
 
@@ -170,25 +189,12 @@ fun Login(
             interactionSource = captchaInteractionSource
         )
 
-        UserButton(onClickButton = {
-            captchaViewModel.setError(
-                validateWidget(
-                    ValidationField.CAPTCHA,
-                    captchaViewModel.captchaValue.value
-                )
-            )
-            if (
-                loginViewModel.isValidationFields() && captchaViewModel.errorCaptchaValue.value.second.isEmpty()
-            ) {
-                loginViewModel.getLogin(
-                    captchaValue = captchaViewModel.captchaValue.value,
-                    captchaToken = captchaViewModel.captchaViewState.value?.token ?: "",
-                    onSuccess = {
-                        tasksManagerViewModel.getBaseState(it)
-                    }
-                )
-            }
-        }, textButton = stringResource(id = R.string.label_login))
+        UserButton(
+            onClickButton = {
+                onLoginButtonClick()
+            },
+            textButton = stringResource(id = R.string.label_login)
+        )
 
 
         Button(
@@ -217,21 +223,25 @@ fun Login(
 
 @Composable
 private fun ShowNationalCode(
-    nationalCode: String,
     onchangeNationalCode: (String) -> Unit,
-    errorNationalCode: MutableState<Pair<ValidationField, List<ValidationResult>>>,
+    errorNationalCode: Pair<ValidationField, List<ValidationResult>>,
     interactionSource: MutableInteractionSource,
 ) {
+    var nationalCode: String by remember {
+        mutableStateOf("")
+    }
+
     UserTextField(
         modifier = Modifier.clearFocusOnKeyboardDismiss(),
         title = null,
         hint = stringResource(id = R.string.label_national_code),
         value = nationalCode,
         onValueChanged = { nationalCodeText ->
+            nationalCode = nationalCodeText
             onchangeNationalCode(nationalCodeText)
         },
-        errorMessage = if (errorNationalCode.value.second.isNotEmpty())
-            errorNationalCode.value.second.last().validator.getErrorMessage(LocalContext.current)
+        errorMessage = if (errorNationalCode.second.isNotEmpty())
+            errorNationalCode.second.last().validator.getErrorMessage(LocalContext.current)
         else "",
         maxChar = 10,
         keyboardType = KeyboardType.Number,
@@ -243,44 +253,30 @@ private fun ShowNationalCode(
 
 @Composable
 private fun ShowPassword(
-    password: String,
     onChangePassword: (String) -> Unit,
-    errorPassword: MutableState<Pair<ValidationField, List<ValidationResult>>>,
+    errorPassword: Pair<ValidationField, List<ValidationResult>>,
     interactionSource: MutableInteractionSource,
 ) {
+
+    var password: String by remember {
+        mutableStateOf("")
+    }
+
     UserTextField(
         modifier = Modifier.clearFocusOnKeyboardDismiss(),
         hint = stringResource(id = R.string.label_password),
         value = password,
-        onValueChanged = { passwordText -> onChangePassword.invoke(passwordText) },
-        errorMessage = if (errorPassword.value.second.isNotEmpty())
-            errorPassword.value.second.last().validator.getErrorMessage(LocalContext.current) else "",
+        onValueChanged = { passwordText ->
+            password = passwordText
+            onChangePassword.invoke(passwordText)
+        },
+        errorMessage = if (errorPassword.second.isNotEmpty())
+            errorPassword.second.last().validator.getErrorMessage(LocalContext.current) else "",
         keyboardType = KeyboardType.Password,
         trailingPasswordIcon = true,
         painter = painterResource(R.drawable.ara_ic_lock),
         interactionSource = interactionSource
     )
 
-}
-
-@Composable
-private fun ProcessLoadingAndErrorState(input: PublicState?, onErrorDialogDismissed: () -> Unit) {
-    val loadingDialog = getLoadingDialog()
-    val errorDialog = getErrorDialog(
-        title = stringResource(id = R.string.ara_msg_general_error_title),
-        description = "",
-        submitAction = {
-            onErrorDialogDismissed()
-        }
-    )
-
-    if (input?.refreshing == true) {
-        loadingDialog.show()
-    } else {
-        loadingDialog.dismiss()
-        input?.message?.let { messageModel ->
-            errorDialog.setDialogDetailMessage(messageModel.message).show()
-        }
-    }
 }
 

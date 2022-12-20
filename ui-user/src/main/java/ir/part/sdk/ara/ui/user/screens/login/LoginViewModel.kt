@@ -1,6 +1,5 @@
 package ir.part.sdk.ara.ui.user.screens.login
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ir.part.sdk.ara.common.ui.view.ExceptionHelper
@@ -12,10 +11,7 @@ import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationResult
 import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
 import ir.part.sdk.ara.domain.user.interacors.GetLoginRemote
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,13 +25,13 @@ class LoginViewModel @Inject constructor(
 
     //errorFields
     var errorValueNationalCode =
-        mutableStateOf(Pair(ValidationField.CAPTCHA, listOf<ValidationResult>()))
+        MutableStateFlow(Pair(ValidationField.CAPTCHA, listOf<ValidationResult>()))
     var errorValuePassword =
-        mutableStateOf(Pair(ValidationField.CAPTCHA, listOf<ValidationResult>()))
+        MutableStateFlow(Pair(ValidationField.CAPTCHA, listOf<ValidationResult>()))
 
     //fields
-    var userName = mutableStateOf("")
-    var password = mutableStateOf("")
+    private var userName = ""
+    private var userPassword = ""
 
     var loadingAndMessageState: StateFlow<PublicState> = combine(
         loadingState.observable,
@@ -58,8 +54,8 @@ class LoginViewModel @Inject constructor(
                 getLoginRemote.invoke(
                     GetLoginRemote.Param(
                         LoginView(
-                            nationalCode = userName.value,
-                            password = password.value,
+                            nationalCode = userName,
+                            password = userPassword,
                             captchaValue = captchaValue,
                             captchaToken = captchaToken
                         ).toLoginParam()
@@ -87,7 +83,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun setNationalCode(nationalCode: String) {
-        userName.value = nationalCode
+        userName = nationalCode
         setErrorNationalCode(
             validateWidget(
                 ValidationField.NATIONAL_CODE,
@@ -97,7 +93,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun setPassword(passwordText: String) {
-        password.value = passwordText
+        userPassword = passwordText
         setErrorPassword(
             validateWidget(
                 ValidationField.LOGIN_PASSWORD,
@@ -107,20 +103,20 @@ class LoginViewModel @Inject constructor(
     }
 
     fun isValidationFields(): Boolean {
-        setErrorNationalCode(validateWidget(ValidationField.NATIONAL_CODE, userName.value))
-        setErrorPassword(validateWidget(ValidationField.LOGIN_PASSWORD, password.value))
+        setErrorNationalCode(validateWidget(ValidationField.NATIONAL_CODE, userName))
+        setErrorPassword(validateWidget(ValidationField.LOGIN_PASSWORD, userPassword))
 
         return validateWidget(
             ValidationField.NATIONAL_CODE,
-            userName.value
+            userName
         ).second.isEmpty() &&
                 validateWidget(
                     ValidationField.LOGIN_PASSWORD,
-                    password.value
+                    userPassword
                 ).second.isEmpty()
     }
 
-    private fun clearAllMessage() {
+    fun clearAllMessage() {
         viewModelScope.launch {
             uiMassageManager.clearAllMessage()
         }

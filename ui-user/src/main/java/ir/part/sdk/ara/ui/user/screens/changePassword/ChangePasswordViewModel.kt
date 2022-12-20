@@ -139,7 +139,7 @@ class ChangePasswordViewModel @Inject constructor(
                 validateWidget(ValidationField.PASSWORD, reNewPassword.value).second.isEmpty()
     }
 
-    private fun clearAllMessage() {
+    fun clearAllMessage() {
         viewModelScope.launch {
             if (loadingState.count.toInt() == 0) {
                 uiMessageManager.clearAllMessage()

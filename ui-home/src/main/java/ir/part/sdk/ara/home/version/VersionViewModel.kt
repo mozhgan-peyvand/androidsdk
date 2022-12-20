@@ -62,25 +62,29 @@ class VersionViewModel @Inject constructor(
                     viewModelScope,
                     loadingState,
                     exceptionHandler,
-                    uiMessageManager
-                ) { versionList ->
+                    uiMessageManager,
+                    returnData = { versionList ->
 
-                    versionsList.value = versionList?.filter { version ->
-                        version.versionNumber?.let { versionNumber ->
-                            (versionNumber >= BuildConfig.VERSION_CODE)
-                        } ?: false
-                    }
-
-                    hasForceVersion.value = versionsList.value?.any {
-                        it.isForce == true
-                    }
-
-                    if (hasForceVersion.value == false) {
-                        if (versionsList.value?.lastOrNull()?.versionNumber == getLastShownUpdateVersion()) {
-                            shouldShowVersionDialog.value = false
+                        versionsList.value = versionList?.filter { version ->
+                            version.versionNumber?.let { versionNumber ->
+                                (versionNumber >= BuildConfig.VERSION_CODE)
+                            } ?: false
                         }
+
+                        hasForceVersion.value = versionsList.value?.any {
+                            it.isForce == true
+                        }
+
+                        if (hasForceVersion.value == false) {
+                            if (versionsList.value?.lastOrNull()?.versionNumber == getLastShownUpdateVersion()) {
+                                shouldShowVersionDialog.value = false
+                            }
+                        }
+                    },
+                    onRetry = {
+                        getVersion()
                     }
-                }
+                )
             }
         }
     }
@@ -89,7 +93,7 @@ class VersionViewModel @Inject constructor(
         saveLastShownUpdateVersion(versionsList.value?.lastOrNull()?.versionNumber)
     }
 
-    private fun clearAllMessage() {
+    fun clearAllMessage() {
         viewModelScope.launch {
             if (loadingState.count.toInt() == 0) {
                 uiMessageManager.clearAllMessage()

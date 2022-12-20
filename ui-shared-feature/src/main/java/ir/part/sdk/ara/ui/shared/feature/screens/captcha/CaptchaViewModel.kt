@@ -64,7 +64,10 @@ class CaptchaViewModel @Inject constructor(
                     viewModelScope,
                     loadingState,
                     exceptionHelper,
-                    uiMessageManager
+                    uiMessageManager,
+                    onRetry = {
+                        refreshCaptcha()
+                    }
                 ) {
                     captchaViewState.value = it?.toCaptchaView()
                 }
@@ -76,9 +79,9 @@ class CaptchaViewModel @Inject constructor(
         errorCaptchaValue.value = errorList
     }
 
-    private fun clearAllMessage() {
+    fun clearAllMessage() {
         viewModelScope.launch {
-                uiMessageManager.clearAllMessage()
+            uiMessageManager.clearAllMessage()
         }
     }
 }

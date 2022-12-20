@@ -21,10 +21,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import ir.part.app.merat.ui.user.R
 import ir.part.sdk.ara.common.ui.view.*
 import ir.part.sdk.ara.common.ui.view.api.PublicState
+import ir.part.sdk.ara.common.ui.view.common.ProcessLoadingAndErrorState
 import ir.part.sdk.ara.common.ui.view.utils.clearFocusOnKeyboardDismiss
 import ir.part.sdk.ara.common.ui.view.utils.dialog.DimensionResource
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getErrorDialog
-import ir.part.sdk.ara.common.ui.view.utils.dialog.getLoadingDialog
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationField
 import ir.part.sdk.ara.common.ui.view.utils.validation.ValidationResult
 import ir.part.sdk.ara.common.ui.view.utils.validation.validateWidget
@@ -57,9 +56,9 @@ fun ForgetPasswordScreen(
         forgetPasswordViewModel.isRecoveredPassword.value = false
     }
 
-    ProcessLoadingAndErrorState(loadingErrorState.value) {
-        forgetPasswordViewModel.loadingAndMessageState.value.message = null
-    }
+    ProcessLoadingAndErrorState(loadingErrorState.value, removeErrorsFromStates = {
+        forgetPasswordViewModel.clearAllMessage()
+    })
 
     ForgetPassword(
         onNavigateUp = onNavigateUp,
@@ -193,23 +192,4 @@ private fun ShowNationalCode(
 
 }
 
-@Composable
-private fun ProcessLoadingAndErrorState(input: PublicState?, onErrorDialogDismissed: () -> Unit) {
-    val loadingDialog = getLoadingDialog()
-    val errorDialog = getErrorDialog(
-        title = stringResource(id = R.string.ara_label_warning_title_dialog),
-        description = "",
-        submitAction = {
-            onErrorDialogDismissed()
-        }
-    )
 
-    if (input?.refreshing == true) {
-        loadingDialog.show()
-    } else {
-        loadingDialog.dismiss()
-        input?.message?.let { messageModel ->
-            errorDialog.setDialogDetailMessage(messageModel.message).show()
-        }
-    }
-}
