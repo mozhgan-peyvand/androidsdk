@@ -17,7 +17,7 @@ class BaseStateRemoteDataSource @Inject constructor(private val service: BaseSta
         service.baseStateObject(
             url = urls.stateService.getBaseStateObject,
             baseStateEntity = BaseStateEntity(
-                searchToken = "processType_base&username_$nationalCode",
+                searchToken = "processType_base&applicantUsername_$nationalCode",
                 include = listOf("id", "keys", "body"),
                 sort = true,
                 sortMethod = "asc",
