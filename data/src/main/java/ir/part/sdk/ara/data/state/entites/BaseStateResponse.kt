@@ -9,7 +9,7 @@ data class BaseStateResponse(
     val processType: String? = null,
     @field:Json(name = "processId")
     val pid: String? = null,
-    @field:Json(name = "piid")
+    @field:Json(name = "processInstanceId")
     val processInstanceId: String? = null,
     @field:Json(name = "relatedPiids")
     val relatedProcessInstanceIds: List<String?> = listOf(),
