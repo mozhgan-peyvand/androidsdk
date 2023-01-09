@@ -111,7 +111,7 @@ fun FileListScreen(
     }
 
     provinceMoney =
-        viewModel?.overviewDocumentState?.collectAsState(initial = null)?.value?.personalInfoConstantsItem?.provincesAndCities?.first {
+        viewModel?.overviewDocumentState?.collectAsState(initial = null)?.value?.personalInfoConstantsItem?.provincesAndCities?.firstOrNull() {
             it.provinceId.toInt() == personalProvince
         }
 
