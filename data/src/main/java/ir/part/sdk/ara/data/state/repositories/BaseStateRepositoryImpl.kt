@@ -2,8 +2,11 @@ package ir.part.sdk.ara.data.state.repositories
 
 import ir.part.sdk.ara.base.model.InvokeStatus
 import ir.part.sdk.ara.data.state.entites.BaseStateResponse
+import ir.part.sdk.ara.data.state.entites.DocumentStateResponse
 import ir.part.sdk.ara.data.state.mappers.toBaseState
+import ir.part.sdk.ara.data.state.mappers.toDocumentState
 import ir.part.sdk.ara.data.userManager.repositories.UserManagerLocalDataSource
+import ir.part.sdk.ara.domain.document.entities.DocumentState
 import ir.part.sdk.ara.domain.tasks.entities.BaseStateInfo
 import ir.part.sdk.ara.domain.tasks.repository.BaseStateRepository
 import ir.part.sdk.ara.model.StateResponse
@@ -36,4 +39,21 @@ class BaseStateRepositoryImpl @Inject constructor(
         )
 
     override fun getProcessInstanceId(): String = stateLocalDataSource.getProcessInstanceId()
+
+    override suspend fun getDocumentsStates(): InvokeStatus<List<DocumentState>?> =
+        requestExecutor.execute(object :
+            InvokeStatus.ApiEventListener<StateResponse<DocumentStateResponse>, List<DocumentState>?> {
+            override suspend fun onRequestCall(): InvokeStatus<StateResponse<DocumentStateResponse>> {
+
+                return remoteDataSource.documentsStates(
+                    userManagerLocalDataSource.getNationalCode()
+                )
+            }
+
+            override fun onConvertResult(data: StateResponse<DocumentStateResponse>): List<DocumentState>? =
+                data.item?.map {
+                    it.toDocumentState()
+                }
+        }
+        )
 }

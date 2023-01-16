@@ -11,6 +11,7 @@ import ir.part.sdk.ara.common.ui.view.di.CommonUiComponent
 import ir.part.sdk.ara.domain.provider.components.barjavand.DomainProviderBarjavandComponent
 import ir.part.sdk.ara.domain.provider.components.dashboard.DomainProviderDashboardComponent
 import ir.part.sdk.ara.domain.provider.components.payment.DomainProviderPaymentComponent
+import ir.part.sdk.ara.domain.provider.components.state.DomainProviderStateComponent
 import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
 import ir.part.sdk.ara.ui.document.submitDocument.SubmitDocumentViewModel
 
@@ -22,7 +23,8 @@ import ir.part.sdk.ara.ui.document.submitDocument.SubmitDocumentViewModel
         CommonUiComponent::class,
         DomainProviderPaymentComponent::class,
         DomainProviderBarjavandComponent::class,
-        DomainProviderDashboardComponent::class
+        DomainProviderDashboardComponent::class,
+        DomainProviderStateComponent::class
     ]
 )
 interface DocumentComponent : BasicComponent {
@@ -34,7 +36,8 @@ interface DocumentComponent : BasicComponent {
             commonUiComponent: CommonUiComponent,
             domainProviderPaymentComponent: DomainProviderPaymentComponent,
             domainProviderBarjavandComponent: DomainProviderBarjavandComponent,
-            domainProviderDashboardComponent: DomainProviderDashboardComponent
+            domainProviderDashboardComponent: DomainProviderDashboardComponent,
+            domainProviderStateComponent: DomainProviderStateComponent
         ): DocumentComponent
     }
 
@@ -55,6 +58,9 @@ interface DocumentComponent : BasicComponent {
                         componentProvider
                     ),
                     domainProviderDashboardComponent = DomainProviderDashboardComponent.builder(
+                        componentProvider
+                    ),
+                    domainProviderStateComponent = DomainProviderStateComponent.builder(
                         componentProvider
                     )
                 )

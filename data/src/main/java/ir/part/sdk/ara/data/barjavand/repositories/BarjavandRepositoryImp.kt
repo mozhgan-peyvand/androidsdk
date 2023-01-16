@@ -3,11 +3,20 @@ package ir.part.sdk.ara.data.barjavand.repositories
 import android.content.SharedPreferences
 import ir.part.sdk.ara.base.di.SK
 import ir.part.sdk.ara.base.di.scopes.FeatureDataScope
+import ir.part.sdk.ara.base.exception.Exceptions
+import ir.part.sdk.ara.base.model.InvokeError
 import ir.part.sdk.ara.base.model.InvokeStatus
+import ir.part.sdk.ara.base.model.InvokeSuccess
+import ir.part.sdk.ara.base.model.Message
 import ir.part.sdk.ara.base.util.AesEncryptor
+import ir.part.sdk.ara.base.util.DocumentTasksName
+import ir.part.sdk.ara.base.util.TaskStatus
 import ir.part.sdk.ara.data.barjavand.entities.*
 import ir.part.sdk.ara.data.barjavand.mappers.toBodyCommentEntity
 import ir.part.sdk.ara.data.barjavand.mappers.toRemoveDocumentParamRequest
+import ir.part.sdk.ara.data.dashboard.repositories.DashboardRemoteDataSource
+import ir.part.sdk.ara.data.state.repositories.BaseStateRemoteDataSource
+import ir.part.sdk.ara.data.userManager.repositories.UserManagerLocalDataSource
 import ir.part.sdk.ara.domain.document.entities.*
 import ir.part.sdk.ara.domain.document.repository.BarjavandRepository
 import ir.part.sdk.ara.domain.menu.entities.BodyComment
@@ -23,6 +32,9 @@ import javax.inject.Inject
 class BarjavandRepositoryImp @Inject constructor(
     private val barjavandLocalDataSource: BarjavandLocalDataSource,
     private val remoteDataSource: BarjavandRemoteDataSource,
+    private val dashboardRemoteDataSource: DashboardRemoteDataSource,
+    private val userManagerLocalDataSource: UserManagerLocalDataSource,
+    private val stateRemoteDataSource: BaseStateRemoteDataSource,
     private val requestExecutor: RequestExecutor,
     @SK private val sk: String,
     private val pref: SharedPreferences,
@@ -79,21 +91,232 @@ class BarjavandRepositoryImp @Inject constructor(
     override suspend fun rejectRequestByUser(removeDocumentParam: RemoveDocumentParam): InvokeStatus<Boolean> =
         requestExecutor.execute(object :
             InvokeStatus.ApiEventListener<Unit, Boolean> {
-            override suspend fun onRequestCall(): InvokeStatus<Unit> =
-                remoteDataSource.removeDocument(
-                    removeDocumentParam.toRemoveDocumentParamRequest(
-                        id = "${
-                            pref.getString(
-                                "CurrentUserNationalCode",
-                                null
-                            )?.let {
-                                AesEncryptor().decrypt(it, sk)
-                            } ?: ""
-                        }-${removeDocumentParam.documentId.toString()}",
-                        schema = Schema(name = "document", version = "1.0.0"),
-                        newTag = Tag(archive = "true"),
+            override suspend fun onRequestCall(): InvokeStatus<Unit> {
+
+                val getDoingTasksResponse =
+                    dashboardRemoteDataSource.getDoingTasks(listOf(("\"" + (removeDocumentParam.documentPiid) + "\"")).toString())
+
+                if (getDoingTasksResponse is InvokeSuccess) {
+
+                    val getDoingDeleteTask = getDoingTasksResponse.data.item?.find {
+                        it.name == DocumentTasksName.DELETE_DOCUMENT.value
+                    }
+
+                    if (getDoingDeleteTask?.status == TaskStatus.DOING.value) {
+                        val getDocumentsStateResponse = stateRemoteDataSource.documentsStates(
+                            userManagerLocalDataSource.getNationalCode()
+                        )
+
+                        if (getDocumentsStateResponse is InvokeSuccess) {
+                            val documentStateObject = getDocumentsStateResponse.data.item?.find {
+                                it.processInstanceId == removeDocumentParam.documentPiid
+                            }
+
+                            val documentStateLastTaskStatus =
+                                documentStateObject?.tasks?.toList()?.lastOrNull()?.second?.status
+                            if (documentStateLastTaskStatus == TaskStatus.DOING.value) {
+                                //del doc req and if success done
+
+                                val deleteDocumentResponse = remoteDataSource.removeDocument(
+                                    removeDocumentParam.toRemoveDocumentParamRequest(
+                                        id = "${
+                                            pref.getString(
+                                                "CurrentUserNationalCode",
+                                                null
+                                            )?.let {
+                                                AesEncryptor().decrypt(it, sk)
+                                            } ?: ""
+                                        }-${removeDocumentParam.documentId}",
+                                        schema = Schema(name = "document", version = "1.0.0"),
+                                        newTag = Tag(archive = "true"),
+                                    )
+                                )
+
+                                if (deleteDocumentResponse is InvokeSuccess) {
+                                    //done
+                                    val doneResponse = dashboardRemoteDataSource.doneTask(
+                                        processInstanceId = removeDocumentParam.documentPiid,
+                                        taskId = getDoingDeleteTask.taskId ?: "",
+                                        taskInstanceId = getDoingDeleteTask.id ?: "",
+                                        taskName = getDoingDeleteTask.name ?: ""
+                                    )
+
+                                    if (doneResponse is InvokeSuccess) {
+                                        return InvokeSuccess(Unit)
+                                    } else {
+                                        //return error
+                                        return InvokeError(
+                                            exception = Exceptions.RemoteDataSourceException(
+                                                message = Message(
+                                                    fa = "",
+                                                    en = "error delete document done request"
+                                                )
+                                            )
+                                        )
+                                    }
+
+
+                                } else {
+                                    // return error deleting doc
+                                    return InvokeError(
+                                        exception = Exceptions.RemoteDataSourceException(
+                                            message = Message(
+                                                fa = "",
+                                                en = "error delete document request"
+                                            )
+                                        )
+                                    )
+
+                                }
+
+                            } else if (documentStateLastTaskStatus == TaskStatus.UNDONE.value) {
+                                // done req
+                                val doneResponse = dashboardRemoteDataSource.doneTask(
+                                    processInstanceId = removeDocumentParam.documentPiid,
+                                    taskId = getDoingDeleteTask.taskId ?: "",
+                                    taskInstanceId = getDoingDeleteTask.id ?: "",
+                                    taskName = getDoingDeleteTask.name ?: ""
+                                )
+
+                                if (doneResponse is InvokeSuccess) {
+                                    return InvokeSuccess(Unit)
+                                } else {
+                                    // return error
+                                    return InvokeError(
+                                        exception = Exceptions.RemoteDataSourceException(
+                                            message = Message(
+                                                fa = "",
+                                                en = "error delete document done request"
+                                            )
+                                        )
+                                    )
+                                }
+                            }
+                        }
+
+                    } else {
+                        val getDocumentTasksResponse = dashboardRemoteDataSource.getDocumentTasks(
+                            removeDocumentParam.documentPiid,
+                            userManagerLocalDataSource.getNationalCode()
+                        )
+
+                        if (getDocumentTasksResponse is InvokeSuccess) {
+                            val documentDeleteDocumentTask =
+                                getDocumentTasksResponse.data.item?.find {
+                                    it.name == DocumentTasksName.DELETE_DOCUMENT.value
+                                }
+
+                            documentDeleteDocumentTask?.let {
+                                // doing and if success request and done
+                                val doingDocumentTask = dashboardRemoteDataSource.doingTask(
+                                    processInstanceId = removeDocumentParam.documentPiid,
+                                    taskId = documentDeleteDocumentTask.taskId ?: "",
+                                    taskInstanceId = documentDeleteDocumentTask.id ?: "",
+                                    taskName = documentDeleteDocumentTask.name ?: ""
+                                )
+
+                                if (doingDocumentTask is InvokeSuccess) {
+                                    val deleteDocumentResponse = remoteDataSource.removeDocument(
+                                        removeDocumentParam.toRemoveDocumentParamRequest(
+                                            id = "${
+                                                pref.getString(
+                                                    "CurrentUserNationalCode",
+                                                    null
+                                                )?.let {
+                                                    AesEncryptor().decrypt(it, sk)
+                                                } ?: ""
+                                            }-${removeDocumentParam.documentId}",
+                                            schema = Schema(name = "document", version = "1.0.0"),
+                                            newTag = Tag(archive = "true"),
+                                        )
+                                    )
+
+                                    if (deleteDocumentResponse is InvokeSuccess) {
+                                        //done
+                                        val doneResponse = dashboardRemoteDataSource.doneTask(
+                                            processInstanceId = removeDocumentParam.documentPiid,
+                                            taskId = documentDeleteDocumentTask.taskId ?: "",
+                                            taskInstanceId = documentDeleteDocumentTask.id ?: "",
+                                            taskName = documentDeleteDocumentTask.name ?: ""
+                                        )
+
+                                        if (doneResponse is InvokeSuccess) {
+                                            return InvokeSuccess(Unit)
+
+                                        } else {
+                                            // return error
+                                            return InvokeError(
+                                                exception = Exceptions.RemoteDataSourceException(
+                                                    message = Message(
+                                                        fa = "",
+                                                        en = "error delete document done request"
+                                                    )
+                                                )
+                                            )
+                                        }
+
+
+                                    } else {
+                                        // return error deleting doc
+                                        return InvokeError(
+                                            exception = Exceptions.RemoteDataSourceException(
+                                                message = Message(
+                                                    fa = "",
+                                                    en = "error delete document request"
+                                                )
+                                            )
+                                        )
+                                    }
+
+
+                                } else {
+                                    // return error
+                                    return InvokeError(
+                                        exception = Exceptions.RemoteDataSourceException(
+                                            message = Message(
+                                                fa = "",
+                                                en = "error delete document doing request"
+                                            )
+                                        )
+                                    )
+                                }
+                            }
+
+                        } else {
+                            //return error
+                            return InvokeError(
+                                exception = Exceptions.RemoteDataSourceException(
+                                    message = Message(
+                                        fa = "",
+                                        en = "error delete document get tasks request"
+                                    )
+                                )
+                            )
+                        }
+
+                    }
+                } else {
+                    // return error
+                    return InvokeError(
+                        exception = Exceptions.RemoteDataSourceException(
+                            message = Message(
+                                fa = "",
+                                en = "error delete document get doing tasks request"
+                            )
+                        )
+                    )
+                }
+
+                return InvokeError(
+                    exception = Exceptions.RemoteDataSourceException(
+                        message = Message(
+                            fa = "",
+                            en = "error delete document repository function"
+                        )
                     )
                 )
+
+            }
 
             override fun onConvertResult(data: Unit): Boolean = true
         })

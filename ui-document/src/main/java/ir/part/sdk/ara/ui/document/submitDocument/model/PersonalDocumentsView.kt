@@ -21,7 +21,7 @@ data class PersonalDocumentsView(
     var lastName: String? = null,
     var chartData: String? = null,
     var statusName: String? = null,
-    var status: String? = null,
+    var status: DocumentsStatusView? = null,
     val completionDate: String? = null,
     val completionDateView: String? = null,
     val showValidationProperties: Boolean = false

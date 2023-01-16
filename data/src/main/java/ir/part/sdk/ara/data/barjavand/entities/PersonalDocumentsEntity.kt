@@ -11,7 +11,7 @@ import se.ansman.kotshi.JsonSerializable
 data class PersonalDocumentsEntity(
     @field:Json(name = "id")
     val fileIdNew: String? = null,
-    @field:Json(name = "piid")
+    @field:Json(name = "processInstanceId")
     val processInstanceId: String? = null,
     @field:Json(name = "serialNumber")
     val fileId: Long? = null,

@@ -158,4 +158,25 @@ class DashboardRemoteDataSource @Inject constructor(
                 processInstanceId = processInstanceId
             )
         )
+
+    suspend fun getDocumentTasks(processInstanceId: String, nationalCode: String) =
+        safeApiCall(
+            call = {
+                requestGetDocumentTasks(
+                    processInstanceId = processInstanceId,
+                    nationalCode = nationalCode
+                )
+            },
+            errorMessage = "Error getting document tasks"
+        )
+
+    private suspend fun requestGetDocumentTasks(processInstanceId: String, nationalCode: String) =
+        checkApiResult(
+            service.getDocumentTasks(
+                url = urls.dashboard.getDocumentTasks,
+                dashboardId = "60e11757-128c-4de8-9c68-28ce06bed1bf",
+                processInstanceId = processInstanceId,
+                tags = listOf(("\"nationalCode_$nationalCode\"")).toString()
+            )
+        )
 }

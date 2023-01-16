@@ -41,4 +41,12 @@ interface DashboardService {
         @Query("processInstanceIds") processInstanceId: String
     ): Response<PublicResponse<List<TaskResponse>>>
 
+    @GET
+    suspend fun getDocumentTasks(
+        @Url url: String,
+        @Query("dashboardId") dashboardId: String,
+        @Query("processInstanceId") processInstanceId: String,
+        @Query("tags") tags: String
+    ): Response<PublicResponse<List<TaskResponse>>>
+
 }

@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import se.ansman.kotshi.JsonSerializable
 
 @JsonSerializable
-data class BaseStateEntity(
+data class StateEntity(
     @field:Json(name = "searchToken")
     val searchToken: String? = null,
     @field:Json(name = "include")
