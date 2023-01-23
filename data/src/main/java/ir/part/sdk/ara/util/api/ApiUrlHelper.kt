@@ -98,6 +98,7 @@ class ApiUrlHelper @Inject constructor(
         lateinit var doingTask: String
         lateinit var doneTask: String
         lateinit var getDoingTasks: String
+        lateinit var getDocumentTasks: String
 
         override fun update() {
             newDocumentProcess = "$baseUrl/service/dashboard@2/process"
@@ -105,6 +106,7 @@ class ApiUrlHelper @Inject constructor(
             doneTask = "$baseUrl/service/dashboard@2/task"
             doingTask = "$baseUrl/service/dashboard@2/task"
             getDoingTasks = "$baseUrl/service/dashboard@2/getTasksStatus"
+            getDocumentTasks = "$baseUrl/service/dashboard@2/tasks"
         }
     }
 

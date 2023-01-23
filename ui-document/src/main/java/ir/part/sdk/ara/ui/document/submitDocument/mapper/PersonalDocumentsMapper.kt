@@ -23,7 +23,6 @@ fun PersonalDocuments.toPersonalDocumentsView(dateUtil: DateUtil) = PersonalDocu
     firstName = firstName,
     lastName = lastName,
     statusName = statusName,
-    status = statusTitle,
     completionDate = messageList?.lastOrNull()?.dataTime?.let {
         if (it.length >= 8) {
             dateUtil.toDateView(it)

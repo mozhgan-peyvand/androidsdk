@@ -8,6 +8,7 @@ import ir.part.sdk.ara.base.di.ComponentsKey
 import ir.part.sdk.ara.base.di.scopes.FeatureDataScope
 import ir.part.sdk.ara.data.dashboard.di.RepositoryDashboardModule
 import ir.part.sdk.ara.data.dashboard.di.ServiceDashboardModule
+import ir.part.sdk.ara.data.state.di.ServiceStateModule
 import ir.part.sdk.ara.di.DataComponent
 import ir.part.sdk.ara.domain.document.repository.BarjavandRepository
 import ir.part.sdk.ara.domain.menu.repository.MenuBarjavandRepository
@@ -24,7 +25,9 @@ import ir.part.sdk.ara.domain.menu.repository.MenuBarjavandRepository
         ServiceBarjavandModule::class,
         RepositoryDashboardModule::class,
         ServiceDashboardModule::class,
-        MenuRepositoryBarjavandModule::class
+        MenuRepositoryBarjavandModule::class,
+        ServiceDashboardModule::class,
+        ServiceStateModule::class
     ]
 )
 interface DataBarjavandComponent : BasicComponent {

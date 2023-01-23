@@ -10,6 +10,7 @@ import ir.part.sdk.ara.domain.document.entities.RemoveDocumentParam
 import ir.part.sdk.ara.domain.document.interacors.*
 import ir.part.sdk.ara.domain.payment.interactors.GetPaymentRemote
 import ir.part.sdk.ara.ui.document.overviewDocument.model.OverviewDocumentView
+import ir.part.sdk.ara.ui.document.submitDocument.mapper.toDocumentsStatusView
 import ir.part.sdk.ara.ui.document.submitDocument.mapper.toPersonalDocumentsView
 import ir.part.sdk.ara.ui.document.submitDocument.mapper.toPersonalInfoConstantsView
 import ir.part.sdk.ara.ui.document.submitDocument.mapper.toPersonalInfoSubmitDocumentView
@@ -24,6 +25,7 @@ class DocumentSharedViewModel @Inject constructor(
     private val setRemoveDocumentRemote: SetRemoveDocumentRemote,
     private val getPersonalInfoConstantsRemote: GetPersonalInfoConstantsRemote,
     private val setHasUnreadMessageRemote: SetHasUnreadMessageRemote,
+    private val getDocumentsStatesRemote: GetDocumentsStatesRemote,
     private val getPaymentUrl: GetPaymentRemote,
     private val exceptionHelper: ExceptionHelper
 ) : ViewModel() {
@@ -92,7 +94,6 @@ class DocumentSharedViewModel @Inject constructor(
         initialValue = OverviewDocumentView.Empty
     )
 
-
     init {
         getPersonalInfo()
         getPersonalDocument()
@@ -102,6 +103,35 @@ class DocumentSharedViewModel @Inject constructor(
     private fun getPersonalInfo() {
         viewModelScope.launch {
             getApplicantInformationRemote(Unit)
+        }
+    }
+
+    private fun getDocumentsStates() {
+        viewModelScope.launch {
+            getDocumentsStatesRemote.invoke(
+                Unit
+            ).collectAndChangeLoadingAndMessageStatus(
+                viewModelScope,
+                loadingState,
+                exceptionHelper,
+                uiMessageManager,
+                onRetry = {
+                    getDocumentsStates()
+                }
+            )
+            { list ->
+                viewModelScope.launch {
+                    documents.emit(
+                        documents.value.map { document ->
+                            document.copy(
+                                status = list?.find {
+                                    it.processInstanceId == document.processInstanceId
+                                }?.status?.toDocumentsStatusView()
+                            )
+                        }
+                    )
+                }
+            }
         }
     }
 
@@ -120,9 +150,12 @@ class DocumentSharedViewModel @Inject constructor(
                         getPersonalDocument()
                     }
                 ) { list ->
-                    documents.value = list?.map {
-                        it.toPersonalDocumentsView(dateUtil)
-                    } ?: listOf()
+                    viewModelScope.launch {
+                        documents.value = list?.map {
+                            it.toPersonalDocumentsView(dateUtil)
+                        } ?: listOf()
+                    }
+                    getDocumentsStates()
                 }
             }
         }
@@ -135,13 +168,16 @@ class DocumentSharedViewModel @Inject constructor(
         }
     }
 
-
-    fun removeDocument(documentId: Long, onRemoveDocumentResponse: () -> Unit) {
+    fun removeDocument(
+        documentId: Long,
+        documentPiid: String,
+        onRemoveDocumentResponse: () -> Unit
+    ) {
         viewModelScope.launch {
             if (loadingState.count.toInt() == 0) {
                 clearAllMessage()
                 setRemoveDocumentRemote.invoke(
-                    SetRemoveDocumentRemote.Param(RemoveDocumentParam(documentId))
+                    SetRemoveDocumentRemote.Param(RemoveDocumentParam(documentId, documentPiid))
                 ).collectAndChangeLoadingAndMessageStatus(
                     viewModelScope,
                     loadingState,

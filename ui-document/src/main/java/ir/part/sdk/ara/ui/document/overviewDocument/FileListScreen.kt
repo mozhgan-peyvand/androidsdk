@@ -181,15 +181,15 @@ fun FileListScreen(
 //                }
 //            }
             },
-            onDocumentRemoveIconClick = {
-                it?.let { documentId ->
+            onDocumentRemoveIconClick = { documentId, documentPiid ->
+                if (documentId != null && documentPiid != null) {
                     removeDocumentDeleteDialog.setSubmitAction {
                         removeDocumentDeleteDialog.dismiss()
                         viewModel.removeDocument(
-                            documentId
+                            documentId,
+                            documentPiid,
                         ) { viewModel.refreshFileListScreenRequest() }
                     }.show()
-
                 }
             },
             onDocumentPaymentIconClick = { documentProcessInstanceId ->
@@ -219,7 +219,7 @@ private fun ScreenContent(
     onDocumentSelect: (PersonalDocumentsView) -> Unit,
     uiErrorMessage: UiMessage?,
     onDocumentValidationIconClick: (DocumentsStatusView?, Long?, PersonalDocumentsView?) -> Unit,
-    onDocumentRemoveIconClick: (Long?) -> Unit,
+    onDocumentRemoveIconClick: (Long?, String?) -> Unit,
     onDocumentPaymentIconClick: (String?) -> Unit
 ) {
 
@@ -288,8 +288,8 @@ private fun ScreenContent(
                             onDocumentValidationIconClick = { statusCode, id, document ->
                                 onDocumentValidationIconClick(statusCode, id, document)
                             },
-                            onDocumentRemoveIconClick = {
-                                onDocumentRemoveIconClick(it)
+                            onDocumentRemoveIconClick = { documentId, documentPiid ->
+                                onDocumentRemoveIconClick(documentId, documentPiid)
                             },
                             onDocumentPaymentIconClick = { documentProcessInstanceId ->
                                 onDocumentPaymentIconClick(documentProcessInstanceId)
@@ -319,8 +319,8 @@ private fun ScreenContent(
                             onDocumentValidationIconClick = { statusCode, id, document ->
                                 onDocumentValidationIconClick(statusCode, id, document)
                             },
-                            onDocumentRemoveIconClick = {
-                                onDocumentRemoveIconClick(it)
+                            onDocumentRemoveIconClick = { documentId, documentPiid ->
+                                onDocumentRemoveIconClick(documentId, documentPiid)
                             },
                             onDocumentPaymentIconClick = { documentProcessInstanceId ->
                                 onDocumentPaymentIconClick(documentProcessInstanceId)
@@ -411,7 +411,7 @@ private fun DocumentsList(
     documents: List<PersonalDocumentsView>,
     onItemClick: (PersonalDocumentsView) -> Unit,
     onDocumentValidationIconClick: (DocumentsStatusView?, Long?, PersonalDocumentsView?) -> Unit,
-    onDocumentRemoveIconClick: (Long?) -> Unit,
+    onDocumentRemoveIconClick: (Long?, String?) -> Unit,
     onDocumentPaymentIconClick: (String?) -> Unit
 ) {
 
@@ -435,8 +435,8 @@ private fun DocumentsList(
                 onItemClick = {
                     onItemClick(it)
                 },
-                onDocumentRemoveIconClick = {
-                    onDocumentRemoveIconClick(it)
+                onDocumentRemoveIconClick = { documentId, documentPiid ->
+                    onDocumentRemoveIconClick(documentId, documentPiid)
                 },
                 onDocumentPaymentIconClick = { documentProcessInstanceId ->
                     onDocumentPaymentIconClick(documentProcessInstanceId)
@@ -455,7 +455,7 @@ private fun DocumentListItem(
     document: PersonalDocumentsView,
     onItemClick: (PersonalDocumentsView) -> Unit,
     onDocumentValidationIconClick: (DocumentsStatusView?, Long?, PersonalDocumentsView?) -> Unit,
-    onDocumentRemoveIconClick: (Long?) -> Unit,
+    onDocumentRemoveIconClick: (Long?, String?) -> Unit,
     onDocumentPaymentIconClick: (String?) -> Unit
 ) {
 
@@ -629,7 +629,7 @@ private fun DocumentListItem(
                     .layoutId("deleteIcon")
                     .padding(start = dimensionResource(id = R.dimen.spacing_base))
                     .clickable {
-                        onDocumentRemoveIconClick(document.fileId)
+                        onDocumentRemoveIconClick(document.fileId, document.processInstanceId)
                     },
                 painter = painterResource(id = R.drawable.ara_ic_bin),
                 contentDescription = "ara_ic_bin",

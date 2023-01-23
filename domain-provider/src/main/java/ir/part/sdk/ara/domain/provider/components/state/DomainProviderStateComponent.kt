@@ -8,6 +8,7 @@ import ir.part.sdk.ara.base.di.ComponentsKey
 import ir.part.sdk.ara.base.di.scopes.DomainScope
 import ir.part.sdk.ara.data.state.di.DataStateComponent
 import ir.part.sdk.ara.di.DataComponent
+import ir.part.sdk.ara.domain.document.interacors.GetDocumentsStatesRemote
 import ir.part.sdk.ara.domain.tasks.interacors.GetBaseStateRemote
 import ir.part.sdk.ara.domain.tasks.interacors.GetProcessInstanceId
 
@@ -33,6 +34,7 @@ interface DomainProviderStateComponent : BasicComponent {
 
     fun injectGetBaseStateRemote(): GetBaseStateRemote
     fun injectGetProcessInstanceId(): GetProcessInstanceId
+    fun injectGetDocumentsStates(): GetDocumentsStatesRemote
 
     companion object {
         fun builder(componentProvider: ComponentProviderActivity): DomainProviderStateComponent {
