@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -47,10 +48,6 @@ import ir.part.sdk.ara.ui.document.utils.common.AraFileNotFound
 import ir.part.sdk.ara.ui.document.utils.common.AraRetryLayout
 
 
-//todo : check merat dialog and stuff when clicked on payment icon
-//todo : in status codes add colors too !!
-//todo : names need refactoring !!
-
 @Composable
 fun FileListScreen(
     viewModel: DocumentSharedViewModel?,
@@ -58,15 +55,16 @@ fun FileListScreen(
     navigateToValidationResult: () -> Unit
 ) {
 
+    val context = LocalContext.current
+
     var setHasUnreadMessageResponse: Boolean? by remember {
         mutableStateOf(null)
     }
 
     val validationResultErrorDialog = getErrorDialog(
         title = stringResource(id = R.string.ara_label_file_validation_result),
-        description = stringResource(
-            id = R.string.ara_msg_file_validation_result
-        ), submitAction = {}
+        description = "",
+        submitAction = {}
     )
 
     val removeDocumentDeleteDialog = getDeleteDialog(
@@ -153,33 +151,40 @@ fun FileListScreen(
                 navigateToDetail()
             },
             uiErrorMessage = loadingErrorState.value.message,
-            onDocumentValidationIconClick = { statusCode, id, document ->
+            onDocumentValidationIconClick = { status, id, document ->
+                when (status) {
+                    DocumentsStatusView.PERSONAL_INFORMATION_CHECK_REJECTION -> {
 
-                viewModel.itemPersonalDocument.value = document
-                id?.let {
-                    viewModel.setHasUnreadMessage(false, id.toString()) {
-                        setHasUnreadMessageResponse = it
+                        validationResultErrorDialog
+                            .setDialogDetailMessage(context.getString(R.string.ara_msg_file_validation_result_personal_information_check_rejection))
+                            .setSubmitAction {
+                                validationResultErrorDialog.dismiss()
+                            }.show()
+                    }
+                    DocumentsStatusView.VIEW_INQUIRIES_AND_VALIDATION_REQUESTS_REJECTION,
+                    DocumentsStatusView.REQUEST_EVALUATION_REJECTION,
+                    DocumentsStatusView.SECONDARY_REQUEST_EVALUATION_REJECTION
+                    -> {
+                        validationResultErrorDialog
+                            .setDialogDetailMessage(context.getString(R.string.ara_msg_file_validation_result))
+                            .setSubmitAction {
+                                validationResultErrorDialog.dismiss()
+                            }.show()
+                    }
+                    DocumentsStatusView.IMPROVER_COVERAGE_FALSE,
+                    DocumentsStatusView.PAYMENT,
+                    DocumentsStatusView.IMPROVER_COVERAGE_TRUE -> {
+                        viewModel.itemPersonalDocument.value = document
+                        id?.let {
+                            viewModel.setHasUnreadMessage(false, id.toString()) {
+                                setHasUnreadMessageResponse = it
+                            }
+                        }
+                    }
+                    else -> {
+                        //nothing
                     }
                 }
-
-                // todo : use status code when it is ready
-//            when (statusCode) {
-//                DocumentsStatusView.Code_200 -> {
-//                    validationResultErrorDialog.setSubmitAction {
-//                        validationResultErrorDialog.dismiss()
-//                    }.show()
-//                }
-//                DocumentsStatusView.Code_21,
-//                DocumentsStatusView.Code_31 -> {
-//                    id?.let {
-//                        viewModel.setDisableCustomerFlag(id.toString(), ReadMessage(false))
-//                    }
-//                    navigateToValidationResult()
-//                }
-//                else -> {
-//                    //nothing
-//                }
-//            }
             },
             onDocumentRemoveIconClick = { documentId, documentPiid ->
                 if (documentId != null && documentPiid != null) {
@@ -611,40 +616,45 @@ private fun DocumentListItem(
                         start = dimensionResource(id = R.dimen.spacing_base),
                         top = dimensionResource(id = R.dimen.spacing_2x)
                     ),
-                text = documentStatusConstants?.get(document.statusId?.value)?.name ?: "",
+                text = document.status?.messageId?.let { stringResource(id = it) } ?: "",
                 style = MaterialTheme.typography.captionBoldSuccess(),
-                color = document.statusId?.color ?: DocumentsStatusView.CODE_11.color
+                color = document.status?.color ?: MaterialTheme.colors.primaryVariant()
             )
 
-            // todo : move the next icon and spacer in this condition when status code api is ready
+            if (with(document.status) {
+                    this == DocumentsStatusView.PAYMENT ||
+                            this == DocumentsStatusView.IMPROVER_COVERAGE_FALSE ||
+                            this == DocumentsStatusView.VIEW_INQUIRIES_AND_VALIDATION_REQUESTS ||
+                            this == DocumentsStatusView.FINANCIAL_PERFORMANCE_INQUIRY ||
+                            this == DocumentsStatusView.CENTRAL_BANK_INQUIRY ||
+                            this == DocumentsStatusView.BOUNCED_CHEQUE_INQUIRY ||
+                            this == DocumentsStatusView.CREDIT_BEHAVIOR_INQUIRY ||
+                            this == DocumentsStatusView.NEED_TO_CORRECTION ||
+                            this == DocumentsStatusView.PERSONAL_INFORMATION_CHECK_ON_CORRECTION ||
+                            this == DocumentsStatusView.PERSONAL_INFORMATION_CHECK
+                }) {
+                Icon(
+                    modifier = Modifier
+                        .layoutId("deleteIcon")
+                        .padding(start = dimensionResource(id = R.dimen.spacing_base))
+                        .clickable {
+                            onDocumentRemoveIconClick(document.fileId, document.processInstanceId)
+                        },
+                    painter = painterResource(id = R.drawable.ara_ic_bin),
+                    contentDescription = "ara_ic_bin",
+                    tint = MaterialTheme.colors.textSecondary()
+                )
 
-//            if (document.statusId == DocumentsStatusView.CODE_21 ||
-//                (document.statusId?.code != null &&
-//                        document.statusId?.code!! < 18f)
-//            ) {
-//            }
+                Spacer(
+                    modifier = Modifier
+                        .layoutId("line")
+                        .width(dimensionResource(id = R.dimen.divider_height))
+                        .height(dimensionResource(id = R.dimen.spacing_7x))
+                        .background(MaterialTheme.colors.textSecondary())
+                )
+            }
 
-            Icon(
-                modifier = Modifier
-                    .layoutId("deleteIcon")
-                    .padding(start = dimensionResource(id = R.dimen.spacing_base))
-                    .clickable {
-                        onDocumentRemoveIconClick(document.fileId, document.processInstanceId)
-                    },
-                painter = painterResource(id = R.drawable.ara_ic_bin),
-                contentDescription = "ara_ic_bin",
-                tint = MaterialTheme.colors.textSecondary()
-            )
-
-            Spacer(
-                modifier = Modifier
-                    .layoutId("line")
-                    .width(dimensionResource(id = R.dimen.divider_height))
-                    .height(dimensionResource(id = R.dimen.spacing_7x))
-                    .background(MaterialTheme.colors.textSecondary())
-            )
-
-            if (document.statusId == DocumentsStatusView.CODE_18) {
+            if (document.status == DocumentsStatusView.REQUEST_EVALUATION) {
                 Button(
                     onClick = { onDocumentPaymentIconClick(document.processInstanceId) },
                     modifier = Modifier
@@ -667,18 +677,17 @@ private fun DocumentListItem(
                 }
             }
 
-            // todo : use status code when it is ready
-//            if ((document.statusId == DocumentsStatusView.Code_200 && document.validationResult?.chartData != null) ||
-//                document.statusId == DocumentsStatusView.Code_21 || document.statusId == DocumentsStatusView.Code_31
-//            )
-            if (!document.showValidationProperties
+            if (with(document.status) {
+                    ((this == DocumentsStatusView.PERSONAL_INFORMATION_CHECK_REJECTION && document.showValidationProperties) || (this == DocumentsStatusView.IMPROVER_COVERAGE_FALSE || this == DocumentsStatusView.PAYMENT) || this == DocumentsStatusView.IMPROVER_COVERAGE_TRUE)
+                }
             ) {
+
                 Icon(
                     modifier = Modifier
                         .layoutId("validationFileDrawable")
                         .clickable {
                             onDocumentValidationIconClick(
-                                document.statusId,
+                                document.status,
                                 document.fileId,
                                 document
                             )

@@ -16,6 +16,7 @@ import ir.part.sdk.ara.common.ui.view.common.TopAppBarContent
 import ir.part.sdk.ara.common.ui.view.textPrimary
 import ir.part.sdk.ara.ui.document.R
 import ir.part.sdk.ara.ui.document.overviewDocument.DocumentSharedViewModel
+import ir.part.sdk.ara.ui.document.submitDocument.model.DocumentsStatusView
 import kotlinx.coroutines.launch
 
 
@@ -47,8 +48,13 @@ fun DetailsScreenViewPager(
     onNavigateUp: () -> Unit
 ) {
 
+    val document = documentSharedViewModel?.itemPersonalDocument?.value
     val list =
-        if (documentSharedViewModel?.itemPersonalDocument?.value?.showValidationProperties == false) {
+        if (document?.showValidationProperties == true &&
+            document.status == DocumentsStatusView.IMPROVER_COVERAGE_FALSE &&
+            document.status == DocumentsStatusView.PAYMENT &&
+            document.status == DocumentsStatusView.IMPROVER_COVERAGE_TRUE
+        ) {
             listOf(
                 TabItem.DocumentStatus,
                 TabItem.DocumentDetails,

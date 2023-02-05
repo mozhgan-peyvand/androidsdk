@@ -46,4 +46,16 @@
         <a><b>تذکر:</b> در صورت عدم پرداخت هزینه اعتبارسنجی، پرونده شما وارد مرحله بعد نخواهد شد و در همین مرحله متوقف خواهد ماند.</a>
         ]]>
     </string>
+
+    <string name="ara_label_waiting_for_personal_info_check_slash_personal_info_verification">در انتظار بررسي مشخصات فردي</string>
+    <string name="ara_label_waiting_to_receive_inquiry_slash_receive_inquiry">در انتظار دريافت  استعلام</string>
+    <string name="ara_label_waiting_for_correction_by_applicant_slash_correction_by_applicant">در انتظار اصلاحات توسط متقاضی</string>
+    <string name="ara_label_rejection_by_validation_expert_slash_rejection_by_validation_expert">رد درخواست توسط کارشناس اعتبارسنجي</string>
+    <string name="ara_label_waiting_for_correction_verification_slash_correction_verification">در انتظار تایید اصلاحات</string>
+    <string name="ara_label_waiting_for_document_validation_approval_slash_validation_approval">در انتظار  تصويب اعتبارسنجي پرونده</string>
+    <string name="ara_label_waiting_for_payment_slash_validation_cost_payment">/پرداخت هزینه اعتبارسنجی</string>
+    <string name="ara_label_validation_document_completed_slash_validation_document_completed">پرونده اعتبارسنجي تکميل شد</string>
+    <string name="ara_label_waiting_to_receive_credit_improver_slash_receive_credit_improver">در انتظار دريافت  بهبود دهنده اعتباری (چک و سفته)</string>
+    <string name="ara_label_request_deletion_by_applicant_slash_request_deletion_by_applicant">حذف درخواست توسط متقاضی</string>
+    <string name="ara_msg_file_validation_result_personal_information_check_rejection">به دلیل ناقص و یا اشتباه بودن برخی از اطلاعات ارائه شده توسط شما، امکان استفاده از خدمات اعتبارسنجی برای شما میسر نمی‌باشد.</string>
 </resources>
