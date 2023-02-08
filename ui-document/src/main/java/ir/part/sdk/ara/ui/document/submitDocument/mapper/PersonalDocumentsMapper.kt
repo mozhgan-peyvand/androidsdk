@@ -14,7 +14,6 @@ fun PersonalDocuments.toPersonalDocumentsView(dateUtil: DateUtil) = PersonalDocu
     messageList = messageList?.map { it.toPersonalDocumentMessageView(dateUtil) },
     hasUnreadMessage = hasUnreadMessage,
     validationResult = validationResult?.toDocumentResultValidationView(dateUtil),
-    statusId = statusId?.toDocumentsStatusView(),
     requestDateView = createdAt?.let {
         if (it.length >= 8) {
             dateUtil.toDateView(createdAt)
@@ -22,7 +21,6 @@ fun PersonalDocuments.toPersonalDocumentsView(dateUtil: DateUtil) = PersonalDocu
     } ?: "-",
     firstName = firstName,
     lastName = lastName,
-    statusName = statusName,
     completionDate = messageList?.lastOrNull()?.dataTime?.let {
         if (it.length >= 8) {
             dateUtil.toDateView(it)
@@ -43,6 +41,6 @@ fun PersonalDocuments.toPersonalDocumentsView(dateUtil: DateUtil) = PersonalDocu
         validationResult?.commitmentPrice,
         validationResult?.expireDate,
         validationResult?.chartData
-    ).none { it != null }
+    ).any { it != null }
 
 )

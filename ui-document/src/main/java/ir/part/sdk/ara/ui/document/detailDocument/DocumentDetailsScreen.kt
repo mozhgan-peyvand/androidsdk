@@ -64,7 +64,6 @@ fun DocumentDetailsScreen(viewModel: DocumentSharedViewModel) {
     })
 
     DocumentDetail(
-        personalInfoConstantsItem,
         personalInfoSubmitDocumentView,
         selectedDocument
     )
@@ -73,7 +72,6 @@ fun DocumentDetailsScreen(viewModel: DocumentSharedViewModel) {
 
 @Composable
 private fun DocumentDetail(
-    personalInfoConstantsItem: PersonalInfoConstantsView?,
     personalInfoSubmitDocumentView: PersonalInfoSubmitDocumentView?,
     selectedDocument: PersonalDocumentsView?
 ) {
@@ -148,12 +146,11 @@ private fun DocumentDetail(
         )
         DocumentGenericLayout(
             title = stringRec.ara_label_files_messages_list_title,
-            personalInfoConstantsItem?.documentStatusNameEntity?.get(
-                selectedDocument?.statusId?.value
-            )?.title ?: "-",
-            drawableRec.merat_ic_folder_close, Modifier
+            value = selectedDocument?.status?.messageId?.let { stringResource(id = it) } ?: "-",
+            icon = drawableRec.merat_ic_folder_close,
+            modifier = Modifier
                 .padding(top = dimensionResource(id = DimensionResource.spacing_base)),
-            color = selectedDocument?.statusId?.color
+            color = selectedDocument?.status?.color
         )
         Divider(
             color = MaterialTheme.colors.divider(),

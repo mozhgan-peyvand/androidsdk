@@ -5,22 +5,24 @@ import ir.part.sdk.ara.domain.document.entities.DocumentsStatus
 
 enum class DocumentsStatusEntity(val value: String) {
 
-    CODE_11("11"), //در انتظار تایید راهنمای کانون
-    CODE_11_3("11.3"), //در انتظار اصلاحات توسط متقاضی
-    CODE_11_6("11.6"), //در انتظار تایید اصلاحات
-    CODE_12("12"), //در انتظار بررسی مشخصات فردی
-    CODE_12_3("12.3"), //در انتظار اصلاحات توسط متقاضی
-    CODE_12_6("12.6"), //در انتظار تایید اصلاحات
-    CODE_13("13"), //در انتظار دریافت استعلام
-    CODE_14("14"), //در انتظار تصویب اعتبار سنجی پرونده
-    CODE_18("18"), //در انتظار پرداخت
-    CODE_21("21"), //در انتظار دریافت بهبود دهنده اعتباری‌(چک و سفته)
-    CODE_31("31"), //پرونده اعتبارسنجی تکمیل شد
-    CODE_100("100"), //رد درخواست توسط راهنمای کانون
-    CODE_200("200"), //رد درخواست توسط کارشناس اعتبارسنجی
-    CODE_300("300"), //حذف درخواست توسط متقاضی
-    CODE_400("inquiries@rejected"); //پرونده منقضی شده است
-
+    WAITING_FOR_PERSONAL_INFORMATION_CHECK("waitingForPersonalInformationCheck"),
+    PERSONAL_INFORMATION_CHECK("personalInformationCheck"),
+    PERSONAL_INFORMATION_CHECK_ON_CORRECTION("personalInformationCheck@onCorrection"),
+    PERSONAL_INFORMATION_CHECK_REJECTION("personalInformationCheck@rejection"),
+    NEED_TO_CORRECTION("needToCorrection"),
+    CREDIT_BEHAVIOR_INQUIRY("creditBehaviorInquiry"),
+    BOUNCED_CHEQUE_INQUIRY("bouncedChequeInquiry"),
+    CENTRAL_BANK_INQUIRY("centralBankInquiry"),
+    FINANCIAL_PERFORMANCE_INQUIRY("financialPerformanceInquiry"),
+    VIEW_INQUIRIES_AND_VALIDATION_REQUESTS("viewInquiriesAndValidationRequests"),
+    VIEW_INQUIRIES_AND_VALIDATION_REQUESTS_REJECTION("viewInquiriesAndValidationRequests@rejection"),
+    REQUEST_EVALUATION("requestEvaluation"),
+    REQUEST_EVALUATION_REJECTION("requestEvaluation@rejection"),
+    SECONDARY_REQUEST_EVALUATION_REJECTION("secondaryRequestEvaluation@rejection"),
+    IMPROVER_COVERAGE_TRUE("improverCoverage@true"),
+    IMPROVER_COVERAGE_FALSE("improverCoverage@false"),
+    PAYMENT("payment"),
+    DELETE_DOCUMENT("deleteDocument");
 
     companion object {
 
@@ -36,21 +38,24 @@ enum class DocumentsStatusEntity(val value: String) {
 
     fun toFilesStatus(): DocumentsStatus {
         return when (this) {
-            CODE_11 -> DocumentsStatus.CODE_11
-            CODE_11_3 -> DocumentsStatus.CODE_11_3
-            CODE_11_6 -> DocumentsStatus.CODE_11_6
-            CODE_12 -> DocumentsStatus.CODE_12
-            CODE_12_3 -> DocumentsStatus.CODE_12_3
-            CODE_12_6 -> DocumentsStatus.CODE_12_6
-            CODE_13 -> DocumentsStatus.CODE_13
-            CODE_14 -> DocumentsStatus.CODE_14
-            CODE_18 -> DocumentsStatus.CODE_18
-            CODE_21 -> DocumentsStatus.CODE_21
-            CODE_31 -> DocumentsStatus.CODE_31
-            CODE_100 -> DocumentsStatus.CODE_100
-            CODE_200 -> DocumentsStatus.CODE_200
-            CODE_300 -> DocumentsStatus.CODE_300
-            CODE_400 -> DocumentsStatus.CODE_400
+            WAITING_FOR_PERSONAL_INFORMATION_CHECK -> DocumentsStatus.WAITING_FOR_PERSONAL_INFORMATION_CHECK
+            PERSONAL_INFORMATION_CHECK -> DocumentsStatus.PERSONAL_INFORMATION_CHECK
+            PERSONAL_INFORMATION_CHECK_ON_CORRECTION -> DocumentsStatus.PERSONAL_INFORMATION_CHECK_ON_CORRECTION
+            PERSONAL_INFORMATION_CHECK_REJECTION -> DocumentsStatus.PERSONAL_INFORMATION_CHECK_REJECTION
+            NEED_TO_CORRECTION -> DocumentsStatus.NEED_TO_CORRECTION
+            CREDIT_BEHAVIOR_INQUIRY -> DocumentsStatus.CREDIT_BEHAVIOR_INQUIRY
+            BOUNCED_CHEQUE_INQUIRY -> DocumentsStatus.BOUNCED_CHEQUE_INQUIRY
+            CENTRAL_BANK_INQUIRY -> DocumentsStatus.CENTRAL_BANK_INQUIRY
+            FINANCIAL_PERFORMANCE_INQUIRY -> DocumentsStatus.FINANCIAL_PERFORMANCE_INQUIRY
+            VIEW_INQUIRIES_AND_VALIDATION_REQUESTS -> DocumentsStatus.VIEW_INQUIRIES_AND_VALIDATION_REQUESTS
+            VIEW_INQUIRIES_AND_VALIDATION_REQUESTS_REJECTION -> DocumentsStatus.VIEW_INQUIRIES_AND_VALIDATION_REQUESTS_REJECTION
+            REQUEST_EVALUATION -> DocumentsStatus.REQUEST_EVALUATION
+            REQUEST_EVALUATION_REJECTION -> DocumentsStatus.REQUEST_EVALUATION_REJECTION
+            SECONDARY_REQUEST_EVALUATION_REJECTION -> DocumentsStatus.SECONDARY_REQUEST_EVALUATION_REJECTION
+            IMPROVER_COVERAGE_TRUE -> DocumentsStatus.IMPROVER_COVERAGE_TRUE
+            IMPROVER_COVERAGE_FALSE -> DocumentsStatus.IMPROVER_COVERAGE_FALSE
+            PAYMENT -> DocumentsStatus.PAYMENT
+            DELETE_DOCUMENT -> DocumentsStatus.DELETE_DOCUMENT
         }
     }
 }
