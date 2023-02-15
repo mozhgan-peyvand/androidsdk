@@ -20,7 +20,6 @@ class DashboardRemoteDataSource @Inject constructor(
         nationalCode: String,
         processInstanceId: String,
         taskInstanceId: String,
-        processId: String
     ) =
         safeApiCall(
             call = {
@@ -29,7 +28,6 @@ class DashboardRemoteDataSource @Inject constructor(
                     nationalCode = nationalCode,
                     processInstanceId = processInstanceId,
                     taskInstanceId = taskInstanceId,
-                    processId = processId
                 )
             },
             errorMessage = "Error submit Request Validation"
@@ -40,13 +38,12 @@ class DashboardRemoteDataSource @Inject constructor(
         nationalCode: String,
         processInstanceId: String,
         taskInstanceId: String,
-        processId: String
     ) =
         checkApiResult(
             service.newDocumentProcess(
                 url = urls.dashboard.newDocumentProcess,
                 submitReqValidationParamModel = SubmitReqValidationParamModel(
-                    processId = processId,
+                    processId = "a9e49cde-553d-4684-9186-0687a9ee40f7",
                     dashboardId = "60e11757-128c-4de8-9c68-28ce06bed1bf",
                     actorId = "279b8d69-c71a-4ff2-81e5-4143f6a839e7",
                     event = "new",
