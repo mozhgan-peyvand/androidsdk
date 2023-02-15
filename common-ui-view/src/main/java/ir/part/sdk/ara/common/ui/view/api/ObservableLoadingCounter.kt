@@ -51,7 +51,6 @@ fun <T> Flow<InvokeStatus<T>>.collectAndChangeLoadingAndMessageStatus(
             is InvokeError -> {
                 counter.removeLoader()
                 changeLoadingAndMessageOnInvokeError(
-                    counter,
                     exceptionHelper,
                     uiMessageManager,
                     status.exception,
@@ -80,7 +79,6 @@ fun changeLoadingAndMessageStatus(
                 if (statuses.filterIsInstance<InvokeStarted<*>>().isEmpty()) {
                     if (!emitFirstMessage) {
                         changeLoadingAndMessageOnInvokeError(
-                            counter,
                             exceptionHelper,
                             uiMessageManager,
                             status.exception,
@@ -96,22 +94,19 @@ fun changeLoadingAndMessageStatus(
 }
 
 private suspend fun changeLoadingAndMessageOnInvokeError(
-    counter: ObservableLoadingCounter,
     exceptionHelper: ExceptionHelper,
     uiMessageManager: UiMessageManager? = null,
     exception: Exceptions,
     onRetry: (() -> Unit)? = null
 ) {
-    if (counter.count.get() <= 0) {
-        val uiMessage = exceptionHelper.getError(exception)
-        uiMessageManager?.emitMessage(
-            UiMessage(
-                id = uiMessage.id,
-                message = uiMessage.message,
-                code = uiMessage.code,
-                icon = uiMessage.icon,
-                onRetry = onRetry
-            )
+    val uiMessage = exceptionHelper.getError(exception)
+    uiMessageManager?.emitMessage(
+        UiMessage(
+            id = uiMessage.id,
+            message = uiMessage.message,
+            code = uiMessage.code,
+            icon = uiMessage.icon,
+            onRetry = onRetry
         )
-    }
+    )
 }

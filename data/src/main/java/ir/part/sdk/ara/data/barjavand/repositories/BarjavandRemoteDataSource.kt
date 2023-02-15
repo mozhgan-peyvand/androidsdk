@@ -17,7 +17,7 @@ class BarjavandRemoteDataSource @Inject constructor(
 
     suspend fun getApplicantInformation(nationalCode: String) = safeApiCall(
         call = { requestApplicantInformation(nationalCode) },
-        errorMessage = "Error getting personal Files"
+        errorMessage = "Error getting applicant information"
     )
 
     private suspend fun requestApplicantInformation(nationalCode: String) =
