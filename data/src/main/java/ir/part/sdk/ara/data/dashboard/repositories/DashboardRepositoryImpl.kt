@@ -93,8 +93,7 @@ class DashboardRepositoryImpl @Inject constructor(
                     submitReqValidationParam.toSubmitReqValidationParamModel(),
                     processInstanceId = stateLocalDataSource.getProcessInstanceId(),
                     taskInstanceId = dashboardLocalDataSource.getTaskInstanceId(),
-                    nationalCode = userManagerLocalDataSource.getNationalCode(),
-                    processId = stateLocalDataSource.getProcessId()
+                    nationalCode = userManagerLocalDataSource.getNationalCode()
                 )
 
             override fun onConvertResult(data: PublicResponse<SubmitResponseValidationEntity>): SubmitResponseValidation? =
